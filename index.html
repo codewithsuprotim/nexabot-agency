@@ -778,7 +778,7 @@
     .price-maint .desc { color: rgba(255,255,255,.6); font-size: .82rem; line-height: 1.5; }
 
     /* PayPal wrapper */
-    #paypal-container-XNLTS4KPYVXKN { margin-top: 1.4rem; }
+    #paypal-container-94RBZUQRBPN3E { margin-top: 1.4rem; }
 
     .price-perks h3 {
       font-family: 'Poppins', sans-serif;
@@ -1566,7 +1566,7 @@
       </div>
 
       <!-- PayPal Hosted Button -->
-      <div id="paypal-container-XNLTS4KPYVXKN"></div>
+      <div id="paypal-container-94RBZUQRBPN3E"></div>
     </div>
 
     <div class="price-perks fade-up" style="transition-delay:.2s">
@@ -1812,7 +1812,7 @@
     <a href="#pricing" class="btn btn--primary btn--pulse" style="font-size:1.05rem;padding:1.1rem 2.4rem;">
       <i class="fas fa-rocket"></i> Get Started Today — $399
     </a>
-    <a href="https://wa.me/YOUR_WHATSAPP_NUMBER_HERE" target="_blank" class="btn btn--ghost">
+    <a href="https://wa.me/9474065821" target="_blank" class="btn btn--ghost">
       <i class="fab fa-whatsapp"></i> Chat With Us First
     </a>
   </div>
@@ -1999,19 +1999,10 @@ function showNotif() {
 setTimeout(showNotif, 6000);
 
 /* ── PAYPAL BUTTON ── */
-window.addEventListener('load', () => {
-  if (typeof paypal !== 'undefined') {
-    paypal.HostedButtons({
-      hostedButtonId: "XNLTS4KPYVXKN"
-    }).render("#paypal-container-XNLTS4KPYVXKN");
-  }
-});
-
-document.addEventListener("DOMContentLoaded", function () {
-    paypal.HostedButtons({
-        hostedButtonId: "XNLTS4KPYVXKN"
-    }).render("#paypal-container-XNLTS4KPYVXKN");
-});
+paypal.HostedButtons({
+    hostedButtonId: "94RBZUQRBPN3E"
+}).render("#paypal-container-94RBZUQRBPN3E");
+  
 </script>
 
 </body>
