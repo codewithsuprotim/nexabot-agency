@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>NexaBot AI Chatbot Agency®</title>
-  <meta name="description" content="NexaBot AI Chatbot Agency builds WhatsApp Bots, Website Chatbots & Custom AI Bots. $499 One-time setup fees. $25 monthly fees. Live in 48 hours." />
+  <meta name="description" content="NexaBot AI Chatbot Agency builds WhatsApp Bots, Website Chatbots & Custom AI Bots. $599 One-time setup fees. $25 monthly fees. Live in 48 hours." />
   <link rel="icon" type="image/png" href="logos/nexabot-favicon.png" />
 
   <!-- PayPal SDK -->
@@ -777,8 +777,53 @@
 
     .price-maint .desc { color: rgba(255,255,255,.6); font-size: .82rem; line-height: 1.5; }
 
-    /* PayPal wrapper */
-    #paypal-container-94RBZUQRBPN3E { margin-top: 1.4rem; }
+    /* Final tax-inclusive total */
+    .price-total {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      background: linear-gradient(135deg, rgba(245,158,11,.18), rgba(245,158,11,.05));
+      border: 1px solid rgba(245,158,11,.4);
+      border-radius: 14px;
+      padding: 1.1rem 1.4rem;
+      margin-bottom: 1.8rem;
+    }
+    .price-total-label { color: rgba(255,255,255,.9); font-size: .85rem; font-weight: 700; line-height: 1.4; }
+    .price-total-label small {
+      display: block;
+      color: rgba(255,255,255,.55);
+      font-weight: 600;
+      font-size: .68rem;
+      text-transform: uppercase;
+      letter-spacing: .6px;
+      margin-top: 3px;
+    }
+    .price-total-amt { font-family: 'Poppins', sans-serif; font-size: 1.9rem; font-weight: 900; color: var(--gold); white-space: nowrap; }
+    .price-total-amt small { font-size: .82rem; font-weight: 700; color: rgba(255,255,255,.5); margin-left: 3px; }
+
+    /* Secure checkout note */
+    .pay-secure-note {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .5rem;
+      color: rgba(255,255,255,.55);
+      font-size: .78rem;
+      font-weight: 500;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+    .pay-secure-note i { color: #86efac; }
+
+    /* PayPal wrapper — framed to match the card's glass aesthetic */
+    #paypal-container-94RBZUQRBPN3E {
+      margin-top: .4rem;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 16px;
+      padding: 1rem 1rem .4rem;
+    }
 
     .price-perks h3 {
       font-family: 'Poppins', sans-serif;
@@ -1575,7 +1620,7 @@
   <div class="pricing-grid">
     <div class="price-card fade-up">
       <div class="price-eyebrow">One Time Setup Fee</div>
-      <div class="price-big"><sup>$</sup>499</div>
+      <div class="price-big"><sup>$</sup>599</div>
       <div class="price-caption">One-time payment — yours for life</div>
 
       <div class="price-sep">
@@ -1589,6 +1634,13 @@
           <div class="desc">For Updates &amp; Ongoing Support</div>
         </div>
       </div>
+
+      <div class="price-total">
+        <div class="price-total-label">Total Due Today<small>All Taxes Included</small></div>
+        <div class="price-total-amt">$624<small>USD</small></div>
+      </div>
+
+      <div class="pay-secure-note"><i class="fas fa-lock"></i> 100% Secure Checkout — Encrypted &amp; Processed by PayPal</div>
 
       <!-- PayPal Hosted Button -->
       <div id="paypal-container-94RBZUQRBPN3E"></div>
@@ -1612,7 +1664,7 @@
         </div>
         <div class="cmp-row">
           <span class="lbl">NexaBot</span>
-          <span class="cmp-good"><i class="fas fa-check-circle"></i> Total $524 For 1st Month. then $25/months </span>
+          <span class="cmp-good"><i class="fas fa-check-circle"></i> Total $624 For 1st Month. then $25/months </span>
         </div>
       </div>
     </div>
@@ -1723,7 +1775,7 @@
     <div class="ord-card fade-up">
       <div class="ord-num">1</div>
       <h3>💳 Pay the Setup Fee</h3>
-      <p>Complete your one-time setup fee secure payment of $499 + $25 monthly maintanance fees via PayPal. You will receive a payment confirmation email instantly. No account needed — card payments accepted too.</p>
+      <p>Complete your one-time setup fee secure payment of $599 + $25 monthly maintanance fees via PayPal. You will receive a payment confirmation email instantly. No account needed — card payments accepted too.</p>
       <div class="ord-links">
         <a href="#pricing" class="ord-link blue-l">
           <i class="fab fa-paypal"></i> Pay Now via PayPal
@@ -1771,7 +1823,7 @@
         <h4>Is it really a one-time payment with absolutely no hidden charges?</h4>
         <div class="faq-ico"><i class="fas fa-chevron-down"></i></div>
       </div>
-      <div class="faq-body"><p>Absolutely. You pay $499 (setup) + $25 (maintenance fees) — monthly, and that is the end of it. $25 monthly fees, no hidden charges. Your chatbot is yours for life. We believe in honest, transparent pricing.</p></div>
+      <div class="faq-body"><p>Absolutely. You pay $599 (setup) + $25 (maintenance fees) — monthly, and that is the end of it. $25 monthly fees, no hidden charges. Your chatbot is yours for life. We believe in honest, transparent pricing.</p></div>
     </div>
 
     <div class="faq-item">
@@ -1835,7 +1887,7 @@
   <p>Smart. Scalable. Reliable. — Join 1000+ businesses already automated with NexaBot.</p>
   <div class="btns">
     <a href="#pricing" class="btn btn--primary btn--pulse" style="font-size:1.05rem;padding:1.1rem 2.4rem;">
-      <i class="fas fa-rocket"></i> Get Started Today — $524
+      <i class="fas fa-rocket"></i> Get Started Today — $624
     </a>
     <a href="https://wa.me/9474065821" target="_blank" class="btn btn--ghost">
       <i class="fab fa-whatsapp"></i> Chat With Us First
@@ -2014,11 +2066,22 @@ const notifs = [
 ];
 
 let nIdx = 0;
+let nPricingInView = false;
 const notifEl = document.getElementById('notif');
 const nMsg    = document.getElementById('n-msg');
 const nTime   = document.getElementById('n-time');
+const nPricingSection = document.getElementById('pricing');
+
+// Don't let the popup cover the payment buttons — skip it while pricing is on screen
+if (nPricingSection) {
+  new IntersectionObserver(entries => {
+    entries.forEach(e => { nPricingInView = e.isIntersecting; });
+    if (nPricingInView) notifEl.classList.remove('show');
+  }, { threshold: 0.15 }).observe(nPricingSection);
+}
 
 function showNotif() {
+  if (nPricingInView) { setTimeout(showNotif, 3000); return; }
   const n = notifs[nIdx % notifs.length];
   nMsg.textContent  = n.msg;
   nTime.textContent = n.time;
