@@ -12,10 +12,27 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=Caveat:wght@600;700&display=swap" rel="stylesheet" />
 
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- Tailwind CSS (utility classes for new sections; preflight disabled so it never fights the site's existing design system) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      corePlugins: { preflight: false },
+      theme: {
+        extend: {
+          colors: {
+            navy: '#060F2E',
+            elec: '#2563EB',
+            sky:  '#60A5FA'
+          }
+        }
+      }
+    };
+  </script>
 
   <style>
     /* ─── RESET & BASE ─────────────────────────────────────── */
@@ -1210,46 +1227,6 @@
     }
     .footer-col ul li a:hover { color: var(--sky); }
 
-    .trust-badges {
-      padding: 2.2rem 0;
-      border-bottom: 1px solid rgba(255,255,255,.08);
-      display: flex;
-      flex-direction: column;
-      gap: 1.1rem;
-    }
-
-    .trust-badges-label {
-      font-family: 'Poppins', sans-serif;
-      font-size: .76rem;
-      font-weight: 700;
-      color: rgba(255,255,255,.32);
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-    }
-
-    .trust-badges-row {
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-
-    .badge-chip {
-      background: #fff;
-      border-radius: 10px;
-      padding: 9px 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 2px 10px rgba(0,0,0,.25);
-      transition: transform .25s, box-shadow .25s;
-    }
-    .badge-chip:hover { transform: translateY(-3px); box-shadow: 0 8px 22px rgba(0,0,0,.35); }
-
-    .badge-chip img { height: 42px; width: auto; display: block; }
-    .badge-chip--tall { padding: 8px 12px; }
-    .badge-chip--tall img { height: 82px; }
-
     .footer-bottom {
       display: flex;
       justify-content: space-between;
@@ -1346,6 +1323,189 @@
     .n-txt strong { display: block; font-size: .8rem; color: var(--navy); margin-bottom: 2px; }
     .n-txt span  { font-size: .75rem; color: var(--muted); }
 
+    /* ─── HEADER CERTIFICATION BADGE ────────────────────────── */
+    .nav-brand { display: flex; align-items: center; gap: 14px; }
+
+    .header-cert {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,.98);
+      border-radius: 50px;
+      padding: 5px 14px 5px 6px;
+      box-shadow: 0 4px 16px rgba(0,0,0,.28), 0 0 0 1px rgba(96,165,250,.3);
+      transition: transform .25s, box-shadow .25s;
+      cursor: default;
+    }
+    .header-cert:hover { transform: translateY(-2px); box-shadow: 0 10px 26px rgba(0,0,0,.35), 0 0 0 1px rgba(96,165,250,.5); }
+
+    .header-cert img { height: 32px; width: auto; display: block; }
+
+    .header-cert-txt { display: flex; flex-direction: column; line-height: 1.2; }
+    .header-cert-txt .hc-1 {
+      font-family: 'Poppins', sans-serif;
+      font-size: .6rem;
+      font-weight: 800;
+      color: var(--navy);
+      white-space: nowrap;
+      letter-spacing: .2px;
+    }
+    .header-cert-txt .hc-2 {
+      font-size: .53rem;
+      font-weight: 700;
+      color: #64748B;
+      text-transform: uppercase;
+      letter-spacing: .6px;
+    }
+
+    /* ─── RECOGNITIONS SECTION ──────────────────────────────── */
+    #recognition {
+      position: relative;
+      background: linear-gradient(160deg, var(--navy) 0%, #0c1a4a 55%, #0a2472 100%);
+      padding: 100px 6%;
+      overflow: hidden;
+    }
+
+    .recog-glow {
+      position: absolute; inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse 55% 45% at 12% 15%, rgba(96,165,250,.22) 0%, transparent 65%),
+        radial-gradient(ellipse 50% 42% at 88% 85%, rgba(37,99,235,.24) 0%, transparent 65%);
+      animation: recog-drift 13s ease-in-out infinite alternate;
+    }
+    @keyframes recog-drift {
+      0%   { transform: translate(0,0) scale(1); }
+      100% { transform: translate(-3%, 3%) scale(1.08); }
+    }
+
+    .recog-head { position: relative; z-index: 1; text-align: center; max-width: 680px; margin: 0 auto 3.5rem; }
+    .recog-head .sec-title { text-align: center; }
+    .recog-head .sec-sub { margin: 0 auto; text-align: center; }
+
+    .recog-grid {
+      position: relative; z-index: 1;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .recog-card {
+      position: relative;
+      background: linear-gradient(160deg, rgba(255,255,255,.07), rgba(255,255,255,.02));
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 22px;
+      padding: 2.6rem 1.6rem 2.2rem;
+      text-align: center;
+      overflow: hidden;
+      animation: recog-float 4.5s ease-in-out infinite;
+    }
+    .recog-card:nth-child(2) { animation-delay: .3s; }
+    .recog-card:nth-child(3) { animation-delay: .6s; }
+
+    @keyframes recog-float {
+      0%, 100% { transform: translateY(0); }
+      50%      { transform: translateY(-10px); }
+    }
+
+    .recog-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--blue), var(--sky), var(--blue));
+      background-size: 200% 100%;
+      animation: recog-border 3s linear infinite;
+    }
+    @keyframes recog-border { 0% { background-position: 0% 0; } 100% { background-position: 200% 0; } }
+
+    .recog-shine {
+      position: absolute; top: 0; left: -60%;
+      width: 40%; height: 100%;
+      background: linear-gradient(120deg, transparent, rgba(255,255,255,.18), transparent);
+      transform: skewX(-20deg);
+      animation: recog-sweep 3.6s ease-in-out infinite;
+      pointer-events: none;
+    }
+    @keyframes recog-sweep {
+      0%   { left: -60%; }
+      45%  { left: 130%; }
+      100% { left: 130%; }
+    }
+
+    .recog-badge {
+      position: relative; z-index: 1;
+      width: 108px; height: 108px;
+      margin: 0 auto 1.4rem;
+      background: #fff;
+      border-radius: 20px;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 12px 32px rgba(0,0,0,.35);
+    }
+    .recog-badge img { height: 66px; width: auto; max-width: 78px; object-fit: contain; }
+    .recog-badge i { font-size: 2.3rem; color: var(--blue); }
+
+    .recog-card h4 {
+      position: relative; z-index: 1;
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: white;
+      margin-bottom: .6rem;
+    }
+    .recog-card p { position: relative; z-index: 1; color: rgba(255,255,255,.55); font-size: .86rem; line-height: 1.65; }
+
+    /* ─── FOOTER SUPPORT LINE ────────────────────────────────── */
+    .footer-support {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin-top: 1.3rem;
+      padding: .55rem 1.1rem;
+      background: rgba(96,165,250,.1);
+      border: 1px solid rgba(96,165,250,.3);
+      border-radius: 50px;
+      color: rgba(255,255,255,.78);
+      font-size: .82rem;
+      font-weight: 600;
+      transition: border-color .2s, background .2s;
+    }
+    .footer-support:hover { background: rgba(96,165,250,.18); border-color: rgba(96,165,250,.55); }
+    .footer-support i { color: var(--sky); }
+    .footer-support strong { color: var(--sky); font-weight: 700; }
+    .footer-support-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 0 0 rgba(34,197,94,.6);
+      animation: dot-ping 1.4s infinite;
+    }
+
+    /* ─── FOOTER GIANT WORDMARK ──────────────────────────────── */
+    .footer-wordmark {
+      margin-top: 2.2rem;
+      overflow: hidden;
+      text-align: center;
+      line-height: .8;
+      user-select: none;
+    }
+    .footer-wordmark span {
+      font-family: 'Caveat', cursive;
+      font-weight: 700;
+      font-size: clamp(4rem, 15vw, 10.5rem);
+      display: inline-block;
+      background: linear-gradient(100deg, var(--sky) 0%, #a5f3fc 30%, var(--blue) 65%, var(--sky) 100%);
+      background-size: 220% 100%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: wordmark-shine 6s ease-in-out infinite;
+      filter: drop-shadow(0 6px 28px rgba(37,99,235,.35));
+    }
+    @keyframes wordmark-shine {
+      0%, 100% { background-position: 0% 50%; }
+      50%      { background-position: 100% 50%; }
+    }
+
     /* ─── RESPONSIVE ────────────────────────────────────────── */
     @media (max-width:1100px) {
       .feat-grid   { grid-template-columns: repeat(3,1fr); }
@@ -1360,6 +1520,7 @@
       .feat-grid { grid-template-columns: 1fr 1fr; }
       .nav-links { display: none; }
       .hamburger { display: flex; }
+      .recog-grid { grid-template-columns: 1fr; max-width: 380px; }
     }
 
     @media (max-width:520px) {
@@ -1370,6 +1531,11 @@
       .hero-stats { gap: 0; }
       .hstat { padding: 0 1rem; }
       .sec-head--c .sec-title { font-size: 1.8rem; }
+      .header-cert-txt { display: none; }
+      .header-cert { padding: 4px; border-radius: 50%; }
+      .header-cert img { height: 26px; }
+      .nav-brand { gap: 8px; }
+      .footer-wordmark span { font-size: clamp(3rem, 20vw, 6rem); }
     }
   </style>
 </head>
@@ -1377,11 +1543,21 @@
 
 <!-- ─── NAVBAR ─────────────────────────────────────────────── -->
 <nav id="nav">
-  <a href="#hero" class="nav-logo">
-    <img src="logos/nexabot-logo.png" alt="NexaBot"
-         onerror="this.style.display='none';document.getElementById('logo-txt').style.display='block'">
-    <span id="logo-txt" class="logo-txt" style="display:none;">Nexa<span>Bot</span></span>
-  </a>
+  <div class="nav-brand">
+    <a href="#hero" class="nav-logo">
+      <img src="logos/nexabot-logo.png" alt="NexaBot"
+           onerror="this.style.display='none';document.getElementById('logo-txt').style.display='block'">
+      <span id="logo-txt" class="logo-txt" style="display:none;">Nexa<span>Bot</span></span>
+    </a>
+    <div class="header-cert" title="Great Place To Work Certified — Sep 2024 to Sep 2027">
+      <img src="logos/great-place-to-work-badge.png" alt="Great Place To Work Certified"
+           onerror="this.parentElement.style.display='none'">
+      <div class="header-cert-txt">
+        <span class="hc-1">Great Place<br>To Work&reg;</span>
+        <span class="hc-2">Certified</span>
+      </div>
+    </div>
+  </div>
   <ul class="nav-links">
     <li><a href="#services">Services</a></li>
     <li><a href="#how">How It Works</a></li>
@@ -1940,6 +2116,46 @@
   </div>
 </section>
 
+<!-- ─── RECOGNITIONS ───────────────────────────────────────────── -->
+<section id="recognition">
+  <div class="recog-glow"></div>
+  <div class="recog-head fade-up">
+    <span class="tag tag--dark"><i class="fas fa-award"></i> Certified &amp; Trusted</span>
+    <h2 class="sec-title">Recognized by the <span class="g">Best in the Industry</span></h2>
+    <p class="sec-sub sec-sub--w">Independently vetted by the platforms businesses trust most — because your chatbot partner should be proven, not just promised.</p>
+  </div>
+
+  <div class="recog-grid">
+    <div class="recog-card fade-up">
+      <div class="recog-shine"></div>
+      <div class="recog-badge">
+        <img src="logos/unicorn-startup-badge.png" alt="Unicorn Startup" loading="lazy"
+             onerror="this.parentElement.innerHTML='<i class=&quot;fas fa-crown&quot;></i>'">
+      </div>
+      <h4>Unicorn Startup</h4>
+      <p>Recognized among India's fastest-scaling startups.</p>
+    </div>
+    <div class="recog-card fade-up" style="transition-delay:.1s">
+      <div class="recog-shine"></div>
+      <div class="recog-badge">
+        <img src="logos/google-partner-badge.png" alt="Google Partner" loading="lazy"
+             onerror="this.parentElement.innerHTML='<i class=&quot;fab fa-google&quot;></i>'">
+      </div>
+      <h4>Google Partner</h4>
+      <p>Vetted and endorsed under Google's official partner program.</p>
+    </div>
+    <div class="recog-card fade-up" style="transition-delay:.2s">
+      <div class="recog-shine"></div>
+      <div class="recog-badge">
+        <img src="logos/meta-business-partner-badge.png" alt="Meta Business Partner" loading="lazy"
+             onerror="this.parentElement.innerHTML='<i class=&quot;fab fa-meta&quot;></i>'">
+      </div>
+      <h4>Meta Business Partner</h4>
+      <p>Certified partner for WhatsApp &amp; Meta business messaging.</p>
+    </div>
+  </div>
+</section>
+
 <!-- ─── FOOTER ───────────────────────────────────────────────── -->
 <footer>
   <div class="footer-grid">
@@ -1947,6 +2163,10 @@
       <img src="logos/nexabot-logo.png" alt="NexaBot" style="height:44px;object-fit:contain;"
            onerror="this.outerHTML='<div style=&quot;font-family:Poppins,sans-serif;font-size:1.5rem;font-weight:900;color:white;&quot;>Nexa<span style=&quot;color:#60A5FA;&quot;>Bot</span></div>'">
       <p>NexaBot Agency Ltd.® building smart, scalable, reliable chatbots for businesses worldwide. Your clients deserve instant responses — give them one.</p>
+      <a class="footer-support" href="mailto:support@nexabot.shop">
+        <span class="footer-support-dot"></span>
+        <i class="fas fa-headset"></i> 24/7 Support — <strong>support@nexabot.shop</strong>
+      </a>
     </div>
     <div class="footer-col">
       <h4>Services</h4>
@@ -1973,23 +2193,6 @@
       </ul>
     </div>
   </div>
-  <div class="trust-badges">
-    <span class="trust-badges-label">Certified &amp; Recognized</span>
-    <div class="trust-badges-row">
-      <div class="badge-chip">
-        <img src="logos/unicorn-startup-badge.png" alt="Unicorn Startup" loading="lazy">
-      </div>
-      <div class="badge-chip">
-        <img src="logos/google-partner-badge.png" alt="Google Partner" loading="lazy">
-      </div>
-      <div class="badge-chip">
-        <img src="logos/meta-business-partner-badge.png" alt="Meta Business Partner" loading="lazy">
-      </div>
-      <div class="badge-chip badge-chip--tall">
-        <img src="logos/great-place-to-work-badge.png" alt="Great Place To Work Certified — Sep 2024 to Sep 2027" loading="lazy">
-      </div>
-    </div>
-  </div>
   <div class="footer-bottom">
     <div class="footer-legal">
       <p>© 2017–2026 NexaBot Agency Ltd.® All Rights Reserved. Designed, Developed, & Maintained by NexaBot Agency Ltd.®</p>
@@ -2006,6 +2209,10 @@
       <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
       <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
     </div>
+  </div>
+
+  <div class="footer-wordmark" aria-hidden="true">
+    <span>NexaBot</span>
   </div>
 </footer>
 
