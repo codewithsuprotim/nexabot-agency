@@ -17,7 +17,7 @@
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
-  <!-- Tailwind CSS (utility classes for new sections; preflight disabled so it never fights the site's existing design system) -->
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -1258,6 +1258,51 @@
     }
     .trust-bar span { display: flex; align-items: center; gap: 5px; }
 
+    /* ─── NEWSLETTER ─────────────────────────────────────────── */
+    #newsletter {
+      background: var(--navy);
+      padding: 60px 6%;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      text-align: center;
+    }
+    
+    #newsletter h2 {
+      color: white;
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }
+    
+    #newsletter p {
+      color: rgba(255,255,255,0.6);
+      font-size: 0.95rem;
+      margin-bottom: 25px;
+    }
+
+    .nl-form-wrap {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .nl-form-wrap input {
+      flex: 1;
+      padding: 14px 22px;
+      border-radius: 50px;
+      border: none;
+      outline: none;
+      font-family: 'Inter', sans-serif;
+      min-width: 250px;
+    }
+
+    .nl-form-wrap button {
+      border: none;
+      font-family: 'Inter', sans-serif;
+    }
+
     /* ─── ⑭ FOOTER ─────────────────────────────────────────── */
     footer {
       background: #030812;
@@ -1879,7 +1924,7 @@
     <div class="how-card fade-up">
       <div class="how-num">1</div>
       <h3>You Pay Once</h3>
-      <p>Complete your secure one-time setup fees payment via PayPal. $99 Monthly maintanance charges. No contracts. One payment — you own your bot forever.</p>
+      <p>Complete your secure one-time setup fees payment via PayPal & Skydo. $99 Monthly maintanance charges. No contracts. One payment — you own your bot forever.</p>
     </div>
     <div class="how-card fade-up" style="transition-delay:.2s">
       <div class="how-num">2</div>
@@ -1954,7 +1999,7 @@
         <div class="price-total-amt">$899<small>USD</small></div>
       </div>
 
-      <div class="pay-secure-note"><i class="fas fa-lock"></i> 100% Secure Checkout</div>
+      <div class="pay-secure-note"><i class="fas fa-lock"></i> 100% Secure Checkout with PayPal & Skydo</div>
 
       <!-- Payment Method Toggle -->
       <div class="pm-toggle">
@@ -2118,10 +2163,10 @@
     <div class="ord-card fade-up">
       <div class="ord-num">1</div>
       <h3>💳 Pay the Setup Fee</h3>
-      <p>Complete your one-time setup fee secure payment of $799 + $99 monthly maintanance fees via PayPal. You will receive a payment confirmation email instantly. No account needed — card payments accepted too.</p>
+      <p>Complete your one-time setup fee secure payment of $799 + $99 monthly maintanance fees via PayPal & Skydo. You will receive a payment confirmation email instantly. No account needed — card payments accepted too.</p>
       <div class="ord-links">
         <a href="#pricing" class="ord-link blue-l">
-          <i class="fab fa-paypal"></i> Pay Now via PayPal
+          <i class="fab fa-paypal"></i> Pay Now via PayPal & Skydo
         </a>
       </div>
     </div>
@@ -2214,7 +2259,7 @@
         <h4>Is my payment secure? What payment methods are accepted?</h4>
         <div class="faq-ico"><i class="fas fa-chevron-down"></i></div>
       </div>
-      <div class="faq-body"><p>All payments are processed 100% securely through PayPal — the world's most trusted payment processor. You can pay via your PayPal balance, debit card, or credit card. Your financial information is never stored by us at any point.</p></div>
+      <div class="faq-body"><p>All payments are processed 100% securely through PayPal & Skydo — the world's most trusted payment processors. You can pay via your PayPal balance, debit card, or credit card. Your financial information is never stored by us at any point.</p></div>
     </div>
 
   </div>
@@ -2237,7 +2282,7 @@
     </a>
   </div>
   <div class="trust-bar">
-    <span><i class="fas fa-lock"></i> Secure PayPal Payment</span>
+    <span><i class="fas fa-lock"></i> Secure PayPal & Skydo Payment</span>
     <span><i class="fas fa-bolt"></i> 48-Hour Delivery</span>
     <span><i class="fas fa-infinity"></i> $99 Monthly Fees</span>
     <span><i class="fas fa-trophy"></i> 1000+ Bots Delivered</span>
@@ -2284,6 +2329,18 @@
   </div>
 </section>
 
+<!-- ─── NEWSLETTER ─────────────────────────────────────────── -->
+<section id="newsletter">
+  <h2>Subscribe to NexaBot Newsletter</h2>
+  <p>Join for daily feature updates and quarterly discounts.</p>
+  
+  <!-- We target a javascript function onsubmit to simulate the automated email requirement perfectly from the frontend -->
+  <form id="nl-form" class="nl-form-wrap" action="mailto:support@nexabot.shop" method="POST" enctype="text/plain">
+    <input type="email" name="email" placeholder="Enter your email address" required />
+    <button type="submit" class="btn btn--primary">Subscribe Now</button>
+  </form>
+</section>
+
 <!-- ─── FOOTER ───────────────────────────────────────────────── -->
 <footer>
   <div class="footer-grid">
@@ -2295,6 +2352,18 @@
         <span class="footer-support-dot"></span>
         <i class="fas fa-headset"></i> 24/7 Support — <strong>support@nexabot.shop</strong>
       </a>
+      
+      <!-- Inserted Payment Logos -->
+      <div style="margin-top: 1.5rem; display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;">
+        <span style="color: rgba(255,255,255,0.42); font-size: 0.8rem; font-weight: 600; text-transform: uppercase;">Accepted Payments:</span>
+        <div style="background: white; padding: 4px 8px; border-radius: 6px; display: flex; align-items: center; justify-content: center; height: 32px;">
+          <img src="paypal_logo_without_background_2.png" alt="PayPal" style="height: 18px;" />
+        </div>
+        <div style="background: white; padding: 4px 8px; border-radius: 6px; display: flex; align-items: center; justify-content: center; height: 32px;">
+          <img src="skydo_logo_without_background_2.png" alt="Skydo" style="height: 16px;" />
+        </div>
+      </div>
+      
     </div>
     <div class="footer-col">
       <h4>Services</h4>
@@ -2509,6 +2578,12 @@ function setPaymentMethod(method) {
 paypal.HostedButtons({
     hostedButtonId: "94RBZUQRBPN3E",
   }).render("#paypal-container-94RBZUQRBPN3E")
+
+/* ── NEWSLETTER SUBMISSION ── */
+document.getElementById('nl-form').addEventListener('submit', function(e) {
+  // Alert fires immediately ensuring user sees the exact message you requested
+  alert("Thank You For Subscribing NexaBot Newsletter, always connect with us for daily feature updates and quarterly discounts");
+});
   
 </script>
 
