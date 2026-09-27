@@ -818,7 +818,7 @@
     .price-total-amt { font-family: 'Poppins', sans-serif; font-size: 1.9rem; font-weight: 900; color: var(--gold); white-space: nowrap; }
     .price-total-amt small { font-size: .82rem; font-weight: 700; color: rgba(255,255,255,.5); margin-left: 3px; }
 
-    /* Secure checkout note */
+    /* ── PAYMENT TOGGLE STYLES ── */
     .pay-secure-note {
       display: flex;
       align-items: center;
@@ -832,9 +832,80 @@
     }
     .pay-secure-note i { color: #86efac; }
 
-    /* PayPal wrapper — framed to match the card's glass aesthetic */
+    .pm-toggle {
+      display: flex;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 12px;
+      margin-bottom: 1.5rem;
+      padding: 4px;
+    }
+
+    .pm-btn {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: transparent;
+      color: rgba(255,255,255,.6);
+      border: none;
+      padding: .85rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-family: 'Poppins', sans-serif;
+      font-size: .9rem;
+      transition: all .3s ease;
+    }
+    
+    .pm-btn:hover {
+      color: rgba(255,255,255,.9);
+    }
+
+    .pm-btn.active {
+      background: rgba(255,255,255,.12);
+      color: white;
+      box-shadow: 0 4px 12px rgba(0,0,0,.15);
+    }
+
+    /* Skydo Custom Button */
+    .skydo-checkout-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      background: linear-gradient(135deg, #1e3a8a, #047857);
+      color: white;
+      padding: 1.2rem;
+      border-radius: 12px;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: 1.05rem;
+      text-decoration: none;
+      box-shadow: 0 8px 24px rgba(4, 120, 87, 0.3);
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+
+    .skydo-checkout-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(4, 120, 87, 0.45);
+      color: white;
+    }
+
+    /* Supported Cards Row */
+    .supported-cards {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 1.2rem;
+      color: rgba(255,255,255,.4);
+      font-size: 1.4rem;
+    }
+
+    /* PayPal wrapper */
     #paypal-container-94RBZUQRBPN3E {
-      margin-top: .4rem;
       background: rgba(255,255,255,.05);
       border: 1px solid rgba(255,255,255,.14);
       border-radius: 16px;
@@ -1883,10 +1954,39 @@
         <div class="price-total-amt">$899<small>USD</small></div>
       </div>
 
-      <div class="pay-secure-note"><i class="fas fa-lock"></i> 100% Secure Checkout — Encrypted &amp; Processed by PayPal</div>
+      <div class="pay-secure-note"><i class="fas fa-lock"></i> 100% Secure Checkout</div>
 
-      <!-- PayPal Hosted Button -->
-      <div id="paypal-container-94RBZUQRBPN3E"></div>
+      <!-- Payment Method Toggle -->
+      <div class="pm-toggle">
+        <button class="pm-btn active" onclick="setPaymentMethod('paypal')" id="btn-paypal">
+          <i class="fab fa-paypal" style="color:#0079C1; font-size: 1.1rem;"></i> PayPal
+        </button>
+        <button class="pm-btn" onclick="setPaymentMethod('skydo')" id="btn-skydo">
+          <!-- Skydo Styled Text (since local image path is unconfirmed) -->
+          <span style="display:flex;align-items:center;gap:6px;">
+            <i class="fas fa-bolt" style="color:#047857;"></i> Skydo
+          </span>
+        </button>
+      </div>
+
+      <!-- PayPal Wrapper -->
+      <div id="paypal-wrapper">
+        <div id="paypal-container-94RBZUQRBPN3E"></div>
+      </div>
+
+      <!-- Skydo Wrapper -->
+      <div id="skydo-wrapper" style="display:none;">
+        <a href="#" class="skydo-checkout-btn">
+          <i class="fas fa-arrow-right"></i> Proceed to Skydo Checkout
+        </a>
+      </div>
+
+      <div class="supported-cards">
+        <i class="fab fa-cc-visa"></i>
+        <i class="fab fa-cc-mastercard"></i>
+        <i class="fab fa-cc-amex"></i>
+        <i class="fab fa-cc-discover"></i>
+      </div>
     </div>
 
     <div class="price-perks fade-up" style="transition-delay:.2s">
@@ -2384,6 +2484,26 @@ function showNotif() {
   }, 4500);
 }
 setTimeout(showNotif, 6000);
+
+/* ── PAYMENT METHOD TOGGLE ── */
+function setPaymentMethod(method) {
+  const btnPaypal = document.getElementById('btn-paypal');
+  const btnSkydo = document.getElementById('btn-skydo');
+  const wrapPaypal = document.getElementById('paypal-wrapper');
+  const wrapSkydo = document.getElementById('skydo-wrapper');
+
+  if (method === 'paypal') {
+    btnPaypal.classList.add('active');
+    btnSkydo.classList.remove('active');
+    wrapPaypal.style.display = 'block';
+    wrapSkydo.style.display = 'none';
+  } else {
+    btnSkydo.classList.add('active');
+    btnPaypal.classList.remove('active');
+    wrapSkydo.style.display = 'block';
+    wrapPaypal.style.display = 'none';
+  }
+}
 
 /* ── PAYPAL BUTTON ── */
 paypal.HostedButtons({
