@@ -4,12 +4,12 @@ const cors = require('cors');
 const path = require('path');
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 10000;
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({ origin: '*' })); // Allows GitHub Pages to communicate with Render
 
-// Initialize Database
+// Database Connection
 const dbPath = path.resolve(__dirname, 'nexabot.db');
 const db = new sqlite3.Database(dbPath, (err) => {
   if (err) {
@@ -19,7 +19,7 @@ const db = new sqlite3.Database(dbPath, (err) => {
   }
 });
 
-// Create tables if they do not exist
+// Table Initialization
 db.exec(`
   CREATE TABLE IF NOT EXISTS users (
       id VARCHAR(64) PRIMARY KEY,
@@ -43,14 +43,19 @@ db.exec(`
   );
 `);
 
-// --- API ROUTES ---
+// --- ROUTES ---
 
-// Health Check
+// Root status check
+app.get('/', (req, res) => {
+  res.json({ status: 'Online', service: 'NexaBot Agency API Engine', version: '1.0.0' });
+});
+
+// Health check endpoint
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', agency: 'NexaBot Ltd.' });
 });
 
-// Create New Order
+// Create Order API
 app.post('/api/orders', (req, res) => {
   const { id, clientId, botType, amount, paymentMethod } = req.body;
   const sql = `INSERT INTO orders (id, client_id, bot_type, amount, payment_method, status) VALUES (?, ?, ?, ?, ?, 'pending')`;
@@ -63,7 +68,7 @@ app.post('/api/orders', (req, res) => {
   });
 });
 
-// Fetch Client Orders
+// Get Client Orders API
 app.get('/api/client/orders/:clientId', (req, res) => {
   db.all(`SELECT * FROM orders WHERE client_id = ? ORDER BY created_at DESC`, [req.params.clientId], (err, rows) => {
     if (err) {
@@ -73,7 +78,7 @@ app.get('/api/client/orders/:clientId', (req, res) => {
   });
 });
 
-// Fetch All Orders (Admin)
+// Admin All Orders API
 app.get('/api/admin/orders', (req, res) => {
   db.all(`SELECT * FROM orders ORDER BY created_at DESC`, [], (err, rows) => {
     if (err) {
@@ -83,15 +88,4 @@ app.get('/api/admin/orders', (req, res) => {
   });
 });
 
-// Update Order Status (Admin)
-app.patch('/api/admin/orders/:orderId', (req, res) => {
-  const { status } = req.body;
-  db.run(`UPDATE orders SET status = ? WHERE id = ?`, [status, req.params.orderId], function(err) {
-    if (err) {
-      return res.status(500).json({ error: err.message });
-    }
-    res.json({ success: true, updated: this.changes });
-  });
-});
-
-app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
+app.listen(PORT, () => console.log(`NexaBot API listening on port ${PORT}`)); 
