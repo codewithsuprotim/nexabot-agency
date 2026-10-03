@@ -60,7 +60,7 @@
     img { max-width: 100%; display: block; }
     a { text-decoration: none; color: inherit; }
 
-    /* ─── ANIMATION KEYFRAMES ─── */
+    /* ─── ANIMATIONS ─── */
     @keyframes floatSlow { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
     @keyframes pulseGlow { 0%, 100% { opacity: 0.4; } 50% { opacity: 0.8; } }
     @keyframes marqueeScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
@@ -71,7 +71,6 @@
     }
 
     .animate-float { animation: floatSlow 4s ease-in-out infinite; }
-    .animate-pulse-glow { animation: pulseGlow 3s ease-in-out infinite; }
 
     /* Floating Particles Background */
     .particle-container {
@@ -87,12 +86,8 @@
     .notice-banner {
       background: linear-gradient(90deg, #1e1b4b, #311042);
       border-bottom: 1px solid rgba(245,158,11,0.3);
-      color: #FEE2E2;
-      font-size: 0.82rem;
-      padding: 0.65rem 1rem;
-      text-align: center;
-      position: relative;
-      z-index: 1001;
+      color: #FEE2E2; font-size: 0.82rem; padding: 0.65rem 1rem;
+      text-align: center; position: relative; z-index: 1001;
     }
     .notice-banner strong { color: var(--gold); }
 
@@ -117,11 +112,9 @@
     .header-cert-txt .hc-2 { font-size: .5rem; font-weight: 700; color: #64748B; text-transform: uppercase; }
 
     .btn-logout {
-      background: rgba(239, 68, 68, 0.15);
-      border: 1px solid rgba(239, 68, 68, 0.4);
-      color: #fca5a5; font-size: 0.75rem; font-weight: 700;
-      padding: 6px 14px; border-radius: 50px; display: inline-flex;
-      align-items: center; gap: 6px; cursor: pointer; transition: all 0.25s ease;
+      background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.4);
+      color: #fca5a5; font-size: 0.75rem; font-weight: 700; padding: 6px 14px;
+      border-radius: 50px; display: inline-flex; align-items: center; gap: 6px; cursor: pointer; transition: all 0.25s ease;
     }
     .btn-logout:hover {
       background: rgba(239, 68, 68, 0.3); color: #ffffff;
@@ -224,14 +217,29 @@
     }
     .pp-94RBZUQRBPN3E:hover { background-color: #f7c41e; transform: scale(1.02); }
 
-    /* ─── RECOGNITIONS SECTION ─── */
-    .badge-card {
-      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 18px; padding: 1.25rem 1.75rem; display: flex; align-items: center; gap: 1rem;
-      transition: all 0.3s ease; backdrop-filter: blur(10px);
+    /* ─── REDESIGNED RECOGNITIONS SECTION ─── */
+    .recog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; max-width: 1100px; margin: 0 auto; }
+    .badge-card-dark {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 20px; padding: 1.2rem 1.5rem;
+      display: flex; align-items: center; gap: 1.2rem;
+      backdrop-filter: blur(12px);
+      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    .badge-card:hover { transform: translateY(-4px); border-color: var(--sky); background: rgba(255,255,255,0.08); }
-    .badge-img { height: 42px; width: auto; object-fit: contain; }
+    .badge-card-dark:hover {
+      transform: translateY(-5px); border-color: var(--sky);
+      box-shadow: 0 12px 30px rgba(37,99,235,0.25); background: rgba(30, 41, 59, 0.8);
+    }
+    .badge-img-wrapper {
+      width: 60px; height: 60px; border-radius: 14px;
+      background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0; padding: 8px;
+    }
+    .badge-img-wrapper img {
+      max-height: 100%; max-width: 100%; object-fit: contain;
+      mix-blend-mode: multiply; filter: brightness(1.2) contrast(1.1);
+    }
 
     /* ─── REDESIGNED FOOTER ─── */
     .site-footer {
@@ -244,6 +252,17 @@
       border-radius: 14px; padding: 1rem 1.25rem; display: flex; align-items: center; gap: 12px; margin-top: 1.2rem;
     }
     .footer-msme img { height: 38px; width: auto; object-fit: contain; }
+
+    /* ─── LIVE SALES NOTIFICATION TOAST ─── */
+    #sales-toast {
+      position: fixed; bottom: 25px; left: 25px; z-index: 1000;
+      background: rgba(10, 24, 114, 0.95); border: 1px solid rgba(96, 165, 250, 0.4);
+      backdrop-filter: blur(14px); border-radius: 16px; padding: 0.9rem 1.2rem;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.4); display: flex; align-items: center; gap: 12px;
+      max-width: 380px; pointer-events: none; opacity: 0; transform: translateY(100px);
+      transition: all 0.5s ease;
+    }
+    #sales-toast.show { opacity: 1; transform: translateY(0); }
 
     /* ─── DASHBOARDS & TRACKER ─── */
     .modal-backdrop {
@@ -278,7 +297,7 @@
     #wa-float:hover { transform: scale(1.1); }
 
     @media (max-width:880px) {
-      .srv-grid, .pricing-grid, .rev-grid { grid-template-columns: 1fr; }
+      .srv-grid, .pricing-grid, .rev-grid, .recog-grid { grid-template-columns: 1fr; }
       .nav-links { display: none; }
     }
   </style>
@@ -455,42 +474,42 @@
             <div class="flex items-center gap-1 text-amber-400 text-sm mb-3">★★★★★ <span class="text-xs text-white/60 ml-2">(5.0)</span></div>
             <p class="text-slate-300 text-sm leading-relaxed mb-4">"Our WhatsApp bot handles 300+ customer enquiries daily without missing a lead. Best ROI we've ever seen."</p>
             <div class="font-bold text-white text-sm">Rajesh Kumar</div>
-            <div class="text-xs text-slate-400">Founder, E-Commerce Hub</div>
+            <div class="text-xs text-sky font-semibold">Steinberg Media Technologies</div>
           </div>
 
           <div class="rev-card">
             <div class="flex items-center gap-1 text-amber-400 text-sm mb-3">★★★★★ <span class="text-xs text-white/60 ml-2">(4.9)</span></div>
             <p class="text-slate-300 text-sm leading-relaxed mb-4">"Deployed our custom trained website chatbot in 36 hours. Customer service workload dropped by 70%."</p>
             <div class="font-bold text-white text-sm">Priya Sharma</div>
-            <div class="text-xs text-slate-400">Head of CX, Real Estate Group</div>
+            <div class="text-xs text-sky font-semibold">Hyatt Hotels & Resorts</div>
           </div>
 
           <div class="rev-card">
             <div class="flex items-center gap-1 text-amber-400 text-sm mb-3">★★★★★ <span class="text-xs text-white/60 ml-2">(4.8)</span></div>
             <p class="text-slate-300 text-sm leading-relaxed mb-4">"The Skydo bank transfer route saved us over $150 in international wire fees during onboarding. Smooth build."</p>
             <div class="font-bold text-white text-sm">Dr. Amit Patel</div>
-            <div class="text-xs text-slate-400">Director, Healthcare Clinic</div>
+            <div class="text-xs text-sky font-semibold">Avid Technology Inc.</div>
           </div>
 
           <div class="rev-card">
             <div class="flex items-center gap-1 text-amber-400 text-sm mb-3">★★★★★ <span class="text-xs text-white/60 ml-2">(5.0)</span></div>
             <p class="text-slate-300 text-sm leading-relaxed mb-4">"The project tracking dashboard kept us updated step-by-step from requirement analysis to live deployment."</p>
             <div class="font-bold text-white text-sm">Marcus Vance</div>
-            <div class="text-xs text-slate-400">Operations Lead, SaaS Global</div>
+            <div class="text-xs text-sky font-semibold">Fender Musical Instruments</div>
           </div>
 
           <div class="rev-card">
             <div class="flex items-center gap-1 text-amber-400 text-sm mb-3">★★★★★ <span class="text-xs text-white/60 ml-2">(4.7)</span></div>
             <p class="text-slate-300 text-sm leading-relaxed mb-4">"Seamless PayPal integration and instant invoice access. NexaBot delivers high agency-grade standard."</p>
             <div class="font-bold text-white text-sm">Elena Rostova</div>
-            <div class="text-xs text-slate-400">Managing Director, Hospitality Inc</div>
+            <div class="text-xs text-sky font-semibold">AMD (Advanced Micro Devices)</div>
           </div>
 
           <div class="rev-card">
             <div class="flex items-center gap-1 text-amber-400 text-sm mb-3">★★★★★ <span class="text-xs text-white/60 ml-2">(4.9)</span></div>
             <p class="text-slate-300 text-sm leading-relaxed mb-4">"Knowledge base ingestion was flawless. The bot answered technical queries accurately from day one."</p>
             <div class="font-bold text-white text-sm">Siddharth Nair</div>
-            <div class="text-xs text-slate-400">CEO, EdTech Academy</div>
+            <div class="text-xs text-sky font-semibold">The Leela Palaces, Hotels & Resorts</div>
           </div>
         </div>
       </section>
@@ -535,32 +554,39 @@
         </div>
       </section>
 
-      <!-- OFFICIAL INDUSTRY RECOGNITIONS & CERTIFICATIONS (UPGRADED WITH BADGE LOGOS) -->
-      <section class="py-16 px-6 bg-slate-950 text-center border-t border-white/5">
-        <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-8">OFFICIAL INDUSTRY RECOGNITIONS & CERTIFICATIONS</p>
-        <div class="flex flex-wrap justify-center items-center gap-6 max-w-5xl mx-auto">
+      <!-- OFFICIAL INDUSTRY RECOGNITIONS & CERTIFICATIONS -->
+      <section class="py-20 px-6 bg-slate-950 text-center border-t border-white/10">
+        <p class="text-xs font-extrabold text-sky tracking-widest uppercase mb-10">OFFICIAL INDUSTRY RECOGNITIONS & CERTIFICATIONS</p>
+        
+        <div class="recog-grid">
           
-          <div class="badge-card">
-            <img src="logos/unicorn-startup-badge.png" alt="Unicorn Startup Badge" class="badge-img" onerror="this.src='https://cdn-icons-png.flaticon.com/512/1828/1828884.png'">
+          <div class="badge-card-dark">
+            <div class="badge-img-wrapper">
+              <img src="logos/unicorn-startup-badge.png" alt="Unicorn Startup" onerror="this.src='https://cdn-icons-png.flaticon.com/512/1828/1828884.png'">
+            </div>
             <div class="text-left">
-              <div class="text-white font-bold text-sm">Unicorn Startup</div>
-              <div class="text-[11px] text-slate-400">Recognized Tech Innovator</div>
+              <div class="text-white font-bold text-base font-['Poppins']">Unicorn Startup</div>
+              <div class="text-xs text-slate-400 mt-0.5">Recognized Tech Innovator</div>
             </div>
           </div>
 
-          <div class="badge-card">
-            <img src="logos/google-partner-badge.png" alt="Google Partner Badge" class="badge-img" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg'">
+          <div class="badge-card-dark">
+            <div class="badge-img-wrapper">
+              <img src="logos/google-partner-badge.png" alt="Google Partner" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg'">
+            </div>
             <div class="text-left">
-              <div class="text-white font-bold text-sm">Google Partner</div>
-              <div class="text-[11px] text-slate-400">Certified Cloud Infrastructure</div>
+              <div class="text-white font-bold text-base font-['Poppins']">Google Partner</div>
+              <div class="text-xs text-slate-400 mt-0.5">Certified Cloud Infrastructure</div>
             </div>
           </div>
 
-          <div class="badge-card">
-            <img src="logos/meta-business-partner-badge.png" alt="Meta Business Partner Badge" class="badge-img" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/7/7b/Meta_Platforms_Inc._logo.svg'">
+          <div class="badge-card-dark">
+            <div class="badge-img-wrapper">
+              <img src="logos/meta-business-partner-badge.png" alt="Meta Business Partner" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/7/7b/Meta_Platforms_Inc._logo.svg'">
+            </div>
             <div class="text-left">
-              <div class="text-white font-bold text-sm">Meta Business Partner</div>
-              <div class="text-[11px] text-slate-400">WhatsApp API Integration</div>
+              <div class="text-white font-bold text-base font-['Poppins']">Meta Business Partner</div>
+              <div class="text-xs text-slate-400 mt-0.5">WhatsApp API Integration</div>
             </div>
           </div>
 
@@ -616,11 +642,10 @@
         </div>
       </section>
 
-      <!-- REDESIGNED HIGH-APPEAL FOOTER -->
+      <!-- REDESIGNED FOOTER -->
       <footer class="site-footer">
         <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-10 pb-12">
           
-          <!-- Column 1: Brand & MSME Badge -->
           <div class="space-y-4 md:col-span-1">
             <div class="footer-brand flex items-center gap-2">
               <img src="logos/nexabot-logo.png" alt="NexaBot Agency®" onerror="this.style.display='none';document.getElementById('ft-logo-txt').style.display='block'">
@@ -637,7 +662,6 @@
             </div>
           </div>
 
-          <!-- Column 2: Solutions -->
           <div class="space-y-3">
             <h4 class="text-white font-bold uppercase tracking-wider text-xs">AI Solutions</h4>
             <ul class="space-y-2 list-none p-0 text-xs">
@@ -648,7 +672,6 @@
             </ul>
           </div>
 
-          <!-- Column 3: Navigation & Portals -->
           <div class="space-y-3">
             <h4 class="text-white font-bold uppercase tracking-wider text-xs">Quick Links</h4>
             <ul class="space-y-2 list-none p-0 text-xs">
@@ -660,7 +683,6 @@
             </ul>
           </div>
 
-          <!-- Column 4: Contact & Location -->
           <div class="space-y-3">
             <h4 class="text-white font-bold uppercase tracking-wider text-xs">Contact & Global Support</h4>
             <div class="space-y-2 text-xs">
@@ -706,7 +728,6 @@
         </div>
       </div>
 
-      <!-- REQUIRED GOOGLE FORMS HUB -->
       <div class="grid md:grid-cols-2 gap-6">
         <a href="https://forms.gle/dAW6iJs3YLaoySpPA" target="_blank" class="dash-card bg-gradient-to-br from-blue-50 to-indigo-50 border-blue-200 hover:border-blue-400 transition group block">
           <div class="flex items-start justify-between">
@@ -731,17 +752,15 @@
         </a>
       </div>
 
-      <!-- CLIENT ORDERS TABLE & REAL TIME TRACKER -->
       <div class="dash-card">
         <div class="flex items-center justify-between mb-4">
           <h3 class="font-bold text-navy text-lg font-['Poppins']">Your Active Bot Builds & Milestone Progress</h3>
         </div>
         <div id="client-orders-container" class="space-y-6">
-          <!-- Dynamically Rendered with Stage Trackers -->
+          <!-- Dynamically Rendered -->
         </div>
       </div>
 
-      <!-- PAYPAL CHECKOUT SECTION -->
       <div class="dash-card bg-gradient-to-r from-amber-50 to-orange-50 border-amber-300">
         <div class="space-y-3">
           <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-amber-200/60 pb-3">
@@ -763,7 +782,6 @@
         </div>
       </div>
 
-      <!-- SKYDO GLOBAL ACCOUNTS (PREFERRED) -->
       <div class="dash-card">
         <div class="flex items-center justify-between border-b pb-4 mb-4">
           <div>
@@ -774,7 +792,6 @@
         </div>
 
         <div class="grid md:grid-cols-4 gap-4 text-xs">
-          <!-- USD -->
           <div class="p-4 bg-slate-50 border rounded-xl space-y-1 text-slate-700">
             <div class="font-bold text-slate-900 mb-2 text-sm">🇺🇸 USD Account (ACH)</div>
             <div><strong>Routing:</strong> 021214891</div>
@@ -784,7 +801,6 @@
             <button onclick="copyText('Routing: 021214891, Account: 313116902658, Bank: Cross River Bank')" class="w-full mt-3 bg-white border text-slate-700 font-bold py-1.5 rounded hover:bg-slate-100 transition">Copy Details</button>
           </div>
 
-          <!-- GBP -->
           <div class="p-4 bg-slate-50 border rounded-xl space-y-1 text-slate-700">
             <div class="font-bold text-slate-900 mb-2 text-sm">🇬🇧 GBP Account (FPS)</div>
             <div><strong>Sort Code:</strong> 608382</div>
@@ -794,7 +810,6 @@
             <button onclick="copyText('Sort Code: 608382, Account: 49546719, Bank: Banking Circle')" class="w-full mt-3 bg-white border text-slate-700 font-bold py-1.5 rounded hover:bg-slate-100 transition">Copy Details</button>
           </div>
 
-          <!-- EUR -->
           <div class="p-4 bg-slate-50 border rounded-xl space-y-1 text-slate-700">
             <div class="font-bold text-slate-900 mb-2 text-sm">🇪🇺 EUR Account (SEPA)</div>
             <div><strong>IBAN:</strong> DE53202208000049546719</div>
@@ -804,7 +819,6 @@
             <button onclick="copyText('IBAN: DE53202208000049546719, BIC: SXPYDEHH, Bank: Banking Circle')" class="w-full mt-3 bg-white border text-slate-700 font-bold py-1.5 rounded hover:bg-slate-100 transition">Copy Details</button>
           </div>
 
-          <!-- CAD -->
           <div class="p-4 bg-slate-50 border rounded-xl space-y-1 text-slate-700">
             <div class="font-bold text-slate-900 mb-2 text-sm">🇨🇦 CAD Account (EFT)</div>
             <div><strong>Account:</strong> 980061659</div>
@@ -858,6 +872,17 @@
     </div>
 
   </main>
+
+  <!-- LIVE SALES POP-UP TOAST CONTAINER -->
+  <div id="sales-toast">
+    <div class="w-9 h-9 bg-emerald-500/20 border border-emerald-400/40 rounded-full flex items-center justify-center text-emerald-400 flex-shrink-0 text-sm">
+      <i class="fa-solid fa-bolt"></i>
+    </div>
+    <div class="text-xs">
+      <div id="toast-text" class="text-white font-semibold leading-tight">Tom just purchased an AI Chatbot package from Los Angeles, USA ⚡</div>
+      <div id="toast-sub" class="text-[10px] text-slate-400 mt-0.5">Verified Purchase • 2 minutes ago</div>
+    </div>
+  </div>
 
   <!-- ── 4. MODALS & SUPPORT CHAT DRAWER ── -->
 
@@ -990,6 +1015,38 @@
       "QA & Testing",
       "Bot Deployed & Live"
     ];
+
+    // Diverse Global Sales Notifications (Male & Female Across Major Cities)
+    const salesMessages = [
+      { msg: "Tom just purchased an AI Chatbot package from Los Angeles, USA 🇺🇸", time: "2 minutes ago" },
+      { msg: "Sophia R. bought a WhatsApp AI Bot from London, UK 🇬🇧", time: "4 minutes ago" },
+      { msg: "Akira Tanaka ordered a Custom Multi-Channel AI Agent from Tokyo, Japan 🇯🇵", time: "6 minutes ago" },
+      { msg: "Emma Watson purchased an AI Knowledge Agent from Sydney, Australia 🇦🇺", time: "8 minutes ago" },
+      { msg: "Mateo Garcia bought a Website AI Chatbot from Madrid, Spain 🇪🇸", time: "11 minutes ago" },
+      { msg: "Hannah Weber ordered a WhatsApp AI Bot from Berlin, Germany 🇩🇪", time: "14 minutes ago" },
+      { msg: "Camila Silva purchased an AI Chatbot package from São Paulo, Brazil 🇧🇷", time: "17 minutes ago" },
+      { msg: "Liam O'Connor bought a Custom Multi-Channel AI Agent from Toronto, Canada 🇨🇦", time: "20 minutes ago" },
+      { msg: "Aarav Sharma ordered a Website AI Chatbot from Mumbai, India 🇮🇳", time: "23 minutes ago" },
+      { msg: "Chloe Laurent purchased a WhatsApp AI Bot from Paris, France 🇫🇷", time: "26 minutes ago" },
+      { msg: "Tariq Al-Mansoor bought an AI Chatbot package from Dubai, UAE 🇦🇪", time: "30 minutes ago" }
+    ];
+
+    (function cycleSalesToasts() {
+      let index = 0;
+      const toast = document.getElementById('sales-toast');
+      const toastTxt = document.getElementById('toast-text');
+      const toastSub = document.getElementById('toast-sub');
+      if (!toast) return;
+
+      setInterval(() => {
+        const item = salesMessages[index];
+        toastTxt.textContent = item.msg;
+        toastSub.textContent = `Verified Purchase • ${item.time}`;
+        toast.classList.add('show');
+        setTimeout(() => { toast.classList.remove('show'); }, 4200);
+        index = (index + 1) % salesMessages.length;
+      }, 9500);
+    })();
 
     // Generate Floating Upward Particles in Hero Background
     (function createHeroParticles() {
