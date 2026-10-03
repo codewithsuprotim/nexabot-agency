@@ -64,9 +64,24 @@
     @keyframes floatSlow { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
     @keyframes pulseGlow { 0%, 100% { opacity: 0.4; } 50% { opacity: 0.8; } }
     @keyframes marqueeScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    @keyframes particleRise {
+      0% { transform: translateY(0) scale(0.8); opacity: 0; }
+      50% { opacity: 0.6; }
+      100% { transform: translateY(-120vh) scale(1.2); opacity: 0; }
+    }
 
     .animate-float { animation: floatSlow 4s ease-in-out infinite; }
     .animate-pulse-glow { animation: pulseGlow 3s ease-in-out infinite; }
+
+    /* Floating Particles Background */
+    .particle-container {
+      position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 1;
+    }
+    .particle {
+      position: absolute; bottom: -20px; background: rgba(96, 165, 250, 0.4);
+      border-radius: 50%; box-shadow: 0 0 10px rgba(96, 165, 250, 0.8);
+      animation: particleRise linear infinite;
+    }
 
     /* ─── MANDATORY NOTICES BAR ─── */
     .notice-banner {
@@ -101,34 +116,26 @@
     .header-cert-txt .hc-1 { font-family: 'Poppins', sans-serif; font-size: .58rem; font-weight: 800; color: var(--navy); }
     .header-cert-txt .hc-2 { font-size: .5rem; font-weight: 700; color: #64748B; text-transform: uppercase; }
 
-    /* Modern Styled Header Logout Button */
     .btn-logout {
       background: rgba(239, 68, 68, 0.15);
       border: 1px solid rgba(239, 68, 68, 0.4);
-      color: #fca5a5;
-      font-size: 0.75rem;
-      font-weight: 700;
-      padding: 6px 14px;
-      border-radius: 50px;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      cursor: pointer;
-      transition: all 0.25s ease;
+      color: #fca5a5; font-size: 0.75rem; font-weight: 700;
+      padding: 6px 14px; border-radius: 50px; display: inline-flex;
+      align-items: center; gap: 6px; cursor: pointer; transition: all 0.25s ease;
     }
     .btn-logout:hover {
-      background: rgba(239, 68, 68, 0.3);
-      color: #ffffff;
-      border-color: rgba(239, 68, 68, 0.8);
-      transform: translateY(-1px);
+      background: rgba(239, 68, 68, 0.3); color: #ffffff;
+      border-color: rgba(239, 68, 68, 0.8); transform: translateY(-1px);
     }
 
-    /* ─── HERO SECTION (CENTERED) ─── */
+    /* ─── HERO SECTION ─── */
     #hero {
       min-height: 92vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
       text-align: center; padding: 80px 6%; position: relative; overflow: hidden;
-      background: radial-gradient(circle at center, rgba(37,99,235,0.25) 0%, rgba(6,15,46,1) 70%);
+      background: radial-gradient(circle at center, rgba(37,99,235,0.22) 0%, rgba(6,15,46,1) 75%);
     }
+
+    .hero-content { position: relative; z-index: 10; max-width: 900px; margin: 0 auto; }
 
     .hero-badge {
       display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,.08);
@@ -139,7 +146,7 @@
 
     .hero-h1 {
       font-family: 'Poppins', sans-serif; font-size: clamp(2.8rem, 6vw, 5rem); font-weight: 900;
-      color: white; line-height: 1.1; max-width: 900px; margin: 0 auto 1.5rem;
+      color: white; line-height: 1.1; margin: 0 auto 1.5rem;
     }
     .hero-h1 span.hl {
       background: linear-gradient(120deg, var(--sky) 20%, #a5f3fc 100%);
@@ -148,7 +155,6 @@
 
     .hero-p { font-size: 1.15rem; color: rgba(255,255,255,.75); max-width: 680px; margin: 0 auto 2.2rem; line-height: 1.8; }
 
-    /* Offer Timer */
     .offer-bar {
       display: inline-flex; align-items: center; gap: 1.2rem; background: rgba(239,68,68,.12);
       border: 1px solid rgba(239,68,68,.35); border-radius: 14px; padding: .9rem 1.6rem; margin-bottom: 2.2rem;
@@ -168,15 +174,15 @@
     }
     .btn-action:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(37,99,235,0.6); }
 
-    .hero-stats { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 2rem; width: 100%; max-width: 800px; }
+    .hero-stats { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 2rem; width: 100%; max-width: 800px; margin: 0 auto; }
     .hstat-n { font-family: 'Poppins', sans-serif; font-size: 1.8rem; font-weight: 900; color: white; }
     .hstat-l { font-size: .72rem; color: rgba(255,255,255,.5); text-transform: uppercase; margin-top: 2px; }
 
-    /* ─── PARTNERS MARQUEE ─── */
-    #partners { background: white; padding: 40px 0; overflow: hidden; }
-    .marquee-track { display: flex; align-items: center; gap: 4rem; animation: marqueeScroll 22s linear infinite; width: max-content; }
-    .p-logo { height: 40px; object-fit: contain; filter: grayscale(1) opacity(.5); transition: all .3s; }
-    .p-logo:hover { filter: grayscale(0) opacity(1); transform: scale(1.05); }
+    /* ─── CLIENTS MARQUEE ─── */
+    #partners { background: #FFFFFF; padding: 45px 0; overflow: hidden; border-bottom: 1px solid #E2E8F0; }
+    .marquee-track { display: flex; align-items: center; gap: 4.5rem; animation: marqueeScroll 22s linear infinite; width: max-content; }
+    .p-logo { height: 42px; object-fit: contain; filter: grayscale(1) opacity(.6); transition: all .3s; }
+    .p-logo:hover { filter: grayscale(0) opacity(1); transform: scale(1.08); }
 
     /* ─── SECTIONS COMMON ─── */
     .sec-head { text-align: center; margin-bottom: 3.5rem; }
@@ -210,7 +216,6 @@
     .pricing-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; max-width: 1100px; margin: 0 auto; align-items: center; }
     .price-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.15); backdrop-filter: blur(20px); border-radius: 24px; padding: 2.5rem; }
 
-    /* Official Single Button PayPal Style from Step 3 */
     .pp-94RBZUQRBPN3E {
       text-align: center; border: none; border-radius: 1.5rem; min-width: 220px;
       height: 2.75rem; font-weight: bold; background-color: #FFD140; color: #000000;
@@ -218,6 +223,27 @@
       transition: all 0.2s ease; box-shadow: 0 4px 12px rgba(255,209,64,0.3);
     }
     .pp-94RBZUQRBPN3E:hover { background-color: #f7c41e; transform: scale(1.02); }
+
+    /* ─── RECOGNITIONS SECTION ─── */
+    .badge-card {
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 18px; padding: 1.25rem 1.75rem; display: flex; align-items: center; gap: 1rem;
+      transition: all 0.3s ease; backdrop-filter: blur(10px);
+    }
+    .badge-card:hover { transform: translateY(-4px); border-color: var(--sky); background: rgba(255,255,255,0.08); }
+    .badge-img { height: 42px; width: auto; object-fit: contain; }
+
+    /* ─── REDESIGNED FOOTER ─── */
+    .site-footer {
+      background: linear-gradient(180deg, #04091e 0%, #020512 100%);
+      border-top: 1px solid rgba(255,255,255,0.1); color: #94A3B8; font-size: 0.85rem; padding-top: 4rem; padding-bottom: 2rem;
+    }
+    .footer-brand img { height: 48px; object-fit: contain; }
+    .footer-msme {
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 14px; padding: 1rem 1.25rem; display: flex; align-items: center; gap: 12px; margin-top: 1.2rem;
+    }
+    .footer-msme img { height: 38px; width: auto; object-fit: contain; }
 
     /* ─── DASHBOARDS & TRACKER ─── */
     .modal-backdrop {
@@ -233,13 +259,11 @@
     .status-pending { background: #FEF3C7; color: #D97706; }
     .status-active { background: #DCFCE7; color: #15803D; }
 
-    /* Project Stage Step Tracker */
     .step-node { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 800; }
     .step-active { background: var(--elec); color: white; box-shadow: 0 0 10px rgba(37,99,235,0.5); }
     .step-complete { background: var(--green); color: white; }
     .step-pending { background: #E2E8F0; color: #94A3B8; }
 
-    /* Support Chat Drawer */
     #chat-drawer {
       position: fixed; bottom: 85px; right: 25px; width: 340px; height: 420px;
       background: #FFFFFF; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.3);
@@ -280,11 +304,11 @@
   <nav id="nav">
     <div class="nav-brand">
       <a href="#hero" class="nav-logo flex items-center gap-2">
-        <img src="logos/nexabot-logo.png" alt="NexaBot" onerror="this.style.display='none';document.getElementById('logo-txt').style.display='block'">
+        <img src="logos/nexabot-logo.png" alt="NexaBot Agency®" onerror="this.style.display='none';document.getElementById('logo-txt').style.display='block'">
         <span id="logo-txt" class="font-black text-2xl text-white font-['Poppins']" style="display:none;">Nexa<span class="text-sky">Bot</span></span>
       </a>
       <div class="header-cert" title="Great Place To Work Certified — Sep 2024 to Sep 2027">
-        <img src="logos/great-place-to-work-badge.png" alt="Certified" onerror="this.parentElement.style.display='none'">
+        <img src="logos/great-place-to-work-badge.png" alt="Great Place To Work Certified" onerror="this.parentElement.style.display='none'">
         <div class="header-cert-txt">
           <span class="hc-1">Great Place<br>To Work&reg;</span>
           <span class="hc-2">Certified</span>
@@ -326,62 +350,67 @@
 
     <!-- ── LANDING VIEW ── -->
     <div id="view-landing" class="block">
-      <!-- HERO (CENTERED WITH ANIMATIONS) -->
+      
+      <!-- HERO SECTION WITH UPWARD PARTICLES BG EFFECT -->
       <section id="hero">
-        <div class="hero-badge animate-float">
-          <span class="dot"></span> AI Chatbot Agency — 1000+ Businesses Automated
-        </div>
+        <div class="particle-container" id="particles-bg"></div>
 
-        <h1 class="hero-h1">
-          Don't Lose Your Clients.<br>
-          <span class="hl">Ever Again.</span>
-        </h1>
-
-        <p class="hero-p">
-          Let AI handle every customer conversation — 24 hours a day, 7 days a week — so you can focus on growing your business.
-        </p>
-
-        <div class="offer-bar">
-          <div class="offer-label"><i class="fas fa-fire text-red-500"></i> Special Offer Ends In</div>
-          <div class="timer-wrap">
-            <div class="tblock"><span class="t" id="th">11</span><span class="u">Hrs</span></div>
-            <span class="text-white font-bold text-xl">:</span>
-            <div class="tblock"><span class="t" id="tm">47</span><span class="u">Min</span></div>
-            <span class="text-white font-bold text-xl">:</span>
-            <div class="tblock"><span class="t" id="ts">30</span><span class="u">Sec</span></div>
+        <div class="hero-content">
+          <div class="hero-badge animate-float">
+            <span class="dot"></span> AI Chatbot Agency — 1000+ Businesses Automated
           </div>
-        </div>
 
-        <div class="hero-btns">
-          <a href="#pricing" class="btn-action">
-            <i class="fas fa-rocket"></i> Get My Chatbot Now
-          </a>
-          <a href="#how" class="bg-white/10 hover:bg-white/20 text-white font-bold px-8 py-3.5 rounded-full transition flex items-center gap-2">
-            <i class="fas fa-play-circle"></i> How It Works
-          </a>
-        </div>
+          <h1 class="hero-h1">
+            Don't Lose Your Clients.<br>
+            <span class="hl">Ever Again.</span>
+          </h1>
 
-        <div class="hero-stats">
-          <div><div class="hstat-n">1000+</div><div class="hstat-l">Bots Deployed</div></div>
-          <div><div class="hstat-n">48hr</div><div class="hstat-l">Delivery SLA</div></div>
-          <div><div class="hstat-n">4.9★</div><div class="hstat-l">Client Rating</div></div>
-          <div><div class="hstat-n">$99</div><div class="hstat-l">Monthly Maintenance</div></div>
+          <p class="hero-p">
+            Let AI handle every customer conversation — 24 hours a day, 7 days a week — so you can focus on growing your business.
+          </p>
+
+          <div class="offer-bar">
+            <div class="offer-label"><i class="fas fa-fire text-red-500"></i> Special Offer Ends In</div>
+            <div class="timer-wrap">
+              <div class="tblock"><span class="t" id="th">11</span><span class="u">Hrs</span></div>
+              <span class="text-white font-bold text-xl">:</span>
+              <div class="tblock"><span class="t" id="tm">47</span><span class="u">Min</span></div>
+              <span class="text-white font-bold text-xl">:</span>
+              <div class="tblock"><span class="t" id="ts">30</span><span class="u">Sec</span></div>
+            </div>
+          </div>
+
+          <div class="hero-btns">
+            <a href="#pricing" class="btn-action">
+              <i class="fas fa-rocket"></i> Get My Chatbot Now
+            </a>
+            <a href="#how" class="bg-white/10 hover:bg-white/20 text-white font-bold px-8 py-3.5 rounded-full transition flex items-center gap-2">
+              <i class="fas fa-play-circle"></i> How It Works
+            </a>
+          </div>
+
+          <div class="hero-stats">
+            <div><div class="hstat-n">1000+</div><div class="hstat-l">Bots Deployed</div></div>
+            <div><div class="hstat-n">48hr</div><div class="hstat-l">Delivery SLA</div></div>
+            <div><div class="hstat-n">4.9★</div><div class="hstat-l">Client Rating</div></div>
+            <div><div class="hstat-n">$99</div><div class="hstat-l">Monthly Maintenance</div></div>
+          </div>
         </div>
       </section>
 
-      <!-- PARTNERS MARQUEE -->
+      <!-- OUR VALUABLE CLIENTS MARQUEE -->
       <div id="partners">
-        <p class="text-center text-xs font-bold text-slate-400 uppercase tracking-widest mb-6">Trusted Technology Partners</p>
+        <p class="text-center text-xs font-bold text-slate-500 uppercase tracking-widest mb-6">OUR VALUABLE CLIENTS</p>
         <div class="marquee-wrap">
           <div class="marquee-track">
-            <img src="partners/partner-steinberg.png" alt="Steinberg" class="p-logo" onerror="this.outerHTML='<span class=&quot;font-bold text-slate-400&quot;>STEINBERG</span>'">
-            <img src="partners/partner-avid.png" alt="AVID" class="p-logo" onerror="this.outerHTML='<span class=&quot;font-bold text-slate-400&quot;>AVID</span>'">
-            <img src="partners/partner-amd.png" alt="AMD" class="p-logo" onerror="this.outerHTML='<span class=&quot;font-bold text-slate-400&quot;>AMD</span>'">
-            <img src="partners/partner-fender.png" alt="Fender" class="p-logo" onerror="this.outerHTML='<span class=&quot;font-bold text-slate-400&quot;>FENDER</span>'">
-            <img src="partners/partner-hyatt.png" alt="HYATT" class="p-logo" onerror="this.outerHTML='<span class=&quot;font-bold text-slate-400&quot;>HYATT</span>'">
-            <img src="partners/partner-leela.png" alt="The Leela Palace" class="p-logo" onerror="this.outerHTML='<span class=&quot;font-bold text-slate-400&quot;>THE LEELA PALACE</span>'">
-            <img src="partners/partner-steinberg.png" alt="Steinberg" class="p-logo" onerror="this.outerHTML='<span class=&quot;font-bold text-slate-400&quot;>STEINBERG</span>'">
-            <img src="partners/partner-avid.png" alt="AVID" class="p-logo" onerror="this.outerHTML='<span class=&quot;font-bold text-slate-400&quot;>AVID</span>'">
+            <img src="partners/partner-steinberg.png" alt="Steinberg" class="p-logo" onerror="this.outerHTML='<span class=&quot;font-bold text-slate-500 text-sm&quot;>STEINBERG</span>'">
+            <img src="partners/partner-avid.png" alt="AVID" class="p-logo" onerror="this.outerHTML='<span class=&quot;font-bold text-slate-500 text-sm&quot;>AVID</span>'">
+            <img src="partners/partner-amd.png" alt="AMD" class="p-logo" onerror="this.outerHTML='<span class=&quot;font-bold text-slate-500 text-sm&quot;>AMD</span>'">
+            <img src="partners/partner-fender.png" alt="Fender" class="p-logo" onerror="this.outerHTML='<span class=&quot;font-bold text-slate-500 text-sm&quot;>FENDER</span>'">
+            <img src="partners/partner-hyatt.png" alt="HYATT" class="p-logo" onerror="this.outerHTML='<span class=&quot;font-bold text-slate-500 text-sm&quot;>HYATT</span>'">
+            <img src="partners/partner-leela.png" alt="The Leela Palace" class="p-logo" onerror="this.outerHTML='<span class=&quot;font-bold text-slate-500 text-sm&quot;>THE LEELA PALACE</span>'">
+            <img src="partners/partner-steinberg.png" alt="Steinberg" class="p-logo" onerror="this.outerHTML='<span class=&quot;font-bold text-slate-500 text-sm&quot;>STEINBERG</span>'">
+            <img src="partners/partner-avid.png" alt="AVID" class="p-logo" onerror="this.outerHTML='<span class=&quot;font-bold text-slate-500 text-sm&quot;>AVID</span>'">
           </div>
         </div>
       </div>
@@ -414,7 +443,7 @@
         </div>
       </section>
 
-      <!-- REVIEWS SECTION (7 ANIMATED REVIEWS) -->
+      <!-- REVIEWS SECTION -->
       <section id="reviews" class="py-20 px-6 bg-navy/50">
         <div class="sec-head">
           <span class="text-xs font-bold uppercase text-sky tracking-widest">Client Testimonials</span>
@@ -466,7 +495,7 @@
         </div>
       </section>
 
-      <!-- FAQ SECTION (6 FAQS) -->
+      <!-- FAQ SECTION -->
       <section id="faq" class="py-20 px-6 max-w-4xl mx-auto">
         <div class="sec-head">
           <span class="text-xs font-bold uppercase text-sky tracking-widest">Common Questions</span>
@@ -506,24 +535,35 @@
         </div>
       </section>
 
-      <!-- RECOGNITION BADGES -->
-      <section class="py-16 px-6 bg-slate-950 text-center">
-        <p class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-8">Official Industry Recognitions & Certifications</p>
-        <div class="flex flex-wrap justify-center items-center gap-10 max-w-5xl mx-auto">
-          <div class="flex items-center gap-2 bg-white/5 border border-white/10 px-5 py-3 rounded-xl">
-            <i class="fa-solid fa-crown text-amber-400 text-2xl"></i>
-            <div class="text-left"><div class="text-white font-bold text-xs">Unicorn Startup</div><div class="text-[10px] text-slate-400">Recognized Tech Innovator</div></div>
+      <!-- OFFICIAL INDUSTRY RECOGNITIONS & CERTIFICATIONS (UPGRADED WITH BADGE LOGOS) -->
+      <section class="py-16 px-6 bg-slate-950 text-center border-t border-white/5">
+        <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-8">OFFICIAL INDUSTRY RECOGNITIONS & CERTIFICATIONS</p>
+        <div class="flex flex-wrap justify-center items-center gap-6 max-w-5xl mx-auto">
+          
+          <div class="badge-card">
+            <img src="logos/unicorn-startup-badge.png" alt="Unicorn Startup Badge" class="badge-img" onerror="this.src='https://cdn-icons-png.flaticon.com/512/1828/1828884.png'">
+            <div class="text-left">
+              <div class="text-white font-bold text-sm">Unicorn Startup</div>
+              <div class="text-[11px] text-slate-400">Recognized Tech Innovator</div>
+            </div>
           </div>
 
-          <div class="flex items-center gap-2 bg-white/5 border border-white/10 px-5 py-3 rounded-xl">
-            <i class="fa-brands fa-google text-blue-400 text-2xl"></i>
-            <div class="text-left"><div class="text-white font-bold text-xs">Google Partner</div><div class="text-[10px] text-slate-400">Certified Cloud Infrastructure</div></div>
+          <div class="badge-card">
+            <img src="logos/google-partner-badge.png" alt="Google Partner Badge" class="badge-img" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg'">
+            <div class="text-left">
+              <div class="text-white font-bold text-sm">Google Partner</div>
+              <div class="text-[11px] text-slate-400">Certified Cloud Infrastructure</div>
+            </div>
           </div>
 
-          <div class="flex items-center gap-2 bg-white/5 border border-white/10 px-5 py-3 rounded-xl">
-            <i class="fa-brands fa-meta text-sky-400 text-2xl"></i>
-            <div class="text-left"><div class="text-white font-bold text-xs">Meta Business Partner</div><div class="text-[10px] text-slate-400">WhatsApp API Integration</div></div>
+          <div class="badge-card">
+            <img src="logos/meta-business-partner-badge.png" alt="Meta Business Partner Badge" class="badge-img" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/7/7b/Meta_Platforms_Inc._logo.svg'">
+            <div class="text-left">
+              <div class="text-white font-bold text-sm">Meta Business Partner</div>
+              <div class="text-[11px] text-slate-400">WhatsApp API Integration</div>
+            </div>
           </div>
+
         </div>
       </section>
 
@@ -556,7 +596,7 @@
               <i class="fa-solid fa-building-columns"></i> Pay via Skydo Transfer (Preferred)
             </button>
 
-            <!-- STEP 3 OFFICIAL PAYPAL SINGLE BUTTON FORM SUBMIT (100% RELIABLE) -->
+            <!-- PAYPAL SINGLE BUTTON FORM SUBMIT -->
             <div class="flex justify-center w-full">
               <form action="https://www.paypal.com/ncp/payment/94RBZUQRBPN3E" method="post" target="_blank" style="display:inline-grid;justify-items:center;align-content:start;gap:0.5rem;width:100%;">
                 <input class="pp-94RBZUQRBPN3E" style="width:100%;" type="submit" value="Pay $899 via PayPal Direct" />
@@ -576,27 +616,77 @@
         </div>
       </section>
 
-      <!-- FOOTER -->
-      <footer class="bg-slate-950 pt-16 pb-8 border-t border-white/10 text-slate-400 text-xs">
-        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between gap-8">
-          <div>
-            <div class="font-black text-2xl text-white font-['Poppins'] mb-2">Nexa<span class="text-sky">Bot</span> Agency®</div>
-            <p class="max-w-sm leading-relaxed mb-4">Building smart, scalable, reliable chatbots for high-converting teams worldwide.</p>
-            <div class="bg-white/5 border border-white/10 p-3 rounded-lg text-[11px]">
-              <div class="font-bold text-white mb-1">MSME Udyam Govt. Registration</div>
-              <div>Registration No: <strong>UDYAM-WB-23-0085248</strong></div>
+      <!-- REDESIGNED HIGH-APPEAL FOOTER -->
+      <footer class="site-footer">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-10 pb-12">
+          
+          <!-- Column 1: Brand & MSME Badge -->
+          <div class="space-y-4 md:col-span-1">
+            <div class="footer-brand flex items-center gap-2">
+              <img src="logos/nexabot-logo.png" alt="NexaBot Agency®" onerror="this.style.display='none';document.getElementById('ft-logo-txt').style.display='block'">
+              <span id="ft-logo-txt" class="font-black text-2xl text-white font-['Poppins']" style="display:none;">Nexa<span class="text-sky">Bot</span></span>
+            </div>
+            <p class="leading-relaxed text-slate-400 text-xs">Building enterprise-grade, high-converting AI chatbots for forward-thinking brands globally.</p>
+            
+            <div class="footer-msme">
+              <img src="logos/msme-udyam-badge.png" alt="MSME Govt. India Logo" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_India.svg'">
+              <div>
+                <div class="font-bold text-white text-xs">MSME Govt. Registered</div>
+                <div class="text-[10px] text-slate-400">UDYAM-WB-23-0085248</div>
+              </div>
             </div>
           </div>
-          <div>
-            <div class="font-bold text-white uppercase mb-2">Contact & Support</div>
-            <div>support@nexabot.shop</div>
-            <div>Durgapur, West Bengal, India</div>
+
+          <!-- Column 2: Solutions -->
+          <div class="space-y-3">
+            <h4 class="text-white font-bold uppercase tracking-wider text-xs">AI Solutions</h4>
+            <ul class="space-y-2 list-none p-0 text-xs">
+              <li><a href="#services" class="hover:text-sky transition">WhatsApp AI Chatbots</a></li>
+              <li><a href="#services" class="hover:text-sky transition">Website Conversational Widgets</a></li>
+              <li><a href="#services" class="hover:text-sky transition">Custom Knowledge Agents</a></li>
+              <li><a href="#pricing" class="hover:text-sky transition">Enterprise Deployments</a></li>
+            </ul>
+          </div>
+
+          <!-- Column 3: Navigation & Portals -->
+          <div class="space-y-3">
+            <h4 class="text-white font-bold uppercase tracking-wider text-xs">Quick Links</h4>
+            <ul class="space-y-2 list-none p-0 text-xs">
+              <li><a href="#how" class="hover:text-sky transition">How It Works</a></li>
+              <li><a href="#reviews" class="hover:text-sky transition">Client Reviews</a></li>
+              <li><a href="#faq" class="hover:text-sky transition">Frequently Asked Questions</a></li>
+              <li><button onclick="openAuthModal('client')" class="hover:text-sky transition bg-transparent border-0 p-0 text-left text-xs cursor-pointer">Client Login</button></li>
+              <li><button onclick="openAuthModal('admin')" class="hover:text-red-400 transition bg-transparent border-0 p-0 text-left text-xs cursor-pointer">Admin Access</button></li>
+            </ul>
+          </div>
+
+          <!-- Column 4: Contact & Location -->
+          <div class="space-y-3">
+            <h4 class="text-white font-bold uppercase tracking-wider text-xs">Contact & Global Support</h4>
+            <div class="space-y-2 text-xs">
+              <div class="flex items-center gap-2"><i class="fa-solid fa-envelope text-sky"></i> support@nexabot.shop</div>
+              <div class="flex items-center gap-2"><i class="fa-brands fa-whatsapp text-emerald-400"></i> Direct Agency Support Line</div>
+              <div class="flex items-center gap-2"><i class="fa-solid fa-location-dot text-red-400"></i> Durgapur, West Bengal, India</div>
+            </div>
+            <div class="flex gap-3 pt-2 text-lg">
+              <a href="#" class="text-slate-400 hover:text-sky transition"><i class="fa-brands fa-linkedin"></i></a>
+              <a href="#" class="text-slate-400 hover:text-sky transition"><i class="fa-brands fa-twitter"></i></a>
+              <a href="https://wa.me/9474065821" target="_blank" class="text-slate-400 hover:text-emerald-400 transition"><i class="fa-brands fa-whatsapp"></i></a>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 border-t border-white/5 pt-6 flex flex-col md:flex-row justify-between items-center text-[11px] text-slate-500 gap-4">
+          <div>© 2017–2026 NexaBot Agency Ltd.® All Rights Reserved.</div>
+          <div class="flex gap-4">
+            <a href="#" class="hover:text-slate-400 transition">Privacy Policy</a>
+            <a href="#" class="hover:text-slate-400 transition">Terms of Service</a>
+            <a href="#" class="hover:text-slate-400 transition">SLA Guarantee</a>
           </div>
         </div>
-        <div class="text-center mt-12 pt-6 border-t border-white/5 text-slate-600">
-          © 2017–2026 NexaBot Agency Ltd.® All Rights Reserved.
-        </div>
       </footer>
+
     </div>
 
     <!-- ── CLIENT DASHBOARD VIEW ── -->
@@ -651,7 +741,7 @@
         </div>
       </div>
 
-      <!-- PAYPAL CHECKOUT SECTION (STACKED SDK + FORM FALLBACK) -->
+      <!-- PAYPAL CHECKOUT SECTION -->
       <div class="dash-card bg-gradient-to-r from-amber-50 to-orange-50 border-amber-300">
         <div class="space-y-3">
           <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-amber-200/60 pb-3">
@@ -662,13 +752,11 @@
               </h3>
               <p class="text-xs text-slate-600">Pay your bot package ($899 USD) instantly using PayPal, Credit Card, Debit Card, or Apple Pay.</p>
             </div>
-            <!-- Direct Form Submit Fallback Button (Step 3) -->
             <form action="https://www.paypal.com/ncp/payment/94RBZUQRBPN3E" method="post" target="_blank" style="display:inline-grid;justify-items:center;">
               <input class="pp-94RBZUQRBPN3E" type="submit" value="Pay $899 via PayPal" />
             </form>
           </div>
 
-          <!-- STEP 2a SDK STACKED BUTTONS CONTAINER -->
           <div class="bg-white p-4 rounded-xl border border-amber-200 flex flex-col items-center justify-center min-h-[140px]">
             <div id="paypal-container-94RBZUQRBPN3E" class="w-full max-w-md"></div>
           </div>
@@ -903,6 +991,23 @@
       "Bot Deployed & Live"
     ];
 
+    // Generate Floating Upward Particles in Hero Background
+    (function createHeroParticles() {
+      const container = document.getElementById('particles-bg');
+      if (!container) return;
+      for (let i = 0; i < 25; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        const size = Math.random() * 6 + 2;
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        particle.style.left = `${Math.random() * 100}%`;
+        particle.style.animationDuration = `${Math.random() * 8 + 6}s`;
+        particle.style.animationDelay = `${Math.random() * 5}s`;
+        container.appendChild(particle);
+      }
+    })();
+
     function initDatabase() {
       if (!localStorage.getItem(DB_KEYS.USERS)) {
         const seedUsers = [
@@ -1045,7 +1150,6 @@
                 </div>
               </div>
 
-              <!-- Stage Tracker Progress Bar -->
               <div>
                 <div class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-3">Project Roadmap Stage Step</div>
                 <div class="grid grid-cols-2 md:grid-cols-6 gap-2 text-center text-xs">
@@ -1067,7 +1171,6 @@
         }).join('');
       }
 
-      // Initialize Hosted Buttons (Step 2a)
       if (!paypalInitialized) {
         setTimeout(() => {
           if (window.paypal && paypal.HostedButtons) {
@@ -1176,7 +1279,6 @@
     function openModal(id) { document.getElementById(id).classList.add('active'); }
     function closeModal(id) { document.getElementById(id).classList.remove('active'); }
 
-    // Offer Countdown Timer
     (function startTimer() {
       let secs = 42450;
       setInterval(() => {
