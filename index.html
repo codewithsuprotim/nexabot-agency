@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title> NexaBot AI Chatbot Agency® </title>
+  <title>NexaBot AI Chatbot Agency® — Executive Client & Admin Portal</title>
   <meta name="description" content="NexaBot AI Chatbot Agency builds WhatsApp Bots, Website Chatbots & Custom AI Bots. $799 One-time setup fee. $99 monthly maintenance fees. Live in 48 hours." />
   <link rel="icon" type="image/png" href="logos/nexabot-favicon.png" />
 
-  <!-- PayPal SDK -->
-  <script src="https://www.paypal.com/sdk/js?client-id=BAACylQi88Jo95HU3YkvcusJSZPGDH-XqBf0xP-4iIDjogJA7UB0Io-jVKjtepATI95Vp-gqzwr0dZYHdw&components=buttons,hosted-buttons&disable-funding=venmo&currency=USD"></script>
+  <!-- Official PayPal SDK with Hosted Buttons Component -->
+  <script src="https://www.paypal.com/sdk/js?client-id=BAACylQi88Jo95HU3YkvcusJSZPGDH-XqBf0xP-4iIDjogJA7UB0Io-jVKjtepATI95Vp-gqzwr0dZYHdw&components=hosted-buttons&disable-funding=venmo&currency=USD"></script>
   
   <!-- Google Fonts & Font Awesome -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -646,7 +646,7 @@
             <p class="text-xs text-blue-200 mt-1">Instant payment authorization using standard credit card, debit card, or PayPal balance.</p>
           </div>
           <button onclick="openPayPalDirectCheckoutModal()" class="bg-amber-400 hover:bg-amber-300 text-slate-900 font-bold px-6 py-3 rounded-xl text-xs transition flex items-center gap-2 whitespace-nowrap shadow-lg cursor-pointer">
-            <i class="fa-brands fa-paypal text-base"></i> Open PayPal Payment Window ($899)
+            <i class="fa-brands fa-paypal text-base"></i> Open PayPal Payment Window
           </button>
         </div>
       </div>
@@ -749,20 +749,23 @@
 
   <!-- ── 4. MODALS & SUPPORT CHAT DRAWER ── -->
 
-  <!-- PAYPAL DIRECT CHECKOUT MODAL -->
+  <!-- PAYPAL DIRECT CHECKOUT MODAL WITH LIVE HOSTED BUTTON -->
   <div id="paypal-modal" class="modal-backdrop">
-    <div class="modal-box max-w-md">
+    <div class="modal-box max-w-md text-center">
       <div class="flex justify-between items-center border-b pb-3 mb-4">
         <div class="font-black text-lg text-navy font-['Poppins']">PayPal Authorization Window</div>
         <button onclick="closeModal('paypal-modal')" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark"></i></button>
       </div>
       <div class="text-xs text-slate-600 mb-4">
-        Complete your $899 setup fee payment securely using PayPal direct card processing.
+        NEXABOT LIFETIME AI CHATBOT PACKAGE — Complete setup fee securely via PayPal Direct or Debit/Credit Card.
       </div>
-      <div id="paypal-modal-button-container" class="my-4"></div>
-      <button onclick="completeSimulatedPayPalPayment()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl text-xs transition">
-        Pay $899 USD via PayPal
-      </button>
+      
+      <!-- Official PayPal SDK Button Target Container -->
+      <div id="paypal-container-94RBZUQRPN3E" class="my-4 min-h-[120px] flex justify-center items-center"></div>
+
+      <div class="text-[11px] text-slate-400 mt-2">
+        Protected by 256-bit SSL PayPal Direct Encryption
+      </div>
     </div>
   </div>
 
@@ -885,6 +888,8 @@
     const API_BASE_URL = "https://nexabot-agency.onrender.com";
     const DB_KEYS = { USERS: 'nexabot_db_users', ORDERS: 'nexabot_db_orders', SESSION: 'nexabot_db_session' };
 
+    let paypalRendered = false;
+
     const PROJECT_STAGES = [
       "Payment Confirmed",
       "Requirement Analysis",
@@ -984,11 +989,15 @@
 
     async function handleStartOrder(method) {
       if (!auth.currentUser) { openAuthModal('client'); return; }
+      if (method === 'paypal') {
+        openPayPalDirectCheckoutModal();
+        return;
+      }
       const newOrder = {
         id: 'NEX-' + Math.floor(100000 + Math.random() * 900000),
         clientId: auth.currentUser.id, clientName: auth.currentUser.name,
         type: 'WhatsApp & Website AI Bot', amount: 899, paymentMethod: method,
-        status: method === 'paypal' ? 'active' : 'pending', stageIndex: 0, uploadedInvoice: null, createdAt: new Date().toISOString().split('T')[0]
+        status: 'pending', stageIndex: 0, uploadedInvoice: null, createdAt: new Date().toISOString().split('T')[0]
       };
       db.saveOrder(newOrder);
       try {
@@ -1112,11 +1121,12 @@
 
     function openPayPalDirectCheckoutModal() {
       openModal('paypal-modal');
-    }
-
-    function completeSimulatedPayPalPayment() {
-      alert("PayPal Payment Authorized ($899 USD). Order status updated to active!");
-      closeModal('paypal-modal');
+      if (!paypalRendered && window.paypal && paypal.HostedButtons) {
+        paypal.HostedButtons({
+          hostedButtonId: "94RBZUQRPN3E"
+        }).render("#paypal-container-94RBZUQRPN3E");
+        paypalRendered = true;
+      }
     }
 
     function generateInvoice(id) {
