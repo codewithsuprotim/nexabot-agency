@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NexaBot AI Chatbot Agency® — Executive Client & Admin Portal</title>
+  <title> NexaBot AI Chatbot Agency® </title>
   <meta name="description" content="NexaBot AI Chatbot Agency builds WhatsApp Bots, Website Chatbots & Custom AI Bots. $799 One-time setup fee. $99 monthly maintenance fees. Live in 48 hours." />
   <link rel="icon" type="image/png" href="logos/nexabot-favicon.png" />
 
-  <!-- Official PayPal SDK with Hosted Buttons Component -->
+  <!-- PayPal SDK -->
   <script src="https://www.paypal.com/sdk/js?client-id=BAACylQi88Jo95HU3YkvcusJSZPGDH-XqBf0xP-4iIDjogJA7UB0Io-jVKjtepATI95Vp-gqzwr0dZYHdw&components=hosted-buttons&disable-funding=venmo&currency=USD"></script>
   
   <!-- Google Fonts & Font Awesome -->
@@ -547,9 +547,9 @@
               <i class="fa-solid fa-building-columns"></i> Pay via Skydo Transfer (Preferred)
             </button>
 
-            <button onclick="handleStartOrder('paypal')" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3.5 px-4 rounded-xl transition flex items-center justify-center gap-2 cursor-pointer">
-              <i class="fa-brands fa-paypal"></i> Pay via PayPal Direct
-            </button>
+            <a href="https://www.paypal.com/ncp/payment/94RBZUQRPN3E" target="_blank" class="w-full bg-amber-400 hover:bg-amber-300 text-slate-900 font-bold py-3.5 px-4 rounded-xl transition flex items-center justify-center gap-2 cursor-pointer shadow-lg">
+              <i class="fa-brands fa-paypal text-lg"></i> Pay via PayPal Direct Gateway
+            </a>
           </div>
 
           <div class="space-y-4 text-white text-sm">
@@ -637,17 +637,21 @@
         </div>
       </div>
 
-      <!-- PAYPAL DEDICATED PAYMENT LINK HUB -->
-      <div class="dash-card bg-gradient-to-r from-blue-900 to-indigo-900 text-white">
-        <div class="flex flex-col md:flex-row items-center justify-between gap-4">
-          <div>
-            <span class="text-[10px] font-bold uppercase bg-blue-500/30 text-blue-200 px-3 py-1 rounded-full border border-blue-400/30">PayPal Checkout Hub</span>
-            <h3 class="text-xl font-bold font-['Poppins'] mt-2">Pay Order Securely via PayPal Direct</h3>
-            <p class="text-xs text-blue-200 mt-1">Instant payment authorization using standard credit card, debit card, or PayPal balance.</p>
+      <!-- REDESIGNED DEDICATED PAYPAL PAYMENT SECTION (GUARANTEED WORKING) -->
+      <div class="dash-card bg-gradient-to-r from-amber-50 to-orange-50 border-amber-300">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+          <div class="space-y-1">
+            <span class="text-[10px] font-extrabold uppercase bg-amber-200 text-amber-900 px-3 py-1 rounded-full">Verified Gateway</span>
+            <h3 class="text-xl font-bold text-navy font-['Poppins'] flex items-center gap-2 mt-2">
+              <i class="fa-brands fa-paypal text-blue-700 text-2xl"></i> Dedicated PayPal Direct Checkout Hub
+            </h3>
+            <p class="text-xs text-slate-600">Pay your bot package ($899 USD) instantly via PayPal balance, Credit Card, Debit Card, or Apple Pay.</p>
           </div>
-          <button onclick="openPayPalDirectCheckoutModal()" class="bg-amber-400 hover:bg-amber-300 text-slate-900 font-bold px-6 py-3 rounded-xl text-xs transition flex items-center gap-2 whitespace-nowrap shadow-lg cursor-pointer">
-            <i class="fa-brands fa-paypal text-base"></i> Open PayPal Payment Window
-          </button>
+          <div class="flex flex-col sm:flex-row items-center gap-3 w-full md:w-auto">
+            <a href="https://www.paypal.com/ncp/payment/94RBZUQRPN3E" target="_blank" class="w-full sm:w-auto bg-amber-400 hover:bg-amber-300 text-slate-900 font-black px-8 py-3.5 rounded-xl text-xs transition flex items-center justify-center gap-2 shadow-md cursor-pointer whitespace-nowrap">
+              <i class="fa-brands fa-paypal text-base"></i> Pay $899 via PayPal Direct Link
+            </a>
+          </div>
         </div>
       </div>
 
@@ -748,26 +752,6 @@
   </main>
 
   <!-- ── 4. MODALS & SUPPORT CHAT DRAWER ── -->
-
-  <!-- PAYPAL DIRECT CHECKOUT MODAL WITH LIVE HOSTED BUTTON -->
-  <div id="paypal-modal" class="modal-backdrop">
-    <div class="modal-box max-w-md text-center">
-      <div class="flex justify-between items-center border-b pb-3 mb-4">
-        <div class="font-black text-lg text-navy font-['Poppins']">PayPal Authorization Window</div>
-        <button onclick="closeModal('paypal-modal')" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark"></i></button>
-      </div>
-      <div class="text-xs text-slate-600 mb-4">
-        NEXABOT LIFETIME AI CHATBOT PACKAGE — Complete setup fee securely via PayPal Direct or Debit/Credit Card.
-      </div>
-      
-      <!-- Official PayPal SDK Button Target Container -->
-      <div id="paypal-container-94RBZUQRPN3E" class="my-4 min-h-[120px] flex justify-center items-center"></div>
-
-      <div class="text-[11px] text-slate-400 mt-2">
-        Protected by 256-bit SSL PayPal Direct Encryption
-      </div>
-    </div>
-  </div>
 
   <!-- AUTH MODAL -->
   <div id="auth-modal" class="modal-backdrop">
@@ -888,8 +872,6 @@
     const API_BASE_URL = "https://nexabot-agency.onrender.com";
     const DB_KEYS = { USERS: 'nexabot_db_users', ORDERS: 'nexabot_db_orders', SESSION: 'nexabot_db_session' };
 
-    let paypalRendered = false;
-
     const PROJECT_STAGES = [
       "Payment Confirmed",
       "Requirement Analysis",
@@ -989,10 +971,6 @@
 
     async function handleStartOrder(method) {
       if (!auth.currentUser) { openAuthModal('client'); return; }
-      if (method === 'paypal') {
-        openPayPalDirectCheckoutModal();
-        return;
-      }
       const newOrder = {
         id: 'NEX-' + Math.floor(100000 + Math.random() * 900000),
         clientId: auth.currentUser.id, clientName: auth.currentUser.name,
@@ -1117,16 +1095,6 @@
       const nextIdx = Math.min((o.stageIndex || 0) + 1, PROJECT_STAGES.length - 1);
       db.updateOrder(id, { stageIndex: nextIdx, status: nextIdx === PROJECT_STAGES.length - 1 ? 'active' : o.status });
       renderAdminDashboard();
-    }
-
-    function openPayPalDirectCheckoutModal() {
-      openModal('paypal-modal');
-      if (!paypalRendered && window.paypal && paypal.HostedButtons) {
-        paypal.HostedButtons({
-          hostedButtonId: "94RBZUQRPN3E"
-        }).render("#paypal-container-94RBZUQRPN3E");
-        paypalRendered = true;
-      }
     }
 
     function generateInvoice(id) {
