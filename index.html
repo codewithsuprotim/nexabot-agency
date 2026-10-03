@@ -7,8 +7,8 @@
   <meta name="description" content="NexaBot AI Chatbot Agency builds WhatsApp Bots, Website Chatbots & Custom AI Bots. $799 One-time setup fee. $99 monthly maintenance fees. Live in 48 hours." />
   <link rel="icon" type="image/png" href="logos/nexabot-favicon.png" />
 
-  <!-- PayPal SDK -->
-  <script src="https://www.paypal.com/sdk/js?client-id=BAACylQi88Jo95HU3YkvcusJSZPGDH-XqBf0xP-4iIDjogJA7UB0Io-jVKjtepATI95Vp-gqzwr0dZYHdw&components=hosted-buttons&disable-funding=venmo&currency=USD"></script>
+  <!-- PayPal SDK with Exact Client ID & Hosted-Buttons Component -->
+  <script src="https://www.paypal.com/sdk/js?client-id=BAACylQi88Jo95HU3YkvcusJSZPGDH-XqBf0xP-4iIDjogJA7UB0Io-jVKjtepATI95Vp-gqzwr0dZYHdw&components=hosted-buttons&disable-funding=venmo&currency=USD" crossorigin="anonymous" async></script>
   
   <!-- Google Fonts & Font Awesome -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -209,6 +209,15 @@
     #pricing { background: linear-gradient(160deg, #060f2e 0%, #0a2472 100%); padding: 90px 6%; }
     .pricing-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; max-width: 1100px; margin: 0 auto; align-items: center; }
     .price-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.15); backdrop-filter: blur(20px); border-radius: 24px; padding: 2.5rem; }
+
+    /* Official Single Button PayPal Style from Step 3 */
+    .pp-94RBZUQRBPN3E {
+      text-align: center; border: none; border-radius: 1.5rem; min-width: 220px;
+      height: 2.75rem; font-weight: bold; background-color: #FFD140; color: #000000;
+      font-family: "Helvetica Neue", Arial, sans-serif; font-size: 1rem; cursor: pointer;
+      transition: all 0.2s ease; box-shadow: 0 4px 12px rgba(255,209,64,0.3);
+    }
+    .pp-94RBZUQRBPN3E:hover { background-color: #f7c41e; transform: scale(1.02); }
 
     /* ─── DASHBOARDS & TRACKER ─── */
     .modal-backdrop {
@@ -543,13 +552,18 @@
               Includes <strong>$799 One-Time Setup Fee</strong> + <strong>$99 First Month Maintenance</strong>.
             </div>
 
-            <button onclick="handleStartOrder('skydo')" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 px-4 rounded-xl transition flex items-center justify-center gap-2 mb-3 cursor-pointer">
+            <button onclick="handleStartOrder('skydo')" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 px-4 rounded-xl transition flex items-center justify-center gap-2 mb-4 cursor-pointer">
               <i class="fa-solid fa-building-columns"></i> Pay via Skydo Transfer (Preferred)
             </button>
 
-            <a href="https://www.paypal.com/ncp/payment/94RBZUQRPN3E" target="_blank" class="w-full bg-amber-400 hover:bg-amber-300 text-slate-900 font-bold py-3.5 px-4 rounded-xl transition flex items-center justify-center gap-2 cursor-pointer shadow-lg">
-              <i class="fa-brands fa-paypal text-lg"></i> Pay via PayPal Direct Gateway
-            </a>
+            <!-- STEP 3 OFFICIAL PAYPAL SINGLE BUTTON FORM SUBMIT (100% RELIABLE) -->
+            <div class="flex justify-center w-full">
+              <form action="https://www.paypal.com/ncp/payment/94RBZUQRBPN3E" method="post" target="_blank" style="display:inline-grid;justify-items:center;align-content:start;gap:0.5rem;width:100%;">
+                <input class="pp-94RBZUQRBPN3E" style="width:100%;" type="submit" value="Pay $899 via PayPal Direct" />
+                <img src="https://www.paypalobjects.com/images/Debit_Credit_APM.svg" alt="cards" />
+                <section style="font-size: 0.75rem; color: #94a3b8;"> Powered by <img src="https://www.paypalobjects.com/paypal-ui/logos/svg/paypal-wordmark-color.svg" alt="paypal" style="height:0.875rem; vertical-align:middle;"/></section>
+              </form>
+            </div>
           </div>
 
           <div class="space-y-4 text-white text-sm">
@@ -637,20 +651,26 @@
         </div>
       </div>
 
-      <!-- REDESIGNED DEDICATED PAYPAL PAYMENT SECTION (GUARANTEED WORKING) -->
+      <!-- PAYPAL CHECKOUT SECTION (STACKED SDK + FORM FALLBACK) -->
       <div class="dash-card bg-gradient-to-r from-amber-50 to-orange-50 border-amber-300">
-        <div class="flex flex-col md:flex-row items-center justify-between gap-6">
-          <div class="space-y-1">
-            <span class="text-[10px] font-extrabold uppercase bg-amber-200 text-amber-900 px-3 py-1 rounded-full">Verified Gateway</span>
-            <h3 class="text-xl font-bold text-navy font-['Poppins'] flex items-center gap-2 mt-2">
-              <i class="fa-brands fa-paypal text-blue-700 text-2xl"></i> Dedicated PayPal Direct Checkout Hub
-            </h3>
-            <p class="text-xs text-slate-600">Pay your bot package ($899 USD) instantly via PayPal balance, Credit Card, Debit Card, or Apple Pay.</p>
+        <div class="space-y-3">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-amber-200/60 pb-3">
+            <div>
+              <span class="text-[10px] font-extrabold uppercase bg-amber-200 text-amber-900 px-3 py-1 rounded-full">Official Payment Gateway</span>
+              <h3 class="text-xl font-bold text-navy font-['Poppins'] flex items-center gap-2 mt-2">
+                <i class="fa-brands fa-paypal text-blue-700 text-2xl"></i> PayPal Direct Checkout
+              </h3>
+              <p class="text-xs text-slate-600">Pay your bot package ($899 USD) instantly using PayPal, Credit Card, Debit Card, or Apple Pay.</p>
+            </div>
+            <!-- Direct Form Submit Fallback Button (Step 3) -->
+            <form action="https://www.paypal.com/ncp/payment/94RBZUQRBPN3E" method="post" target="_blank" style="display:inline-grid;justify-items:center;">
+              <input class="pp-94RBZUQRBPN3E" type="submit" value="Pay $899 via PayPal" />
+            </form>
           </div>
-          <div class="flex flex-col sm:flex-row items-center gap-3 w-full md:w-auto">
-            <a href="https://www.paypal.com/ncp/payment/94RBZUQRPN3E" target="_blank" class="w-full sm:w-auto bg-amber-400 hover:bg-amber-300 text-slate-900 font-black px-8 py-3.5 rounded-xl text-xs transition flex items-center justify-center gap-2 shadow-md cursor-pointer whitespace-nowrap">
-              <i class="fa-brands fa-paypal text-base"></i> Pay $899 via PayPal Direct Link
-            </a>
+
+          <!-- STEP 2a SDK STACKED BUTTONS CONTAINER -->
+          <div class="bg-white p-4 rounded-xl border border-amber-200 flex flex-col items-center justify-center min-h-[140px]">
+            <div id="paypal-container-94RBZUQRBPN3E" class="w-full max-w-md"></div>
           </div>
         </div>
       </div>
@@ -872,6 +892,8 @@
     const API_BASE_URL = "https://nexabot-agency.onrender.com";
     const DB_KEYS = { USERS: 'nexabot_db_users', ORDERS: 'nexabot_db_orders', SESSION: 'nexabot_db_session' };
 
+    let paypalInitialized = false;
+
     const PROJECT_STAGES = [
       "Payment Confirmed",
       "Requirement Analysis",
@@ -1005,46 +1027,57 @@
       
       if (orders.length === 0) {
         container.innerHTML = `<div class="p-6 text-center text-slate-400">No active orders found. Submit a new order to get started.</div>`;
-        return;
+      } else {
+        container.innerHTML = orders.map(o => {
+          const currentStage = o.stageIndex || 0;
+          return `
+            <div class="border rounded-xl p-5 bg-slate-50 space-y-4">
+              <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 border-b pb-3">
+                <div>
+                  <span class="font-bold text-navy text-lg">${o.id}</span> — <span class="text-slate-700 font-medium">${o.type}</span>
+                </div>
+                <div class="flex items-center gap-3 flex-wrap">
+                  <span class="uppercase font-bold text-xs bg-slate-200 px-2.5 py-1 rounded text-slate-700">${o.paymentMethod}</span>
+                  <span class="font-bold text-navy">$${o.amount}</span>
+                  <span class="status-badge status-${o.status}">${o.status}</span>
+                  <button onclick="generateInvoice('${o.id}')" class="bg-white border hover:bg-slate-100 text-slate-800 font-bold px-3 py-1 rounded text-xs">Standard Invoice</button>
+                  ${o.uploadedInvoice ? `<a href="${o.uploadedInvoice.data}" download="${o.uploadedInvoice.name}" class="bg-emerald-600 text-white font-bold px-3 py-1 rounded text-xs hover:bg-emerald-700 transition"><i class="fa-solid fa-download mr-1"></i> Admin Invoice (${o.uploadedInvoice.name})</a>` : ''}
+                </div>
+              </div>
+
+              <!-- Stage Tracker Progress Bar -->
+              <div>
+                <div class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-3">Project Roadmap Stage Step</div>
+                <div class="grid grid-cols-2 md:grid-cols-6 gap-2 text-center text-xs">
+                  ${PROJECT_STAGES.map((st, idx) => {
+                    let cls = "step-pending";
+                    if (idx < currentStage) cls = "step-complete";
+                    else if (idx === currentStage) cls = "step-active";
+                    return `
+                      <div class="p-2 border rounded-lg bg-white flex flex-col items-center justify-center gap-1">
+                        <div class="step-node ${cls}">${idx < currentStage ? '✓' : idx + 1}</div>
+                        <span class="font-semibold text-[10px] text-slate-700 leading-tight">${st}</span>
+                      </div>
+                    `;
+                  }).join('')}
+                </div>
+              </div>
+            </div>
+          `;
+        }).join('');
       }
 
-      container.innerHTML = orders.map(o => {
-        const currentStage = o.stageIndex || 0;
-        return `
-          <div class="border rounded-xl p-5 bg-slate-50 space-y-4">
-            <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 border-b pb-3">
-              <div>
-                <span class="font-bold text-navy text-lg">${o.id}</span> — <span class="text-slate-700 font-medium">${o.type}</span>
-              </div>
-              <div class="flex items-center gap-3 flex-wrap">
-                <span class="uppercase font-bold text-xs bg-slate-200 px-2.5 py-1 rounded text-slate-700">${o.paymentMethod}</span>
-                <span class="font-bold text-navy">$${o.amount}</span>
-                <span class="status-badge status-${o.status}">${o.status}</span>
-                <button onclick="generateInvoice('${o.id}')" class="bg-white border hover:bg-slate-100 text-slate-800 font-bold px-3 py-1 rounded text-xs">Standard Invoice</button>
-                ${o.uploadedInvoice ? `<a href="${o.uploadedInvoice.data}" download="${o.uploadedInvoice.name}" class="bg-emerald-600 text-white font-bold px-3 py-1 rounded text-xs hover:bg-emerald-700 transition"><i class="fa-solid fa-download mr-1"></i> Admin Invoice (${o.uploadedInvoice.name})</a>` : ''}
-              </div>
-            </div>
-
-            <!-- Stage Tracker Progress Bar -->
-            <div>
-              <div class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-3">Project Roadmap Stage Step</div>
-              <div class="grid grid-cols-2 md:grid-cols-6 gap-2 text-center text-xs">
-                ${PROJECT_STAGES.map((st, idx) => {
-                  let cls = "step-pending";
-                  if (idx < currentStage) cls = "step-complete";
-                  else if (idx === currentStage) cls = "step-active";
-                  return `
-                    <div class="p-2 border rounded-lg bg-white flex flex-col items-center justify-center gap-1">
-                      <div class="step-node ${cls}">${idx < currentStage ? '✓' : idx + 1}</div>
-                      <span class="font-semibold text-[10px] text-slate-700 leading-tight">${st}</span>
-                    </div>
-                  `;
-                }).join('')}
-              </div>
-            </div>
-          </div>
-        `;
-      }).join('');
+      // Initialize Hosted Buttons (Step 2a)
+      if (!paypalInitialized) {
+        setTimeout(() => {
+          if (window.paypal && paypal.HostedButtons) {
+            paypal.HostedButtons({
+              hostedButtonId: "94RBZUQRBPN3E",
+            }).render("#paypal-container-94RBZUQRBPN3E");
+            paypalInitialized = true;
+          }
+        }, 300);
+      }
     }
 
     function renderAdminDashboard() {
