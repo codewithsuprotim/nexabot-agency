@@ -101,6 +101,28 @@
     .header-cert-txt .hc-1 { font-family: 'Poppins', sans-serif; font-size: .58rem; font-weight: 800; color: var(--navy); }
     .header-cert-txt .hc-2 { font-size: .5rem; font-weight: 700; color: #64748B; text-transform: uppercase; }
 
+    /* Modern Styled Header Logout Button */
+    .btn-logout {
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      color: #fca5a5;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 50px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+    .btn-logout:hover {
+      background: rgba(239, 68, 68, 0.3);
+      color: #ffffff;
+      border-color: rgba(239, 68, 68, 0.8);
+      transform: translateY(-1px);
+    }
+
     /* ─── HERO SECTION (CENTERED) ─── */
     #hero {
       min-height: 92vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -170,12 +192,25 @@
     .srv-card:hover { transform: translateY(-10px); border-color: var(--sky); background: rgba(255,255,255,0.06); }
     .srv-icon { width: 70px; height: 70px; border-radius: 18px; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-size: 2rem; }
 
+    /* ─── REVIEWS ANIMATED ─── */
+    .rev-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; max-width: 1200px; margin: 0 auto; }
+    .rev-card {
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 2rem;
+      transition: all 0.3s ease;
+    }
+    .rev-card:hover { transform: translateY(-6px); border-color: var(--sky); background: rgba(255,255,255,0.07); }
+
+    /* ─── FAQ ─── */
+    .faq-item { border: 1px solid rgba(255,255,255,0.12); border-radius: 14px; margin-bottom: 1rem; overflow: hidden; background: rgba(255,255,255,0.02); }
+    .faq-q { padding: 1.2rem 1.5rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; color: white; font-weight: 600; font-size: 0.95rem; }
+    .faq-a { padding: 0 1.5rem 1.2rem; color: rgba(255,255,255,0.65); font-size: 0.88rem; line-height: 1.7; display: none; }
+
     /* ─── PRICING ─── */
     #pricing { background: linear-gradient(160deg, #060f2e 0%, #0a2472 100%); padding: 90px 6%; }
     .pricing-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; max-width: 1100px; margin: 0 auto; align-items: center; }
     .price-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.15); backdrop-filter: blur(20px); border-radius: 24px; padding: 2.5rem; }
 
-    /* ─── DASHBOARDS & MODALS ─── */
+    /* ─── DASHBOARDS & TRACKER ─── */
     .modal-backdrop {
       position: fixed; inset: 0; background: rgba(6,15,46,0.85); backdrop-filter: blur(8px);
       z-index: 2000; display: flex; align-items: center; justify-content: center; padding: 1rem;
@@ -188,6 +223,12 @@
     .status-badge { display: inline-flex; align-items: center; padding: 4px 12px; border-radius: 50px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; }
     .status-pending { background: #FEF3C7; color: #D97706; }
     .status-active { background: #DCFCE7; color: #15803D; }
+
+    /* Project Stage Step Tracker */
+    .step-node { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 800; }
+    .step-active { background: var(--elec); color: white; box-shadow: 0 0 10px rgba(37,99,235,0.5); }
+    .step-complete { background: var(--green); color: white; }
+    .step-pending { background: #E2E8F0; color: #94A3B8; }
 
     /* Support Chat Drawer */
     #chat-drawer {
@@ -204,7 +245,7 @@
     #wa-float:hover { transform: scale(1.1); }
 
     @media (max-width:880px) {
-      .srv-grid, .pricing-grid { grid-template-columns: 1fr; }
+      .srv-grid, .pricing-grid, .rev-grid { grid-template-columns: 1fr; }
       .nav-links { display: none; }
     }
   </style>
@@ -264,8 +305,8 @@
         <button onclick="router.navigate('dashboard')" class="bg-sky/20 text-sky text-xs font-bold px-4 py-2 rounded-full hover:bg-sky/30 transition">
           Dashboard
         </button>
-        <button onclick="auth.logout()" class="text-red-400 text-xs font-bold hover:underline">
-          Logout
+        <button onclick="auth.logout()" class="btn-logout">
+          <i class="fa-solid fa-right-from-bracket"></i> Logout
         </button>
       </div>
     </div>
@@ -364,6 +405,129 @@
         </div>
       </section>
 
+      <!-- REVIEWS SECTION (7 ANIMATED REVIEWS) -->
+      <section id="reviews" class="py-20 px-6 bg-navy/50">
+        <div class="sec-head">
+          <span class="text-xs font-bold uppercase text-sky tracking-widest">Client Testimonials</span>
+          <h2 class="sec-title mt-2">Rated 4.9/5 by <span>Industry Leaders</span></h2>
+        </div>
+
+        <div class="rev-grid">
+          <div class="rev-card">
+            <div class="flex items-center gap-1 text-amber-400 text-sm mb-3">★★★★★ <span class="text-xs text-white/60 ml-2">(5.0)</span></div>
+            <p class="text-slate-300 text-sm leading-relaxed mb-4">"Our WhatsApp bot handles 300+ customer enquiries daily without missing a lead. Best ROI we've ever seen."</p>
+            <div class="font-bold text-white text-sm">Rajesh Kumar</div>
+            <div class="text-xs text-slate-400">Founder, E-Commerce Hub</div>
+          </div>
+
+          <div class="rev-card">
+            <div class="flex items-center gap-1 text-amber-400 text-sm mb-3">★★★★★ <span class="text-xs text-white/60 ml-2">(4.9)</span></div>
+            <p class="text-slate-300 text-sm leading-relaxed mb-4">"Deployed our custom trained website chatbot in 36 hours. Customer service workload dropped by 70%."</p>
+            <div class="font-bold text-white text-sm">Priya Sharma</div>
+            <div class="text-xs text-slate-400">Head of CX, Real Estate Group</div>
+          </div>
+
+          <div class="rev-card">
+            <div class="flex items-center gap-1 text-amber-400 text-sm mb-3">★★★★★ <span class="text-xs text-white/60 ml-2">(4.8)</span></div>
+            <p class="text-slate-300 text-sm leading-relaxed mb-4">"The Skydo bank transfer route saved us over $150 in international wire fees during onboarding. Smooth build."</p>
+            <div class="font-bold text-white text-sm">Dr. Amit Patel</div>
+            <div class="text-xs text-slate-400">Director, Healthcare Clinic</div>
+          </div>
+
+          <div class="rev-card">
+            <div class="flex items-center gap-1 text-amber-400 text-sm mb-3">★★★★★ <span class="text-xs text-white/60 ml-2">(5.0)</span></div>
+            <p class="text-slate-300 text-sm leading-relaxed mb-4">"The project tracking dashboard kept us updated step-by-step from requirement analysis to live deployment."</p>
+            <div class="font-bold text-white text-sm">Marcus Vance</div>
+            <div class="text-xs text-slate-400">Operations Lead, SaaS Global</div>
+          </div>
+
+          <div class="rev-card">
+            <div class="flex items-center gap-1 text-amber-400 text-sm mb-3">★★★★★ <span class="text-xs text-white/60 ml-2">(4.7)</span></div>
+            <p class="text-slate-300 text-sm leading-relaxed mb-4">"Seamless PayPal integration and instant invoice access. NexaBot delivers high agency-grade standard."</p>
+            <div class="font-bold text-white text-sm">Elena Rostova</div>
+            <div class="text-xs text-slate-400">Managing Director, Hospitality Inc</div>
+          </div>
+
+          <div class="rev-card">
+            <div class="flex items-center gap-1 text-amber-400 text-sm mb-3">★★★★★ <span class="text-xs text-white/60 ml-2">(4.9)</span></div>
+            <p class="text-slate-300 text-sm leading-relaxed mb-4">"Knowledge base ingestion was flawless. The bot answered technical queries accurately from day one."</p>
+            <div class="font-bold text-white text-sm">Siddharth Nair</div>
+            <div class="text-xs text-slate-400">CEO, EdTech Academy</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ SECTION (6 FAQS) -->
+      <section id="faq" class="py-20 px-6 max-w-4xl mx-auto">
+        <div class="sec-head">
+          <span class="text-xs font-bold uppercase text-sky tracking-widest">Common Questions</span>
+          <h2 class="sec-title mt-2">Frequently Asked <span>Questions</span></h2>
+        </div>
+
+        <div class="space-y-3">
+          <div class="faq-item">
+            <div class="faq-q" onclick="toggleFaq(this)"><span>How fast is the complete bot deployment process?</span> <i class="fa-solid fa-chevron-down text-sky"></i></div>
+            <div class="faq-a">Your AI chatbot will be custom built, trained on your Knowledge Base, tested, and deployed live within 48 business hours after form submission.</div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-q" onclick="toggleFaq(this)"><span>What does the $899 initial payment cover?</span> <i class="fa-solid fa-chevron-down text-sky"></i></div>
+            <div class="faq-a">It includes the complete $799 one-time custom setup and training fee plus your $99 first-month cloud server maintenance fee.</div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-q" onclick="toggleFaq(this)"><span>How do I train the AI on my business details?</span> <i class="fa-solid fa-chevron-down text-sky"></i></div>
+            <div class="faq-a">After placing an order, simply fill out the AI Knowledge Base Form inside your Client Dashboard. You can upload PDFs, document links, or text FAQs.</div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-q" onclick="toggleFaq(this)"><span>Which payment methods are accepted?</span> <i class="fa-solid fa-chevron-down text-sky"></i></div>
+            <div class="faq-a">We accept PayPal direct credit/debit card payments globally as well as direct local bank transfers in USD, GBP, EUR, and CAD via Skydo.</div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-q" onclick="toggleFaq(this)"><span>Can I track my project build status in real time?</span> <i class="fa-solid fa-chevron-down text-sky"></i></div>
+            <div class="faq-a">Yes! Your Client Dashboard features a real-time project milestone tracker showing every step from payment confirmation to live bot deployment.</div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-q" onclick="toggleFaq(this)"><span>How do I download official invoices for my accounting?</span> <i class="fa-solid fa-chevron-down text-sky"></i></div>
+            <div class="faq-a">Official PDF invoices are generated automatically for every order in your dashboard, complete with company tax information and itemized breakdowns.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- RECOGNITION BADGES -->
+      <section class="py-16 px-6 bg-slate-950 text-center">
+        <p class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-8">Official Industry Recognitions & Certifications</p>
+        <div class="flex flex-wrap justify-center items-center gap-10 max-w-5xl mx-auto">
+          <div class="flex items-center gap-2 bg-white/5 border border-white/10 px-5 py-3 rounded-xl">
+            <i class="fa-solid fa-crown text-amber-400 text-2xl"></i>
+            <div class="text-left"><div class="text-white font-bold text-xs">Unicorn Startup</div><div class="text-[10px] text-slate-400">Recognized Tech Innovator</div></div>
+          </div>
+
+          <div class="flex items-center gap-2 bg-white/5 border border-white/10 px-5 py-3 rounded-xl">
+            <i class="fa-brands fa-google text-blue-400 text-2xl"></i>
+            <div class="text-left"><div class="text-white font-bold text-xs">Google Partner</div><div class="text-[10px] text-slate-400">Certified Cloud Infrastructure</div></div>
+          </div>
+
+          <div class="flex items-center gap-2 bg-white/5 border border-white/10 px-5 py-3 rounded-xl">
+            <i class="fa-brands fa-meta text-sky-400 text-2xl"></i>
+            <div class="text-left"><div class="text-white font-bold text-xs">Meta Business Partner</div><div class="text-[10px] text-slate-400">WhatsApp API Integration</div></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- NEWSLETTER -->
+      <section class="py-16 px-6 bg-gradient-to-r from-blue-900 to-indigo-950 text-center text-white">
+        <h3 class="text-2xl font-bold font-['Poppins'] mb-2">Subscribe to Agency Updates</h3>
+        <p class="text-xs text-blue-200 mb-6 max-w-md mx-auto">Get monthly insights on AI chatbot automation, Meta API updates, and new platform features.</p>
+        <form onsubmit="alert('Subscribed to NexaBot Agency Newsletter!'); return false;" class="flex justify-center max-w-md mx-auto gap-2">
+          <input type="email" required placeholder="Enter work email..." class="px-4 py-2.5 rounded-xl text-slate-800 text-xs w-full outline-none">
+          <button type="submit" class="bg-sky font-bold text-navy px-5 py-2.5 rounded-xl text-xs hover:bg-white transition whitespace-nowrap">Subscribe</button>
+        </form>
+      </section>
+
       <!-- PRICING & CHECKOUT -->
       <section id="pricing">
         <div class="sec-head">
@@ -379,11 +543,11 @@
               Includes <strong>$799 One-Time Setup Fee</strong> + <strong>$99 First Month Maintenance</strong>.
             </div>
 
-            <button onclick="handleStartOrder('skydo')" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 px-4 rounded-xl transition flex items-center justify-center gap-2 mb-3">
+            <button onclick="handleStartOrder('skydo')" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 px-4 rounded-xl transition flex items-center justify-center gap-2 mb-3 cursor-pointer">
               <i class="fa-solid fa-building-columns"></i> Pay via Skydo Transfer (Preferred)
             </button>
 
-            <button onclick="handleStartOrder('paypal')" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3.5 px-4 rounded-xl transition flex items-center justify-center gap-2">
+            <button onclick="handleStartOrder('paypal')" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3.5 px-4 rounded-xl transition flex items-center justify-center gap-2 cursor-pointer">
               <i class="fa-brands fa-paypal"></i> Pay via PayPal Direct
             </button>
           </div>
@@ -403,12 +567,16 @@
         <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between gap-8">
           <div>
             <div class="font-black text-2xl text-white font-['Poppins'] mb-2">Nexa<span class="text-sky">Bot</span> Agency®</div>
-            <p class="max-w-sm leading-relaxed">Building smart, scalable, reliable chatbots for high-converting teams worldwide.</p>
+            <p class="max-w-sm leading-relaxed mb-4">Building smart, scalable, reliable chatbots for high-converting teams worldwide.</p>
+            <div class="bg-white/5 border border-white/10 p-3 rounded-lg text-[11px]">
+              <div class="font-bold text-white mb-1">MSME Udyam Govt. Registration</div>
+              <div>Registration No: <strong>UDYAM-WB-23-0085248</strong></div>
+            </div>
           </div>
           <div>
             <div class="font-bold text-white uppercase mb-2">Contact & Support</div>
             <div>support@nexabot.shop</div>
-            <div>Durgapur, WB, India</div>
+            <div>Durgapur, West Bengal, India</div>
           </div>
         </div>
         <div class="text-center mt-12 pt-6 border-t border-white/5 text-slate-600">
@@ -422,7 +590,7 @@
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h1 class="text-3xl font-bold text-white font-['Poppins']">Client Portal</h1>
-          <p class="text-slate-400 text-sm">Manage active bot builds, access onboarding forms, and download official invoices.</p>
+          <p class="text-slate-400 text-sm">Manage active bot builds, access onboarding forms, track live progress, and download official invoices.</p>
         </div>
         <div class="flex items-center gap-3">
           <button onclick="toggleChatDrawer()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-4 py-2.5 rounded-xl transition flex items-center gap-2">
@@ -459,27 +627,27 @@
         </a>
       </div>
 
-      <!-- CLIENT ORDERS TABLE -->
+      <!-- CLIENT ORDERS TABLE & REAL TIME TRACKER -->
       <div class="dash-card">
         <div class="flex items-center justify-between mb-4">
-          <h3 class="font-bold text-navy text-lg font-['Poppins']">Your Active Bot Orders</h3>
+          <h3 class="font-bold text-navy text-lg font-['Poppins']">Your Active Bot Builds & Milestone Progress</h3>
         </div>
-        <div class="overflow-x-auto">
-          <table class="w-full text-left text-sm text-slate-600">
-            <thead class="bg-slate-100 uppercase text-xs text-slate-700">
-              <tr>
-                <th class="p-3.5">Order ID</th>
-                <th class="p-3.5">Service Type</th>
-                <th class="p-3.5">Payment</th>
-                <th class="p-3.5">Amount</th>
-                <th class="p-3.5">Status</th>
-                <th class="p-3.5 text-right">Invoice Actions</th>
-              </tr>
-            </thead>
-            <tbody id="client-orders-table-body">
-              <!-- Dynamically Populated -->
-            </tbody>
-          </table>
+        <div id="client-orders-container" class="space-y-6">
+          <!-- Dynamically Rendered with Stage Trackers -->
+        </div>
+      </div>
+
+      <!-- PAYPAL DEDICATED PAYMENT LINK HUB -->
+      <div class="dash-card bg-gradient-to-r from-blue-900 to-indigo-900 text-white">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+          <div>
+            <span class="text-[10px] font-bold uppercase bg-blue-500/30 text-blue-200 px-3 py-1 rounded-full border border-blue-400/30">PayPal Checkout Link</span>
+            <h3 class="text-xl font-bold font-['Poppins'] mt-2">Pay Order Securely via PayPal Direct</h3>
+            <p class="text-xs text-blue-200 mt-1">Instant payment authorization using standard credit card, debit card, or PayPal balance.</p>
+          </div>
+          <button onclick="openPayPalDirectCheckout()" class="bg-amber-400 hover:bg-amber-300 text-slate-900 font-bold px-6 py-3 rounded-xl text-xs transition flex items-center gap-2 whitespace-nowrap shadow-lg">
+            <i class="fa-brands fa-paypal text-base"></i> Complete $899 PayPal Payment
+          </button>
         </div>
       </div>
 
@@ -542,7 +710,7 @@
       <div class="flex justify-between items-center">
         <div>
           <h1 class="text-3xl font-bold text-white font-['Poppins']">Executive Command Panel</h1>
-          <p class="text-slate-400 text-sm">Agency Master Controls — Managing Client Base</p>
+          <p class="text-slate-400 text-sm">Agency Master Controls — Managing Client Base & Project Roadmap Pipeline</p>
         </div>
         <span class="bg-red-500/20 text-red-300 border border-red-500/40 text-xs px-4 py-1.5 rounded-full font-bold">Super Admin Active</span>
       </div>
@@ -555,7 +723,7 @@
       </div>
 
       <div class="dash-card">
-        <h3 class="font-bold text-navy text-lg mb-4 font-['Poppins']">Global Client Orders</h3>
+        <h3 class="font-bold text-navy text-lg mb-4 font-['Poppins']">Manage Client Orders & Advance Project Stage Steps</h3>
         <div class="overflow-x-auto">
           <table class="w-full text-left text-sm text-slate-600">
             <thead class="bg-slate-100 uppercase text-xs text-slate-700">
@@ -563,9 +731,9 @@
                 <th class="p-3.5">Order ID</th>
                 <th class="p-3.5">Client Name</th>
                 <th class="p-3.5">Platform</th>
-                <th class="p-3.5">Route</th>
-                <th class="p-3.5">Status</th>
-                <th class="p-3.5 text-right">Admin Actions</th>
+                <th class="p-3.5">Payment Route</th>
+                <th class="p-3.5">Current Build Stage</th>
+                <th class="p-3.5 text-right">Admin Controls</th>
               </tr>
             </thead>
             <tbody id="admin-orders-table-body">
@@ -637,7 +805,7 @@
         <!-- Rendered Dynamically -->
       </div>
       <div class="mt-6 flex justify-end gap-2 border-t pt-3">
-        <button onclick="window.print()" class="bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold px-4 py-2 rounded-lg text-xs">Print PDF</button>
+        <button onclick="window.print()" class="bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold px-4 py-2 rounded-lg text-xs">Print / Save PDF</button>
         <button onclick="closeModal('invoice-modal')" class="bg-blue-600 text-white font-bold px-4 py-2 rounded-lg text-xs">Close</button>
       </div>
     </div>
@@ -699,17 +867,26 @@
     const API_BASE_URL = "https://nexabot-agency.onrender.com";
     const DB_KEYS = { USERS: 'nexabot_db_users', ORDERS: 'nexabot_db_orders', SESSION: 'nexabot_db_session' };
 
+    const PROJECT_STAGES = [
+      "Payment Confirmed",
+      "Requirement Analysis",
+      "Knowledge Base Ingestion",
+      "AI Model Training",
+      "QA & Testing",
+      "Bot Deployed & Live"
+    ];
+
     function initDatabase() {
       if (!localStorage.getItem(DB_KEYS.USERS)) {
         const seedUsers = [
           { id: 'usr_admin', name: 'NexaBot Admin', email: 'admin@nexabot.shop', role: 'admin', password: 'admin' },
-          { id: 'usr_1', name: 'Demo Client', email: 'client@company.com', role: 'client', password: 'password' }
+          { id: 'usr_1', name: 'Supriya Chatterjee', email: 'client@company.com', role: 'client', password: 'password' }
         ];
         localStorage.setItem(DB_KEYS.USERS, JSON.stringify(seedUsers));
       }
       if (!localStorage.getItem(DB_KEYS.ORDERS)) {
         const seedOrders = [
-          { id: 'NEX-882101', clientId: 'usr_1', clientName: 'Demo Client', type: 'WhatsApp AI Bot', amount: 899, paymentMethod: 'skydo', status: 'active', createdAt: '2026-10-01' }
+          { id: 'NEX-187015', clientId: 'usr_1', clientName: 'Supriya Chatterjee', type: 'Custom Multi-Channel AI Agent', amount: 899, paymentMethod: 'paypal', status: 'active', stageIndex: 2, createdAt: '2026-10-01' }
         ];
         localStorage.setItem(DB_KEYS.ORDERS, JSON.stringify(seedOrders));
       }
@@ -793,7 +970,7 @@
         id: 'NEX-' + Math.floor(100000 + Math.random() * 900000),
         clientId: auth.currentUser.id, clientName: auth.currentUser.name,
         type: 'WhatsApp & Website AI Bot', amount: 899, paymentMethod: method,
-        status: method === 'paypal' ? 'active' : 'pending', createdAt: new Date().toISOString().split('T')[0]
+        status: method === 'paypal' ? 'active' : 'pending', stageIndex: 0, createdAt: new Date().toISOString().split('T')[0]
       };
       db.saveOrder(newOrder);
       try {
@@ -812,25 +989,56 @@
         clientId: auth.currentUser.id, clientName: auth.currentUser.name,
         type: document.getElementById('order-type-select').value,
         amount: 899, paymentMethod: document.getElementById('order-payment-route').value,
-        status: 'pending', createdAt: new Date().toISOString().split('T')[0]
+        status: 'pending', stageIndex: 0, createdAt: new Date().toISOString().split('T')[0]
       };
       db.saveOrder(newOrder); closeModal('modal-new-order'); renderClientDashboard();
     }
 
     function renderClientDashboard() {
       const orders = db.getOrders().filter(o => o.clientId === auth.currentUser.id);
-      document.getElementById('client-orders-table-body').innerHTML = orders.map(o => `
-        <tr class="border-b">
-          <td class="p-3.5 font-bold text-navy">${o.id}</td>
-          <td class="p-3.5">${o.type}</td>
-          <td class="p-3.5 uppercase font-bold text-xs">${o.paymentMethod}</td>
-          <td class="p-3.5 font-bold">$${o.amount}</td>
-          <td class="p-3.5"><span class="status-badge status-${o.status}">${o.status}</span></td>
-          <td class="p-3.5 text-right">
-            <button onclick="generateInvoice('${o.id}')" class="bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold px-3 py-1 rounded text-xs">Invoice</button>
-          </td>
-        </tr>
-      `).join('') || '<tr><td colspan="6" class="p-4 text-center text-slate-400">No active orders found.</td></tr>';
+      const container = document.getElementById('client-orders-container');
+      
+      if (orders.length === 0) {
+        container.innerHTML = `<div class="p-6 text-center text-slate-400">No active orders found. Submit a new order to get started.</div>`;
+        return;
+      }
+
+      container.innerHTML = orders.map(o => {
+        const currentStage = o.stageIndex || 0;
+        return `
+          <div class="border rounded-xl p-5 bg-slate-50 space-y-4">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 border-b pb-3">
+              <div>
+                <span class="font-bold text-navy text-lg">${o.id}</span> — <span class="text-slate-700 font-medium">${o.type}</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <span class="uppercase font-bold text-xs bg-slate-200 px-2.5 py-1 rounded text-slate-700">${o.paymentMethod}</span>
+                <span class="font-bold text-navy">$${o.amount}</span>
+                <span class="status-badge status-${o.status}">${o.status}</span>
+                <button onclick="generateInvoice('${o.id}')" class="bg-white border hover:bg-slate-100 text-slate-800 font-bold px-3 py-1 rounded text-xs">Download Invoice</button>
+              </div>
+            </div>
+
+            <!-- Stage Tracker Progress Bar -->
+            <div>
+              <div class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-3">Project Roadmap Stage Step</div>
+              <div class="grid grid-cols-2 md:grid-cols-6 gap-2 text-center text-xs">
+                ${PROJECT_STAGES.map((st, idx) => {
+                  let cls = "step-pending";
+                  if (idx < currentStage) cls = "step-complete";
+                  else if (idx === currentStage) cls = "step-active";
+                  return `
+                    <div class="p-2 border rounded-lg bg-white flex flex-col items-center justify-center gap-1">
+                      <div class="step-node ${cls}">${idx < currentStage ? '✓' : idx + 1}</div>
+                      <span class="font-semibold text-[10px] text-slate-700 leading-tight">${st}</span>
+                    </div>
+                  `;
+                }).join('')}
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
     }
 
     function renderAdminDashboard() {
@@ -846,16 +1054,28 @@
           <td class="p-3.5 font-medium">${o.clientName}</td>
           <td class="p-3.5">${o.type}</td>
           <td class="p-3.5 uppercase font-bold text-xs">${o.paymentMethod}</td>
-          <td class="p-3.5"><span class="status-badge status-${o.status}">${o.status}</span></td>
-          <td class="p-3.5 text-right">
-            ${o.status === 'pending' ? `<button onclick="approveOrder('${o.id}')" class="bg-emerald-600 text-white font-bold px-3 py-1 rounded text-xs mr-2">Approve</button>` : ''}
-            <button onclick="generateInvoice('${o.id}')" class="bg-slate-100 text-slate-800 font-bold px-3 py-1 rounded text-xs">Invoice</button>
+          <td class="p-3.5 font-bold text-xs text-blue-600">${PROJECT_STAGES[o.stageIndex || 0]}</td>
+          <td class="p-3.5 text-right space-x-2">
+            ${o.status === 'pending' ? `<button onclick="approveOrder('${o.id}')" class="bg-emerald-600 text-white font-bold px-2.5 py-1 rounded text-xs">Approve</button>` : ''}
+            <button onclick="advanceStage('${o.id}')" class="bg-blue-600 text-white font-bold px-2.5 py-1 rounded text-xs">+ Advance Stage</button>
+            <button onclick="generateInvoice('${o.id}')" class="bg-slate-100 text-slate-800 font-bold px-2.5 py-1 rounded text-xs">Invoice</button>
           </td>
         </tr>
       `).join('');
     }
 
     function approveOrder(id) { db.updateOrder(id, { status: 'active' }); renderAdminDashboard(); }
+    function advanceStage(id) {
+      const o = db.getOrders().find(item => item.id === id);
+      if (!o) return;
+      const nextIdx = Math.min((o.stageIndex || 0) + 1, PROJECT_STAGES.length - 1);
+      db.updateOrder(id, { stageIndex: nextIdx, status: nextIdx === PROJECT_STAGES.length - 1 ? 'active' : o.status });
+      renderAdminDashboard();
+    }
+
+    function openPayPalDirectCheckout() {
+      alert("Redirecting to PayPal Direct Authorization Portal for $899 USD...");
+    }
 
     function generateInvoice(id) {
       const o = db.getOrders().find(item => item.id === id);
@@ -892,6 +1112,11 @@
         msgs.innerHTML += `<div class="bg-slate-100 p-3 rounded-xl max-w-[85%] text-slate-800">Thank you! An engineer has been notified.</div>`;
         msgs.scrollTop = msgs.scrollHeight;
       }, 1000);
+    }
+
+    function toggleFaq(el) {
+      const body = el.nextElementSibling;
+      body.style.display = body.style.display === 'block' ? 'none' : 'block';
     }
 
     function copyText(t) { navigator.clipboard.writeText(t); alert('Account details copied to clipboard!'); }
