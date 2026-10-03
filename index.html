@@ -601,6 +601,24 @@
 
   <!-- ── 5. APPLICATION LOGIC & STATE ENGINE ── -->
   <script>
+    // Connect Frontend to Render Backend
+const API_BASE_URL = "https://nexabot-agency.onrender.com";
+
+// Automated API Sync Functions
+async function syncOrderToBackend(orderData) {
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/orders`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(orderData)
+    });
+    const result = await response.json();
+    console.log("Order synchronized with live database:", result);
+    return result;
+  } catch (error) {
+    console.error("Backend connection error:", error);
+  }
+}
     // --- DATABASE & STATE ENGINE (PERSISTED IN LOCALSTORAGE FOR DEMO / PREPARATION) ---
     const DB_KEYS = {
       USERS: 'nexabot_db_users',
