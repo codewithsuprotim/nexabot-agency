@@ -641,12 +641,12 @@
       <div class="dash-card bg-gradient-to-r from-blue-900 to-indigo-900 text-white">
         <div class="flex flex-col md:flex-row items-center justify-between gap-4">
           <div>
-            <span class="text-[10px] font-bold uppercase bg-blue-500/30 text-blue-200 px-3 py-1 rounded-full border border-blue-400/30">PayPal Checkout Link</span>
+            <span class="text-[10px] font-bold uppercase bg-blue-500/30 text-blue-200 px-3 py-1 rounded-full border border-blue-400/30">PayPal Checkout Hub</span>
             <h3 class="text-xl font-bold font-['Poppins'] mt-2">Pay Order Securely via PayPal Direct</h3>
             <p class="text-xs text-blue-200 mt-1">Instant payment authorization using standard credit card, debit card, or PayPal balance.</p>
           </div>
-          <button onclick="openPayPalDirectCheckout()" class="bg-amber-400 hover:bg-amber-300 text-slate-900 font-bold px-6 py-3 rounded-xl text-xs transition flex items-center gap-2 whitespace-nowrap shadow-lg">
-            <i class="fa-brands fa-paypal text-base"></i> Complete $899 PayPal Payment
+          <button onclick="openPayPalDirectCheckoutModal()" class="bg-amber-400 hover:bg-amber-300 text-slate-900 font-bold px-6 py-3 rounded-xl text-xs transition flex items-center gap-2 whitespace-nowrap shadow-lg cursor-pointer">
+            <i class="fa-brands fa-paypal text-base"></i> Open PayPal Payment Window ($899)
           </button>
         </div>
       </div>
@@ -723,7 +723,7 @@
       </div>
 
       <div class="dash-card">
-        <h3 class="font-bold text-navy text-lg mb-4 font-['Poppins']">Manage Client Orders & Advance Project Stage Steps</h3>
+        <h3 class="font-bold text-navy text-lg mb-4 font-['Poppins']">Manage Client Orders & Upload Specific Invoices</h3>
         <div class="overflow-x-auto">
           <table class="w-full text-left text-sm text-slate-600">
             <thead class="bg-slate-100 uppercase text-xs text-slate-700">
@@ -733,6 +733,7 @@
                 <th class="p-3.5">Platform</th>
                 <th class="p-3.5">Payment Route</th>
                 <th class="p-3.5">Current Build Stage</th>
+                <th class="p-3.5">Upload Custom Invoice</th>
                 <th class="p-3.5 text-right">Admin Controls</th>
               </tr>
             </thead>
@@ -747,6 +748,23 @@
   </main>
 
   <!-- ── 4. MODALS & SUPPORT CHAT DRAWER ── -->
+
+  <!-- PAYPAL DIRECT CHECKOUT MODAL -->
+  <div id="paypal-modal" class="modal-backdrop">
+    <div class="modal-box max-w-md">
+      <div class="flex justify-between items-center border-b pb-3 mb-4">
+        <div class="font-black text-lg text-navy font-['Poppins']">PayPal Authorization Window</div>
+        <button onclick="closeModal('paypal-modal')" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="text-xs text-slate-600 mb-4">
+        Complete your $899 setup fee payment securely using PayPal direct card processing.
+      </div>
+      <div id="paypal-modal-button-container" class="my-4"></div>
+      <button onclick="completeSimulatedPayPalPayment()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl text-xs transition">
+        Pay $899 USD via PayPal
+      </button>
+    </div>
+  </div>
 
   <!-- AUTH MODAL -->
   <div id="auth-modal" class="modal-backdrop">
@@ -886,7 +904,7 @@
       }
       if (!localStorage.getItem(DB_KEYS.ORDERS)) {
         const seedOrders = [
-          { id: 'NEX-187015', clientId: 'usr_1', clientName: 'Supriya Chatterjee', type: 'Custom Multi-Channel AI Agent', amount: 899, paymentMethod: 'paypal', status: 'active', stageIndex: 2, createdAt: '2026-10-01' }
+          { id: 'NEX-187015', clientId: 'usr_1', clientName: 'Supriya Chatterjee', type: 'Custom Multi-Channel AI Agent', amount: 899, paymentMethod: 'paypal', status: 'active', stageIndex: 2, uploadedInvoice: null, createdAt: '2026-10-01' }
         ];
         localStorage.setItem(DB_KEYS.ORDERS, JSON.stringify(seedOrders));
       }
@@ -970,7 +988,7 @@
         id: 'NEX-' + Math.floor(100000 + Math.random() * 900000),
         clientId: auth.currentUser.id, clientName: auth.currentUser.name,
         type: 'WhatsApp & Website AI Bot', amount: 899, paymentMethod: method,
-        status: method === 'paypal' ? 'active' : 'pending', stageIndex: 0, createdAt: new Date().toISOString().split('T')[0]
+        status: method === 'paypal' ? 'active' : 'pending', stageIndex: 0, uploadedInvoice: null, createdAt: new Date().toISOString().split('T')[0]
       };
       db.saveOrder(newOrder);
       try {
@@ -989,7 +1007,7 @@
         clientId: auth.currentUser.id, clientName: auth.currentUser.name,
         type: document.getElementById('order-type-select').value,
         amount: 899, paymentMethod: document.getElementById('order-payment-route').value,
-        status: 'pending', stageIndex: 0, createdAt: new Date().toISOString().split('T')[0]
+        status: 'pending', stageIndex: 0, uploadedInvoice: null, createdAt: new Date().toISOString().split('T')[0]
       };
       db.saveOrder(newOrder); closeModal('modal-new-order'); renderClientDashboard();
     }
@@ -1011,11 +1029,12 @@
               <div>
                 <span class="font-bold text-navy text-lg">${o.id}</span> — <span class="text-slate-700 font-medium">${o.type}</span>
               </div>
-              <div class="flex items-center gap-3">
+              <div class="flex items-center gap-3 flex-wrap">
                 <span class="uppercase font-bold text-xs bg-slate-200 px-2.5 py-1 rounded text-slate-700">${o.paymentMethod}</span>
                 <span class="font-bold text-navy">$${o.amount}</span>
                 <span class="status-badge status-${o.status}">${o.status}</span>
-                <button onclick="generateInvoice('${o.id}')" class="bg-white border hover:bg-slate-100 text-slate-800 font-bold px-3 py-1 rounded text-xs">Download Invoice</button>
+                <button onclick="generateInvoice('${o.id}')" class="bg-white border hover:bg-slate-100 text-slate-800 font-bold px-3 py-1 rounded text-xs">Standard Invoice</button>
+                ${o.uploadedInvoice ? `<a href="${o.uploadedInvoice.data}" download="${o.uploadedInvoice.name}" class="bg-emerald-600 text-white font-bold px-3 py-1 rounded text-xs hover:bg-emerald-700 transition"><i class="fa-solid fa-download mr-1"></i> Admin Invoice (${o.uploadedInvoice.name})</a>` : ''}
               </div>
             </div>
 
@@ -1055,13 +1074,31 @@
           <td class="p-3.5">${o.type}</td>
           <td class="p-3.5 uppercase font-bold text-xs">${o.paymentMethod}</td>
           <td class="p-3.5 font-bold text-xs text-blue-600">${PROJECT_STAGES[o.stageIndex || 0]}</td>
-          <td class="p-3.5 text-right space-x-2">
+          <td class="p-3.5">
+            <input type="file" id="file-${o.id}" accept=".pdf,.doc,.docx,.png,.jpg,.jpeg" class="text-xs w-48 mb-1 block">
+            <button onclick="uploadInvoiceForOrder('${o.id}')" class="bg-slate-800 text-white font-bold px-2 py-1 rounded text-[10px]"><i class="fa-solid fa-upload mr-1"></i> Attach Invoice</button>
+            ${o.uploadedInvoice ? `<div class="text-[10px] text-emerald-600 font-bold mt-1">Attached: ${o.uploadedInvoice.name}</div>` : ''}
+          </td>
+          <td class="p-3.5 text-right space-x-1 whitespace-nowrap">
             ${o.status === 'pending' ? `<button onclick="approveOrder('${o.id}')" class="bg-emerald-600 text-white font-bold px-2.5 py-1 rounded text-xs">Approve</button>` : ''}
             <button onclick="advanceStage('${o.id}')" class="bg-blue-600 text-white font-bold px-2.5 py-1 rounded text-xs">+ Advance Stage</button>
-            <button onclick="generateInvoice('${o.id}')" class="bg-slate-100 text-slate-800 font-bold px-2.5 py-1 rounded text-xs">Invoice</button>
+            <button onclick="generateInvoice('${o.id}')" class="bg-slate-100 text-slate-800 font-bold px-2.5 py-1 rounded text-xs">View Standard</button>
           </td>
         </tr>
       `).join('');
+    }
+
+    function uploadInvoiceForOrder(orderId) {
+      const fileInput = document.getElementById(`file-${orderId}`);
+      if (!fileInput || !fileInput.files[0]) { alert('Please select a file to upload.'); return; }
+      const file = fileInput.files[0];
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        db.updateOrder(orderId, { uploadedInvoice: { name: file.name, data: e.target.result } });
+        alert(`Invoice attached for order ${orderId}!`);
+        renderAdminDashboard();
+      };
+      reader.readAsDataURL(file);
     }
 
     function approveOrder(id) { db.updateOrder(id, { status: 'active' }); renderAdminDashboard(); }
@@ -1073,8 +1110,13 @@
       renderAdminDashboard();
     }
 
-    function openPayPalDirectCheckout() {
-      alert("Redirecting to PayPal Direct Authorization Portal for $899 USD...");
+    function openPayPalDirectCheckoutModal() {
+      openModal('paypal-modal');
+    }
+
+    function completeSimulatedPayPalPayment() {
+      alert("PayPal Payment Authorized ($899 USD). Order status updated to active!");
+      closeModal('paypal-modal');
     }
 
     function generateInvoice(id) {
