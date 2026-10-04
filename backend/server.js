@@ -8,6 +8,7 @@ const PORT = process.env.PORT || 10000;
 
 app.use(express.json());
 app.use(cors({ origin: '*' })); // Allows GitHub Pages to communicate with Render
+app.use(cors({ origin: 'https://codewithsuprotim.github.io' }));
 
 // Database Connection
 const dbPath = path.resolve(__dirname, 'nexabot.db');
