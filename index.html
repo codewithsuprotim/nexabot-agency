@@ -34,7 +34,7 @@
     };
   </script>
 
-  <!-- Firebase Global Libraries (Fully Connected for Firestore Real-Time Global Sync) -->
+  <!-- Firebase Global Libraries -->
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
@@ -860,7 +860,7 @@
         </div>
       </div>
 
-      <!-- RE-ADDED EXCELLENT & EYE-APPEALING PAYPAL GATEWAY -->
+      <!-- PAYPAL GATEWAY -->
       <div class="dash-card bg-gradient-to-r from-slate-900 via-blue-950 to-indigo-950 border border-blue-500/30 text-white shadow-xl">
         <div class="p-2 space-y-4">
           <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-white/10 pb-4">
@@ -998,7 +998,7 @@
 
   <!-- ── 4. MODALS & SUPPORT CHAT DRAWER ── -->
 
-  <!-- AUTH MODAL (NO GOOGLE BUTTON) -->
+  <!-- AUTH MODAL -->
   <div id="auth-modal" class="modal-backdrop">
     <div class="modal-box">
       <div class="flex justify-between items-center mb-4">
@@ -1015,8 +1015,9 @@
         <input type="hidden" id="auth-role" value="client">
         <input type="hidden" id="auth-mode" value="login">
 
+        <!-- DYNAMIC NAME FIELD FOR CLIENT & ADMIN REGISTRATION -->
         <div id="auth-field-name" class="hidden">
-          <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Full Name</label>
+          <label id="auth-name-label" class="block text-xs font-bold uppercase text-slate-500 mb-1">Full Name</label>
           <input type="text" id="auth-name" class="w-full border border-slate-300 p-3 rounded-lg text-sm focus:outline-blue-600" placeholder="John Doe">
         </div>
 
@@ -1114,7 +1115,7 @@
 
   <!-- ── 5. SCRIPTS & ENGINE ── -->
   <script>
-    // Official Firebase Credentials (FIREBASE FIRESTORE FULLY CONNECTED)
+    // Official Firebase Credentials
     const firebaseConfig = {
       apiKey: "AIzaSyBSxMkDacoyoe6Gs919vskE1bBH0zAlCoQ",
       authDomain: "nexabot-india.firebaseapp.com",
@@ -1211,13 +1212,42 @@
     // Global Auth Manager connected to Firestore
     const auth = {
       currentUser: JSON.parse(localStorage.getItem(DB_KEYS.SESSION) || 'null'),
+      
       toggleMode: () => {
-        const mode = document.getElementById('auth-mode').value === 'login' ? 'register' : 'login';
-        document.getElementById('auth-mode').value = mode;
-        document.getElementById('auth-modal-title').innerText = mode === 'register' ? 'Register Account' : 'Sign In';
-        document.getElementById('auth-field-name').style.display = mode === 'register' ? 'block' : 'none';
-        document.getElementById('auth-submit-btn').innerText = mode === 'register' ? 'Create Account' : 'Sign In';
+        const currentMode = document.getElementById('auth-mode').value;
+        const newMode = currentMode === 'login' ? 'register' : 'login';
+        document.getElementById('auth-mode').value = newMode;
+        
+        const role = document.getElementById('auth-role').value;
+        auth.updateModalLabels(newMode, role);
       },
+
+      updateModalLabels: (mode, role) => {
+        const titleEl = document.getElementById('auth-modal-title');
+        const submitBtnEl = document.getElementById('auth-submit-btn');
+        const toggleTextEl = document.getElementById('auth-toggle-text');
+        const toggleBtnEl = document.getElementById('auth-toggle-btn');
+        const nameFieldEl = document.getElementById('auth-field-name');
+        const nameLabelEl = document.getElementById('auth-name-label');
+
+        if (mode === 'register') {
+          titleEl.innerText = role === 'admin' ? 'Register Admin Account' : 'Register Account';
+          submitBtnEl.innerText = 'Create Account';
+          toggleTextEl.innerText = 'Already have an account?';
+          toggleBtnEl.innerText = 'Sign In';
+          nameFieldEl.style.display = 'block';
+          nameLabelEl.innerText = role === 'admin' ? 'Admin Full Name' : 'Full Name';
+          document.getElementById('auth-name').required = true;
+        } else {
+          titleEl.innerText = role === 'admin' ? 'Admin Sign In' : 'Sign In';
+          submitBtnEl.innerText = 'Sign In';
+          toggleTextEl.innerText = "Don't have an account?";
+          toggleBtnEl.innerText = 'Register Now';
+          nameFieldEl.style.display = 'none';
+          document.getElementById('auth-name').required = false;
+        }
+      },
+
       handleSubmit: async (e) => {
         e.preventDefault();
         const role = document.getElementById('auth-role').value;
@@ -1226,13 +1256,17 @@
         const password = document.getElementById('auth-password').value;
 
         if (mode === 'register') {
-          const name = document.getElementById('auth-name').value;
+          const name = document.getElementById('auth-name').value.trim();
+          if (!name) {
+            alert('Please enter your name.');
+            return;
+          }
           const newUserId = 'usr_' + Date.now();
           const newUser = { id: newUserId, name, email, password, role };
           
           await db.saveUser(newUser);
           auth.setCurrentUser(newUser);
-          alert('Account created and registered globally!');
+          alert(`Account created successfully as ${role.toUpperCase()}!`);
           closeModal('auth-modal'); 
           router.navigate('dashboard');
         } else {
@@ -1249,22 +1283,39 @@
               closeModal('auth-modal'); 
               router.navigate('dashboard');
             } else {
-              alert('Invalid credentials. Please register your account first.');
+              alert('Invalid email or password for selected portal. Please click "Register Now" to create your account first.');
             }
           } catch (err) {
             console.error("Firestore auth error:", err);
-            alert("Database connection error. Please verify network.");
+            alert("Database connection error. Please check network connection.");
           }
         }
       },
-      setCurrentUser: (user) => { auth.currentUser = user; localStorage.setItem(DB_KEYS.SESSION, JSON.stringify(user)); auth.updateUI(); },
-      logout: () => { auth.currentUser = null; localStorage.removeItem(DB_KEYS.SESSION); auth.updateUI(); router.navigate('landing'); },
+
+      setCurrentUser: (user) => { 
+        auth.currentUser = user; 
+        localStorage.setItem(DB_KEYS.SESSION, JSON.stringify(user)); 
+        auth.updateUI(); 
+      },
+
+      logout: () => { 
+        auth.currentUser = null; 
+        localStorage.removeItem(DB_KEYS.SESSION); 
+        auth.updateUI(); 
+        router.navigate('landing'); 
+      },
+
       updateUI: () => {
-        const guest = document.getElementById('nav-guest-controls'), user = document.getElementById('nav-user-controls');
+        const guest = document.getElementById('nav-guest-controls');
+        const user = document.getElementById('nav-user-controls');
         if (auth.currentUser) {
-          guest.classList.add('hidden'); user.classList.remove('hidden');
+          guest.classList.add('hidden'); 
+          user.classList.remove('hidden');
           document.getElementById('user-display-name').innerText = auth.currentUser.name + ` (${auth.currentUser.role.toUpperCase()})`;
-        } else { guest.classList.remove('hidden'); user.classList.add('hidden'); }
+        } else { 
+          guest.classList.remove('hidden'); 
+          user.classList.add('hidden'); 
+        }
       }
     };
 
@@ -1272,12 +1323,18 @@
       auth.logout();
     }
 
-    function openAuthModal(role) { switchAuthRole(role); openModal('auth-modal'); }
+    function openAuthModal(role) { 
+      switchAuthRole(role); 
+      openModal('auth-modal'); 
+    }
+
     function switchAuthRole(role) {
       document.getElementById('auth-role').value = role;
       document.getElementById('tab-auth-client').className = role === 'client' ? 'py-2 rounded-md cursor-pointer bg-white text-navy shadow-sm' : 'py-2 rounded-md cursor-pointer text-slate-500';
       document.getElementById('tab-auth-admin').className = role === 'admin' ? 'py-2 rounded-md cursor-pointer bg-white text-navy shadow-sm' : 'py-2 rounded-md cursor-pointer text-slate-500';
-      document.getElementById('auth-toggle-box').style.display = role === 'admin' ? 'none' : 'block';
+      
+      const mode = document.getElementById('auth-mode').value;
+      auth.updateModalLabels(mode, role);
     }
 
     const router = {
