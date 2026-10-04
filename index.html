@@ -4,8 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title> NexaBot AI Chatbot Agency® </title>
-  <meta name="description" content="NexaBot AI Chatbot Agency builds WhatsApp Bots, Website Chatbots & Custom AI Bots. $1099 Total package includes setup & first month maintenance with VAT. Special $100 Off promotion live." />
-  <link rel="icon" type="image/png" href="logos/nexabot-favicon.png" />
+  <meta name="description" content="NexaBot AI Chatbot Agency builds WhatsApp, Facebook Messenger & Instagram AI Bots with Website Widgets. Complete package with ZERO extra charge for Facebook & Instagram automation." />
+  
+  <!-- Website Favicon & Logo Reference -->
+  <link rel="icon" type="image/png" href="logos/nexabot-logo.png" />
 
   <!-- PayPal SDK with Exact Client ID & Hosted-Buttons Component -->
   <script src="https://www.paypal.com/sdk/js?client-id=BAACylQi88Jo95HU3YkvcusJSZPGDH-XqBf0xP-4iIDjogJA7UB0Io-jVKjtepATI95Vp-gqzwr0dZYHdw&components=hosted-buttons&disable-funding=venmo&currency=USD" crossorigin="anonymous" async></script>
@@ -88,7 +90,7 @@
       animation: particleRise linear infinite;
     }
 
-    /* ─── PREMIUM DISCOUNT BADGES & STAMPS (UPDATED DESIGN) ─── */
+    /* ─── PREMIUM DISCOUNT BADGES & STAMPS ─── */
     .sale-badge {
       background: linear-gradient(135deg, #FF3366, #FF6600);
       color: #FFFFFF; font-weight: 900; font-size: 0.75rem; text-transform: uppercase;
@@ -96,7 +98,6 @@
       box-shadow: 0 4px 20px rgba(255, 51, 102, 0.6); display: inline-flex; align-items: center; gap: 6px;
     }
     
-    /* REFINED LUXURY PROMO STAMP */
     .discount-stamp {
       position: absolute; top: -16px; right: 24px;
       background: linear-gradient(135deg, #3B82F6 0%, #8B5CF6 50%, #EC4899 100%);
@@ -224,7 +225,7 @@
       border-radius: 24px; padding: 3rem; max-width: 850px; margin: 0 auto; text-align: center; position: relative;
     }
 
-    /* ─── ENHANCED HIGH-CONTRAST COMPARISON TABLE ─── */
+    /* ─── HIGH-CONTRAST COMPARISON TABLE ─── */
     .comp-table-wrapper {
       background: rgba(10, 24, 114, 0.4);
       border: 1px solid rgba(255, 255, 255, 0.15);
@@ -298,30 +299,75 @@
     .faq-q { padding: 1.2rem 1.5rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; color: white; font-weight: 600; font-size: 0.95rem; }
     .faq-a { padding: 0 1.5rem 1.2rem; color: rgba(255,255,255,0.65); font-size: 0.88rem; line-height: 1.7; display: none; }
 
-    /* ─── RECOGNITIONS ─── */
-    .recog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; max-width: 1100px; margin: 0 auto; }
-    .badge-card-dark {
-      background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 20px; padding: 1.2rem 1.5rem; display: flex; align-items: center; gap: 1.2rem;
-      backdrop-filter: blur(12px); transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    /* ─── REDESIGNED INDUSTRY RECOGNITION & CERTIFICATION SECTION ─── */
+    .recog-section-wrapper {
+      background: linear-gradient(180deg, rgba(6, 15, 46, 0.9) 0%, rgba(10, 36, 114, 0.5) 50%, rgba(6, 15, 46, 1) 100%);
+      position: relative; padding: 90px 6%; overflow: hidden; border-top: 1px solid rgba(255,255,255,0.1); border-bottom: 1px solid rgba(255,255,255,0.1);
     }
-    .badge-card-dark:hover {
-      transform: translateY(-5px); border-color: var(--sky);
-      box-shadow: 0 12px 30px rgba(37,99,235,0.25); background: rgba(30, 41, 59, 0.8);
+    .recog-grid-v2 {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; max-width: 1200px; margin: 0 auto; position: relative; z-index: 2;
     }
-    .badge-img-wrapper {
-      width: 60px; height: 60px; border-radius: 14px; background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1); display: flex; align-items: center; justify-content: center; flex-shrink: 0; padding: 8px;
+    .recog-card-v2 {
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(96, 165, 250, 0.25);
+      border-radius: 24px; padding: 2.2rem 1.8rem;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255,255,255,0.15);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative; overflow: hidden; display: flex; flex-direction: column; align-items: center; text-align: center;
     }
-    .badge-img-wrapper img { max-height: 100%; max-width: 100%; object-fit: contain; }
+    .recog-card-v2::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(circle at top, rgba(96, 165, 250, 0.15) 0%, transparent 70%);
+      opacity: 0; transition: opacity 0.4s ease;
+    }
+    .recog-card-v2:hover {
+      transform: translateY(-8px) scale(1.02);
+      border-color: rgba(96, 165, 250, 0.7);
+      box-shadow: 0 25px 50px rgba(37, 99, 235, 0.35);
+    }
+    .recog-card-v2:hover::before { opacity: 1; }
+    .recog-badge-wrapper {
+      width: 80px; height: 80px; border-radius: 20px;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02));
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1.5rem; padding: 12px; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    }
+    .recog-badge-wrapper img { max-height: 100%; max-width: 100%; object-fit: contain; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3)); }
+    .recog-card-v2 h3 { font-family: 'Poppins', sans-serif; font-size: 1.25rem; font-weight: 800; color: #FFFFFF; margin-bottom: 0.4rem; }
+    .recog-card-v2 p { font-size: 0.82rem; color: #94A3B8; line-height: 1.6; margin-bottom: 1.2rem; }
+    .recog-status-pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(34, 197, 94, 0.12); border: 1px solid rgba(34, 197, 94, 0.35);
+      color: #4ADE80; font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
+      padding: 5px 14px; border-radius: 50px; letter-spacing: 0.5px;
+    }
 
-    /* ─── LEGAL POLICIES SECTION ─── */
+    /* ─── REDESIGNED LEGAL POLICIES SECTION & ELEGANT BUTTONS ─── */
     .legal-card {
       background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 20px; padding: 2.5rem; color: #CBD5E1; font-size: 0.88rem; line-height: 1.8;
+      display: flex; flex-direction: column; justify-content: space-between;
     }
     .legal-card h3 { font-family: 'Poppins', sans-serif; color: #FFFFFF; font-size: 1.3rem; margin-bottom: 1rem; }
     .legal-card h4 { color: #60A5FA; font-size: 1rem; margin-top: 1.2rem; margin-bottom: 0.5rem; font-weight: 700; }
+
+    /* PREMIUM GLOW ACTION BUTTONS FOR LEGAL POLICIES */
+    .btn-legal-glow {
+      background: linear-gradient(135deg, rgba(37, 99, 235, 0.2) 0%, rgba(139, 92, 246, 0.2) 100%);
+      border: 1px solid rgba(96, 165, 250, 0.5);
+      color: #FFFFFF; font-family: 'Inter', sans-serif; font-size: 0.82rem; font-weight: 700;
+      padding: 0.75rem 1.4rem; border-radius: 50px; cursor: pointer;
+      display: inline-flex; align-items: center; gap: 8px; transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(37, 99, 235, 0.2); backdrop-filter: blur(8px);
+    }
+    .btn-legal-glow:hover {
+      background: linear-gradient(135deg, rgba(37, 99, 235, 0.4) 0%, rgba(139, 92, 246, 0.4) 100%);
+      border-color: rgba(160, 210, 255, 0.9);
+      color: #60A5FA; transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(37, 99, 235, 0.4);
+    }
 
     /* ─── FOOTER ─── */
     .site-footer {
@@ -378,7 +424,7 @@
     #wa-float:hover { transform: scale(1.1); }
 
     @media (max-width:880px) {
-      .srv-grid, .rev-grid, .recog-grid { grid-template-columns: 1fr; }
+      .srv-grid, .rev-grid, .recog-grid-v2 { grid-template-columns: 1fr; }
       .nav-links { display: none; }
     }
   </style>
@@ -400,7 +446,7 @@
     </div>
   </div>
 
-  <!-- ── 2. NAVBAR ── -->
+  <!-- ── 2. NAVBAR WITH BRAND LOGO (logos/nexabot-logo.png) ── -->
   <nav id="nav">
     <div class="nav-brand">
       <a href="#hero" class="nav-logo flex items-center gap-2">
@@ -467,7 +513,7 @@
           </h1>
 
           <p class="hero-p">
-            Let AI handle every customer conversation — 24 hours a day, 7 days a week — so you can focus on growing your business.
+            Let AI handle every customer conversation — 24/7 on <strong>WhatsApp, Facebook Messenger & Instagram Direct</strong> — with <strong>ZERO extra charge</strong> for complete social automation!
           </p>
 
           <div class="offer-bar">
@@ -516,50 +562,51 @@
         </div>
       </div>
 
-      <!-- 3. OUR CAPABILITIES / SERVICES -->
+      <!-- 3. OUR CAPABILITIES / SERVICES (WITH OMNICHANNEL INTEGRATION) -->
       <section id="services" class="py-24 px-6 bg-navy">
         <div class="sec-head">
           <span class="text-xs font-bold uppercase text-sky tracking-widest">Our Capabilities</span>
-          <h2 class="sec-title mt-2">AI Chatbots For <span>Every Business</span></h2>
+          <h2 class="sec-title mt-2">AI Chatbots For <span>Every Channel</span></h2>
         </div>
 
         <div class="srv-grid">
           <div class="srv-card">
             <div class="srv-icon bg-emerald-500/10 text-emerald-400"><i class="fab fa-whatsapp"></i></div>
             <h3 class="text-xl font-bold text-white mb-2 font-['Poppins']">WhatsApp AI Bots</h3>
-            <p class="text-slate-400 text-sm leading-relaxed">Automate customer conversations, qualify leads, and close sales on WhatsApp 24/7.</p>
+            <p class="text-slate-400 text-sm leading-relaxed">Automate customer conversations, qualify leads, and close sales on WhatsApp 24/7 with zero friction.</p>
+          </div>
+
+          <div class="srv-card border-purple-500/30">
+            <div class="srv-icon bg-gradient-to-tr from-purple-500/20 to-pink-500/20 text-pink-400">
+              <i class="fab fa-facebook-messenger mr-1"></i><i class="fab fa-instagram"></i>
+            </div>
+            <div class="inline-block bg-pink-500/20 border border-pink-500/40 text-pink-300 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full mb-2">INCLUDED FOR $0 EXTRA</div>
+            <h3 class="text-xl font-bold text-white mb-2 font-['Poppins']">Facebook & Instagram Bots</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">Complete Facebook Messenger & Instagram Direct Message auto-responders included in your package with <strong>ZERO extra charges</strong>!</p>
           </div>
 
           <div class="srv-card">
             <div class="srv-icon bg-sky/10 text-sky"><i class="fas fa-globe"></i></div>
-            <h3 class="text-xl font-bold text-white mb-2 font-['Poppins']">Website Chatbots</h3>
-            <p class="text-slate-400 text-sm leading-relaxed">Convert website visitors into paying customers with high-converting smart widgets.</p>
-          </div>
-
-          <div class="srv-card">
-            <div class="srv-icon bg-purple-500/10 text-purple-400"><i class="fas fa-brain"></i></div>
-            <h3 class="text-xl font-bold text-white mb-2 font-['Poppins']">Custom AI Agents</h3>
-            <p class="text-slate-400 text-sm leading-relaxed">Bespoke multi-channel agents custom trained on your exact business documentation.</p>
+            <h3 class="text-xl font-bold text-white mb-2 font-['Poppins']">Website & Custom Agents</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">Convert website visitors into paying clients with custom-trained multi-channel AI widgets.</p>
           </div>
         </div>
       </section>
 
-      <!-- 4. PRICING SECTION WITH REFINED PROMO STAMP -->
+      <!-- 4. PRICING SECTION -->
       <section id="pricing">
         <div class="sec-head">
           <span class="text-xs font-bold uppercase text-sky tracking-widest">Transparent Pricing</span>
-          <h2 class="sec-title mt-2">All-Inclusive <span>Bot Package</span></h2>
+          <h2 class="sec-title mt-2">All-Inclusive <span>Omnichannel Package</span></h2>
         </div>
 
         <div class="pricing-card">
-          <!-- REFINED LUXURY PROMO STAMP WITH GLOW ANIMATION -->
           <div class="discount-stamp animate-pulse-glow">
             <i class="fa-solid fa-bolt mr-1"></i> $100 INSTANT DISCOUNT
           </div>
 
           <div class="text-xs font-bold text-sky uppercase tracking-wider mb-2">Complete Agency Solution</div>
           
-          <!-- PRICING STRIKE & PROMO PRICE -->
           <div class="flex items-center justify-center gap-3 mb-2">
             <span class="text-2xl font-bold text-slate-400 line-through">$1099</span>
             <div class="text-5xl font-black text-white font-['Poppins']">$999 <span class="text-base font-normal text-sky">USD Promo</span></div>
@@ -570,8 +617,9 @@
           </div>
           
           <div class="p-4 bg-white/5 rounded-xl border border-white/10 mb-6 text-xs text-slate-300 space-y-2 text-left">
-            <p><strong>Standard Package Breakdown ($1099):</strong> $980 One-Time Setup & Custom AI Training + $99 1st Month Maintenance & Updates + $20 VAT included.</p>
+            <p><strong>Standard Package Breakdown ($1099):</strong> $980 Setup & Custom AI Training + $99 1st Month Maintenance & Updates + $20 VAT included.</p>
             <p class="text-emerald-400 font-semibold"><strong>Limited Time Promo Rate ($999):</strong> $100 Flat Discount applied automatically in PayPal Direct Checkout & Global Wire Transfer ($999 net total billed).</p>
+            <p class="text-sky font-semibold"><strong>⭐ Multi-Platform Bonus:</strong> Package includes WhatsApp + <u>Complete Facebook Messenger & Instagram Direct Bots with ZERO EXTRA CHARGES</u>!</p>
             <p class="text-slate-400 border-t border-white/10 pt-2"><strong>Ongoing Maintenance & Technical Support:</strong> Starting 2nd month onwards, $99/month recurring fee applies for server hosting, LLM upgrades, and continuous maintenance.</p>
           </div>
 
@@ -590,7 +638,7 @@
         </div>
       </section>
 
-      <!-- 5. RE-DESIGNED HIGH-CONTRAST COMPARISON WITH OTHER AGENCIES -->
+      <!-- 5. COMPARISON MATRIX -->
       <section id="comparison" class="py-24 px-6 bg-navy/90 border-t border-white/5">
         <div class="sec-head">
           <span class="text-xs font-bold uppercase text-sky tracking-widest">Why NexaBot Outperforms</span>
@@ -608,6 +656,12 @@
               </tr>
             </thead>
             <tbody>
+              <tr>
+                <td>Social Channel Coverage</td>
+                <td class="comp-highlight-cell"><i class="fa-solid fa-circle-check text-emerald-400 mr-1.5"></i> WhatsApp + Facebook + Instagram ($0 Extra)</td>
+                <td class="text-slate-300">Charges $500+ per extra channel</td>
+                <td class="text-slate-400">Single channel only</td>
+              </tr>
               <tr>
                 <td>Turnaround Time</td>
                 <td class="comp-highlight-cell"><i class="fa-solid fa-circle-check text-emerald-400 mr-1.5"></i> Guaranteed 48 Hours SLA</td>
@@ -639,16 +693,10 @@
                 <td class="text-slate-400">Unsecured Direct Transfers</td>
               </tr>
               <tr>
-                <td>Real-time Tracking</td>
-                <td class="comp-highlight-cell"><i class="fa-solid fa-circle-check text-emerald-400 mr-1.5"></i> Dedicated Portal & Milestone Dashboard</td>
+                <td>Real-time Tracking & Live Chat</td>
+                <td class="comp-highlight-cell comp-highlight-bottom"><i class="fa-solid fa-circle-check text-emerald-400 mr-1.5"></i> Dedicated Portal & 24/7 Support</td>
                 <td class="text-slate-300">Weekly Email Summaries</td>
                 <td class="text-slate-400">No Portal Access</td>
-              </tr>
-              <tr>
-                <td>Dedicated Engineers</td>
-                <td class="comp-highlight-cell comp-highlight-bottom"><i class="fa-solid fa-circle-check text-emerald-400 mr-1.5"></i> 24/7 Global Live Support Chat</td>
-                <td class="text-slate-300">Account Managers Only</td>
-                <td class="text-slate-400">No Guaranteed SLA Support</td>
               </tr>
             </tbody>
           </table>
@@ -665,7 +713,7 @@
         <div class="rev-grid">
           <div class="rev-card">
             <div class="flex items-center gap-1 text-amber-400 text-sm mb-3">★★★★★ <span class="text-xs text-white/60 ml-2">(5.0)</span></div>
-            <p class="text-slate-300 text-sm leading-relaxed mb-4">"Our WhatsApp bot handles 300+ customer enquiries daily without missing a lead. Best ROI we've ever seen."</p>
+            <p class="text-slate-300 text-sm leading-relaxed mb-4">"Having WhatsApp, Facebook & Instagram bots bundled together with ZERO extra fees saved us thousands in agency setup costs."</p>
             <div class="font-bold text-white text-sm">Rajesh Kumar</div>
             <div class="text-xs text-sky font-semibold">Steinberg Media Technologies</div>
           </div>
@@ -707,40 +755,40 @@
         </div>
       </section>
 
-      <!-- 7. OFFICIAL RECOGNITION & CERTIFICATION -->
-      <section class="py-20 px-6 bg-slate-950 text-center border-t border-white/10">
-        <p class="text-xs font-extrabold text-sky tracking-widest uppercase mb-10">OFFICIAL INDUSTRY RECOGNITIONS & CERTIFICATIONS</p>
+      <!-- 7. RE-ENGINEERED LUXURY INDUSTRY RECOGNITION & CERTIFICATION SECTION -->
+      <section class="recog-section-wrapper">
+        <div class="sec-head">
+          <span class="text-xs font-bold uppercase text-sky tracking-widest">Global Accreditation & Trust</span>
+          <h2 class="sec-title mt-2">Official Industry <span>Certifications</span></h2>
+        </div>
         
-        <div class="recog-grid">
+        <div class="recog-grid-v2">
           
-          <div class="badge-card-dark">
-            <div class="badge-img-wrapper">
+          <div class="recog-card-v2">
+            <div class="recog-badge-wrapper">
               <img src="logos/unicorn-startup-badge.png" alt="Unicorn Startup" onerror="this.src='https://cdn-icons-png.flaticon.com/512/1828/1828884.png'">
             </div>
-            <div class="text-left">
-              <div class="text-white font-bold text-base font-['Poppins']">Unicorn Startup</div>
-              <div class="text-xs text-slate-400 mt-0.5">Recognized Tech Innovator</div>
-            </div>
+            <h3>Unicorn Startup</h3>
+            <p>Recognized for breakthrough AI automation architecture and enterprise scalability across global markets.</p>
+            <div class="recog-status-pill"><i class="fa-solid fa-shield-check"></i> Verified Tech Innovator</div>
           </div>
 
-          <div class="badge-card-dark">
-            <div class="badge-img-wrapper">
+          <div class="recog-card-v2">
+            <div class="recog-badge-wrapper">
               <img src="logos/google-partner-badge.png" alt="Google Partner" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg'">
             </div>
-            <div class="text-left">
-              <div class="text-white font-bold text-base font-['Poppins']">Google Partner</div>
-              <div class="text-xs text-slate-400 mt-0.5">Certified Cloud Infrastructure</div>
-            </div>
+            <h3>Google Partner</h3>
+            <p>Certified Cloud AI Infrastructure partner utilizing high-speed vector models and neural processing.</p>
+            <div class="recog-status-pill"><i class="fa-solid fa-circle-check"></i> Cloud Certified</div>
           </div>
 
-          <div class="badge-card-dark">
-            <div class="badge-img-wrapper">
+          <div class="recog-card-v2">
+            <div class="recog-badge-wrapper">
               <img src="logos/meta-business-partner-badge.png" alt="Meta Business Partner" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/7/7b/Meta_Platforms_Inc._logo.svg'">
             </div>
-            <div class="text-left">
-              <div class="text-white font-bold text-base font-['Poppins']">Meta Business Partner</div>
-              <div class="text-xs text-slate-400 mt-0.5">WhatsApp API Integration</div>
-            </div>
+            <h3>Meta Business Partner</h3>
+            <p>Official API Integrator for WhatsApp Business, Facebook Messenger, and Instagram Direct Messaging.</p>
+            <div class="recog-status-pill"><i class="fa-solid fa-bolt"></i> Official Meta API</div>
           </div>
 
         </div>
@@ -754,6 +802,11 @@
         </div>
 
         <div class="space-y-3">
+          <div class="faq-item">
+            <div class="faq-q" onclick="toggleFaq(this)"><span>Does the package include Facebook & Instagram bots or are there extra fees?</span> <i class="fa-solid fa-chevron-down text-sky"></i></div>
+            <div class="faq-a"><strong>YES, complete Facebook Messenger and Instagram Direct AI Bots are included with ZERO extra charges!</strong> Your $999 promotional package gives you complete multi-channel automation across WhatsApp, Facebook, Instagram, and Website widgets.</div>
+          </div>
+
           <div class="faq-item">
             <div class="faq-q" onclick="toggleFaq(this)"><span>How fast is the complete bot deployment process?</span> <i class="fa-solid fa-chevron-down text-sky"></i></div>
             <div class="faq-a">Your AI chatbot will be custom built, trained on your Knowledge Base, tested, and deployed live within 48 business hours after form submission in your Client Portal.</div>
@@ -773,15 +826,10 @@
             <div class="faq-q" onclick="toggleFaq(this)"><span>How do I train the AI on my business details?</span> <i class="fa-solid fa-chevron-down text-sky"></i></div>
             <div class="faq-a">After registering and submitting your order, complete the AI Knowledge Base Form in your Client Dashboard by uploading PDFs, links, or text documentation.</div>
           </div>
-
-          <div class="faq-item">
-            <div class="faq-q" onclick="toggleFaq(this)"><span>Can I track my project build status in real time?</span> <i class="fa-solid fa-chevron-down text-sky"></i></div>
-            <div class="faq-a">Yes! Your Client Dashboard features a real-time project milestone tracker powered by our Firebase Firestore database to give you global updates on any device.</div>
-          </div>
         </div>
       </section>
 
-      <!-- 9. COMPLETE PRIVACY POLICY & TERMS OF SERVICE SECTION -->
+      <!-- 9. COMPLETE PRIVACY POLICY & TERMS OF SERVICE SECTION WITH ELEGANT ACTION BUTTONS -->
       <section id="legal-section" class="py-20 px-6 max-w-6xl mx-auto">
         <div class="sec-head">
           <span class="text-xs font-bold uppercase text-sky tracking-widest">Compliance & Governance</span>
@@ -792,45 +840,57 @@
           
           <!-- PRIVACY POLICY CARD -->
           <div class="legal-card">
-            <h3><i class="fa-solid fa-user-shield text-sky mr-2"></i> Privacy Policy</h3>
-            <p><strong>Effective Date:</strong> October 1, 2026 | <strong>Entity:</strong> NexaBot Agency Ltd.®</p>
-            
-            <h4>1. Data Collection & Usage</h4>
-            <p>NexaBot Agency Ltd.® collects user details (Name, Email, Business Information) and Knowledge Base documentation solely for building, training, and optimizing enterprise AI Chatbots. All client documentation uploaded via our portal is encrypted in transit and at rest.</p>
+            <div>
+              <h3><i class="fa-solid fa-user-shield text-sky mr-2"></i> Privacy Policy</h3>
+              <p><strong>Effective Date:</strong> October 1, 2026 | <strong>Entity:</strong> NexaBot Agency Ltd.®</p>
+              
+              <h4>1. Data Collection & Usage</h4>
+              <p>NexaBot Agency Ltd.® collects user details (Name, Email, Business Information) and Knowledge Base documentation solely for building, training, and optimizing enterprise AI Chatbots across WhatsApp, Facebook, Instagram, and Websites. All client documentation uploaded via our portal is encrypted in transit and at rest.</p>
 
-            <h4>2. Data Ingestion & Model Protection</h4>
-            <p>Knowledge base files submitted by clients are processed through isolated vector databases. We guarantee that client-proprietary data is never used to train public or shared AI models.</p>
+              <h4>2. Data Ingestion & Model Protection</h4>
+              <p>Knowledge base files submitted by clients are processed through isolated vector databases. We guarantee that client-proprietary data is never used to train public or shared AI models.</p>
 
-            <h4>3. Payment Security & Third Parties</h4>
-            <p>Financial transactions are securely handled via PayPal Inc. and Skydo (Global Bank Transfer). We do not store full credit card numbers or sensitive banking credentials on our local servers.</p>
+              <h4>3. Payment Security & Third Parties</h4>
+              <p>Financial transactions are securely handled via PayPal Inc. and Skydo (Global Bank Transfer). We do not store full credit card numbers or sensitive banking credentials on our local servers.</p>
 
-            <h4>4. Third-Party API Integrations</h4>
-            <p>When integrating Meta WhatsApp Business API or external LLM providers, usage adheres strictly to Meta Platform Terms and OpenAI/Anthropic enterprise privacy guidelines.</p>
+              <h4>4. Third-Party API Integrations</h4>
+              <p>When integrating Meta WhatsApp, Facebook Messenger, Instagram Direct API or external LLM providers, usage adheres strictly to Meta Platform Terms and enterprise privacy guidelines.</p>
+            </div>
 
-            <div class="mt-4 pt-3 border-t border-white/10 text-right">
-              <button onclick="openModal('modal-privacy')" class="text-xs text-sky font-bold hover:underline">View Full Screen Privacy Policy &rarr;</button>
+            <!-- RE-DESIGNED ELEGANT ACTION BUTTON -->
+            <div class="mt-6 pt-4 border-t border-white/10 flex justify-end">
+              <button onclick="openModal('modal-privacy')" class="btn-legal-glow">
+                <span>View Full Screen Privacy Policy</span>
+                <i class="fa-solid fa-arrow-right text-xs"></i>
+              </button>
             </div>
           </div>
 
           <!-- TERMS OF SERVICE CARD -->
           <div class="legal-card">
-            <h3><i class="fa-solid fa-file-contract text-sky mr-2"></i> Terms of Service</h3>
-            <p><strong>Last Updated:</strong> October 1, 2026 | <strong>Entity:</strong> NexaBot Agency Ltd.®</p>
+            <div>
+              <h3><i class="fa-solid fa-file-contract text-sky mr-2"></i> Terms of Service</h3>
+              <p><strong>Last Updated:</strong> October 1, 2026 | <strong>Entity:</strong> NexaBot Agency Ltd.®</p>
 
-            <h4>1. Service SLA & Delivery</h4>
-            <p>NexaBot guarantees initial AI Chatbot build and deployment within 48 business hours following complete submission of the AI Knowledge Base Form and initial payment confirmation.</p>
+              <h4>1. Service SLA & Delivery</h4>
+              <p>NexaBot guarantees initial AI Chatbot build and deployment across WhatsApp, Facebook, Instagram, and Website platforms within a guaranteed 48 business hours SLA following complete submission of the AI Knowledge Base Form and initial payment confirmation.</p>
 
-            <h4>2. Billing, Pricing & Maintenance</h4>
-            <p>The standard package fee is $1099 ($980 Setup + $99 1st Month Maintenance + $20 VAT). Promotional offers ($999 net total) apply automatically between 1 Oct 2026 and 5 Jan 2027. Monthly maintenance of $99/month recurs starting from the 2nd month for server hosting, LLM updates, and continuous support.</p>
+              <h4>2. Billing, Pricing & Included Platforms</h4>
+              <p>The standard package fee is $1099 ($980 Setup + $99 1st Month Maintenance + $20 VAT). Promotional offers ($999 net total) apply automatically between 1 Oct 2026 and 5 Jan 2027. Includes WhatsApp + Complete Facebook & Instagram bots at ZERO extra charge. Monthly maintenance of $99/month recurs starting from the 2nd month.</p>
 
-            <h4>3. Meta Conversation API Fees</h4>
-            <p>Meta WhatsApp conversation charges (effective 1 Oct 2026) are directly paid by the client to Meta and are not included in NexaBot maintenance fees.</p>
+              <h4>3. Meta Conversation API Fees</h4>
+              <p>Meta WhatsApp conversation charges (effective 1 Oct 2026) are directly paid by the client to Meta and are not included in NexaBot maintenance fees.</p>
 
-            <h4>4. Intellectual Property & Refunds</h4>
-            <p>Clients retain 100% ownership of their business data and custom AI bot outputs. Due to instantaneous compute resource allocation, setup fees are non-refundable once neural training has commenced.</p>
+              <h4>4. Intellectual Property & Refunds</h4>
+              <p>Clients retain 100% ownership of their business data and custom AI bot outputs. Due to instantaneous compute resource allocation, setup fees are non-refundable once neural training has commenced.</p>
+            </div>
 
-            <div class="mt-4 pt-3 border-t border-white/10 text-right">
-              <button onclick="openModal('modal-terms')" class="text-xs text-sky font-bold hover:underline">View Full Screen Terms of Service &rarr;</button>
+            <!-- RE-DESIGNED ELEGANT ACTION BUTTON -->
+            <div class="mt-6 pt-4 border-t border-white/10 flex justify-end">
+              <button onclick="openModal('modal-terms')" class="btn-legal-glow">
+                <span>View Full Screen Terms of Service</span>
+                <i class="fa-solid fa-arrow-right text-xs"></i>
+              </button>
             </div>
           </div>
 
@@ -847,7 +907,7 @@
         </form>
       </section>
 
-      <!-- 11. WEBSITE FOOTER -->
+      <!-- 11. WEBSITE FOOTER WITH LOGO -->
       <footer class="site-footer">
         <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-10 pb-12">
           
@@ -856,7 +916,7 @@
               <img src="logos/nexabot-logo.png" alt="NexaBot Agency®" onerror="this.style.display='none';document.getElementById('ft-logo-txt').style.display='block'">
               <span id="ft-logo-txt" class="font-black text-2xl text-white font-['Poppins']" style="display:none;">Nexa<span class="text-sky">Bot</span></span>
             </div>
-            <p class="leading-relaxed text-slate-400 text-xs">Building enterprise-grade, high-converting AI chatbots for forward-thinking brands globally.</p>
+            <p class="leading-relaxed text-slate-400 text-xs">Building enterprise-grade, high-converting AI chatbots across WhatsApp, Facebook, Instagram & Websites for forward-thinking brands globally.</p>
             
             <div class="footer-msme">
               <img src="logos/msme-udyam-badge.png" alt="MSME Govt. India Logo" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_India.svg'">
@@ -871,8 +931,9 @@
             <h4 class="text-white font-bold uppercase tracking-wider text-xs">AI Solutions</h4>
             <ul class="space-y-2 list-none p-0 text-xs">
               <li><a href="#services" class="hover:text-sky transition">WhatsApp AI Chatbots</a></li>
+              <li><a href="#services" class="hover:text-sky transition">Facebook Messenger Bots ($0 Extra)</a></li>
+              <li><a href="#services" class="hover:text-sky transition">Instagram Direct Bots ($0 Extra)</a></li>
               <li><a href="#services" class="hover:text-sky transition">Website Conversational Widgets</a></li>
-              <li><a href="#services" class="hover:text-sky transition">Custom Knowledge Agents</a></li>
               <li><a href="#pricing" class="hover:text-sky transition">Enterprise Deployments</a></li>
             </ul>
           </div>
@@ -917,21 +978,21 @@
 
     </div>
 
-    <!-- ── CLIENT DASHBOARD VIEW ── -->
+    <!-- ── CLIENT DASHBOARD VIEW (WITH COMPLETE SOCIAL BUNDLE PROMO) ── -->
     <div id="view-client-dashboard" class="hidden px-6 py-10 max-w-7xl mx-auto space-y-8">
       
-      <!-- PROMO DISCOUNT STICKER IN DASHBOARD -->
+      <!-- PROMO DISCOUNT & MULTI-CHANNEL BANNER -->
       <div class="bg-gradient-to-r from-purple-600 via-blue-600 to-indigo-700 rounded-2xl p-4 text-white flex flex-col md:flex-row items-center justify-between shadow-lg border border-purple-400/30 gap-3">
         <div class="flex items-center gap-3">
           <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center text-xl font-bold">
-            <i class="fa-solid fa-tags text-amber-300"></i>
+            <i class="fa-solid fa-layer-group text-amber-300"></i>
           </div>
           <div>
             <div class="font-extrabold text-sm uppercase tracking-wide flex items-center gap-2">
-              <span>SPECIAL PROMOTION UNLOCKED</span>
+              <span>SPECIAL PROMOTION & OMNICHANNEL UNLOCKED</span>
               <span class="bg-amber-400 text-navy font-black text-[10px] px-2 py-0.5 rounded-full">$100 OFF</span>
             </div>
-            <p class="text-xs text-blue-100">Active Promo (1 Oct 2026 – 5 Jan 2027): Standard $1099 package is auto-discounted to $999 on both PayPal & Bank Transfers!</p>
+            <p class="text-xs text-blue-100">Active Promo ($999 Net Rate): Standard package includes <strong>WhatsApp + Complete Facebook & Instagram Bots with ZERO extra charges</strong>!</p>
           </div>
         </div>
         <span class="bg-white/20 border border-white/40 text-xs font-bold px-3 py-1.5 rounded-xl whitespace-nowrap">Promo Active</span>
@@ -959,7 +1020,7 @@
             <div>
               <span class="text-[10px] font-bold uppercase tracking-wider text-blue-600 bg-blue-100 px-2.5 py-1 rounded-full">Step 1 Required</span>
               <h3 class="text-lg font-bold text-navy mt-2 group-hover:text-blue-600 transition">Order Form & Payment Confirmation</h3>
-              <p class="text-xs text-slate-600 mt-1">Upload payment confirmation screenshots and select bot platforms.</p>
+              <p class="text-xs text-slate-600 mt-1">Upload payment confirmation screenshots and select bot platforms (WhatsApp, Facebook, Instagram).</p>
             </div>
             <i class="fa-solid fa-file-signature text-2xl text-blue-500 group-hover:scale-110 transition"></i>
           </div>
@@ -987,7 +1048,7 @@
         </div>
       </div>
 
-      <!-- PAYPAL GATEWAY WITH PROMO STICKERS -->
+      <!-- PAYPAL GATEWAY -->
       <div class="dash-card bg-gradient-to-r from-slate-900 via-blue-950 to-indigo-950 border border-blue-500/30 text-white shadow-xl relative overflow-hidden">
         <div class="discount-stamp animate-pulse-glow" style="top: 15px; right: 15px;"><i class="fa-solid fa-bolt mr-1"></i> $100 AUTO DISCOUNT</div>
         <div class="p-2 space-y-4">
@@ -1143,7 +1204,6 @@
         <input type="hidden" id="auth-role" value="client">
         <input type="hidden" id="auth-mode" value="login">
 
-        <!-- DYNAMIC NAME FIELD FOR CLIENT & ADMIN REGISTRATION -->
         <div id="auth-field-name" class="hidden">
           <label id="auth-name-label" class="block text-xs font-bold uppercase text-slate-500 mb-1">Full Name</label>
           <input type="text" id="auth-name" class="w-full border border-slate-300 p-3 rounded-lg text-sm focus:outline-blue-600" placeholder="John Doe">
@@ -1205,7 +1265,7 @@
         <p>We collect essential operational information when you register on our client portal or submit bot build requirements. This includes client contact details, company information, payment confirmation references, and business knowledge documentation uploaded via onboarding forms.</p>
 
         <h4 class="font-bold text-navy text-sm mt-3">2. Knowledge Base Data & AI Model Confidentiality</h4>
-        <p>All FAQs, manuals, and custom data provided by clients for AI chatbot training are stored in isolated vector databases. Client data is NEVER used to train shared base models or disclosed to third parties.</p>
+        <p>All FAQs, manuals, and custom data provided by clients for AI chatbot training across WhatsApp, Facebook, Instagram, and Websites are stored in isolated vector databases. Client data is NEVER used to train shared base models or disclosed to third parties.</p>
 
         <h4 class="font-bold text-navy text-sm mt-3">3. Payment Gateways & Banking Data</h4>
         <p>All payments are processed securely via PayPal Inc. and Skydo Direct Wire channels. NexaBot does not store credit card credentials or sensitive personal bank accounts on local agency databases.</p>
@@ -1231,10 +1291,10 @@
         <p>By registering on the NexaBot Agency Ltd.® portal or placing an order, you agree to comply with and be bound by the following terms and conditions.</p>
         
         <h4 class="font-bold text-navy text-sm mt-3">1. Scope of Service & Delivery SLA</h4>
-        <p>NexaBot builds, trains, and deploys custom AI chatbots across WhatsApp, Websites, and Multi-Channel environments within a guaranteed 48 business hours SLA following form submission in the Client Portal.</p>
+        <p>NexaBot builds, trains, and deploys custom AI chatbots across WhatsApp, Facebook Messenger, Instagram Direct, and Websites within a guaranteed 48 business hours SLA following form submission in the Client Portal.</p>
 
-        <h4 class="font-bold text-navy text-sm mt-3">2. Fee Structure & Recurring Charges</h4>
-        <p>The standard package rate is $1099 ($980 Setup + $99 1st Month Maintenance + $20 VAT). Promotional offers ($999 net total) apply automatically between 1 Oct 2026 and 5 Jan 2027. Maintenance charges of $99/month apply recurring starting from the 2nd month for infrastructure hosting, continuous LLM fine-tuning, and support.</p>
+        <h4 class="font-bold text-navy text-sm mt-3">2. Fee Structure, Pricing & Included Social Channels</h4>
+        <p>The standard package rate is $1099 ($980 Setup + $99 1st Month Maintenance + $20 VAT). Promotional offers ($999 net total) apply automatically between 1 Oct 2026 and 5 Jan 2027. Includes WhatsApp + Complete Facebook & Instagram AI Bots with ZERO extra charges. Maintenance charges of $99/month apply recurring starting from the 2nd month.</p>
 
         <h4 class="font-bold text-navy text-sm mt-3">3. Meta API & Conversation Charges</h4>
         <p>Meta WhatsApp Business Conversation fees (effective 1 Oct 2026) are directly paid by the client to Meta Platforms Inc. and are separate from agency maintenance fees.</p>
@@ -1248,30 +1308,32 @@
     </div>
   </div>
 
-  <!-- NEW ORDER MODAL -->
+  <!-- NEW ORDER MODAL WITH UPDATED SELECTION OPTIONS -->
   <div id="modal-new-order" class="modal-backdrop">
     <div class="modal-box">
       <div class="flex justify-between items-center mb-4">
-        <h3 class="text-xl font-bold text-navy">Submit New Bot Order</h3>
-        <button onclick="closeModal('modal-new-order')"><i class="fa-solid fa-xmark"></i></button>
+        <h3 class="text-xl font-bold text-navy font-['Poppins']">Submit New Bot Order</h3>
+        <button onclick="closeModal('modal-new-order')" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark"></i></button>
       </div>
       <form onsubmit="handleCreateNewOrderForm(event)" class="space-y-4">
         <div>
-          <label class="block text-xs font-bold text-slate-500 mb-1">Select Chatbot Platform</label>
-          <select id="order-type-select" class="w-full border p-3 rounded-lg text-sm bg-white">
-            <option value="WhatsApp AI Bot">WhatsApp AI Bot ($999 Promo Rate)</option>
-            <option value="Website AI Chatbot">Website AI Chatbot ($999 Promo Rate)</option>
-            <option value="Custom Multi-Channel AI Agent">Custom Multi-Channel AI Agent ($999 Promo Rate)</option>
+          <label class="block text-xs font-bold text-slate-500 mb-1">Select Chatbot Platform Package</label>
+          <select id="order-type-select" class="w-full border p-3 rounded-lg text-sm bg-white font-medium text-slate-800">
+            <option value="Complete Package: WhatsApp + Facebook + Instagram AI Bot">Complete Package: WhatsApp + Facebook + Instagram AI Bot ($999 Promo)</option>
+            <option value="WhatsApp AI Bot ($999 Promo Rate)">WhatsApp AI Bot ($999 Promo Rate)</option>
+            <option value="Facebook & Instagram AI Bot ($999 Promo Rate)">Facebook & Instagram AI Bot ($999 Promo Rate)</option>
+            <option value="Website AI Chatbot ($999 Promo Rate)">Website AI Chatbot ($999 Promo Rate)</option>
+            <option value="Custom Multi-Channel AI Agent ($999 Promo Rate)">Custom Multi-Channel AI Agent ($999 Promo Rate)</option>
           </select>
         </div>
         <div>
           <label class="block text-xs font-bold text-slate-500 mb-1">Payment Method</label>
-          <select id="order-payment-route" class="w-full border p-3 rounded-lg text-sm bg-white">
+          <select id="order-payment-route" class="w-full border p-3 rounded-lg text-sm bg-white font-medium text-slate-800">
             <option value="skydo">Skydo Direct Global Account (Preferred)</option>
             <option value="paypal">PayPal Direct Transfer</option>
           </select>
         </div>
-        <button type="submit" class="w-full bg-blue-600 text-white font-bold py-3 rounded-xl">Generate Order ($999 Promo)</button>
+        <button type="submit" class="w-full bg-blue-600 text-white font-bold py-3 rounded-xl hover:bg-blue-700 transition">Generate Order ($999 Promo)</button>
       </form>
     </div>
   </div>
@@ -1330,11 +1392,11 @@
     ];
 
     const salesMessages = [
-      { msg: "Tom just purchased an AI Chatbot package from Los Angeles, USA 🇺🇸", time: "2 minutes ago" },
-      { msg: "Sophia R. bought a WhatsApp AI Bot from London, UK 🇬🇧", time: "4 minutes ago" },
+      { msg: "Tom just purchased a WhatsApp + Facebook + Instagram AI Bot package from Los Angeles, USA 🇺🇸", time: "2 minutes ago" },
+      { msg: "Sophia R. bought a Complete Social AI Bot from London, UK 🇬🇧", time: "4 minutes ago" },
       { msg: "Akira Tanaka ordered a Custom Multi-Channel AI Agent from Tokyo, Japan 🇯🇵", time: "6 minutes ago" },
       { msg: "Emma Watson purchased an AI Knowledge Agent from Sydney, Australia 🇦🇺", time: "8 minutes ago" },
-      { msg: "Mateo Garcia bought a Website AI Chatbot from Madrid, Spain 🇪🇸", time: "11 minutes ago" }
+      { msg: "Mateo Garcia bought a Website & Social AI Chatbot from Madrid, Spain 🇪🇸", time: "11 minutes ago" }
     ];
 
     (function cycleSalesToasts() {
@@ -1679,7 +1741,7 @@
         <div><strong>Payment Route:</strong> ${o.paymentMethod.toUpperCase()}</div>
         <table class="w-full text-left my-3">
           <tr class="border-b"><th class="py-1">Description</th><th class="text-right py-1">Amount</th></tr>
-          <tr><td class="py-1">${o.type} Setup & Custom Training</td><td class="text-right py-1">$980.00 USD</td></tr>
+          <tr><td class="py-1">${o.type} Setup & Custom Training (WhatsApp + Facebook + Instagram Included)</td><td class="text-right py-1">$980.00 USD</td></tr>
           <tr><td class="py-1">1st Month Maintenance & Updates</td><td class="text-right py-1">$99.00 USD</td></tr>
           <tr><td class="py-1">Applicable VAT</td><td class="text-right py-1">$20.00 USD</td></tr>
           <tr class="border-t font-bold"><td class="py-1">Standard Subtotal</td><td class="text-right py-1">$1099.00 USD</td></tr>
