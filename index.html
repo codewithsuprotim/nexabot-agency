@@ -88,17 +88,24 @@
       animation: particleRise linear infinite;
     }
 
-    /* ─── DISCOUNT BADGES & STICKERS ─── */
+    /* ─── PREMIUM DISCOUNT BADGES & STAMPS (UPDATED DESIGN) ─── */
     .sale-badge {
-      background: linear-gradient(135deg, #EF4444, #DC2626);
+      background: linear-gradient(135deg, #FF3366, #FF6600);
       color: #FFFFFF; font-weight: 900; font-size: 0.75rem; text-transform: uppercase;
-      padding: 0.35rem 0.85rem; border-radius: 50px; border: 1px solid rgba(255,255,255,0.4);
-      box-shadow: 0 4px 15px rgba(239, 68, 68, 0.5); display: inline-flex; align-items: center; gap: 6px;
+      padding: 0.4rem 1rem; border-radius: 50px; border: 1px solid rgba(255,255,255,0.4);
+      box-shadow: 0 4px 20px rgba(255, 51, 102, 0.6); display: inline-flex; align-items: center; gap: 6px;
     }
+    
+    /* REFINED LUXURY PROMO STAMP */
     .discount-stamp {
-      position: absolute; top: -14px; right: 20px; background: #22C55E; color: #060F2E;
-      font-weight: 900; font-size: 0.7rem; text-transform: uppercase; padding: 4px 12px;
-      border-radius: 12px; box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4);
+      position: absolute; top: -16px; right: 24px;
+      background: linear-gradient(135deg, #3B82F6 0%, #8B5CF6 50%, #EC4899 100%);
+      color: #FFFFFF; font-family: 'Space Grotesk', sans-serif;
+      font-weight: 900; font-size: 0.75rem; letter-spacing: 0.8px;
+      text-transform: uppercase; padding: 6px 16px; border-radius: 30px;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      box-shadow: 0 8px 25px rgba(139, 92, 246, 0.6), inset 0 1px 1px rgba(255,255,255,0.8);
+      backdrop-filter: blur(8px);
     }
 
     /* ─── MANDATORY NOTICES BAR ─── */
@@ -308,6 +315,14 @@
     }
     .badge-img-wrapper img { max-height: 100%; max-width: 100%; object-fit: contain; }
 
+    /* ─── LEGAL POLICIES SECTION ─── */
+    .legal-card {
+      background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px; padding: 2.5rem; color: #CBD5E1; font-size: 0.88rem; line-height: 1.8;
+    }
+    .legal-card h3 { font-family: 'Poppins', sans-serif; color: #FFFFFF; font-size: 1.3rem; margin-bottom: 1rem; }
+    .legal-card h4 { color: #60A5FA; font-size: 1rem; margin-top: 1.2rem; margin-bottom: 0.5rem; font-weight: 700; }
+
     /* ─── FOOTER ─── */
     .site-footer {
       background: linear-gradient(180deg, #04091e 0%, #020512 100%);
@@ -407,6 +422,7 @@
       <li><a href="#comparison">Why Us</a></li>
       <li><a href="#reviews">Reviews</a></li>
       <li><a href="#faq">FAQ</a></li>
+      <li><a href="#legal-section">Legal</a></li>
     </ul>
 
     <div class="flex items-center gap-3">
@@ -528,7 +544,7 @@
         </div>
       </section>
 
-      <!-- 4. PRICING SECTION -->
+      <!-- 4. PRICING SECTION WITH REFINED PROMO STAMP -->
       <section id="pricing">
         <div class="sec-head">
           <span class="text-xs font-bold uppercase text-sky tracking-widest">Transparent Pricing</span>
@@ -536,7 +552,11 @@
         </div>
 
         <div class="pricing-card">
-          <div class="discount-stamp animate-pulse-glow"><i class="fa-solid fa-fire mr-1"></i> $100 OFF STAMP</div>
+          <!-- REFINED LUXURY PROMO STAMP WITH GLOW ANIMATION -->
+          <div class="discount-stamp animate-pulse-glow">
+            <i class="fa-solid fa-bolt mr-1"></i> $100 INSTANT DISCOUNT
+          </div>
+
           <div class="text-xs font-bold text-sky uppercase tracking-wider mb-2">Complete Agency Solution</div>
           
           <!-- PRICING STRIKE & PROMO PRICE -->
@@ -546,19 +566,19 @@
           </div>
 
           <div class="mb-4">
-            <span class="sale-badge"><i class="fa-solid fa-bolt"></i> Flat $100 Discount (1 Oct 2026 – 5 Jan 2027)</span>
+            <span class="sale-badge"><i class="fa-solid fa-sparkles"></i> Limited Offer: Flat $100 Discount (1 Oct 2026 – 5 Jan 2027)</span>
           </div>
           
           <div class="p-4 bg-white/5 rounded-xl border border-white/10 mb-6 text-xs text-slate-300 space-y-2 text-left">
-            <p><strong>Standard Package Breakdown ($1099):</strong> $980 One-Time Setup & Training + $99 1st Month Maintenance Fee + $20 VAT included.</p>
-            <p class="text-emerald-400 font-semibold"><strong>Limited Time Offer ($999):</strong> $100 Flat Discount applied automatically in PayPal Checkout & Global Bank Wire ($999 net total billed).</p>
-            <p class="text-slate-400 border-t border-white/10 pt-2"><strong>Ongoing Maintenance Fee:</strong> Starting 2nd month onwards, $99/month recurring charges apply for hosting, continuous AI updates, and technical maintenance.</p>
+            <p><strong>Standard Package Breakdown ($1099):</strong> $980 One-Time Setup & Custom AI Training + $99 1st Month Maintenance & Updates + $20 VAT included.</p>
+            <p class="text-emerald-400 font-semibold"><strong>Limited Time Promo Rate ($999):</strong> $100 Flat Discount applied automatically in PayPal Direct Checkout & Global Wire Transfer ($999 net total billed).</p>
+            <p class="text-slate-400 border-t border-white/10 pt-2"><strong>Ongoing Maintenance & Technical Support:</strong> Starting 2nd month onwards, $99/month recurring fee applies for server hosting, LLM upgrades, and continuous maintenance.</p>
           </div>
 
           <div class="p-5 bg-blue-900/40 rounded-xl border border-blue-500/30 text-left text-xs text-slate-200 mb-8 space-y-2">
             <div class="font-bold text-sky text-sm mb-2"><i class="fa-solid fa-shield-halved mr-2"></i> Accepted Payment Channels & Official Invoicing:</div>
-            <div class="flex items-center gap-2"><i class="fa-solid fa-building-columns text-emerald-400"></i> <strong>Global Bank Transfer (Skydo):</strong> Send $999 against $1099 standard billing (Automatic $100 discount applied). Full official $999 invoice provided in Client Portal.</div>
-            <div class="flex items-center gap-2"><i class="fa-brands fa-paypal text-blue-400"></i> <strong>PayPal Direct:</strong> $100 discount auto-deducted at checkout ($999 net). Official PayPal receipt + portal invoice delivered automatically.</div>
+            <div class="flex items-center gap-2"><i class="fa-solid fa-building-columns text-emerald-400"></i> <strong>Global Bank Transfer (Skydo):</strong> Client sends $999 against standard $1099 billing (Automatic $100 discount applied). Full $999 official tax invoice issued.</div>
+            <div class="flex items-center gap-2"><i class="fa-brands fa-paypal text-blue-400"></i> <strong>PayPal Direct:</strong> $100 promo discount auto-deducted at checkout ($999 net total). Digital PayPal receipt + portal invoice delivered immediately.</div>
             <div class="text-amber-300 font-semibold mt-3 pt-2 border-t border-white/10">
               * Note: To place an order and initiate payment, clients are required to register and sign in through the Client Portal.
             </div>
@@ -761,7 +781,63 @@
         </div>
       </section>
 
-      <!-- 9. NEWSLETTER -->
+      <!-- 9. COMPLETE PRIVACY POLICY & TERMS OF SERVICE SECTION -->
+      <section id="legal-section" class="py-20 px-6 max-w-6xl mx-auto">
+        <div class="sec-head">
+          <span class="text-xs font-bold uppercase text-sky tracking-widest">Compliance & Governance</span>
+          <h2 class="sec-title mt-2">Legal <span>Policies & Terms</span></h2>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          
+          <!-- PRIVACY POLICY CARD -->
+          <div class="legal-card">
+            <h3><i class="fa-solid fa-user-shield text-sky mr-2"></i> Privacy Policy</h3>
+            <p><strong>Effective Date:</strong> October 1, 2026 | <strong>Entity:</strong> NexaBot Agency Ltd.®</p>
+            
+            <h4>1. Data Collection & Usage</h4>
+            <p>NexaBot Agency Ltd.® collects user details (Name, Email, Business Information) and Knowledge Base documentation solely for building, training, and optimizing enterprise AI Chatbots. All client documentation uploaded via our portal is encrypted in transit and at rest.</p>
+
+            <h4>2. Data Ingestion & Model Protection</h4>
+            <p>Knowledge base files submitted by clients are processed through isolated vector databases. We guarantee that client-proprietary data is never used to train public or shared AI models.</p>
+
+            <h4>3. Payment Security & Third Parties</h4>
+            <p>Financial transactions are securely handled via PayPal Inc. and Skydo (Global Bank Transfer). We do not store full credit card numbers or sensitive banking credentials on our local servers.</p>
+
+            <h4>4. Third-Party API Integrations</h4>
+            <p>When integrating Meta WhatsApp Business API or external LLM providers, usage adheres strictly to Meta Platform Terms and OpenAI/Anthropic enterprise privacy guidelines.</p>
+
+            <div class="mt-4 pt-3 border-t border-white/10 text-right">
+              <button onclick="openModal('modal-privacy')" class="text-xs text-sky font-bold hover:underline">View Full Screen Privacy Policy &rarr;</button>
+            </div>
+          </div>
+
+          <!-- TERMS OF SERVICE CARD -->
+          <div class="legal-card">
+            <h3><i class="fa-solid fa-file-contract text-sky mr-2"></i> Terms of Service</h3>
+            <p><strong>Last Updated:</strong> October 1, 2026 | <strong>Entity:</strong> NexaBot Agency Ltd.®</p>
+
+            <h4>1. Service SLA & Delivery</h4>
+            <p>NexaBot guarantees initial AI Chatbot build and deployment within 48 business hours following complete submission of the AI Knowledge Base Form and initial payment confirmation.</p>
+
+            <h4>2. Billing, Pricing & Maintenance</h4>
+            <p>The standard package fee is $1099 ($980 Setup + $99 1st Month Maintenance + $20 VAT). Promotional offers ($999 net total) apply automatically between 1 Oct 2026 and 5 Jan 2027. Monthly maintenance of $99/month recurs starting from the 2nd month for server hosting, LLM updates, and continuous support.</p>
+
+            <h4>3. Meta Conversation API Fees</h4>
+            <p>Meta WhatsApp conversation charges (effective 1 Oct 2026) are directly paid by the client to Meta and are not included in NexaBot maintenance fees.</p>
+
+            <h4>4. Intellectual Property & Refunds</h4>
+            <p>Clients retain 100% ownership of their business data and custom AI bot outputs. Due to instantaneous compute resource allocation, setup fees are non-refundable once neural training has commenced.</p>
+
+            <div class="mt-4 pt-3 border-t border-white/10 text-right">
+              <button onclick="openModal('modal-terms')" class="text-xs text-sky font-bold hover:underline">View Full Screen Terms of Service &rarr;</button>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- 10. NEWSLETTER -->
       <section class="py-16 px-6 bg-gradient-to-r from-blue-900 to-indigo-950 text-center text-white">
         <h3 class="text-2xl font-bold font-['Poppins'] mb-2">Subscribe to Agency Updates</h3>
         <p class="text-xs text-blue-200 mb-6 max-w-md mx-auto">Get monthly insights on AI chatbot automation, Meta API updates, and new platform features.</p>
@@ -771,7 +847,7 @@
         </form>
       </section>
 
-      <!-- 10. WEBSITE FOOTER -->
+      <!-- 11. WEBSITE FOOTER -->
       <footer class="site-footer">
         <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-10 pb-12">
           
@@ -832,9 +908,9 @@
         <div class="max-w-7xl mx-auto px-6 border-t border-white/5 pt-6 flex flex-col md:flex-row justify-between items-center text-[11px] text-slate-500 gap-4">
           <div>© 2017–2026 NexaBot Agency Ltd.® All Rights Reserved.</div>
           <div class="flex gap-4">
-            <a href="#" class="hover:text-slate-400 transition">Privacy Policy</a>
-            <a href="#" class="hover:text-slate-400 transition">Terms of Service</a>
-            <a href="#" class="hover:text-slate-400 transition">SLA Guarantee</a>
+            <button onclick="openModal('modal-privacy')" class="hover:text-slate-400 transition bg-transparent border-0 text-[11px] text-slate-500 cursor-pointer">Privacy Policy</button>
+            <button onclick="openModal('modal-terms')" class="hover:text-slate-400 transition bg-transparent border-0 text-[11px] text-slate-500 cursor-pointer">Terms of Service</button>
+            <a href="#faq" class="hover:text-slate-400 transition">SLA Guarantee</a>
           </div>
         </div>
       </footer>
@@ -845,17 +921,17 @@
     <div id="view-client-dashboard" class="hidden px-6 py-10 max-w-7xl mx-auto space-y-8">
       
       <!-- PROMO DISCOUNT STICKER IN DASHBOARD -->
-      <div class="bg-gradient-to-r from-emerald-600 via-teal-600 to-blue-600 rounded-2xl p-4 text-white flex flex-col md:flex-row items-center justify-between shadow-lg border border-emerald-400/30 gap-3">
+      <div class="bg-gradient-to-r from-purple-600 via-blue-600 to-indigo-700 rounded-2xl p-4 text-white flex flex-col md:flex-row items-center justify-between shadow-lg border border-purple-400/30 gap-3">
         <div class="flex items-center gap-3">
           <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center text-xl font-bold">
-            <i class="fa-solid fa-tags text-yellow-300"></i>
+            <i class="fa-solid fa-tags text-amber-300"></i>
           </div>
           <div>
             <div class="font-extrabold text-sm uppercase tracking-wide flex items-center gap-2">
               <span>SPECIAL PROMOTION UNLOCKED</span>
-              <span class="bg-yellow-400 text-navy font-black text-[10px] px-2 py-0.5 rounded-full">$100 OFF</span>
+              <span class="bg-amber-400 text-navy font-black text-[10px] px-2 py-0.5 rounded-full">$100 OFF</span>
             </div>
-            <p class="text-xs text-emerald-100">Active Promo (1 Oct 2026 – 5 Jan 2027): Standard $1099 package is auto-discounted to $999 on both PayPal & Bank Transfers!</p>
+            <p class="text-xs text-blue-100">Active Promo (1 Oct 2026 – 5 Jan 2027): Standard $1099 package is auto-discounted to $999 on both PayPal & Bank Transfers!</p>
           </div>
         </div>
         <span class="bg-white/20 border border-white/40 text-xs font-bold px-3 py-1.5 rounded-xl whitespace-nowrap">Promo Active</span>
@@ -917,7 +993,7 @@
         <div class="p-2 space-y-4">
           <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-white/10 pb-4">
             <div>
-              <span class="text-[10px] font-extrabold uppercase bg-emerald-500/20 text-emerald-300 border border-emerald-400/40 px-3 py-1 rounded-full">Official Promo Checkout ($999 Net)</span>
+              <span class="text-[10px] font-extrabold uppercase bg-sky/20 text-sky border border-sky/40 px-3 py-1 rounded-full">Official Promo Checkout ($999 Net)</span>
               <h3 class="text-2xl font-black text-white font-['Poppins'] flex items-center gap-2 mt-2">
                 <i class="fa-brands fa-paypal text-sky text-2xl"></i> PayPal Instant Checkout
               </h3>
@@ -1110,6 +1186,64 @@
       <div class="mt-6 flex justify-end gap-2 border-t pt-3">
         <button onclick="window.print()" class="bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold px-4 py-2 rounded-lg text-xs">Print / Save PDF</button>
         <button onclick="closeModal('invoice-modal')" class="bg-blue-600 text-white font-bold px-4 py-2 rounded-lg text-xs">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRIVACY POLICY MODAL -->
+  <div id="modal-privacy" class="modal-backdrop">
+    <div class="modal-box max-w-2xl max-h-[85vh] overflow-y-auto">
+      <div class="flex justify-between items-center border-b pb-3 mb-4">
+        <div class="font-black text-lg text-navy font-['Poppins']">PRIVACY POLICY — NexaBot Agency Ltd.®</div>
+        <button onclick="closeModal('modal-privacy')" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="space-y-4 text-xs text-slate-700 leading-relaxed">
+        <p><strong>Effective Date:</strong> October 1, 2026</p>
+        <p>At NexaBot Agency Ltd.®, accessible from nexabot.shop, protecting client data privacy is our paramount priority. This Privacy Policy outlines the types of information we collect, how it is utilized, and the strict safeguards implemented to protect client assets.</p>
+        
+        <h4 class="font-bold text-navy text-sm mt-3">1. Information Collection</h4>
+        <p>We collect essential operational information when you register on our client portal or submit bot build requirements. This includes client contact details, company information, payment confirmation references, and business knowledge documentation uploaded via onboarding forms.</p>
+
+        <h4 class="font-bold text-navy text-sm mt-3">2. Knowledge Base Data & AI Model Confidentiality</h4>
+        <p>All FAQs, manuals, and custom data provided by clients for AI chatbot training are stored in isolated vector databases. Client data is NEVER used to train shared base models or disclosed to third parties.</p>
+
+        <h4 class="font-bold text-navy text-sm mt-3">3. Payment Gateways & Banking Data</h4>
+        <p>All payments are processed securely via PayPal Inc. and Skydo Direct Wire channels. NexaBot does not store credit card credentials or sensitive personal bank accounts on local agency databases.</p>
+
+        <h4 class="font-bold text-navy text-sm mt-3">4. Security & SSL Encryption</h4>
+        <p>We implement enterprise-grade 256-bit SSL encryption across all portal interfaces and Firebase Cloud Firestore endpoints to ensure confidential data protection against unauthorized access.</p>
+      </div>
+      <div class="mt-6 flex justify-end border-t pt-3">
+        <button onclick="closeModal('modal-privacy')" class="bg-blue-600 text-white font-bold px-5 py-2 rounded-lg text-xs">I Understand</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TERMS OF SERVICE MODAL -->
+  <div id="modal-terms" class="modal-backdrop">
+    <div class="modal-box max-w-2xl max-h-[85vh] overflow-y-auto">
+      <div class="flex justify-between items-center border-b pb-3 mb-4">
+        <div class="font-black text-lg text-navy font-['Poppins']">TERMS OF SERVICE — NexaBot Agency Ltd.®</div>
+        <button onclick="closeModal('modal-terms')" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="space-y-4 text-xs text-slate-700 leading-relaxed">
+        <p><strong>Effective Date:</strong> October 1, 2026</p>
+        <p>By registering on the NexaBot Agency Ltd.® portal or placing an order, you agree to comply with and be bound by the following terms and conditions.</p>
+        
+        <h4 class="font-bold text-navy text-sm mt-3">1. Scope of Service & Delivery SLA</h4>
+        <p>NexaBot builds, trains, and deploys custom AI chatbots across WhatsApp, Websites, and Multi-Channel environments within a guaranteed 48 business hours SLA following form submission in the Client Portal.</p>
+
+        <h4 class="font-bold text-navy text-sm mt-3">2. Fee Structure & Recurring Charges</h4>
+        <p>The standard package rate is $1099 ($980 Setup + $99 1st Month Maintenance + $20 VAT). Promotional offers ($999 net total) apply automatically between 1 Oct 2026 and 5 Jan 2027. Maintenance charges of $99/month apply recurring starting from the 2nd month for infrastructure hosting, continuous LLM fine-tuning, and support.</p>
+
+        <h4 class="font-bold text-navy text-sm mt-3">3. Meta API & Conversation Charges</h4>
+        <p>Meta WhatsApp Business Conversation fees (effective 1 Oct 2026) are directly paid by the client to Meta Platforms Inc. and are separate from agency maintenance fees.</p>
+
+        <h4 class="font-bold text-navy text-sm mt-3">4. Intellectual Property & Refund Policy</h4>
+        <p>Clients retain 100% full intellectual property ownership of their custom bot outputs and brand data. Due to instant server allocation and compute consumption, setup fees are non-refundable once AI model training commences.</p>
+      </div>
+      <div class="mt-6 flex justify-end border-t pt-3">
+        <button onclick="closeModal('modal-terms')" class="bg-blue-600 text-white font-bold px-5 py-2 rounded-lg text-xs">Accept & Close</button>
       </div>
     </div>
   </div>
