@@ -7,6 +7,9 @@
   <meta name="description" content="NexaBot AI Chatbot Agency builds WhatsApp Bots, Website Chatbots & Custom AI Bots. $980 One-time setup fee + $99 monthly maintenance + $20 VAT ($1,099 total initial). Live in 48 hours." />
   <link rel="icon" type="image/png" href="logos/nexabot-favicon.png" />
 
+  <!-- PayPal SDK -->
+  <script src="https://www.paypal.com/sdk/js?client-id=BAACylQi88Jo95HU3YkvcusJSZPGDH-XqBf0xP-4iIDjogJA7UB0Io-jVKjtepATI95Vp-gqzwr0dZYHdw&components=hosted-buttons&disable-funding=venmo&currency=USD" crossorigin="anonymous" async></script>
+
   <!-- Google Fonts & Font Awesome -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -31,35 +34,10 @@
     };
   </script>
 
-  <!-- Firebase Modular SDKs -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-    import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-    import { getFirestore, collection, addDoc, getDocs, updateDoc, doc, query, where, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-
-    // Official Valid Firebase Config for Project: nexabot-india
-    const firebaseConfig = {
-      apiKey: "AIzaSyBSxMkDacoyoe6Gs919vskE1bBH0zAlCoQ",
-      authDomain: "nexabot-india.firebaseapp.com",
-      projectId: "nexabot-india",
-      storageBucket: "nexabot-india.firebasestorage.app",
-      messagingSenderId: "936045282273",
-      appId: "1:936045282273:web:383e8b836f7592ba7c08a8",
-      measurementId: "G-LNDBLN8MES"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
-    const googleProvider = new GoogleAuthProvider();
-
-    window.firebaseApp = app;
-    window.firebaseAuth = auth;
-    window.firebaseDb = db;
-    window.googleProvider = googleProvider;
-    window.fbAuth = { signInWithPopup, signOut, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword };
-    window.fbDb = { collection, addDoc, getDocs, updateDoc, doc, query, where, onSnapshot };
-  </script>
+  <!-- Firebase Global Compat SDKs (Prevents API Key / Scope Errors) -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
 
   <style>
     /* ─── RESET & CORE THEME ─── */
@@ -98,7 +76,7 @@
 
     .animate-float { animation: floatSlow 4s ease-in-out infinite; }
 
-    /* Custom Google Animated Button Styles */
+    /* Animated Google Button */
     .btn-google-animated {
       position: relative;
       display: flex;
@@ -108,7 +86,7 @@
       width: 100%;
       padding: 12px 20px;
       background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-      border: 1.5px solid #e2e8f0;
+      border: 1.5px solid #cbd5e1;
       border-radius: 14px;
       color: #1e293b;
       font-weight: 700;
@@ -116,7 +94,7 @@
       cursor: pointer;
       overflow: hidden;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
     }
     .btn-google-animated::before {
       content: '';
@@ -130,13 +108,8 @@
     }
     .btn-google-animated:hover {
       transform: translateY(-2px);
-      border-color: #3b82f6;
-      box-shadow: 0 8px 20px rgba(37, 99, 235, 0.18), inset 0 1px 0 rgba(255, 255, 255, 1);
-      background: #ffffff;
-    }
-    .btn-google-animated:active {
-      transform: translateY(0);
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      border-color: #2563eb;
+      box-shadow: 0 8px 20px rgba(37, 99, 235, 0.2);
     }
 
     .particle-container { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 1; }
@@ -301,7 +274,7 @@
   <!-- NOTICE BANNER -->
   <div class="notice-banner">
     <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-center gap-2 md:gap-6 text-center">
-      <div><i class="fa-brands fa-whatsapp text-green-400 mr-1"></i><strong>Notice 1:</strong> Meta WhatsApp Conversations chargeable from 1 Oct 2026.</div>
+      <div><i class="fa-brands fa-whatsapp text-green-400 mr-1"></i><strong>Notice 1:</strong> Meta WhatsApp Business Conversations chargeable from 1 Oct 2026.</div>
       <div class="hidden md:block opacity-40">|</div>
       <div><i class="fa-solid fa-microchip text-sky-400 mr-1"></i><strong>Notice 2:</strong> Cloud GPU & AI service costs surged globally.</div>
     </div>
@@ -337,7 +310,7 @@
           <i class="fa-solid fa-user mr-1"></i> Client Portal
         </button>
         <button onclick="openAuthModal('admin')" class="bg-red-500/20 text-red-300 border border-red-500/30 text-xs font-semibold px-3 sm:px-4 py-2 rounded-full hover:bg-red-500/30 transition">
-          <i class="fa-solid fa-shield-halved mr-1"></i> Admin
+          <i class="fa-solid fa-shield-halved mr-1"></i> Admin Portal
         </button>
       </div>
       <div id="nav-user-controls" class="hidden flex items-center gap-2 sm:gap-3">
@@ -895,8 +868,24 @@
   <!-- FLOATING WHATSAPP -->
   <a href="https://wa.me/9474065821" target="_blank" id="wa-float" title="Direct Support"><i class="fab fa-whatsapp"></i></a>
 
-  <!-- ENGINE CONTROLLER -->
+  <!-- ENGINE CONTROLLER WITH FIREBASE COMPAT INITIALIZATION -->
   <script>
+    // 1. Initialize Firebase with valid credentials
+    const firebaseConfig = {
+      apiKey: "AIzaSyBSxMkDacoyoe6Gs919vskE1bBH0zAlCoQ",
+      authDomain: "nexabot-india.firebaseapp.com",
+      projectId: "nexabot-india",
+      storageBucket: "nexabot-india.firebasestorage.app",
+      messagingSenderId: "936045282273",
+      appId: "1:936045282273:web:383e8b836f7592ba7c08a8",
+      measurementId: "G-LNDBLN8MES"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const fbAuthInstance = firebase.auth();
+    const fbDbInstance = firebase.firestore();
+    const googleProviderInstance = new firebase.auth.GoogleAuthProvider();
+
     let currentUser = null;
     let unsubscribeOrders = null;
 
@@ -909,11 +898,9 @@
       "Bot Deployed & Live"
     ];
 
-    window.addEventListener('load', () => {
-      window.fbAuth.onAuthStateChanged(window.firebaseAuth, (user) => {
-        currentUser = user;
-        updateAuthUI();
-      });
+    fbAuthInstance.onAuthStateChanged((user) => {
+      currentUser = user;
+      updateAuthUI();
     });
 
     function updateAuthUI() {
@@ -932,7 +919,7 @@
 
     async function handleGoogleSignIn() {
       try {
-        const result = await window.fbAuth.signInWithPopup(window.firebaseAuth, window.googleProvider);
+        const result = await fbAuthInstance.signInWithPopup(googleProviderInstance);
         currentUser = result.user;
         closeModal('auth-modal');
         router.navigate('dashboard');
@@ -949,9 +936,9 @@
 
       try {
         if (mode === 'register') {
-          await window.fbAuth.createUserWithEmailAndPassword(window.firebaseAuth, email, password);
+          await fbAuthInstance.createUserWithEmailAndPassword(email, password);
         } else {
-          await window.fbAuth.signInWithEmailAndPassword(window.firebaseAuth, email, password);
+          await fbAuthInstance.signInWithEmailAndPassword(email, password);
         }
         closeModal('auth-modal');
         router.navigate('dashboard');
@@ -961,7 +948,7 @@
     }
 
     async function handleLogout() {
-      await window.fbAuth.signOut(window.firebaseAuth);
+      await fbAuthInstance.signOut();
       currentUser = null;
       if (unsubscribeOrders) unsubscribeOrders();
       router.navigate('landing');
@@ -983,45 +970,42 @@
 
     function listenClientOrders() {
       if (unsubscribeOrders) unsubscribeOrders();
-      const ordersRef = window.fbDb.collection(window.firebaseDb, "orders");
-      const q = window.fbDb.query(ordersRef, window.fbDb.where("clientId", "==", currentUser.uid));
-
-      unsubscribeOrders = window.fbDb.onSnapshot(q, (snapshot) => {
-        const container = document.getElementById('client-orders-container');
-        if (snapshot.empty) {
-          container.innerHTML = `<div class="p-4 text-center text-slate-400 text-xs">No active orders yet. Click "Submit New Order" to get started.</div>`;
-          return;
-        }
-        let html = '';
-        snapshot.forEach((docSnap) => {
-          const o = docSnap.data();
-          const currentStage = o.stageIndex || 0;
-          html += `
-            <div class="border rounded-xl p-4 bg-slate-50 space-y-3">
-              <div class="flex flex-col sm:flex-row justify-between border-b pb-2 gap-2">
-                <div><span class="font-bold text-navy text-sm">${docSnap.id.substring(0,8).toUpperCase()}</span> — <span class="text-slate-700 text-xs font-semibold">${o.type}</span></div>
-                <div class="flex items-center gap-2"><span class="status-badge status-${o.status}">${o.status}</span><span class="font-bold text-navy text-xs">$${o.amount}</span></div>
+      unsubscribeOrders = fbDbInstance.collection("orders")
+        .where("clientId", "==", currentUser.uid)
+        .onSnapshot((snapshot) => {
+          const container = document.getElementById('client-orders-container');
+          if (snapshot.empty) {
+            container.innerHTML = `<div class="p-4 text-center text-slate-400 text-xs">No active orders yet. Click "Submit New Order" to get started.</div>`;
+            return;
+          }
+          let html = '';
+          snapshot.forEach((docSnap) => {
+            const o = docSnap.data();
+            const currentStage = o.stageIndex || 0;
+            html += `
+              <div class="border rounded-xl p-4 bg-slate-50 space-y-3">
+                <div class="flex flex-col sm:flex-row justify-between border-b pb-2 gap-2">
+                  <div><span class="font-bold text-navy text-sm">${docSnap.id.substring(0,8).toUpperCase()}</span> — <span class="text-slate-700 text-xs font-semibold">${o.type}</span></div>
+                  <div class="flex items-center gap-2"><span class="status-badge status-${o.status}">${o.status}</span><span class="font-bold text-navy text-xs">$${o.amount}</span></div>
+                </div>
+                <div class="grid grid-cols-2 sm:grid-cols-6 gap-2 text-center text-xs">
+                  ${PROJECT_STAGES.map((st, idx) => `
+                    <div class="p-1.5 border rounded bg-white flex flex-col items-center">
+                      <div class="step-node ${idx < currentStage ? 'step-complete' : idx === currentStage ? 'step-active' : 'step-pending'}">${idx < currentStage ? '✓' : idx + 1}</div>
+                      <span class="text-[9px] text-slate-700 mt-1">${st}</span>
+                    </div>
+                  `).join('')}
+                </div>
               </div>
-              <div class="grid grid-cols-2 sm:grid-cols-6 gap-2 text-center text-xs">
-                ${PROJECT_STAGES.map((st, idx) => `
-                  <div class="p-1.5 border rounded bg-white flex flex-col items-center">
-                    <div class="step-node ${idx < currentStage ? 'step-complete' : idx === currentStage ? 'step-active' : 'step-pending'}">${idx < currentStage ? '✓' : idx + 1}</div>
-                    <span class="text-[9px] text-slate-700 mt-1">${st}</span>
-                  </div>
-                `).join('')}
-              </div>
-            </div>
-          `;
+            `;
+          });
+          container.innerHTML = html;
         });
-        container.innerHTML = html;
-      });
     }
 
     function listenAdminOrders() {
       if (unsubscribeOrders) unsubscribeOrders();
-      const ordersRef = window.fbDb.collection(window.firebaseDb, "orders");
-
-      unsubscribeOrders = window.fbDb.onSnapshot(ordersRef, (snapshot) => {
+      unsubscribeOrders = fbDbInstance.collection("orders").onSnapshot((snapshot) => {
         const tbody = document.getElementById('admin-orders-table-body');
         let total = 0, pending = 0, active = 0, rev = 0;
         let html = '';
@@ -1058,7 +1042,7 @@
     async function handleCreateCloudOrder(e) {
       e.preventDefault();
       try {
-        await window.fbDb.addDoc(window.fbDb.collection(window.firebaseDb, "orders"), {
+        await fbDbInstance.collection("orders").add({
           clientId: currentUser.uid,
           clientEmail: currentUser.email,
           type: document.getElementById('order-type-select').value,
@@ -1076,14 +1060,12 @@
     }
 
     async function approveCloudOrder(docId) {
-      const orderRef = window.fbDb.doc(window.firebaseDb, "orders", docId);
-      await window.fbDb.updateDoc(orderRef, { status: 'active' });
+      await fbDbInstance.collection("orders").doc(docId).update({ status: 'active' });
     }
 
     async function advanceCloudStage(docId, currentStage) {
       const nextStage = Math.min(currentStage + 1, PROJECT_STAGES.length - 1);
-      const orderRef = window.fbDb.doc(window.firebaseDb, "orders", docId);
-      await window.fbDb.updateDoc(orderRef, { stageIndex: nextStage });
+      await fbDbInstance.collection("orders").doc(docId).update({ stageIndex: nextStage });
     }
 
     function switchAuthRole(role) {
