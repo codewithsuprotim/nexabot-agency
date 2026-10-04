@@ -34,7 +34,7 @@
     };
   </script>
 
-  <!-- Firebase Global Libraries (Firestore Database Preserved for Global Order Tracking) -->
+  <!-- Firebase Global Libraries (Fully Connected for Firestore Real-Time Global Sync) -->
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
@@ -1114,7 +1114,7 @@
 
   <!-- ── 5. SCRIPTS & ENGINE ── -->
   <script>
-    // Official Firebase Credentials (FIREBASE FIRESTORE FULLY PRESERVED)
+    // Official Firebase Credentials (FIREBASE FIRESTORE FULLY CONNECTED)
     const firebaseConfig = {
       apiKey: "AIzaSyBSxMkDacoyoe6Gs919vskE1bBH0zAlCoQ",
       authDomain: "nexabot-india.firebaseapp.com",
@@ -1130,7 +1130,7 @@
     const fbAuth = firebase.auth();
     const fbDb = firebase.firestore();
 
-    const DB_KEYS = { USERS: 'nexabot_db_users', ORDERS: 'nexabot_db_orders', SESSION: 'nexabot_db_session' };
+    const DB_KEYS = { SESSION: 'nexabot_db_session' };
     let paypalInitialized = false;
 
     const PROJECT_STAGES = [
@@ -1183,34 +1183,32 @@
       }
     })();
 
-    function initDatabase() {
-      if (!localStorage.getItem(DB_KEYS.USERS)) {
-        const seedUsers = [
-          { id: 'usr_admin', name: 'NexaBot Admin', email: 'admin@nexabot.shop', role: 'admin', password: 'admin' },
-          { id: 'usr_1', name: 'Supriya Chatterjee', email: 'client@company.com', role: 'client', password: 'password' }
-        ];
-        localStorage.setItem(DB_KEYS.USERS, JSON.stringify(seedUsers));
-      }
-      if (!localStorage.getItem(DB_KEYS.ORDERS)) {
-        const seedOrders = [
-          { id: 'NEX-187015', clientId: 'usr_1', clientName: 'Supriya Chatterjee', type: 'Custom Multi-Channel AI Agent', amount: 1099, paymentMethod: 'paypal', status: 'active', stageIndex: 2, uploadedInvoice: null, createdAt: '2026-10-01' }
-        ];
-        localStorage.setItem(DB_KEYS.ORDERS, JSON.stringify(seedOrders));
-      }
-    }
-    initDatabase();
-
+    // Cloud Firestore Async DB Handler
     const db = {
-      getUsers: () => JSON.parse(localStorage.getItem(DB_KEYS.USERS) || '[]'),
-      getOrders: () => JSON.parse(localStorage.getItem(DB_KEYS.ORDERS) || '[]'),
-      saveUser: (user) => { const users = db.getUsers(); users.push(user); localStorage.setItem(DB_KEYS.USERS, JSON.stringify(users)); },
-      saveOrder: (order) => { const orders = db.getOrders(); orders.unshift(order); localStorage.setItem(DB_KEYS.ORDERS, JSON.stringify(orders)); },
-      updateOrder: (orderId, updates) => {
-        let orders = db.getOrders(); orders = orders.map(o => o.id === orderId ? { ...o, ...updates } : o);
-        localStorage.setItem(DB_KEYS.ORDERS, JSON.stringify(orders));
+      saveUser: async (user) => {
+        try {
+          await fbDb.collection('users').doc(user.id).set(user);
+        } catch (e) {
+          console.error("Error saving user to Firestore:", e);
+        }
+      },
+      saveOrder: async (order) => {
+        try {
+          await fbDb.collection('orders').doc(order.id).set(order);
+        } catch (e) {
+          console.error("Error saving order to Firestore:", e);
+        }
+      },
+      updateOrder: async (orderId, updates) => {
+        try {
+          await fbDb.collection('orders').doc(orderId).update(updates);
+        } catch (e) {
+          console.error("Error updating order in Firestore:", e);
+        }
       }
     };
 
+    // Global Auth Manager connected to Firestore
     const auth = {
       currentUser: JSON.parse(localStorage.getItem(DB_KEYS.SESSION) || 'null'),
       toggleMode: () => {
@@ -1220,23 +1218,44 @@
         document.getElementById('auth-field-name').style.display = mode === 'register' ? 'block' : 'none';
         document.getElementById('auth-submit-btn').innerText = mode === 'register' ? 'Create Account' : 'Sign In';
       },
-      handleSubmit: (e) => {
+      handleSubmit: async (e) => {
         e.preventDefault();
         const role = document.getElementById('auth-role').value;
         const mode = document.getElementById('auth-mode').value;
-        const email = document.getElementById('auth-email').value;
+        const email = document.getElementById('auth-email').value.trim().toLowerCase();
         const password = document.getElementById('auth-password').value;
 
         if (mode === 'register') {
           const name = document.getElementById('auth-name').value;
-          const newUser = { id: 'usr_' + Date.now(), name, email, password, role };
-          db.saveUser(newUser); auth.setCurrentUser(newUser);
+          const newUserId = 'usr_' + Date.now();
+          const newUser = { id: newUserId, name, email, password, role };
+          
+          await db.saveUser(newUser);
+          auth.setCurrentUser(newUser);
+          alert('Account created and registered globally!');
+          closeModal('auth-modal'); 
+          router.navigate('dashboard');
         } else {
-          const user = db.getUsers().find(u => u.email === email && u.password === password && u.role === role);
-          if (user) auth.setCurrentUser(user);
-          else { alert('Invalid credentials provided.'); return; }
+          try {
+            const snapshot = await fbDb.collection('users')
+              .where('email', '==', email)
+              .where('password', '==', password)
+              .where('role', '==', role)
+              .get();
+
+            if (!snapshot.empty) {
+              const user = snapshot.docs[0].data();
+              auth.setCurrentUser(user);
+              closeModal('auth-modal'); 
+              router.navigate('dashboard');
+            } else {
+              alert('Invalid credentials. Please register your account first.');
+            }
+          } catch (err) {
+            console.error("Firestore auth error:", err);
+            alert("Database connection error. Please verify network.");
+          }
         }
-        closeModal('auth-modal'); router.navigate('dashboard');
       },
       setCurrentUser: (user) => { auth.currentUser = user; localStorage.setItem(DB_KEYS.SESSION, JSON.stringify(user)); auth.updateUI(); },
       logout: () => { auth.currentUser = null; localStorage.removeItem(DB_KEYS.SESSION); auth.updateUI(); router.navigate('landing'); },
@@ -1275,7 +1294,7 @@
       }
     };
 
-    function handleCreateNewOrderForm(e) {
+    async function handleCreateNewOrderForm(e) {
       e.preventDefault();
       const newOrder = {
         id: 'NEX-' + Math.floor(100000 + Math.random() * 900000),
@@ -1284,53 +1303,60 @@
         amount: 1099, paymentMethod: document.getElementById('order-payment-route').value,
         status: 'pending', stageIndex: 0, uploadedInvoice: null, createdAt: new Date().toISOString().split('T')[0]
       };
-      db.saveOrder(newOrder); closeModal('modal-new-order'); renderClientDashboard();
+      await db.saveOrder(newOrder); 
+      closeModal('modal-new-order');
     }
 
+    // Real-Time Firestore Listener for Client Dashboard
     function renderClientDashboard() {
-      const orders = db.getOrders().filter(o => o.clientId === auth.currentUser.id);
+      if (!auth.currentUser) return;
       const container = document.getElementById('client-orders-container');
-      
-      if (orders.length === 0) {
-        container.innerHTML = `<div class="p-6 text-center text-slate-400">No active orders found. Submit a new order to get started.</div>`;
-      } else {
-        container.innerHTML = orders.map(o => {
-          const currentStage = o.stageIndex || 0;
-          return `
-            <div class="border rounded-xl p-5 bg-slate-50 space-y-4">
-              <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 border-b pb-3">
-                <div>
-                  <span class="font-bold text-navy text-lg">${o.id}</span> — <span class="text-slate-700 font-medium">${o.type}</span>
-                </div>
-                <div class="flex items-center gap-3 flex-wrap">
-                  <span class="uppercase font-bold text-xs bg-slate-200 px-2.5 py-1 rounded text-slate-700">${o.paymentMethod}</span>
-                  <span class="font-bold text-navy">$${o.amount} Total</span>
-                  <span class="status-badge status-${o.status}">${o.status}</span>
-                  <button onclick="generateInvoice('${o.id}')" class="bg-white border hover:bg-slate-100 text-slate-800 font-bold px-3 py-1 rounded text-xs">Standard Invoice</button>
-                  ${o.uploadedInvoice ? `<a href="${o.uploadedInvoice.data}" download="${o.uploadedInvoice.name}" class="bg-emerald-600 text-white font-bold px-3 py-1 rounded text-xs hover:bg-emerald-700 transition"><i class="fa-solid fa-download mr-1"></i> Admin Invoice (${o.uploadedInvoice.name})</a>` : ''}
-                </div>
-              </div>
 
-              <div>
-                <div class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-3">Project Roadmap Stage Step</div>
-                <div class="grid grid-cols-2 md:grid-cols-6 gap-2 text-center text-xs">
-                  ${PROJECT_STAGES.map((st, idx) => {
-                    let cls = "step-pending";
-                    if (idx < currentStage) cls = "step-complete";
-                    else if (idx === currentStage) cls = "step-active";
-                    return `
-                      <div class="p-2 border rounded-lg bg-white flex flex-col items-center justify-center gap-1">
-                        <div class="step-node ${cls}">${idx < currentStage ? '✓' : idx + 1}</div>
-                        <span class="font-semibold text-[10px] text-slate-700 leading-tight">${st}</span>
-                      </div>
-                    `;
-                  }).join('')}
+      fbDb.collection('orders')
+        .where('clientId', '==', auth.currentUser.id)
+        .onSnapshot((snapshot) => {
+          const orders = snapshot.docs.map(doc => doc.data());
+          if (orders.length === 0) {
+            container.innerHTML = `<div class="p-6 text-center text-slate-400">No active orders found. Submit a new order to get started.</div>`;
+          } else {
+            container.innerHTML = orders.map(o => {
+              const currentStage = o.stageIndex || 0;
+              return `
+                <div class="border rounded-xl p-5 bg-slate-50 space-y-4">
+                  <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 border-b pb-3">
+                    <div>
+                      <span class="font-bold text-navy text-lg">${o.id}</span> — <span class="text-slate-700 font-medium">${o.type}</span>
+                    </div>
+                    <div class="flex items-center gap-3 flex-wrap">
+                      <span class="uppercase font-bold text-xs bg-slate-200 px-2.5 py-1 rounded text-slate-700">${o.paymentMethod}</span>
+                      <span class="font-bold text-navy">$${o.amount} Total</span>
+                      <span class="status-badge status-${o.status}">${o.status}</span>
+                      <button onclick="generateInvoice('${o.id}')" class="bg-white border hover:bg-slate-100 text-slate-800 font-bold px-3 py-1 rounded text-xs">Standard Invoice</button>
+                      ${o.uploadedInvoice ? `<a href="${o.uploadedInvoice.data}" download="${o.uploadedInvoice.name}" class="bg-emerald-600 text-white font-bold px-3 py-1 rounded text-xs hover:bg-emerald-700 transition"><i class="fa-solid fa-download mr-1"></i> Admin Invoice (${o.uploadedInvoice.name})</a>` : ''}
+                    </div>
+                  </div>
+
+                  <div>
+                    <div class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-3">Project Roadmap Stage Step</div>
+                    <div class="grid grid-cols-2 md:grid-cols-6 gap-2 text-center text-xs">
+                      ${PROJECT_STAGES.map((st, idx) => {
+                        let cls = "step-pending";
+                        if (idx < currentStage) cls = "step-complete";
+                        else if (idx === currentStage) cls = "step-active";
+                        return `
+                          <div class="p-2 border rounded-lg bg-white flex flex-col items-center justify-center gap-1">
+                            <div class="step-node ${cls}">${idx < currentStage ? '✓' : idx + 1}</div>
+                            <span class="font-semibold text-[10px] text-slate-700 leading-tight">${st}</span>
+                          </div>
+                        `;
+                      }).join('')}
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-          `;
-        }).join('');
-      }
+              `;
+            }).join('');
+          }
+        });
 
       if (!paypalInitialized) {
         setTimeout(() => {
@@ -1344,32 +1370,36 @@
       }
     }
 
+    // Real-Time Firestore Listener for Admin Dashboard
     function renderAdminDashboard() {
-      const orders = db.getOrders();
-      document.getElementById('stat-admin-orders').innerText = orders.length;
-      document.getElementById('stat-admin-pending').innerText = orders.filter(o => o.status === 'pending').length;
-      document.getElementById('stat-admin-active').innerText = orders.filter(o => o.status === 'active').length;
-      document.getElementById('stat-admin-revenue').innerText = '$' + orders.reduce((a, c) => a + (c.status === 'active' ? c.amount : 0), 0);
+      fbDb.collection('orders').onSnapshot((snapshot) => {
+        const orders = snapshot.docs.map(doc => doc.data());
 
-      document.getElementById('admin-orders-table-body').innerHTML = orders.map(o => `
-        <tr class="border-b">
-          <td class="p-3.5 font-bold text-navy">${o.id}</td>
-          <td class="p-3.5 font-medium">${o.clientName}</td>
-          <td class="p-3.5">${o.type}</td>
-          <td class="p-3.5 uppercase font-bold text-xs">${o.paymentMethod}</td>
-          <td class="p-3.5 font-bold text-xs text-blue-600">${PROJECT_STAGES[o.stageIndex || 0]}</td>
-          <td class="p-3.5">
-            <input type="file" id="file-${o.id}" accept=".pdf,.doc,.docx,.png,.jpg,.jpeg" class="text-xs w-48 mb-1 block">
-            <button onclick="uploadInvoiceForOrder('${o.id}')" class="bg-slate-800 text-white font-bold px-2 py-1 rounded text-[10px]"><i class="fa-solid fa-upload mr-1"></i> Attach Invoice</button>
-            ${o.uploadedInvoice ? `<div class="text-[10px] text-emerald-600 font-bold mt-1">Attached: ${o.uploadedInvoice.name}</div>` : ''}
-          </td>
-          <td class="p-3.5 text-right space-x-1 whitespace-nowrap">
-            ${o.status === 'pending' ? `<button onclick="approveOrder('${o.id}')" class="bg-emerald-600 text-white font-bold px-2.5 py-1 rounded text-xs">Approve</button>` : ''}
-            <button onclick="advanceStage('${o.id}')" class="bg-blue-600 text-white font-bold px-2.5 py-1 rounded text-xs">+ Advance Stage</button>
-            <button onclick="generateInvoice('${o.id}')" class="bg-slate-100 text-slate-800 font-bold px-2.5 py-1 rounded text-xs">View Standard</button>
-          </td>
-        </tr>
-      `).join('');
+        document.getElementById('stat-admin-orders').innerText = orders.length;
+        document.getElementById('stat-admin-pending').innerText = orders.filter(o => o.status === 'pending').length;
+        document.getElementById('stat-admin-active').innerText = orders.filter(o => o.status === 'active').length;
+        document.getElementById('stat-admin-revenue').innerText = '$' + orders.reduce((a, c) => a + (c.status === 'active' ? c.amount : 0), 0);
+
+        document.getElementById('admin-orders-table-body').innerHTML = orders.map(o => `
+          <tr class="border-b">
+            <td class="p-3.5 font-bold text-navy">${o.id}</td>
+            <td class="p-3.5 font-medium">${o.clientName}</td>
+            <td class="p-3.5">${o.type}</td>
+            <td class="p-3.5 uppercase font-bold text-xs">${o.paymentMethod}</td>
+            <td class="p-3.5 font-bold text-xs text-blue-600">${PROJECT_STAGES[o.stageIndex || 0]}</td>
+            <td class="p-3.5">
+              <input type="file" id="file-${o.id}" accept=".pdf,.doc,.docx,.png,.jpg,.jpeg" class="text-xs w-48 mb-1 block">
+              <button onclick="uploadInvoiceForOrder('${o.id}')" class="bg-slate-800 text-white font-bold px-2 py-1 rounded text-[10px]"><i class="fa-solid fa-upload mr-1"></i> Attach Invoice</button>
+              ${o.uploadedInvoice ? `<div class="text-[10px] text-emerald-600 font-bold mt-1">Attached: ${o.uploadedInvoice.name}</div>` : ''}
+            </td>
+            <td class="p-3.5 text-right space-x-1 whitespace-nowrap">
+              ${o.status === 'pending' ? `<button onclick="approveOrder('${o.id}')" class="bg-emerald-600 text-white font-bold px-2.5 py-1 rounded text-xs">Approve</button>` : ''}
+              <button onclick="advanceStage('${o.id}')" class="bg-blue-600 text-white font-bold px-2.5 py-1 rounded text-xs">+ Advance Stage</button>
+              <button onclick="generateInvoice('${o.id}')" class="bg-slate-100 text-slate-800 font-bold px-2.5 py-1 rounded text-xs">View Standard</button>
+            </td>
+          </tr>
+        `).join('');
+      });
     }
 
     function uploadInvoiceForOrder(orderId) {
@@ -1380,23 +1410,23 @@
       reader.onload = function(e) {
         db.updateOrder(orderId, { uploadedInvoice: { name: file.name, data: e.target.result } });
         alert(`Invoice attached for order ${orderId}!`);
-        renderAdminDashboard();
       };
       reader.readAsDataURL(file);
     }
 
-    function approveOrder(id) { db.updateOrder(id, { status: 'active' }); renderAdminDashboard(); }
-    function advanceStage(id) {
-      const o = db.getOrders().find(item => item.id === id);
-      if (!o) return;
+    function approveOrder(id) { db.updateOrder(id, { status: 'active' }); }
+    async function advanceStage(id) {
+      const doc = await fbDb.collection('orders').doc(id).get();
+      if (!doc.exists) return;
+      const o = doc.data();
       const nextIdx = Math.min((o.stageIndex || 0) + 1, PROJECT_STAGES.length - 1);
       db.updateOrder(id, { stageIndex: nextIdx, status: nextIdx === PROJECT_STAGES.length - 1 ? 'active' : o.status });
-      renderAdminDashboard();
     }
 
-    function generateInvoice(id) {
-      const o = db.getOrders().find(item => item.id === id);
-      if (!o) return;
+    async function generateInvoice(id) {
+      const doc = await fbDb.collection('orders').doc(id).get();
+      if (!doc.exists) return;
+      const o = doc.data();
       document.getElementById('invoice-content').innerHTML = `
         <div class="flex justify-between border-b pb-2">
           <div><strong>Invoice ID:</strong> ${o.id}</div>
