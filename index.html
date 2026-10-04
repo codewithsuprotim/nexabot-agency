@@ -4,12 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title> NexaBot AI Chatbot Agency® </title>
-  <meta name="description" content="NexaBot AI Chatbot Agency builds WhatsApp Bots, Website Chatbots & Custom AI Bots. $799 One-time setup fee. $99 monthly maintenance fees. Live in 48 hours." />
+  <meta name="description" content="NexaBot AI Chatbot Agency builds WhatsApp Bots, Website Chatbots & Custom AI Bots. $1099 Total package includes setup & first month maintenance with VAT. Live in 48 hours." />
   <link rel="icon" type="image/png" href="logos/nexabot-favicon.png" />
 
-  <!-- PayPal SDK with Exact Client ID & Hosted-Buttons Component -->
-  <script src="https://www.paypal.com/sdk/js?client-id=BAACylQi88Jo95HU3YkvcusJSZPGDH-XqBf0xP-4iIDjogJA7UB0Io-jVKjtepATI95Vp-gqzwr0dZYHdw&components=hosted-buttons&disable-funding=venmo&currency=USD" crossorigin="anonymous" async></script>
-  
   <!-- Google Fonts & Font Awesome -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -34,7 +31,7 @@
     };
   </script>
 
-  <!-- Firebase Global Libraries (Fixes auth/api-key-not-valid error completely) -->
+  <!-- Firebase Global Libraries (Firestore Database Preserved for Global Order Tracking) -->
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
@@ -67,7 +64,6 @@
 
     /* ─── ANIMATIONS ─── */
     @keyframes floatSlow { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
-    @keyframes pulseGlow { 0%, 100% { opacity: 0.4; } 50% { opacity: 0.8; } }
     @keyframes marqueeScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
     @keyframes particleRise {
       0% { transform: translateY(0) scale(0.8); opacity: 0; }
@@ -196,7 +192,21 @@
     .srv-card:hover { transform: translateY(-10px); border-color: var(--sky); background: rgba(255,255,255,0.06); }
     .srv-icon { width: 70px; height: 70px; border-radius: 18px; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-size: 2rem; }
 
-    /* ─── REVIEWS ANIMATED ─── */
+    /* ─── PRICING ─── */
+    #pricing { background: linear-gradient(160deg, #060f2e 0%, #0a2472 100%); padding: 90px 6%; }
+    .pricing-card {
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.15); backdrop-filter: blur(20px);
+      border-radius: 24px; padding: 3rem; max-width: 850px; margin: 0 auto; text-align: center;
+    }
+
+    /* ─── COMPARISON TABLE ─── */
+    .comp-table { width: 100%; border-collapse: collapse; margin-top: 2rem; background: rgba(255,255,255,0.02); border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); }
+    .comp-table th, .comp-table td { padding: 1.2rem; text-align: center; font-size: 0.9rem; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .comp-table th { background: rgba(255,255,255,0.05); color: white; font-family: 'Poppins', sans-serif; }
+    .comp-table td:first-child, .comp-table th:first-child { text-align: left; font-weight: 600; color: white; }
+    .comp-highlight { background: rgba(37,99,235,0.15); border-left: 2px solid var(--sky); border-right: 2px solid var(--sky); }
+
+    /* ─── REVIEWS ─── */
     .rev-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; max-width: 1200px; margin: 0 auto; }
     .rev-card {
       background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 2rem;
@@ -209,44 +219,24 @@
     .faq-q { padding: 1.2rem 1.5rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; color: white; font-weight: 600; font-size: 0.95rem; }
     .faq-a { padding: 0 1.5rem 1.2rem; color: rgba(255,255,255,0.65); font-size: 0.88rem; line-height: 1.7; display: none; }
 
-    /* ─── PRICING ─── */
-    #pricing { background: linear-gradient(160deg, #060f2e 0%, #0a2472 100%); padding: 90px 6%; }
-    .pricing-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; max-width: 1100px; margin: 0 auto; align-items: center; }
-    .price-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.15); backdrop-filter: blur(20px); border-radius: 24px; padding: 2.5rem; }
-
-    .pp-94RBZUQRBPN3E {
-      text-align: center; border: none; border-radius: 1.5rem; min-width: 220px;
-      height: 2.75rem; font-weight: bold; background-color: #FFD140; color: #000000;
-      font-family: "Helvetica Neue", Arial, sans-serif; font-size: 1rem; cursor: pointer;
-      transition: all 0.2s ease; box-shadow: 0 4px 12px rgba(255,209,64,0.3);
-    }
-    .pp-94RBZUQRBPN3E:hover { background-color: #f7c41e; transform: scale(1.02); }
-
-    /* ─── REDESIGNED RECOGNITIONS SECTION ─── */
+    /* ─── RECOGNITIONS ─── */
     .recog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; max-width: 1100px; margin: 0 auto; }
     .badge-card-dark {
-      background: rgba(15, 23, 42, 0.6);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 20px; padding: 1.2rem 1.5rem;
-      display: flex; align-items: center; gap: 1.2rem;
-      backdrop-filter: blur(12px);
-      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 20px; padding: 1.2rem 1.5rem; display: flex; align-items: center; gap: 1.2rem;
+      backdrop-filter: blur(12px); transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     }
     .badge-card-dark:hover {
       transform: translateY(-5px); border-color: var(--sky);
       box-shadow: 0 12px 30px rgba(37,99,235,0.25); background: rgba(30, 41, 59, 0.8);
     }
     .badge-img-wrapper {
-      width: 60px; height: 60px; border-radius: 14px;
-      background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1);
-      display: flex; align-items: center; justify-content: center; flex-shrink: 0; padding: 8px;
+      width: 60px; height: 60px; border-radius: 14px; background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1); display: flex; align-items: center; justify-content: center; flex-shrink: 0; padding: 8px;
     }
-    .badge-img-wrapper img {
-      max-height: 100%; max-width: 100%; object-fit: contain;
-      mix-blend-mode: multiply; filter: brightness(1.2) contrast(1.1);
-    }
+    .badge-img-wrapper img { max-height: 100%; max-width: 100%; object-fit: contain; }
 
-    /* ─── REDESIGNED FOOTER ─── */
+    /* ─── FOOTER ─── */
     .site-footer {
       background: linear-gradient(180deg, #04091e 0%, #020512 100%);
       border-top: 1px solid rgba(255,255,255,0.1); color: #94A3B8; font-size: 0.85rem; padding-top: 4rem; padding-bottom: 2rem;
@@ -258,18 +248,17 @@
     }
     .footer-msme img { height: 38px; width: auto; object-fit: contain; }
 
-    /* ─── LIVE SALES NOTIFICATION TOAST ─── */
+    /* ─── LIVE SALES TOAST ─── */
     #sales-toast {
       position: fixed; bottom: 25px; left: 25px; z-index: 1000;
       background: rgba(10, 24, 114, 0.95); border: 1px solid rgba(96, 165, 250, 0.4);
       backdrop-filter: blur(14px); border-radius: 16px; padding: 0.9rem 1.2rem;
       box-shadow: 0 15px 35px rgba(0,0,0,0.4); display: flex; align-items: center; gap: 12px;
-      max-width: 380px; pointer-events: none; opacity: 0; transform: translateY(100px);
-      transition: all 0.5s ease;
+      max-width: 380px; pointer-events: none; opacity: 0; transform: translateY(100px); transition: all 0.5s ease;
     }
     #sales-toast.show { opacity: 1; transform: translateY(0); }
 
-    /* ─── DASHBOARDS & TRACKER ─── */
+    /* ─── DASHBOARDS & MODALS ─── */
     .modal-backdrop {
       position: fixed; inset: 0; background: rgba(6,15,46,0.85); backdrop-filter: blur(8px);
       z-index: 2000; display: flex; align-items: center; justify-content: center; padding: 1rem;
@@ -301,17 +290,8 @@
     }
     #wa-float:hover { transform: scale(1.1); }
 
-    /* Custom Google Button Styling */
-    .btn-google {
-      display: flex; align-items: center; justify-content: center; gap: 10px;
-      width: 100%; padding: 12px 16px; background: #FFFFFF; border: 1px solid #CBD5E1;
-      border-radius: 12px; color: #1E293B; font-weight: 700; font-size: 0.9rem;
-      cursor: pointer; transition: all 0.2s ease; box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-    }
-    .btn-google:hover { background: #F8FAFC; border-color: #94A3B8; transform: translateY(-1px); }
-
     @media (max-width:880px) {
-      .srv-grid, .pricing-grid, .rev-grid, .recog-grid { grid-template-columns: 1fr; }
+      .srv-grid, .rev-grid, .recog-grid { grid-template-columns: 1fr; }
       .nav-links { display: none; }
     }
   </style>
@@ -350,9 +330,9 @@
     </div>
 
     <ul class="nav-links">
-      <li><a href="#services">Services</a></li>
-      <li><a href="#how">How It Works</a></li>
+      <li><a href="#services">Capabilities</a></li>
       <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#comparison">Why Us</a></li>
       <li><a href="#reviews">Reviews</a></li>
       <li><a href="#faq">FAQ</a></li>
     </ul>
@@ -384,7 +364,7 @@
     <!-- ── LANDING VIEW ── -->
     <div id="view-landing" class="block">
       
-      <!-- HERO SECTION WITH UPWARD PARTICLES BG EFFECT -->
+      <!-- 1. TOP HERO SECTION -->
       <section id="hero">
         <div class="particle-container" id="particles-bg"></div>
 
@@ -403,7 +383,7 @@
           </p>
 
           <div class="offer-bar">
-            <div class="offer-label"><i class="fas fa-fire text-red-500"></i> Special Offer Ends In</div>
+            <div class="offer-label"><i class="fas fa-fire text-red-500"></i> Special Package Ends In</div>
             <div class="timer-wrap">
               <div class="tblock"><span class="t" id="th">11</span><span class="u">Hrs</span></div>
               <span class="text-white font-bold text-xl">:</span>
@@ -414,11 +394,11 @@
           </div>
 
           <div class="hero-btns">
-            <a href="#pricing" class="btn-action">
-              <i class="fas fa-rocket"></i> Get My Chatbot Now
-            </a>
-            <a href="#how" class="bg-white/10 hover:bg-white/20 text-white font-bold px-8 py-3.5 rounded-full transition flex items-center gap-2">
-              <i class="fas fa-play-circle"></i> How It Works
+            <button onclick="openAuthModal('client')" class="btn-action">
+              <i class="fas fa-rocket"></i> Register & Get My Chatbot ($1099 Total)
+            </button>
+            <a href="#comparison" class="bg-white/10 hover:bg-white/20 text-white font-bold px-8 py-3.5 rounded-full transition flex items-center gap-2">
+              <i class="fas fa-layer-group"></i> Why Choose Us
             </a>
           </div>
 
@@ -426,12 +406,12 @@
             <div><div class="hstat-n">1000+</div><div class="hstat-l">Bots Deployed</div></div>
             <div><div class="hstat-n">48hr</div><div class="hstat-l">Delivery SLA</div></div>
             <div><div class="hstat-n">4.9★</div><div class="hstat-l">Client Rating</div></div>
-            <div><div class="hstat-n">$99</div><div class="hstat-l">Monthly Maintenance</div></div>
+            <div><div class="hstat-n">$1099</div><div class="hstat-l">Total Full Setup + 1st Mo</div></div>
           </div>
         </div>
       </section>
 
-      <!-- OUR VALUABLE CLIENTS MARQUEE -->
+      <!-- 2. OUR VALUABLE CLIENTS -->
       <div id="partners">
         <p class="text-center text-xs font-bold text-slate-500 uppercase tracking-widest mb-6">OUR VALUABLE CLIENTS</p>
         <div class="marquee-wrap">
@@ -448,7 +428,7 @@
         </div>
       </div>
 
-      <!-- SERVICES -->
+      <!-- 3. OUR CAPABILITIES / SERVICES -->
       <section id="services" class="py-24 px-6 bg-navy">
         <div class="sec-head">
           <span class="text-xs font-bold uppercase text-sky tracking-widest">Our Capabilities</span>
@@ -476,32 +456,96 @@
         </div>
       </section>
 
-      <!-- HOW IT WORKS SECTION -->
-      <section id="how" class="py-20 px-6 bg-navy/80 border-t border-white/5">
+      <!-- 4. PRICING SECTION -->
+      <section id="pricing">
         <div class="sec-head">
-          <span class="text-xs font-bold uppercase text-sky tracking-widest">Execution Process</span>
-          <h2 class="sec-title mt-2">Live In <span>3 Simple Steps</span></h2>
+          <span class="text-xs font-bold uppercase text-sky tracking-widest">Transparent Pricing</span>
+          <h2 class="sec-title mt-2">All-Inclusive <span>Bot Package</span></h2>
         </div>
-        <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-          <div class="text-center space-y-3">
-            <div class="w-14 h-14 bg-blue-600/20 text-sky border border-blue-500/40 rounded-2xl flex items-center justify-center font-bold text-xl mx-auto">1</div>
-            <h3 class="text-white font-bold text-lg">Choose Platform</h3>
-            <p class="text-slate-400 text-xs leading-relaxed">Select WhatsApp, Website Chatbot, or Custom Multi-Channel Agent.</p>
+
+        <div class="pricing-card">
+          <div class="text-xs font-bold text-sky uppercase tracking-wider mb-2">Complete Agency Solution</div>
+          <div class="text-5xl font-black text-white font-['Poppins'] mb-4">$1099 <span class="text-base font-normal text-slate-400">USD Total</span></div>
+          
+          <div class="p-4 bg-white/5 rounded-xl border border-white/10 mb-6 text-xs text-slate-300 space-y-1">
+            <p><strong>Itemized Breakdown:</strong> $979 One-Time Setup & Custom Training + $100 1st Month Maintenance + $20 VAT included ($1099 Total).</p>
           </div>
-          <div class="text-center space-y-3">
-            <div class="w-14 h-14 bg-blue-600/20 text-sky border border-blue-500/40 rounded-2xl flex items-center justify-center font-bold text-xl mx-auto">2</div>
-            <h3 class="text-white font-bold text-lg">Upload Knowledge</h3>
-            <p class="text-slate-400 text-xs leading-relaxed">Fill the Knowledge Base Form with your business documentation, products, and FAQs.</p>
+
+          <div class="p-5 bg-blue-900/40 rounded-xl border border-blue-500/30 text-left text-xs text-slate-200 mb-8 space-y-2">
+            <div class="font-bold text-sky text-sm mb-2"><i class="fa-solid fa-shield-halved mr-2"></i> Accepted Payment Channels:</div>
+            <div class="flex items-center gap-2"><i class="fa-solid fa-building-columns text-emerald-400"></i> <strong>Local & Global Bank Transfer:</strong> Direct ACH (USD), FPS (GBP), SEPA (EUR), and EFT (CAD) via Skydo.</div>
+            <div class="flex items-center gap-2"><i class="fa-brands fa-paypal text-blue-400"></i> <strong>PayPal Direct:</strong> PayPal Wallet, Credit Card, Debit Card, Apple Pay, etc.</div>
+            <div class="text-amber-300 font-semibold mt-3 pt-2 border-t border-white/10">
+              * Note: To place an order and initiate payment, clients are required to register and sign in through the Client Portal.
+            </div>
           </div>
-          <div class="text-center space-y-3">
-            <div class="w-14 h-14 bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 rounded-2xl flex items-center justify-center font-bold text-xl mx-auto">3</div>
-            <h3 class="text-white font-bold text-lg">Launch Live in 48 Hours</h3>
-            <p class="text-slate-400 text-xs leading-relaxed">Our engineers configure, test, and deploy your live bot with guaranteed 48-hour SLA.</p>
-          </div>
+
+          <button onclick="openAuthModal('client')" class="btn-action w-full justify-center text-base py-4">
+            <i class="fa-solid fa-user-plus"></i> Register in Client Portal To Place Order
+          </button>
         </div>
       </section>
 
-      <!-- REVIEWS SECTION -->
+      <!-- 5. COMPARISON WITH OTHER AGENCIES -->
+      <section id="comparison" class="py-24 px-6 bg-navy/90 border-t border-white/5">
+        <div class="sec-head">
+          <span class="text-xs font-bold uppercase text-sky tracking-widest">Why NexaBot Outperforms</span>
+          <h2 class="sec-title mt-2">How We Compare To <span>Other Agencies</span></h2>
+        </div>
+
+        <div class="max-w-5xl mx-auto overflow-x-auto">
+          <table class="comp-table">
+            <thead>
+              <tr>
+                <th>Feature / SLA</th>
+                <th class="comp-highlight text-sky text-lg">NexaBot Agency®</th>
+                <th>Traditional AI Agencies</th>
+                <th>DIY / Freelancers</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Turnaround Time</td>
+                <td class="comp-highlight font-bold text-emerald-400">Guaranteed 48 Hours SLA</td>
+                <td>3 to 6 Weeks</td>
+                <td>Unpredictable / Slow</td>
+              </tr>
+              <tr>
+                <td>Pricing Clarity</td>
+                <td class="comp-highlight font-bold text-white">$1099 Total (Inc. 1st Mo & VAT)</td>
+                <td>$3,000–$10,000+ Setup Fees</td>
+                <td>Hidden Costs & Hourly Billing</td>
+              </tr>
+              <tr>
+                <td>Training & Knowledge Base</td>
+                <td class="comp-highlight font-bold text-emerald-400">Custom Multi-Doc Neural Ingestion</td>
+                <td>Basic Prompt Engineering</td>
+                <td>Generic Off-the-shelf Bots</td>
+              </tr>
+              <tr>
+                <td>Payment Flexibility</td>
+                <td class="comp-highlight font-bold text-white">Global Local Bank Transfers & PayPal Cards/Apple Pay</td>
+                <td>Strict Wire Transfers Only</td>
+                <td>Unsecured Direct Transfers</td>
+              </tr>
+              <tr>
+                <td>Real-time Tracking</td>
+                <td class="comp-highlight font-bold text-emerald-400">Dedicated Portal & Milestone Dashboard</td>
+                <td>Weekly Email Updates</td>
+                <td>No Portal Access</td>
+              </tr>
+              <tr>
+                <td>Dedicated Engineers</td>
+                <td class="comp-highlight font-bold text-white">24/7 Global Live Support Chat</td>
+                <td>Account Managers Only</td>
+                <td>No SLA Support</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 6. CLIENT TESTIMONIALS / REVIEWS -->
       <section id="reviews" class="py-20 px-6 bg-navy/50">
         <div class="sec-head">
           <span class="text-xs font-bold uppercase text-sky tracking-widest">Client Testimonials</span>
@@ -525,7 +569,7 @@
 
           <div class="rev-card">
             <div class="flex items-center gap-1 text-amber-400 text-sm mb-3">★★★★★ <span class="text-xs text-white/60 ml-2">(4.8)</span></div>
-            <p class="text-slate-300 text-sm leading-relaxed mb-4">"The Skydo bank transfer route saved us over $150 in international wire fees during onboarding. Smooth build."</p>
+            <p class="text-slate-300 text-sm leading-relaxed mb-4">"The Skydo bank transfer route saved us over $150 in wire fees during onboarding. Smooth build."</p>
             <div class="font-bold text-white text-sm">Dr. Amit Patel</div>
             <div class="text-xs text-sky font-semibold">Avid Technology Inc.</div>
           </div>
@@ -553,47 +597,7 @@
         </div>
       </section>
 
-      <!-- FAQ SECTION -->
-      <section id="faq" class="py-20 px-6 max-w-4xl mx-auto">
-        <div class="sec-head">
-          <span class="text-xs font-bold uppercase text-sky tracking-widest">Common Questions</span>
-          <h2 class="sec-title mt-2">Frequently Asked <span>Questions</span></h2>
-        </div>
-
-        <div class="space-y-3">
-          <div class="faq-item">
-            <div class="faq-q" onclick="toggleFaq(this)"><span>How fast is the complete bot deployment process?</span> <i class="fa-solid fa-chevron-down text-sky"></i></div>
-            <div class="faq-a">Your AI chatbot will be custom built, trained on your Knowledge Base, tested, and deployed live within 48 business hours after form submission.</div>
-          </div>
-
-          <div class="faq-item">
-            <div class="faq-q" onclick="toggleFaq(this)"><span>What does the $899 initial payment cover?</span> <i class="fa-solid fa-chevron-down text-sky"></i></div>
-            <div class="faq-a">It includes the complete $799 one-time custom setup and training fee plus your $99 first-month cloud server maintenance fee.</div>
-          </div>
-
-          <div class="faq-item">
-            <div class="faq-q" onclick="toggleFaq(this)"><span>How do I train the AI on my business details?</span> <i class="fa-solid fa-chevron-down text-sky"></i></div>
-            <div class="faq-a">After placing an order, simply fill out the AI Knowledge Base Form inside your Client Dashboard. You can upload PDFs, document links, or text FAQs.</div>
-          </div>
-
-          <div class="faq-item">
-            <div class="faq-q" onclick="toggleFaq(this)"><span>Which payment methods are accepted?</span> <i class="fa-solid fa-chevron-down text-sky"></i></div>
-            <div class="faq-a">We accept PayPal direct credit/debit card payments globally as well as direct local bank transfers in USD, GBP, EUR, and CAD via Skydo.</div>
-          </div>
-
-          <div class="faq-item">
-            <div class="faq-q" onclick="toggleFaq(this)"><span>Can I track my project build status in real time?</span> <i class="fa-solid fa-chevron-down text-sky"></i></div>
-            <div class="faq-a">Yes! Your Client Dashboard features a real-time project milestone tracker showing every step from payment confirmation to live bot deployment.</div>
-          </div>
-
-          <div class="faq-item">
-            <div class="faq-q" onclick="toggleFaq(this)"><span>How do I download official invoices for my accounting?</span> <i class="fa-solid fa-chevron-down text-sky"></i></div>
-            <div class="faq-a">Official PDF invoices are generated automatically for every order in your dashboard, complete with company tax information and itemized breakdowns.</div>
-          </div>
-        </div>
-      </section>
-
-      <!-- OFFICIAL INDUSTRY RECOGNITIONS & CERTIFICATIONS -->
+      <!-- 7. OFFICIAL RECOGNITION & CERTIFICATION -->
       <section class="py-20 px-6 bg-slate-950 text-center border-t border-white/10">
         <p class="text-xs font-extrabold text-sky tracking-widest uppercase mb-10">OFFICIAL INDUSTRY RECOGNITIONS & CERTIFICATIONS</p>
         
@@ -632,7 +636,42 @@
         </div>
       </section>
 
-      <!-- NEWSLETTER -->
+      <!-- 8. COMMON QUESTIONS / FAQS -->
+      <section id="faq" class="py-20 px-6 max-w-4xl mx-auto">
+        <div class="sec-head">
+          <span class="text-xs font-bold uppercase text-sky tracking-widest">Common Questions</span>
+          <h2 class="sec-title mt-2">Frequently Asked <span>Questions</span></h2>
+        </div>
+
+        <div class="space-y-3">
+          <div class="faq-item">
+            <div class="faq-q" onclick="toggleFaq(this)"><span>How fast is the complete bot deployment process?</span> <i class="fa-solid fa-chevron-down text-sky"></i></div>
+            <div class="faq-a">Your AI chatbot will be custom built, trained on your Knowledge Base, tested, and deployed live within 48 business hours after form submission in your Client Portal.</div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-q" onclick="toggleFaq(this)"><span>What does the $1099 total payment cover?</span> <i class="fa-solid fa-chevron-down text-sky"></i></div>
+            <div class="faq-a">It includes the complete $979 one-time custom setup & training fee, the $100 first-month maintenance fee, and $20 VAT ($1099 Total).</div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-q" onclick="toggleFaq(this)"><span>How do I place an order and make payments?</span> <i class="fa-solid fa-chevron-down text-sky"></i></div>
+            <div class="faq-a">Simply register for an account in our Client Portal. Once logged in, you can place a new order and pay via Local/Global bank transfer or PayPal (Debit/Credit Cards, Apple Pay, Wallet).</div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-q" onclick="toggleFaq(this)"><span>How do I train the AI on my business details?</span> <i class="fa-solid fa-chevron-down text-sky"></i></div>
+            <div class="faq-a">After registering and submitting your order, complete the AI Knowledge Base Form in your Client Dashboard by uploading PDFs, links, or text documentation.</div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-q" onclick="toggleFaq(this)"><span>Can I track my project build status in real time?</span> <i class="fa-solid fa-chevron-down text-sky"></i></div>
+            <div class="faq-a">Yes! Your Client Dashboard features a real-time project milestone tracker powered by our Firebase Firestore database to give you global updates on any device.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 9. NEWSLETTER -->
       <section class="py-16 px-6 bg-gradient-to-r from-blue-900 to-indigo-950 text-center text-white">
         <h3 class="text-2xl font-bold font-['Poppins'] mb-2">Subscribe to Agency Updates</h3>
         <p class="text-xs text-blue-200 mb-6 max-w-md mx-auto">Get monthly insights on AI chatbot automation, Meta API updates, and new platform features.</p>
@@ -642,46 +681,7 @@
         </form>
       </section>
 
-      <!-- PRICING & CHECKOUT -->
-      <section id="pricing">
-        <div class="sec-head">
-          <span class="text-xs font-bold uppercase text-sky tracking-widest">Fair Pricing</span>
-          <h2 class="sec-title mt-2">Pay Once. <span>Own It Forever.</span></h2>
-        </div>
-
-        <div class="pricing-grid">
-          <div class="price-card">
-            <div class="text-xs font-bold text-sky uppercase mb-2">Initial Setup Investment</div>
-            <div class="text-5xl font-black text-white font-['Poppins'] mb-4">$899 <span class="text-base font-normal text-slate-400">USD Initial</span></div>
-            <div class="p-4 bg-white/5 rounded-xl border border-white/10 mb-6 text-xs text-slate-300">
-              Includes <strong>$799 One-Time Setup Fee</strong> + <strong>$99 First Month Maintenance</strong>.
-            </div>
-
-            <button onclick="handleStartOrder('skydo')" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 px-4 rounded-xl transition flex items-center justify-center gap-2 mb-4 cursor-pointer">
-              <i class="fa-solid fa-building-columns"></i> Pay via Skydo Transfer (Preferred)
-            </button>
-
-            <!-- PAYPAL SINGLE BUTTON FORM SUBMIT -->
-            <div class="flex justify-center w-full">
-              <form action="https://www.paypal.com/ncp/payment/94RBZUQRBPN3E" method="post" target="_blank" style="display:inline-grid;justify-items:center;align-content:start;gap:0.5rem;width:100%;">
-                <input class="pp-94RBZUQRBPN3E" style="width:100%;" type="submit" value="Pay $899 via PayPal Direct" />
-                <img src="https://www.paypalobjects.com/images/Debit_Credit_APM.svg" alt="cards" />
-                <section style="font-size: 0.75rem; color: #94a3b8;"> Powered by <img src="https://www.paypalobjects.com/paypal-ui/logos/svg/paypal-wordmark-color.svg" alt="paypal" style="height:0.875rem; vertical-align:middle;"/></section>
-              </form>
-            </div>
-          </div>
-
-          <div class="space-y-4 text-white text-sm">
-            <div class="flex items-center gap-3"><i class="fas fa-check-circle text-emerald-400 text-lg"></i> $799 One-Time Setup Fee</div>
-            <div class="flex items-center gap-3"><i class="fas fa-check-circle text-emerald-400 text-lg"></i> $99 Monthly Maintenance Fee</div>
-            <div class="flex items-center gap-3"><i class="fas fa-check-circle text-emerald-400 text-lg"></i> Custom Trained on Your Knowledge Base</div>
-            <div class="flex items-center gap-3"><i class="fas fa-check-circle text-emerald-400 text-lg"></i> WhatsApp & Website Deployment Included</div>
-            <div class="flex items-center gap-3"><i class="fas fa-check-circle text-emerald-400 text-lg"></i> Live in Under 48 Hours</div>
-          </div>
-        </div>
-      </section>
-
-      <!-- REDESIGNED FOOTER -->
+      <!-- 10. WEBSITE FOOTER -->
       <footer class="site-footer">
         <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-10 pb-12">
           
@@ -714,10 +714,11 @@
           <div class="space-y-3">
             <h4 class="text-white font-bold uppercase tracking-wider text-xs">Quick Links</h4>
             <ul class="space-y-2 list-none p-0 text-xs">
-              <li><a href="#how" class="hover:text-sky transition">How It Works</a></li>
+              <li><a href="#pricing" class="hover:text-sky transition">Package Pricing</a></li>
+              <li><a href="#comparison" class="hover:text-sky transition">Why Choose Us</a></li>
               <li><a href="#reviews" class="hover:text-sky transition">Client Reviews</a></li>
               <li><a href="#faq" class="hover:text-sky transition">Frequently Asked Questions</a></li>
-              <li><button onclick="openAuthModal('client')" class="hover:text-sky transition bg-transparent border-0 p-0 text-left text-xs cursor-pointer">Client Login</button></li>
+              <li><button onclick="openAuthModal('client')" class="hover:text-sky transition bg-transparent border-0 p-0 text-left text-xs cursor-pointer">Client Login / Register</button></li>
               <li><button onclick="openAuthModal('admin')" class="hover:text-red-400 transition bg-transparent border-0 p-0 text-left text-xs cursor-pointer">Admin Access</button></li>
             </ul>
           </div>
@@ -762,7 +763,7 @@
             <i class="fa-solid fa-headset"></i> Live Support Chat
           </button>
           <button onclick="openModal('modal-new-order')" class="btn-action text-xs py-2.5">
-            <i class="fa-solid fa-plus"></i> Submit New Order
+            <i class="fa-solid fa-plus"></i> Submit New Order ($1099)
           </button>
         </div>
       </div>
@@ -796,38 +797,17 @@
           <h3 class="font-bold text-navy text-lg font-['Poppins']">Your Active Bot Builds & Milestone Progress</h3>
         </div>
         <div id="client-orders-container" class="space-y-6">
-          <!-- Dynamically Rendered -->
-        </div>
-      </div>
-
-      <div class="dash-card bg-gradient-to-r from-amber-50 to-orange-50 border-amber-300">
-        <div class="space-y-3">
-          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-amber-200/60 pb-3">
-            <div>
-              <span class="text-[10px] font-extrabold uppercase bg-amber-200 text-amber-900 px-3 py-1 rounded-full">Official Payment Gateway</span>
-              <h3 class="text-xl font-bold text-navy font-['Poppins'] flex items-center gap-2 mt-2">
-                <i class="fa-brands fa-paypal text-blue-700 text-2xl"></i> PayPal Direct Checkout
-              </h3>
-              <p class="text-xs text-slate-600">Pay your bot package ($899 USD) instantly using PayPal, Credit Card, Debit Card, or Apple Pay.</p>
-            </div>
-            <form action="https://www.paypal.com/ncp/payment/94RBZUQRBPN3E" method="post" target="_blank" style="display:inline-grid;justify-items:center;">
-              <input class="pp-94RBZUQRBPN3E" type="submit" value="Pay $899 via PayPal" />
-            </form>
-          </div>
-
-          <div class="bg-white p-4 rounded-xl border border-amber-200 flex flex-col items-center justify-center min-h-[140px]">
-            <div id="paypal-container-94RBZUQRBPN3E" class="w-full max-w-md"></div>
-          </div>
+          <!-- Dynamically Rendered via Firestore -->
         </div>
       </div>
 
       <div class="dash-card">
         <div class="flex items-center justify-between border-b pb-4 mb-4">
           <div>
-            <h3 class="font-bold text-navy text-lg font-['Poppins']">Skydo Direct Global Accounts (Preferred Transfer Route)</h3>
-            <p class="text-xs text-slate-500">Zero international wire fees. Pay using local banking rails.</p>
+            <h3 class="font-bold text-navy text-lg font-['Poppins']">Skydo Direct Global Accounts & PayPal Payment Gateways</h3>
+            <p class="text-xs text-slate-500">Total Invoice Amount: $1099 USD (Includes Setup, 1st Mo & VAT)</p>
           </div>
-          <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-3 py-1 rounded-full">0% Wire Markup</span>
+          <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-3 py-1 rounded-full">Verified Accounts</span>
         </div>
 
         <div class="grid md:grid-cols-4 gap-4 text-xs">
@@ -903,7 +883,7 @@
               </tr>
             </thead>
             <tbody id="admin-orders-table-body">
-              <!-- Dynamically Populated -->
+              <!-- Dynamically Populated via Firestore -->
             </tbody>
           </table>
         </div>
@@ -925,24 +905,12 @@
 
   <!-- ── 4. MODALS & SUPPORT CHAT DRAWER ── -->
 
-  <!-- AUTH MODAL WITH GOOGLE SIGN IN -->
+  <!-- AUTH MODAL (NO GOOGLE BUTTON) -->
   <div id="auth-modal" class="modal-backdrop">
     <div class="modal-box">
       <div class="flex justify-between items-center mb-4">
         <h3 id="auth-modal-title" class="text-xl font-bold text-navy font-['Poppins']">Sign In</h3>
         <button onclick="closeModal('auth-modal')" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark"></i></button>
-      </div>
-
-      <!-- GOOGLE SIGN-IN BUTTON -->
-      <button onclick="handleGoogleSignIn()" class="btn-google mb-4">
-        <svg class="w-5 h-5" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg>
-        <span>Continue with Google</span>
-      </button>
-
-      <div class="relative flex py-2 items-center mb-4">
-        <div class="flex-grow border-t border-slate-200"></div>
-        <span class="flex-shrink mx-3 text-[10px] text-slate-400 font-bold uppercase">Or Email</span>
-        <div class="flex-grow border-t border-slate-200"></div>
       </div>
 
       <div class="grid grid-cols-2 gap-2 p-1 bg-slate-100 rounded-lg mb-4 text-center text-xs font-bold">
@@ -1011,9 +979,9 @@
         <div>
           <label class="block text-xs font-bold text-slate-500 mb-1">Select Chatbot Platform</label>
           <select id="order-type-select" class="w-full border p-3 rounded-lg text-sm bg-white">
-            <option value="WhatsApp AI Bot">WhatsApp AI Bot ($899)</option>
-            <option value="Website AI Chatbot">Website AI Chatbot ($899)</option>
-            <option value="Custom Multi-Channel AI Agent">Custom Multi-Channel AI Agent ($899)</option>
+            <option value="WhatsApp AI Bot">WhatsApp AI Bot ($1099 Total)</option>
+            <option value="Website AI Chatbot">Website AI Chatbot ($1099 Total)</option>
+            <option value="Custom Multi-Channel AI Agent">Custom Multi-Channel AI Agent ($1099 Total)</option>
           </select>
         </div>
         <div>
@@ -1023,7 +991,7 @@
             <option value="paypal">PayPal Direct Transfer</option>
           </select>
         </div>
-        <button type="submit" class="w-full bg-blue-600 text-white font-bold py-3 rounded-xl">Generate Order ($899)</button>
+        <button type="submit" class="w-full bg-blue-600 text-white font-bold py-3 rounded-xl">Generate Order ($1099 Total)</button>
       </form>
     </div>
   </div>
@@ -1053,7 +1021,7 @@
 
   <!-- ── 5. SCRIPTS & ENGINE ── -->
   <script>
-    // Official Firebase Project Credentials
+    // Official Firebase Credentials (FIREBASE FIRESTORE FULLY PRESERVED)
     const firebaseConfig = {
       apiKey: "AIzaSyBSxMkDacoyoe6Gs919vskE1bBH0zAlCoQ",
       authDomain: "nexabot-india.firebaseapp.com",
@@ -1068,12 +1036,8 @@
     firebase.initializeApp(firebaseConfig);
     const fbAuth = firebase.auth();
     const fbDb = firebase.firestore();
-    const googleProvider = new firebase.auth.GoogleAuthProvider();
 
-    const API_BASE_URL = "https://nexabot-agency.onrender.com";
     const DB_KEYS = { USERS: 'nexabot_db_users', ORDERS: 'nexabot_db_orders', SESSION: 'nexabot_db_session' };
-
-    let paypalInitialized = false;
 
     const PROJECT_STAGES = [
       "Payment Confirmed",
@@ -1084,19 +1048,12 @@
       "Bot Deployed & Live"
     ];
 
-    // Diverse Global Sales Notifications
     const salesMessages = [
       { msg: "Tom just purchased an AI Chatbot package from Los Angeles, USA 🇺🇸", time: "2 minutes ago" },
       { msg: "Sophia R. bought a WhatsApp AI Bot from London, UK 🇬🇧", time: "4 minutes ago" },
       { msg: "Akira Tanaka ordered a Custom Multi-Channel AI Agent from Tokyo, Japan 🇯🇵", time: "6 minutes ago" },
       { msg: "Emma Watson purchased an AI Knowledge Agent from Sydney, Australia 🇦🇺", time: "8 minutes ago" },
-      { msg: "Mateo Garcia bought a Website AI Chatbot from Madrid, Spain 🇪🇸", time: "11 minutes ago" },
-      { msg: "Hannah Weber ordered a WhatsApp AI Bot from Berlin, Germany 🇩🇪", time: "14 minutes ago" },
-      { msg: "Camila Silva purchased an AI Chatbot package from São Paulo, Brazil 🇧🇷", time: "17 minutes ago" },
-      { msg: "Liam O'Connor bought a Custom Multi-Channel AI Agent from Toronto, Canada 🇨🇦", time: "20 minutes ago" },
-      { msg: "Aarav Sharma ordered a Website AI Chatbot from Mumbai, India 🇮🇳", time: "23 minutes ago" },
-      { msg: "Chloe Laurent purchased a WhatsApp AI Bot from Paris, France 🇫🇷", time: "26 minutes ago" },
-      { msg: "Tariq Al-Mansoor bought an AI Chatbot package from Dubai, UAE 🇦🇪", time: "30 minutes ago" }
+      { msg: "Mateo Garcia bought a Website AI Chatbot from Madrid, Spain 🇪🇸", time: "11 minutes ago" }
     ];
 
     (function cycleSalesToasts() {
@@ -1116,7 +1073,6 @@
       }, 9500);
     })();
 
-    // Generate Floating Upward Particles in Hero Background
     (function createHeroParticles() {
       const container = document.getElementById('particles-bg');
       if (!container) return;
@@ -1143,7 +1099,7 @@
       }
       if (!localStorage.getItem(DB_KEYS.ORDERS)) {
         const seedOrders = [
-          { id: 'NEX-187015', clientId: 'usr_1', clientName: 'Supriya Chatterjee', type: 'Custom Multi-Channel AI Agent', amount: 899, paymentMethod: 'paypal', status: 'active', stageIndex: 2, uploadedInvoice: null, createdAt: '2026-10-01' }
+          { id: 'NEX-187015', clientId: 'usr_1', clientName: 'Supriya Chatterjee', type: 'Custom Multi-Channel AI Agent', amount: 1099, paymentMethod: 'paypal', status: 'active', stageIndex: 2, uploadedInvoice: null, createdAt: '2026-10-01' }
         ];
         localStorage.setItem(DB_KEYS.ORDERS, JSON.stringify(seedOrders));
       }
@@ -1199,29 +1155,8 @@
       }
     };
 
-    // Global Google Sign-In Handler
-    async function handleGoogleSignIn() {
-      try {
-        const result = await fbAuth.signInWithPopup(googleProvider);
-        const firebaseUser = result.user;
-        const appUser = {
-          id: firebaseUser.uid,
-          name: firebaseUser.displayName || 'Google User',
-          email: firebaseUser.email,
-          role: document.getElementById('auth-role').value || 'client'
-        };
-        auth.setCurrentUser(appUser);
-        closeModal('auth-modal');
-        router.navigate('dashboard');
-      } catch (err) {
-        alert("Google Sign In Error: " + err.message);
-      }
-    }
-
     function handleLogout() {
-      fbAuth.signOut().then(() => {
-        auth.logout();
-      });
+      auth.logout();
     }
 
     function openAuthModal(role) { switchAuthRole(role); openModal('auth-modal'); }
@@ -1246,31 +1181,13 @@
       }
     };
 
-    async function handleStartOrder(method) {
-      if (!auth.currentUser) { openAuthModal('client'); return; }
-      const newOrder = {
-        id: 'NEX-' + Math.floor(100000 + Math.random() * 900000),
-        clientId: auth.currentUser.id, clientName: auth.currentUser.name,
-        type: 'WhatsApp & Website AI Bot', amount: 899, paymentMethod: method,
-        status: 'pending', stageIndex: 0, uploadedInvoice: null, createdAt: new Date().toISOString().split('T')[0]
-      };
-      db.saveOrder(newOrder);
-      try {
-        await fetch(`${API_BASE_URL}/api/orders`, {
-          method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(newOrder)
-        });
-      } catch(e){}
-      alert(`Order ${newOrder.id} generated! Track progress in your Dashboard.`);
-      router.navigate('dashboard');
-    }
-
     function handleCreateNewOrderForm(e) {
       e.preventDefault();
       const newOrder = {
         id: 'NEX-' + Math.floor(100000 + Math.random() * 900000),
         clientId: auth.currentUser.id, clientName: auth.currentUser.name,
         type: document.getElementById('order-type-select').value,
-        amount: 899, paymentMethod: document.getElementById('order-payment-route').value,
+        amount: 1099, paymentMethod: document.getElementById('order-payment-route').value,
         status: 'pending', stageIndex: 0, uploadedInvoice: null, createdAt: new Date().toISOString().split('T')[0]
       };
       db.saveOrder(newOrder); closeModal('modal-new-order'); renderClientDashboard();
@@ -1293,7 +1210,7 @@
                 </div>
                 <div class="flex items-center gap-3 flex-wrap">
                   <span class="uppercase font-bold text-xs bg-slate-200 px-2.5 py-1 rounded text-slate-700">${o.paymentMethod}</span>
-                  <span class="font-bold text-navy">$${o.amount}</span>
+                  <span class="font-bold text-navy">$${o.amount} Total</span>
                   <span class="status-badge status-${o.status}">${o.status}</span>
                   <button onclick="generateInvoice('${o.id}')" class="bg-white border hover:bg-slate-100 text-slate-800 font-bold px-3 py-1 rounded text-xs">Standard Invoice</button>
                   ${o.uploadedInvoice ? `<a href="${o.uploadedInvoice.data}" download="${o.uploadedInvoice.name}" class="bg-emerald-600 text-white font-bold px-3 py-1 rounded text-xs hover:bg-emerald-700 transition"><i class="fa-solid fa-download mr-1"></i> Admin Invoice (${o.uploadedInvoice.name})</a>` : ''}
@@ -1319,17 +1236,6 @@
             </div>
           `;
         }).join('');
-      }
-
-      if (!paypalInitialized) {
-        setTimeout(() => {
-          if (window.paypal && paypal.HostedButtons) {
-            paypal.HostedButtons({
-              hostedButtonId: "94RBZUQRBPN3E",
-            }).render("#paypal-container-94RBZUQRBPN3E");
-            paypalInitialized = true;
-          }
-        }, 300);
       }
     }
 
@@ -1395,10 +1301,11 @@
         <div><strong>Payment Route:</strong> ${o.paymentMethod.toUpperCase()}</div>
         <table class="w-full text-left my-3">
           <tr class="border-b"><th class="py-1">Description</th><th class="text-right py-1">Amount</th></tr>
-          <tr><td class="py-1">${o.type} Setup Fee</td><td class="text-right py-1">$799.00 USD</td></tr>
-          <tr><td class="py-1">1st Month Maintenance</td><td class="text-right py-1">$99.00 USD</td></tr>
+          <tr><td class="py-1">${o.type} One-Time Setup Fee</td><td class="text-right py-1">$979.00 USD</td></tr>
+          <tr><td class="py-1">1st Month Maintenance</td><td class="text-right py-1">$100.00 USD</td></tr>
+          <tr><td class="py-1">Applicable VAT</td><td class="text-right py-1">$20.00 USD</td></tr>
         </table>
-        <div class="text-right font-bold text-sm text-blue-600 border-t pt-2">Total Due/Paid: $${o.amount}.00 USD</div>
+        <div class="text-right font-bold text-sm text-blue-600 border-t pt-2">Total Total Due/Paid: $1099.00 USD</div>
       `;
       openModal('invoice-modal');
     }
