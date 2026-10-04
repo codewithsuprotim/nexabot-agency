@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title> NexaBot AI Chatbot Agency® </title>
-  <meta name="description" content="NexaBot AI Chatbot Agency builds WhatsApp Bots, Website Chatbots & Custom AI Bots. $980 One-time setup fee + $99 monthly maintenance + $20 VAT ($1,099 total initial). Live in 48 hours." />
+  <meta name="description" content="NexaBot AI Chatbot Agency builds WhatsApp Bots, Website Chatbots & Custom AI Bots. $799 One-time setup fee. $99 monthly maintenance fees. Live in 48 hours." />
   <link rel="icon" type="image/png" href="logos/nexabot-favicon.png" />
 
-  <!-- PayPal SDK -->
+  <!-- PayPal SDK with Exact Client ID & Hosted-Buttons Component -->
   <script src="https://www.paypal.com/sdk/js?client-id=BAACylQi88Jo95HU3YkvcusJSZPGDH-XqBf0xP-4iIDjogJA7UB0Io-jVKjtepATI95Vp-gqzwr0dZYHdw&components=hosted-buttons&disable-funding=venmo&currency=USD" crossorigin="anonymous" async></script>
-
+  
   <!-- Google Fonts & Font Awesome -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -34,7 +34,7 @@
     };
   </script>
 
-  <!-- Firebase Global Compat SDKs (Prevents API Key / Scope Errors) -->
+  <!-- Firebase Global Libraries (Fixes auth/api-key-not-valid error completely) -->
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
@@ -49,76 +49,45 @@
       --blue:   #1E56D6;
       --elec:   #2563EB;
       --sky:    #60A5FA;
+      --pale:   #EEF2FF;
       --white:  #FFFFFF;
+      --grey:   #F8FAFC;
       --green:  #22C55E;
       --gold:   #F59E0B;
+      --red:    #EF4444;
       --text:   #0F172A;
+      --muted:  #64748B;
       --border: #E2E8F0;
     }
 
     html { scroll-behavior: smooth; }
-    body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--navy); overflow-x: hidden; width: 100%; }
-    img { max-width: 100%; height: auto; display: block; }
+    body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--navy); overflow-x: hidden; }
+    img { max-width: 100%; display: block; }
     a { text-decoration: none; color: inherit; }
 
     /* ─── ANIMATIONS ─── */
     @keyframes floatSlow { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
+    @keyframes pulseGlow { 0%, 100% { opacity: 0.4; } 50% { opacity: 0.8; } }
     @keyframes marqueeScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
     @keyframes particleRise {
       0% { transform: translateY(0) scale(0.8); opacity: 0; }
       50% { opacity: 0.6; }
       100% { transform: translateY(-120vh) scale(1.2); opacity: 0; }
     }
-    @keyframes googleShimmer {
-      0% { transform: translateX(-100%); }
-      100% { transform: translateX(200%); }
-    }
 
     .animate-float { animation: floatSlow 4s ease-in-out infinite; }
 
-    /* Animated Google Button */
-    .btn-google-animated {
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      width: 100%;
-      padding: 12px 20px;
-      background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-      border: 1.5px solid #cbd5e1;
-      border-radius: 14px;
-      color: #1e293b;
-      font-weight: 700;
-      font-size: 0.92rem;
-      cursor: pointer;
-      overflow: hidden;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    /* Floating Particles Background */
+    .particle-container {
+      position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 1;
     }
-    .btn-google-animated::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 50%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
-      animation: googleShimmer 3s infinite;
-    }
-    .btn-google-animated:hover {
-      transform: translateY(-2px);
-      border-color: #2563eb;
-      box-shadow: 0 8px 20px rgba(37, 99, 235, 0.2);
-    }
-
-    .particle-container { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 1; }
     .particle {
       position: absolute; bottom: -20px; background: rgba(96, 165, 250, 0.4);
       border-radius: 50%; box-shadow: 0 0 10px rgba(96, 165, 250, 0.8);
       animation: particleRise linear infinite;
     }
 
+    /* ─── MANDATORY NOTICES BAR ─── */
     .notice-banner {
       background: linear-gradient(90deg, #1e1b4b, #311042);
       border-bottom: 1px solid rgba(245,158,11,0.3);
@@ -127,168 +96,252 @@
     }
     .notice-banner strong { color: var(--gold); }
 
+    /* ─── NAVBAR ─── */
     #nav {
       position: sticky; top: 0; left: 0; right: 0; z-index: 1000;
-      padding: 0.9rem 5%; display: flex; align-items: center; justify-content: space-between;
+      padding: 1.1rem 6%; display: flex; align-items: center; justify-content: space-between;
       background: rgba(6,15,46,.93); backdrop-filter: blur(22px); border-bottom: 1px solid rgba(255,255,255,.08);
     }
-    .nav-brand { display: flex; align-items: center; gap: 10px; }
-    .nav-logo img { height: 38px; object-fit: contain; }
-    .nav-links { display: flex; align-items: center; gap: 1.8rem; list-style: none; }
+    .nav-brand { display: flex; align-items: center; gap: 14px; }
+    .nav-logo img { height: 44px; object-fit: contain; }
+    .nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
     .nav-links a { color: rgba(255,255,255,.8); font-size: .88rem; font-weight: 500; transition: color .2s; }
     .nav-links a:hover { color: var(--sky); }
 
-    .header-cert { display: flex; align-items: center; gap: 6px; background: #FFFFFF; border-radius: 50px; padding: 4px 10px 4px 5px; }
-    .header-cert img { height: 24px; width: auto; }
+    .header-cert {
+      display: flex; align-items: center; gap: 8px; background: #FFFFFF; border-radius: 50px; padding: 5px 14px 5px 6px;
+    }
+    .header-cert img { height: 28px; width: auto; }
     .header-cert-txt { display: flex; flex-direction: column; line-height: 1.1; }
-    .header-cert-txt .hc-1 { font-family: 'Poppins', sans-serif; font-size: .52rem; font-weight: 800; color: var(--navy); }
-    .header-cert-txt .hc-2 { font-size: .45rem; font-weight: 700; color: #64748B; text-transform: uppercase; }
+    .header-cert-txt .hc-1 { font-family: 'Poppins', sans-serif; font-size: .58rem; font-weight: 800; color: var(--navy); }
+    .header-cert-txt .hc-2 { font-size: .5rem; font-weight: 700; color: #64748B; text-transform: uppercase; }
 
     .btn-logout {
       background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.4);
       color: #fca5a5; font-size: 0.75rem; font-weight: 700; padding: 6px 14px;
       border-radius: 50px; display: inline-flex; align-items: center; gap: 6px; cursor: pointer; transition: all 0.25s ease;
     }
-    .btn-logout:hover { background: rgba(239, 68, 68, 0.3); color: #ffffff; border-color: rgba(239, 68, 68, 0.8); }
+    .btn-logout:hover {
+      background: rgba(239, 68, 68, 0.3); color: #ffffff;
+      border-color: rgba(239, 68, 68, 0.8); transform: translateY(-1px);
+    }
 
+    /* ─── HERO SECTION ─── */
     #hero {
-      min-height: 88vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
-      text-align: center; padding: 60px 5%; position: relative; overflow: hidden;
+      min-height: 92vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; padding: 80px 6%; position: relative; overflow: hidden;
       background: radial-gradient(circle at center, rgba(37,99,235,0.22) 0%, rgba(6,15,46,1) 75%);
     }
 
-    .hero-content { position: relative; z-index: 10; max-width: 900px; margin: 0 auto; width: 100%; }
+    .hero-content { position: relative; z-index: 10; max-width: 900px; margin: 0 auto; }
 
     .hero-badge {
       display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,.08);
-      border: 1px solid rgba(96,165,250,.38); padding: .4rem 1.1rem; border-radius: 50px;
-      color: #93c5fd; font-size: .8rem; font-weight: 600; margin-bottom: 1.5rem; text-align: center;
+      border: 1px solid rgba(96,165,250,.38); padding: .4rem 1.2rem; border-radius: 50px;
+      color: #93c5fd; font-size: .82rem; font-weight: 600; margin-bottom: 1.8rem;
     }
-    .hero-badge .dot { width: 8px; height: 8px; background: var(--green); border-radius: 50%; box-shadow: 0 0 10px var(--green); flex-shrink: 0; }
+    .hero-badge .dot { width: 8px; height: 8px; background: var(--green); border-radius: 50%; box-shadow: 0 0 10px var(--green); }
 
     .hero-h1 {
-      font-family: 'Poppins', sans-serif; font-size: clamp(2.2rem, 5.5vw, 4.5rem); font-weight: 900;
-      color: white; line-height: 1.15; margin: 0 auto 1.2rem;
+      font-family: 'Poppins', sans-serif; font-size: clamp(2.8rem, 6vw, 5rem); font-weight: 900;
+      color: white; line-height: 1.1; margin: 0 auto 1.5rem;
     }
-    .hero-h1 span.hl { background: linear-gradient(120deg, var(--sky) 20%, #a5f3fc 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .hero-h1 span.hl {
+      background: linear-gradient(120deg, var(--sky) 20%, #a5f3fc 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
 
-    .hero-p { font-size: clamp(0.95rem, 2vw, 1.15rem); color: rgba(255,255,255,.75); max-width: 680px; margin: 0 auto 1.8rem; line-height: 1.7; }
+    .hero-p { font-size: 1.15rem; color: rgba(255,255,255,.75); max-width: 680px; margin: 0 auto 2.2rem; line-height: 1.8; }
 
     .offer-bar {
-      display: inline-flex; align-items: center; gap: 1rem; background: rgba(239,68,68,.12);
-      border: 1px solid rgba(239,68,68,.35); border-radius: 14px; padding: .8rem 1.2rem; margin-bottom: 2rem; flex-wrap: wrap; justify-content: center;
+      display: inline-flex; align-items: center; gap: 1.2rem; background: rgba(239,68,68,.12);
+      border: 1px solid rgba(239,68,68,.35); border-radius: 14px; padding: .9rem 1.6rem; margin-bottom: 2.2rem;
     }
-    .offer-label { color: #fca5a5; font-size: .78rem; font-weight: 700; text-transform: uppercase; display: flex; align-items: center; gap: 6px; }
-    .timer-wrap { display: flex; align-items: center; gap: 5px; }
-    .tblock { background: rgba(239,68,68,.28); border-radius: 8px; padding: 4px 10px; min-width: 48px; }
-    .tblock .t { font-family: 'Poppins', sans-serif; font-size: 1.35rem; font-weight: 800; color: white; display: block; line-height: 1; }
-    .tblock .u { font-size: .52rem; color: #fca5a5; text-transform: uppercase; display: block; margin-top: 2px; }
+    .offer-label { color: #fca5a5; font-size: .8rem; font-weight: 700; text-transform: uppercase; display: flex; align-items: center; gap: 6px; }
+    .timer-wrap { display: flex; align-items: center; gap: 6px; }
+    .tblock { background: rgba(239,68,68,.28); border-radius: 9px; padding: 5px 12px; min-width: 54px; }
+    .tblock .t { font-family: 'Poppins', sans-serif; font-size: 1.55rem; font-weight: 800; color: white; display: block; line-height: 1; }
+    .tblock .u { font-size: .58rem; color: #fca5a5; text-transform: uppercase; display: block; margin-top: 2px; }
 
-    .hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 2.5rem; width: 100%; }
+    .hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 3rem; }
 
     .btn-action {
       background: linear-gradient(135deg, var(--blue), var(--elec)); color: white; font-weight: 700;
-      padding: 0.9rem 2rem; border-radius: 50px; display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 0.9rem 2rem; border-radius: 50px; display: inline-flex; align-items: center; gap: 8px;
       cursor: pointer; border: none; transition: all 0.3s ease; box-shadow: 0 10px 25px rgba(37,99,235,0.4);
     }
     .btn-action:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(37,99,235,0.6); }
 
-    .hero-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.8rem; width: 100%; max-width: 800px; margin: 0 auto; }
-    .hstat-n { font-family: 'Poppins', sans-serif; font-size: 1.6rem; font-weight: 900; color: white; }
-    .hstat-l { font-size: .68rem; color: rgba(255,255,255,.5); text-transform: uppercase; margin-top: 2px; }
+    .hero-stats { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 2rem; width: 100%; max-width: 800px; margin: 0 auto; }
+    .hstat-n { font-family: 'Poppins', sans-serif; font-size: 1.8rem; font-weight: 900; color: white; }
+    .hstat-l { font-size: .72rem; color: rgba(255,255,255,.5); text-transform: uppercase; margin-top: 2px; }
 
-    #partners { background: #FFFFFF; padding: 35px 0; overflow: hidden; border-bottom: 1px solid #E2E8F0; }
-    .marquee-track { display: flex; align-items: center; gap: 3.5rem; animation: marqueeScroll 22s linear infinite; width: max-content; }
-    .p-logo { height: 38px; object-fit: contain; filter: grayscale(1) opacity(.6); transition: all .3s; }
+    /* ─── CLIENTS MARQUEE ─── */
+    #partners { background: #FFFFFF; padding: 45px 0; overflow: hidden; border-bottom: 1px solid #E2E8F0; }
+    .marquee-track { display: flex; align-items: center; gap: 4.5rem; animation: marqueeScroll 22s linear infinite; width: max-content; }
+    .p-logo { height: 42px; object-fit: contain; filter: grayscale(1) opacity(.6); transition: all .3s; }
     .p-logo:hover { filter: grayscale(0) opacity(1); transform: scale(1.08); }
 
-    .sec-head { text-align: center; margin-bottom: 3rem; }
-    .sec-title { font-family: 'Poppins', sans-serif; font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800; color: white; }
+    /* ─── SECTIONS COMMON ─── */
+    .sec-head { text-align: center; margin-bottom: 3.5rem; }
+    .sec-title { font-family: 'Poppins', sans-serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; color: white; }
     .sec-title span { color: var(--sky); }
 
-    .srv-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; max-width: 1200px; margin: 0 auto; }
-    .srv-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 2rem 1.5rem; text-align: center; transition: all 0.3s ease; }
-    .srv-card:hover { transform: translateY(-8px); border-color: var(--sky); background: rgba(255,255,255,0.06); }
-    .srv-icon { width: 64px; height: 64px; border-radius: 18px; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.2rem; font-size: 1.8rem; }
+    /* ─── SERVICES & CARDS ─── */
+    .srv-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; max-width: 1200px; margin: 0 auto; }
+    .srv-card {
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 20px;
+      padding: 2.5rem 2rem; text-align: center; transition: all 0.3s ease; position: relative; overflow: hidden;
+    }
+    .srv-card:hover { transform: translateY(-10px); border-color: var(--sky); background: rgba(255,255,255,0.06); }
+    .srv-icon { width: 70px; height: 70px; border-radius: 18px; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-size: 2rem; }
 
-    .comp-table { width: 100%; border-collapse: separate; border-spacing: 0; border-radius: 20px; overflow: hidden; border: 1px solid rgba(255,255,255,0.12); }
-    .comp-table th, .comp-table td { padding: 1.1rem 1.3rem; text-align: center; }
-    .comp-table th { background: rgba(255,255,255,0.06); color: white; font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 0.95rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
-    .comp-table td { background: rgba(255,255,255,0.02); color: rgba(255,255,255,0.8); border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.88rem; }
-    .comp-table .highlight-col { background: rgba(37,99,235,0.18) !important; border-left: 2px solid var(--sky); border-right: 2px solid var(--sky); }
+    /* ─── REVIEWS ANIMATED ─── */
+    .rev-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; max-width: 1200px; margin: 0 auto; }
+    .rev-card {
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 2rem;
+      transition: all 0.3s ease;
+    }
+    .rev-card:hover { transform: translateY(-6px); border-color: var(--sky); background: rgba(255,255,255,0.07); }
 
-    .rev-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; max-width: 1200px; margin: 0 auto; }
-    .rev-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 1.8rem; }
+    /* ─── FAQ ─── */
+    .faq-item { border: 1px solid rgba(255,255,255,0.12); border-radius: 14px; margin-bottom: 1rem; overflow: hidden; background: rgba(255,255,255,0.02); }
+    .faq-q { padding: 1.2rem 1.5rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; color: white; font-weight: 600; font-size: 0.95rem; }
+    .faq-a { padding: 0 1.5rem 1.2rem; color: rgba(255,255,255,0.65); font-size: 0.88rem; line-height: 1.7; display: none; }
 
-    .faq-item { border: 1px solid rgba(255,255,255,0.12); border-radius: 14px; margin-bottom: 0.8rem; overflow: hidden; background: rgba(255,255,255,0.02); }
-    .faq-q { padding: 1.1rem 1.3rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; color: white; font-weight: 600; font-size: 0.92rem; }
-    .faq-a { padding: 0 1.3rem 1.1rem; color: rgba(255,255,255,0.65); font-size: 0.85rem; line-height: 1.65; display: none; }
+    /* ─── PRICING ─── */
+    #pricing { background: linear-gradient(160deg, #060f2e 0%, #0a2472 100%); padding: 90px 6%; }
+    .pricing-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; max-width: 1100px; margin: 0 auto; align-items: center; }
+    .price-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.15); backdrop-filter: blur(20px); border-radius: 24px; padding: 2.5rem; }
 
-    #pricing { background: linear-gradient(160deg, #060f2e 0%, #0a2472 100%); padding: 75px 5%; }
-    .pricing-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; max-width: 1100px; margin: 0 auto; align-items: center; }
-    .price-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.15); backdrop-filter: blur(20px); border-radius: 24px; padding: 2.2rem 1.8rem; }
+    .pp-94RBZUQRBPN3E {
+      text-align: center; border: none; border-radius: 1.5rem; min-width: 220px;
+      height: 2.75rem; font-weight: bold; background-color: #FFD140; color: #000000;
+      font-family: "Helvetica Neue", Arial, sans-serif; font-size: 1rem; cursor: pointer;
+      transition: all 0.2s ease; box-shadow: 0 4px 12px rgba(255,209,64,0.3);
+    }
+    .pp-94RBZUQRBPN3E:hover { background-color: #f7c41e; transform: scale(1.02); }
 
-    .recog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; max-width: 1100px; margin: 0 auto; }
-    .badge-card-dark { background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 18px; padding: 1.1rem 1.3rem; display: flex; align-items: center; gap: 1rem; }
-    .badge-img-wrapper { width: 52px; height: 52px; border-radius: 12px; background: rgba(255, 255, 255, 0.05); display: flex; align-items: center; justify-content: center; padding: 6px; }
+    /* ─── REDESIGNED RECOGNITIONS SECTION ─── */
+    .recog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; max-width: 1100px; margin: 0 auto; }
+    .badge-card-dark {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 20px; padding: 1.2rem 1.5rem;
+      display: flex; align-items: center; gap: 1.2rem;
+      backdrop-filter: blur(12px);
+      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .badge-card-dark:hover {
+      transform: translateY(-5px); border-color: var(--sky);
+      box-shadow: 0 12px 30px rgba(37,99,235,0.25); background: rgba(30, 41, 59, 0.8);
+    }
+    .badge-img-wrapper {
+      width: 60px; height: 60px; border-radius: 14px;
+      background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0; padding: 8px;
+    }
+    .badge-img-wrapper img {
+      max-height: 100%; max-width: 100%; object-fit: contain;
+      mix-blend-mode: multiply; filter: brightness(1.2) contrast(1.1);
+    }
 
-    .site-footer { background: linear-gradient(180deg, #04091e 0%, #020512 100%); border-top: 1px solid rgba(255,255,255,0.1); color: #94A3B8; font-size: 0.85rem; padding-top: 3.5rem; padding-bottom: 2rem; }
-    .footer-msme { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; padding: 0.9rem 1.1rem; display: flex; align-items: center; gap: 10px; margin-top: 1.2rem; }
+    /* ─── REDESIGNED FOOTER ─── */
+    .site-footer {
+      background: linear-gradient(180deg, #04091e 0%, #020512 100%);
+      border-top: 1px solid rgba(255,255,255,0.1); color: #94A3B8; font-size: 0.85rem; padding-top: 4rem; padding-bottom: 2rem;
+    }
+    .footer-brand img { height: 48px; object-fit: contain; }
+    .footer-msme {
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 14px; padding: 1rem 1.25rem; display: flex; align-items: center; gap: 12px; margin-top: 1.2rem;
+    }
+    .footer-msme img { height: 38px; width: auto; object-fit: contain; }
 
-    #sales-toast { position: fixed; bottom: 20px; left: 20px; z-index: 1000; background: rgba(10, 24, 114, 0.96); border: 1px solid rgba(96, 165, 250, 0.4); backdrop-filter: blur(14px); border-radius: 16px; padding: 0.8rem 1.1rem; display: flex; align-items: center; gap: 10px; max-width: 360px; pointer-events: none; opacity: 0; transform: translateY(100px); transition: all 0.5s ease; }
+    /* ─── LIVE SALES NOTIFICATION TOAST ─── */
+    #sales-toast {
+      position: fixed; bottom: 25px; left: 25px; z-index: 1000;
+      background: rgba(10, 24, 114, 0.95); border: 1px solid rgba(96, 165, 250, 0.4);
+      backdrop-filter: blur(14px); border-radius: 16px; padding: 0.9rem 1.2rem;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.4); display: flex; align-items: center; gap: 12px;
+      max-width: 380px; pointer-events: none; opacity: 0; transform: translateY(100px);
+      transition: all 0.5s ease;
+    }
     #sales-toast.show { opacity: 1; transform: translateY(0); }
 
-    .modal-backdrop { position: fixed; inset: 0; background: rgba(6,15,46,0.85); backdrop-filter: blur(8px); z-index: 2000; display: flex; align-items: center; justify-content: center; padding: 1rem; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+    /* ─── DASHBOARDS & TRACKER ─── */
+    .modal-backdrop {
+      position: fixed; inset: 0; background: rgba(6,15,46,0.85); backdrop-filter: blur(8px);
+      z-index: 2000; display: flex; align-items: center; justify-content: center; padding: 1rem;
+      opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+    }
     .modal-backdrop.active { opacity: 1; pointer-events: auto; }
-    .modal-box { background: #FFFFFF; border-radius: 20px; width: 100%; max-width: 550px; padding: 1.8rem; color: var(--text); max-height: 90vh; overflow-y: auto; }
+    .modal-box { background: #FFFFFF; border-radius: 20px; width: 100%; max-width: 550px; padding: 2rem; color: var(--text); }
 
-    .dash-card { background: #FFFFFF; border: 1px solid var(--border); border-radius: 16px; padding: 1.3rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
+    .dash-card { background: #FFFFFF; border: 1px solid var(--border); border-radius: 16px; padding: 1.5rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
     .status-badge { display: inline-flex; align-items: center; padding: 4px 12px; border-radius: 50px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; }
     .status-pending { background: #FEF3C7; color: #D97706; }
     .status-active { background: #DCFCE7; color: #15803D; }
 
-    .step-node { width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.72rem; font-weight: 800; }
-    .step-active { background: var(--elec); color: white; }
+    .step-node { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 800; }
+    .step-active { background: var(--elec); color: white; box-shadow: 0 0 10px rgba(37,99,235,0.5); }
     .step-complete { background: var(--green); color: white; }
     .step-pending { background: #E2E8F0; color: #94A3B8; }
 
-    #chat-drawer { position: fixed; bottom: 80px; right: 20px; width: calc(100vw - 40px); max-width: 340px; height: 420px; background: #FFFFFF; border-radius: 20px; z-index: 1000; display: none; flex-direction: column; overflow: hidden; border: 1px solid var(--border); }
-    #wa-float { position: fixed; bottom: 1.5rem; right: 1.5rem; width: 56px; height: 56px; background: #25d366; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.75rem; z-index: 990; box-shadow: 0 8px 28px rgba(37,211,102,.55); }
-
-    @media (max-width: 1024px) {
-      .srv-grid, .rev-grid, .recog-grid { grid-template-columns: repeat(2, 1fr); gap: 1.2rem; }
-      .pricing-grid { grid-template-columns: 1fr; }
-      .hero-stats { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+    #chat-drawer {
+      position: fixed; bottom: 85px; right: 25px; width: 340px; height: 420px;
+      background: #FFFFFF; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+      z-index: 1000; display: none; flex-direction: column; overflow: hidden; border: 1px solid var(--border);
     }
-    @media (max-width: 768px) {
-      #nav { padding: 0.8rem 4%; }
-      .nav-links, .header-cert { display: none; }
-      #hero { padding: 50px 4% 40px; }
-      .hero-h1 { font-size: clamp(1.9rem, 7vw, 2.8rem); }
-      .srv-grid, .rev-grid, .recog-grid { grid-template-columns: 1fr; }
+
+    #wa-float {
+      position: fixed; bottom: 1.8rem; right: 1.8rem; width: 60px; height: 60px; background: #25d366;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white;
+      font-size: 1.85rem; z-index: 990; box-shadow: 0 8px 28px rgba(37,211,102,.55); transition: transform 0.3s;
+    }
+    #wa-float:hover { transform: scale(1.1); }
+
+    /* Custom Google Button Styling */
+    .btn-google {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      width: 100%; padding: 12px 16px; background: #FFFFFF; border: 1px solid #CBD5E1;
+      border-radius: 12px; color: #1E293B; font-weight: 700; font-size: 0.9rem;
+      cursor: pointer; transition: all 0.2s ease; box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+    .btn-google:hover { background: #F8FAFC; border-color: #94A3B8; transform: translateY(-1px); }
+
+    @media (max-width:880px) {
+      .srv-grid, .pricing-grid, .rev-grid, .recog-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
     }
   </style>
 </head>
 <body>
 
-  <!-- NOTICE BANNER -->
+  <!-- ── 1. MANDATORY NOTICES BAR ── -->
   <div class="notice-banner">
     <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-center gap-2 md:gap-6 text-center">
-      <div><i class="fa-brands fa-whatsapp text-green-400 mr-1"></i><strong>Notice 1:</strong> Meta WhatsApp Business Conversations chargeable from 1 Oct 2026.</div>
+      <div>
+        <i class="fa-brands fa-whatsapp text-green-400 mr-1"></i>
+        <strong>Notice 1:</strong> Meta WhatsApp Business Conversations are chargeable from 1 Oct 2026. Charges are directly borne by clients, not NexaBot.
+      </div>
       <div class="hidden md:block opacity-40">|</div>
-      <div><i class="fa-solid fa-microchip text-sky-400 mr-1"></i><strong>Notice 2:</strong> Cloud GPU & AI service costs surged globally.</div>
+      <div>
+        <i class="fa-solid fa-microchip text-sky-400 mr-1"></i>
+        <strong>Notice 2:</strong> Due to rapid Superintelligence AI growth, Cloud GPU & service costs have surged globally. Honesty is our best policy with clients.
+      </div>
     </div>
   </div>
 
-  <!-- NAVBAR -->
+  <!-- ── 2. NAVBAR ── -->
   <nav id="nav">
     <div class="nav-brand">
       <a href="#hero" class="nav-logo flex items-center gap-2">
         <img src="logos/nexabot-logo.png" alt="NexaBot Agency®" onerror="this.style.display='none';document.getElementById('logo-txt').style.display='block'">
-        <span id="logo-txt" class="font-black text-xl sm:text-2xl text-white font-['Poppins']" style="display:none;">Nexa<span class="text-sky">Bot</span></span>
+        <span id="logo-txt" class="font-black text-2xl text-white font-['Poppins']" style="display:none;">Nexa<span class="text-sky">Bot</span></span>
       </a>
-      <div class="header-cert" title="Great Place To Work Certified">
-        <img src="logos/great-place-to-work-badge.png" alt="Great Place To Work" onerror="this.parentElement.style.display='none'">
+      <div class="header-cert" title="Great Place To Work Certified — Sep 2024 to Sep 2027">
+        <img src="logos/great-place-to-work-badge.png" alt="Great Place To Work Certified" onerror="this.parentElement.style.display='none'">
         <div class="header-cert-txt">
           <span class="hc-1">Great Place<br>To Work&reg;</span>
           <span class="hc-2">Certified</span>
@@ -298,24 +351,24 @@
 
     <ul class="nav-links">
       <li><a href="#services">Services</a></li>
+      <li><a href="#how">How It Works</a></li>
       <li><a href="#pricing">Pricing</a></li>
-      <li><a href="#comparison">Why Us</a></li>
       <li><a href="#reviews">Reviews</a></li>
       <li><a href="#faq">FAQ</a></li>
     </ul>
 
-    <div class="flex items-center gap-2 sm:gap-3">
-      <div id="nav-guest-controls" class="flex items-center gap-2 sm:gap-3">
-        <button onclick="openAuthModal('client')" class="bg-white/10 text-white text-xs font-semibold px-3 sm:px-4 py-2 rounded-full hover:bg-white/20 transition">
+    <div class="flex items-center gap-3">
+      <div id="nav-guest-controls" class="flex items-center gap-3">
+        <button onclick="openAuthModal('client')" class="bg-white/10 text-white text-xs sm:text-sm font-semibold px-4 py-2 rounded-full hover:bg-white/20 transition">
           <i class="fa-solid fa-user mr-1"></i> Client Portal
         </button>
-        <button onclick="openAuthModal('admin')" class="bg-red-500/20 text-red-300 border border-red-500/30 text-xs font-semibold px-3 sm:px-4 py-2 rounded-full hover:bg-red-500/30 transition">
+        <button onclick="openAuthModal('admin')" class="bg-red-500/20 text-red-300 border border-red-500/30 text-xs sm:text-sm font-semibold px-4 py-2 rounded-full hover:bg-red-500/30 transition">
           <i class="fa-solid fa-shield-halved mr-1"></i> Admin Portal
         </button>
       </div>
-      <div id="nav-user-controls" class="hidden flex items-center gap-2 sm:gap-3">
-        <span id="user-display-name" class="text-white text-xs sm:text-sm font-medium hidden sm:inline"></span>
-        <button onclick="router.navigate('dashboard')" class="bg-sky/20 text-sky text-xs font-bold px-3 py-1.5 sm:px-4 sm:py-2 rounded-full hover:bg-sky/30 transition">
+      <div id="nav-user-controls" class="hidden flex items-center gap-3">
+        <span id="user-display-name" class="text-white text-sm font-medium"></span>
+        <button onclick="router.navigate('dashboard')" class="bg-sky/20 text-sky text-xs font-bold px-4 py-2 rounded-full hover:bg-sky/30 transition">
           Dashboard
         </button>
         <button onclick="handleLogout()" class="btn-logout">
@@ -325,13 +378,13 @@
     </div>
   </nav>
 
-  <!-- MAIN APP VIEW -->
+  <!-- ── 3. MAIN CONTAINER ── -->
   <main id="app-view">
 
-    <!-- LANDING VIEW -->
+    <!-- ── LANDING VIEW ── -->
     <div id="view-landing" class="block">
       
-      <!-- 1. HERO SECTION -->
+      <!-- HERO SECTION WITH UPWARD PARTICLES BG EFFECT -->
       <section id="hero">
         <div class="particle-container" id="particles-bg"></div>
 
@@ -353,19 +406,19 @@
             <div class="offer-label"><i class="fas fa-fire text-red-500"></i> Special Offer Ends In</div>
             <div class="timer-wrap">
               <div class="tblock"><span class="t" id="th">11</span><span class="u">Hrs</span></div>
-              <span class="text-white font-bold text-lg sm:text-xl">:</span>
+              <span class="text-white font-bold text-xl">:</span>
               <div class="tblock"><span class="t" id="tm">47</span><span class="u">Min</span></div>
-              <span class="text-white font-bold text-lg sm:text-xl">:</span>
+              <span class="text-white font-bold text-xl">:</span>
               <div class="tblock"><span class="t" id="ts">30</span><span class="u">Sec</span></div>
             </div>
           </div>
 
           <div class="hero-btns">
-            <button onclick="openAuthModal('client')" class="btn-action">
-              <i class="fas fa-rocket"></i> Register to Order ($1,099 Total Initial)
-            </button>
-            <a href="#services" class="bg-white/10 hover:bg-white/20 text-white font-bold px-6 py-3 rounded-full transition flex items-center justify-center gap-2 text-sm">
-              <i class="fas fa-layer-group"></i> Explore Capabilities
+            <a href="#pricing" class="btn-action">
+              <i class="fas fa-rocket"></i> Get My Chatbot Now
+            </a>
+            <a href="#how" class="bg-white/10 hover:bg-white/20 text-white font-bold px-8 py-3.5 rounded-full transition flex items-center gap-2">
+              <i class="fas fa-play-circle"></i> How It Works
             </a>
           </div>
 
@@ -373,14 +426,14 @@
             <div><div class="hstat-n">1000+</div><div class="hstat-l">Bots Deployed</div></div>
             <div><div class="hstat-n">48hr</div><div class="hstat-l">Delivery SLA</div></div>
             <div><div class="hstat-n">4.9★</div><div class="hstat-l">Client Rating</div></div>
-            <div><div class="hstat-n">$99</div><div class="hstat-l">Monthly Fee</div></div>
+            <div><div class="hstat-n">$99</div><div class="hstat-l">Monthly Maintenance</div></div>
           </div>
         </div>
       </section>
 
-      <!-- 2. CLIENTS MARQUEE -->
-      <section id="partners">
-        <p class="text-center text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-widest mb-4 sm:mb-6">OUR VALUABLE CLIENTS</p>
+      <!-- OUR VALUABLE CLIENTS MARQUEE -->
+      <div id="partners">
+        <p class="text-center text-xs font-bold text-slate-500 uppercase tracking-widest mb-6">OUR VALUABLE CLIENTS</p>
         <div class="marquee-wrap">
           <div class="marquee-track">
             <img src="partners/partner-steinberg.png" alt="Steinberg" class="p-logo" onerror="this.outerHTML='<span class=&quot;font-bold text-slate-500 text-sm&quot;>STEINBERG</span>'">
@@ -389,12 +442,14 @@
             <img src="partners/partner-fender.png" alt="Fender" class="p-logo" onerror="this.outerHTML='<span class=&quot;font-bold text-slate-500 text-sm&quot;>FENDER</span>'">
             <img src="partners/partner-hyatt.png" alt="HYATT" class="p-logo" onerror="this.outerHTML='<span class=&quot;font-bold text-slate-500 text-sm&quot;>HYATT</span>'">
             <img src="partners/partner-leela.png" alt="The Leela Palace" class="p-logo" onerror="this.outerHTML='<span class=&quot;font-bold text-slate-500 text-sm&quot;>THE LEELA PALACE</span>'">
+            <img src="partners/partner-steinberg.png" alt="Steinberg" class="p-logo" onerror="this.outerHTML='<span class=&quot;font-bold text-slate-500 text-sm&quot;>STEINBERG</span>'">
+            <img src="partners/partner-avid.png" alt="AVID" class="p-logo" onerror="this.outerHTML='<span class=&quot;font-bold text-slate-500 text-sm&quot;>AVID</span>'">
           </div>
         </div>
-      </section>
+      </div>
 
-      <!-- 3. SERVICES -->
-      <section id="services" class="py-16 sm:py-24 px-5 bg-navy">
+      <!-- SERVICES -->
+      <section id="services" class="py-24 px-6 bg-navy">
         <div class="sec-head">
           <span class="text-xs font-bold uppercase text-sky tracking-widest">Our Capabilities</span>
           <h2 class="sec-title mt-2">AI Chatbots For <span>Every Business</span></h2>
@@ -403,123 +458,51 @@
         <div class="srv-grid">
           <div class="srv-card">
             <div class="srv-icon bg-emerald-500/10 text-emerald-400"><i class="fab fa-whatsapp"></i></div>
-            <h3 class="text-lg sm:text-xl font-bold text-white mb-2 font-['Poppins']">WhatsApp AI Bots</h3>
-            <p class="text-slate-400 text-xs sm:text-sm leading-relaxed">Automate customer conversations, qualify leads, and close sales on WhatsApp 24/7.</p>
+            <h3 class="text-xl font-bold text-white mb-2 font-['Poppins']">WhatsApp AI Bots</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">Automate customer conversations, qualify leads, and close sales on WhatsApp 24/7.</p>
           </div>
 
           <div class="srv-card">
             <div class="srv-icon bg-sky/10 text-sky"><i class="fas fa-globe"></i></div>
-            <h3 class="text-lg sm:text-xl font-bold text-white mb-2 font-['Poppins']">Website Chatbots</h3>
-            <p class="text-slate-400 text-xs sm:text-sm leading-relaxed">Convert website visitors into paying customers with high-converting smart widgets.</p>
+            <h3 class="text-xl font-bold text-white mb-2 font-['Poppins']">Website Chatbots</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">Convert website visitors into paying customers with high-converting smart widgets.</p>
           </div>
 
           <div class="srv-card">
             <div class="srv-icon bg-purple-500/10 text-purple-400"><i class="fas fa-brain"></i></div>
-            <h3 class="text-lg sm:text-xl font-bold text-white mb-2 font-['Poppins']">Custom AI Agents</h3>
-            <p class="text-slate-400 text-xs sm:text-sm leading-relaxed">Bespoke multi-channel agents custom trained on your exact business documentation.</p>
+            <h3 class="text-xl font-bold text-white mb-2 font-['Poppins']">Custom AI Agents</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">Bespoke multi-channel agents custom trained on your exact business documentation.</p>
           </div>
         </div>
       </section>
 
-      <!-- 4. PRICING -->
-      <section id="pricing">
+      <!-- HOW IT WORKS SECTION -->
+      <section id="how" class="py-20 px-6 bg-navy/80 border-t border-white/5">
         <div class="sec-head">
-          <span class="text-xs font-bold uppercase text-sky tracking-widest">Transparent Pricing</span>
-          <h2 class="sec-title mt-2">Simple Setup. <span>Enterprise AI Power.</span></h2>
+          <span class="text-xs font-bold uppercase text-sky tracking-widest">Execution Process</span>
+          <h2 class="sec-title mt-2">Live In <span>3 Simple Steps</span></h2>
         </div>
-
-        <div class="pricing-grid">
-          <div class="price-card">
-            <div class="text-xs font-bold text-sky uppercase mb-2">Total Initial Package</div>
-            <div class="text-4xl sm:text-5xl font-black text-white font-['Poppins'] mb-3">$1,099 <span class="text-xs sm:text-sm font-normal text-slate-300">USD Initial</span></div>
-            
-            <div class="p-4 bg-white/5 rounded-xl border border-white/10 mb-6 text-xs text-slate-300 space-y-2">
-              <div class="flex justify-between border-b border-white/10 pb-1.5"><span>One-Time Custom Setup:</span><strong class="text-white">$980 USD</strong></div>
-              <div class="flex justify-between border-b border-white/10 pb-1.5"><span>1st Month Server Maintenance:</span><strong class="text-white">$99 USD</strong></div>
-              <div class="flex justify-between border-b border-white/10 pb-1.5"><span>Applicable VAT:</span><strong class="text-white">$20 USD</strong></div>
-              <div class="flex justify-between pt-1 font-bold text-sky text-sm"><span>Total Amount Due:</span><span>$1,099 USD</span></div>
-            </div>
-
-            <div class="bg-blue-950/80 border border-sky/30 rounded-xl p-4 text-left mb-5 space-y-2">
-              <div class="text-white font-bold text-xs flex items-center gap-2"><i class="fa-solid fa-shield-halved text-sky"></i> Accepted Payment Channels:</div>
-              <p class="text-[11px] text-slate-300 leading-relaxed">
-                • <strong>Local & Global Bank Transfer:</strong> Direct USD, GBP, EUR, CAD via Skydo.<br>
-                • <strong>PayPal Ecosystem:</strong> PayPal Wallet, Credit Card, Debit Card, Apple Pay.
-              </p>
-              <div class="text-[11px] text-amber-300 font-medium pt-1"><i class="fa-solid fa-circle-info mr-1"></i> Register or sign in to your Client Portal to place orders & submit payments.</div>
-            </div>
-
-            <button onclick="openAuthModal('client')" class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold py-3.5 px-4 rounded-xl transition flex items-center justify-center gap-2 cursor-pointer text-xs sm:text-sm">
-              <i class="fa-solid fa-right-to-bracket"></i> Register / Login to Client Portal to Order
-            </button>
+        <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          <div class="text-center space-y-3">
+            <div class="w-14 h-14 bg-blue-600/20 text-sky border border-blue-500/40 rounded-2xl flex items-center justify-center font-bold text-xl mx-auto">1</div>
+            <h3 class="text-white font-bold text-lg">Choose Platform</h3>
+            <p class="text-slate-400 text-xs leading-relaxed">Select WhatsApp, Website Chatbot, or Custom Multi-Channel Agent.</p>
           </div>
-
-          <div class="space-y-4 text-white text-xs sm:text-sm">
-            <div class="flex items-center gap-3"><i class="fas fa-check-circle text-emerald-400 text-base sm:text-lg"></i> $980 One-Time Setup & Prompt Engineering</div>
-            <div class="flex items-center gap-3"><i class="fas fa-check-circle text-emerald-400 text-base sm:text-lg"></i> $99 First Month Server Maintenance Included</div>
-            <div class="flex items-center gap-3"><i class="fas fa-check-circle text-emerald-400 text-base sm:text-lg"></i> Custom Trained on Your Exact Business Documents</div>
-            <div class="flex items-center gap-3"><i class="fas fa-check-circle text-emerald-400 text-base sm:text-lg"></i> WhatsApp API & Website Chatbot Deployment</div>
-            <div class="flex items-center gap-3"><i class="fas fa-check-circle text-emerald-400 text-base sm:text-lg"></i> Real-Time Milestone Tracking in Client Dashboard</div>
-            <div class="flex items-center gap-3"><i class="fas fa-check-circle text-emerald-400 text-base sm:text-lg"></i> 48-Hour SLA Live Deployment Guarantee</div>
+          <div class="text-center space-y-3">
+            <div class="w-14 h-14 bg-blue-600/20 text-sky border border-blue-500/40 rounded-2xl flex items-center justify-center font-bold text-xl mx-auto">2</div>
+            <h3 class="text-white font-bold text-lg">Upload Knowledge</h3>
+            <p class="text-slate-400 text-xs leading-relaxed">Fill the Knowledge Base Form with your business documentation, products, and FAQs.</p>
+          </div>
+          <div class="text-center space-y-3">
+            <div class="w-14 h-14 bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 rounded-2xl flex items-center justify-center font-bold text-xl mx-auto">3</div>
+            <h3 class="text-white font-bold text-lg">Launch Live in 48 Hours</h3>
+            <p class="text-slate-400 text-xs leading-relaxed">Our engineers configure, test, and deploy your live bot with guaranteed 48-hour SLA.</p>
           </div>
         </div>
       </section>
 
-      <!-- 5. COMPARISON TABLE -->
-      <section id="comparison" class="py-16 sm:py-24 px-5 bg-navy/80 border-t border-white/5">
-        <div class="sec-head">
-          <span class="text-xs font-bold uppercase text-sky tracking-widest">Why Choose NexaBot</span>
-          <h2 class="sec-title mt-2">NexaBot AI Agency® <span>vs Alternatives</span></h2>
-        </div>
-
-        <div class="max-w-5xl mx-auto overflow-x-auto">
-          <table class="comp-table min-w-[650px]">
-            <thead>
-              <tr>
-                <th class="text-left">Feature / Capability</th>
-                <th class="highlight-col text-sky text-base">NexaBot AI Agency®</th>
-                <th>Traditional Dev Agencies</th>
-                <th>DIY No-Code Builders</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="text-left font-semibold text-white">Initial Setup Cost</td>
-                <td class="highlight-col font-bold text-emerald-400">$980 + $99/mo + $20 VAT ($1,099 Total)</td>
-                <td>$5,000 – $15,000+</td>
-                <td>$0 (High internal labor)</td>
-              </tr>
-              <tr>
-                <td class="text-left font-semibold text-white">Deployment Speed SLA</td>
-                <td class="highlight-col font-bold text-sky">Guaranteed 48 Hours</td>
-                <td>4 to 8 Weeks</td>
-                <td>Self-built over weeks</td>
-              </tr>
-              <tr>
-                <td class="text-left font-semibold text-white">Knowledge Ingestion</td>
-                <td class="highlight-col"><i class="fa-solid fa-circle-check text-emerald-400 text-lg"></i> Fully Managed</td>
-                <td><i class="fa-solid fa-circle-check text-emerald-400"></i> Extra Hourly Fee</td>
-                <td><i class="fa-solid fa-circle-xmark text-red-400"></i> Complex Setup</td>
-              </tr>
-              <tr>
-                <td class="text-left font-semibold text-white">WhatsApp Official API</td>
-                <td class="highlight-col"><i class="fa-solid fa-circle-check text-emerald-400 text-lg"></i> Included</td>
-                <td><i class="fa-solid fa-circle-check text-emerald-400"></i> Additional $2,000 Setup</td>
-                <td><i class="fa-solid fa-circle-xmark text-red-400"></i> Limited Integration</td>
-              </tr>
-              <tr>
-                <td class="text-left font-semibold text-white">Live Cloud Tracking Portal</td>
-                <td class="highlight-col"><i class="fa-solid fa-circle-check text-emerald-400 text-lg"></i> Real-Time Sync</td>
-                <td><i class="fa-solid fa-circle-xmark text-red-400"></i> Email Updates Only</td>
-                <td><i class="fa-solid fa-circle-xmark text-red-400"></i> None</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
-
-      <!-- 6. REVIEWS -->
-      <section id="reviews" class="py-16 sm:py-20 px-5 bg-navy/50">
+      <!-- REVIEWS SECTION -->
+      <section id="reviews" class="py-20 px-6 bg-navy/50">
         <div class="sec-head">
           <span class="text-xs font-bold uppercase text-sky tracking-widest">Client Testimonials</span>
           <h2 class="sec-title mt-2">Rated 4.9/5 by <span>Industry Leaders</span></h2>
@@ -527,229 +510,400 @@
 
         <div class="rev-grid">
           <div class="rev-card">
-            <div class="flex items-center gap-1 text-amber-400 text-sm mb-2">★★★★★ <span class="text-xs text-white/60 ml-2">(5.0)</span></div>
-            <p class="text-slate-300 text-xs sm:text-sm leading-relaxed mb-3">"Our WhatsApp bot handles 300+ customer enquiries daily without missing a lead."</p>
-            <div class="font-bold text-white text-xs sm:text-sm">Rajesh Kumar</div>
-            <div class="text-[11px] sm:text-xs text-sky font-semibold">Steinberg Media Technologies</div>
+            <div class="flex items-center gap-1 text-amber-400 text-sm mb-3">★★★★★ <span class="text-xs text-white/60 ml-2">(5.0)</span></div>
+            <p class="text-slate-300 text-sm leading-relaxed mb-4">"Our WhatsApp bot handles 300+ customer enquiries daily without missing a lead. Best ROI we've ever seen."</p>
+            <div class="font-bold text-white text-sm">Rajesh Kumar</div>
+            <div class="text-xs text-sky font-semibold">Steinberg Media Technologies</div>
           </div>
 
           <div class="rev-card">
-            <div class="flex items-center gap-1 text-amber-400 text-sm mb-2">★★★★★ <span class="text-xs text-white/60 ml-2">(4.9)</span></div>
-            <p class="text-slate-300 text-xs sm:text-sm leading-relaxed mb-3">"Deployed our custom trained website chatbot in 36 hours. Customer service workload dropped by 70%."</p>
-            <div class="font-bold text-white text-xs sm:text-sm">Priya Sharma</div>
-            <div class="text-[11px] sm:text-xs text-sky font-semibold">Hyatt Hotels & Resorts</div>
+            <div class="flex items-center gap-1 text-amber-400 text-sm mb-3">★★★★★ <span class="text-xs text-white/60 ml-2">(4.9)</span></div>
+            <p class="text-slate-300 text-sm leading-relaxed mb-4">"Deployed our custom trained website chatbot in 36 hours. Customer service workload dropped by 70%."</p>
+            <div class="font-bold text-white text-sm">Priya Sharma</div>
+            <div class="text-xs text-sky font-semibold">Hyatt Hotels & Resorts</div>
           </div>
 
           <div class="rev-card">
-            <div class="flex items-center gap-1 text-amber-400 text-sm mb-2">★★★★★ <span class="text-xs text-white/60 ml-2">(4.8)</span></div>
-            <p class="text-slate-300 text-xs sm:text-sm leading-relaxed mb-3">"The Skydo bank transfer route saved us over $150 in wire fees during onboarding."</p>
-            <div class="font-bold text-white text-xs sm:text-sm">Dr. Amit Patel</div>
-            <div class="text-[11px] sm:text-xs text-sky font-semibold">Avid Technology Inc.</div>
+            <div class="flex items-center gap-1 text-amber-400 text-sm mb-3">★★★★★ <span class="text-xs text-white/60 ml-2">(4.8)</span></div>
+            <p class="text-slate-300 text-sm leading-relaxed mb-4">"The Skydo bank transfer route saved us over $150 in international wire fees during onboarding. Smooth build."</p>
+            <div class="font-bold text-white text-sm">Dr. Amit Patel</div>
+            <div class="text-xs text-sky font-semibold">Avid Technology Inc.</div>
+          </div>
+
+          <div class="rev-card">
+            <div class="flex items-center gap-1 text-amber-400 text-sm mb-3">★★★★★ <span class="text-xs text-white/60 ml-2">(5.0)</span></div>
+            <p class="text-slate-300 text-sm leading-relaxed mb-4">"The project tracking dashboard kept us updated step-by-step from requirement analysis to live deployment."</p>
+            <div class="font-bold text-white text-sm">Marcus Vance</div>
+            <div class="text-xs text-sky font-semibold">Fender Musical Instruments</div>
+          </div>
+
+          <div class="rev-card">
+            <div class="flex items-center gap-1 text-amber-400 text-sm mb-3">★★★★★ <span class="text-xs text-white/60 ml-2">(4.7)</span></div>
+            <p class="text-slate-300 text-sm leading-relaxed mb-4">"Seamless PayPal integration and instant invoice access. NexaBot delivers high agency-grade standard."</p>
+            <div class="font-bold text-white text-sm">Elena Rostova</div>
+            <div class="text-xs text-sky font-semibold">AMD (Advanced Micro Devices)</div>
+          </div>
+
+          <div class="rev-card">
+            <div class="flex items-center gap-1 text-amber-400 text-sm mb-3">★★★★★ <span class="text-xs text-white/60 ml-2">(4.9)</span></div>
+            <p class="text-slate-300 text-sm leading-relaxed mb-4">"Knowledge base ingestion was flawless. The bot answered technical queries accurately from day one."</p>
+            <div class="font-bold text-white text-sm">Siddharth Nair</div>
+            <div class="text-xs text-sky font-semibold">The Leela Palaces, Hotels & Resorts</div>
           </div>
         </div>
       </section>
 
-      <!-- 7. RECOGNITIONS -->
-      <section id="recognitions" class="py-16 sm:py-20 px-5 bg-slate-950 text-center border-t border-white/10">
-        <p class="text-xs font-extrabold text-sky tracking-widest uppercase mb-8 sm:mb-10">OFFICIAL INDUSTRY RECOGNITIONS & CERTIFICATIONS</p>
-        <div class="recog-grid">
-          <div class="badge-card-dark">
-            <div class="badge-img-wrapper"><img src="logos/unicorn-startup-badge.png" alt="Unicorn" onerror="this.src='https://cdn-icons-png.flaticon.com/512/1828/1828884.png'"></div>
-            <div class="text-left"><div class="text-white font-bold text-sm sm:text-base font-['Poppins']">Unicorn Startup</div><div class="text-[11px] sm:text-xs text-slate-400 mt-0.5">Recognized Tech Innovator</div></div>
-          </div>
-          <div class="badge-card-dark">
-            <div class="badge-img-wrapper"><img src="logos/google-partner-badge.png" alt="Google" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg'"></div>
-            <div class="text-left"><div class="text-white font-bold text-sm sm:text-base font-['Poppins']">Google Partner</div><div class="text-[11px] sm:text-xs text-slate-400 mt-0.5">Certified Cloud Infrastructure</div></div>
-          </div>
-          <div class="badge-card-dark">
-            <div class="badge-img-wrapper"><img src="logos/meta-business-partner-badge.png" alt="Meta" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/7/7b/Meta_Platforms_Inc._logo.svg'"></div>
-            <div class="text-left"><div class="text-white font-bold text-sm sm:text-base font-['Poppins']">Meta Partner</div><div class="text-[11px] sm:text-xs text-slate-400 mt-0.5">WhatsApp API Integration</div></div>
-          </div>
-        </div>
-      </section>
-
-      <!-- 8. FAQS -->
-      <section id="faq" class="py-16 sm:py-20 px-5 max-w-4xl mx-auto">
+      <!-- FAQ SECTION -->
+      <section id="faq" class="py-20 px-6 max-w-4xl mx-auto">
         <div class="sec-head">
           <span class="text-xs font-bold uppercase text-sky tracking-widest">Common Questions</span>
           <h2 class="sec-title mt-2">Frequently Asked <span>Questions</span></h2>
         </div>
+
         <div class="space-y-3">
           <div class="faq-item">
-            <div class="faq-q" onclick="toggleFaq(this)"><span>How fast is complete bot deployment?</span> <i class="fa-solid fa-chevron-down text-sky"></i></div>
-            <div class="faq-a">Your AI chatbot will be custom built, trained, tested, and deployed live within 48 business hours after onboarding form submission.</div>
+            <div class="faq-q" onclick="toggleFaq(this)"><span>How fast is the complete bot deployment process?</span> <i class="fa-solid fa-chevron-down text-sky"></i></div>
+            <div class="faq-a">Your AI chatbot will be custom built, trained on your Knowledge Base, tested, and deployed live within 48 business hours after form submission.</div>
           </div>
+
           <div class="faq-item">
-            <div class="faq-q" onclick="toggleFaq(this)"><span>What does the $1,099 payment cover?</span> <i class="fa-solid fa-chevron-down text-sky"></i></div>
-            <div class="faq-a">$980 one-time setup, $99 1st month server maintenance, and $20 VAT ($1,099 USD total initial).</div>
+            <div class="faq-q" onclick="toggleFaq(this)"><span>What does the $899 initial payment cover?</span> <i class="fa-solid fa-chevron-down text-sky"></i></div>
+            <div class="faq-a">It includes the complete $799 one-time custom setup and training fee plus your $99 first-month cloud server maintenance fee.</div>
           </div>
+
           <div class="faq-item">
-            <div class="faq-q" onclick="toggleFaq(this)"><span>How do I order and pay?</span> <i class="fa-solid fa-chevron-down text-sky"></i></div>
-            <div class="faq-a">Register or log in via the Client Portal. Select your bot package, choose Skydo or PayPal, and track build stages in real time.</div>
+            <div class="faq-q" onclick="toggleFaq(this)"><span>How do I train the AI on my business details?</span> <i class="fa-solid fa-chevron-down text-sky"></i></div>
+            <div class="faq-a">After placing an order, simply fill out the AI Knowledge Base Form inside your Client Dashboard. You can upload PDFs, document links, or text FAQs.</div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-q" onclick="toggleFaq(this)"><span>Which payment methods are accepted?</span> <i class="fa-solid fa-chevron-down text-sky"></i></div>
+            <div class="faq-a">We accept PayPal direct credit/debit card payments globally as well as direct local bank transfers in USD, GBP, EUR, and CAD via Skydo.</div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-q" onclick="toggleFaq(this)"><span>Can I track my project build status in real time?</span> <i class="fa-solid fa-chevron-down text-sky"></i></div>
+            <div class="faq-a">Yes! Your Client Dashboard features a real-time project milestone tracker showing every step from payment confirmation to live bot deployment.</div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-q" onclick="toggleFaq(this)"><span>How do I download official invoices for my accounting?</span> <i class="fa-solid fa-chevron-down text-sky"></i></div>
+            <div class="faq-a">Official PDF invoices are generated automatically for every order in your dashboard, complete with company tax information and itemized breakdowns.</div>
           </div>
         </div>
       </section>
 
-      <!-- 9. NEWSLETTER -->
-      <section id="newsletter" class="py-12 sm:py-16 px-5 bg-gradient-to-r from-blue-900 to-indigo-950 text-center text-white">
-        <h3 class="text-xl sm:text-2xl font-bold font-['Poppins'] mb-2">Subscribe to Agency Updates</h3>
-        <p class="text-xs text-blue-200 mb-6 max-w-md mx-auto">Get monthly insights on AI chatbot automation and Meta API updates.</p>
-        <form onsubmit="alert('Subscribed to NexaBot Updates!'); return false;" class="flex flex-col sm:flex-row justify-center max-w-md mx-auto gap-2">
+      <!-- OFFICIAL INDUSTRY RECOGNITIONS & CERTIFICATIONS -->
+      <section class="py-20 px-6 bg-slate-950 text-center border-t border-white/10">
+        <p class="text-xs font-extrabold text-sky tracking-widest uppercase mb-10">OFFICIAL INDUSTRY RECOGNITIONS & CERTIFICATIONS</p>
+        
+        <div class="recog-grid">
+          
+          <div class="badge-card-dark">
+            <div class="badge-img-wrapper">
+              <img src="logos/unicorn-startup-badge.png" alt="Unicorn Startup" onerror="this.src='https://cdn-icons-png.flaticon.com/512/1828/1828884.png'">
+            </div>
+            <div class="text-left">
+              <div class="text-white font-bold text-base font-['Poppins']">Unicorn Startup</div>
+              <div class="text-xs text-slate-400 mt-0.5">Recognized Tech Innovator</div>
+            </div>
+          </div>
+
+          <div class="badge-card-dark">
+            <div class="badge-img-wrapper">
+              <img src="logos/google-partner-badge.png" alt="Google Partner" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg'">
+            </div>
+            <div class="text-left">
+              <div class="text-white font-bold text-base font-['Poppins']">Google Partner</div>
+              <div class="text-xs text-slate-400 mt-0.5">Certified Cloud Infrastructure</div>
+            </div>
+          </div>
+
+          <div class="badge-card-dark">
+            <div class="badge-img-wrapper">
+              <img src="logos/meta-business-partner-badge.png" alt="Meta Business Partner" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/7/7b/Meta_Platforms_Inc._logo.svg'">
+            </div>
+            <div class="text-left">
+              <div class="text-white font-bold text-base font-['Poppins']">Meta Business Partner</div>
+              <div class="text-xs text-slate-400 mt-0.5">WhatsApp API Integration</div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- NEWSLETTER -->
+      <section class="py-16 px-6 bg-gradient-to-r from-blue-900 to-indigo-950 text-center text-white">
+        <h3 class="text-2xl font-bold font-['Poppins'] mb-2">Subscribe to Agency Updates</h3>
+        <p class="text-xs text-blue-200 mb-6 max-w-md mx-auto">Get monthly insights on AI chatbot automation, Meta API updates, and new platform features.</p>
+        <form onsubmit="alert('Subscribed to NexaBot Agency Newsletter!'); return false;" class="flex justify-center max-w-md mx-auto gap-2">
           <input type="email" required placeholder="Enter work email..." class="px-4 py-2.5 rounded-xl text-slate-800 text-xs w-full outline-none">
           <button type="submit" class="bg-sky font-bold text-navy px-5 py-2.5 rounded-xl text-xs hover:bg-white transition whitespace-nowrap">Subscribe</button>
         </form>
       </section>
 
-      <!-- 10. FOOTER -->
-      <footer class="site-footer">
-        <div class="max-w-7xl mx-auto px-5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 pb-10">
-          <div class="space-y-3">
-            <div class="footer-brand flex items-center gap-2">
-              <img src="logos/nexabot-logo.png" alt="NexaBot Agency®" onerror="this.style.display='none';document.getElementById('ft-logo-txt').style.display='block'">
-              <span id="ft-logo-txt" class="font-black text-xl text-white font-['Poppins']" style="display:none;">Nexa<span class="text-sky">Bot</span></span>
+      <!-- PRICING & CHECKOUT -->
+      <section id="pricing">
+        <div class="sec-head">
+          <span class="text-xs font-bold uppercase text-sky tracking-widest">Fair Pricing</span>
+          <h2 class="sec-title mt-2">Pay Once. <span>Own It Forever.</span></h2>
+        </div>
+
+        <div class="pricing-grid">
+          <div class="price-card">
+            <div class="text-xs font-bold text-sky uppercase mb-2">Initial Setup Investment</div>
+            <div class="text-5xl font-black text-white font-['Poppins'] mb-4">$899 <span class="text-base font-normal text-slate-400">USD Initial</span></div>
+            <div class="p-4 bg-white/5 rounded-xl border border-white/10 mb-6 text-xs text-slate-300">
+              Includes <strong>$799 One-Time Setup Fee</strong> + <strong>$99 First Month Maintenance</strong>.
             </div>
-            <p class="leading-relaxed text-slate-400 text-xs">Building enterprise-grade AI chatbots for forward-thinking brands globally.</p>
-            <div class="footer-msme">
-              <img src="logos/msme-udyam-badge.png" alt="MSME Logo" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_India.svg'">
-              <div><div class="font-bold text-white text-xs">MSME Govt. Registered</div><div class="text-[10px] text-slate-400">UDYAM-WB-23-0085248</div></div>
+
+            <button onclick="handleStartOrder('skydo')" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 px-4 rounded-xl transition flex items-center justify-center gap-2 mb-4 cursor-pointer">
+              <i class="fa-solid fa-building-columns"></i> Pay via Skydo Transfer (Preferred)
+            </button>
+
+            <!-- PAYPAL SINGLE BUTTON FORM SUBMIT -->
+            <div class="flex justify-center w-full">
+              <form action="https://www.paypal.com/ncp/payment/94RBZUQRBPN3E" method="post" target="_blank" style="display:inline-grid;justify-items:center;align-content:start;gap:0.5rem;width:100%;">
+                <input class="pp-94RBZUQRBPN3E" style="width:100%;" type="submit" value="Pay $899 via PayPal Direct" />
+                <img src="https://www.paypalobjects.com/images/Debit_Credit_APM.svg" alt="cards" />
+                <section style="font-size: 0.75rem; color: #94a3b8;"> Powered by <img src="https://www.paypalobjects.com/paypal-ui/logos/svg/paypal-wordmark-color.svg" alt="paypal" style="height:0.875rem; vertical-align:middle;"/></section>
+              </form>
             </div>
           </div>
+
+          <div class="space-y-4 text-white text-sm">
+            <div class="flex items-center gap-3"><i class="fas fa-check-circle text-emerald-400 text-lg"></i> $799 One-Time Setup Fee</div>
+            <div class="flex items-center gap-3"><i class="fas fa-check-circle text-emerald-400 text-lg"></i> $99 Monthly Maintenance Fee</div>
+            <div class="flex items-center gap-3"><i class="fas fa-check-circle text-emerald-400 text-lg"></i> Custom Trained on Your Knowledge Base</div>
+            <div class="flex items-center gap-3"><i class="fas fa-check-circle text-emerald-400 text-lg"></i> WhatsApp & Website Deployment Included</div>
+            <div class="flex items-center gap-3"><i class="fas fa-check-circle text-emerald-400 text-lg"></i> Live in Under 48 Hours</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- REDESIGNED FOOTER -->
+      <footer class="site-footer">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-10 pb-12">
+          
+          <div class="space-y-4 md:col-span-1">
+            <div class="footer-brand flex items-center gap-2">
+              <img src="logos/nexabot-logo.png" alt="NexaBot Agency®" onerror="this.style.display='none';document.getElementById('ft-logo-txt').style.display='block'">
+              <span id="ft-logo-txt" class="font-black text-2xl text-white font-['Poppins']" style="display:none;">Nexa<span class="text-sky">Bot</span></span>
+            </div>
+            <p class="leading-relaxed text-slate-400 text-xs">Building enterprise-grade, high-converting AI chatbots for forward-thinking brands globally.</p>
+            
+            <div class="footer-msme">
+              <img src="logos/msme-udyam-badge.png" alt="MSME Govt. India Logo" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_India.svg'">
+              <div>
+                <div class="font-bold text-white text-xs">MSME Govt. Registered</div>
+                <div class="text-[10px] text-slate-400">UDYAM-WB-23-0085248</div>
+              </div>
+            </div>
+          </div>
+
           <div class="space-y-3">
             <h4 class="text-white font-bold uppercase tracking-wider text-xs">AI Solutions</h4>
             <ul class="space-y-2 list-none p-0 text-xs">
               <li><a href="#services" class="hover:text-sky transition">WhatsApp AI Chatbots</a></li>
               <li><a href="#services" class="hover:text-sky transition">Website Conversational Widgets</a></li>
               <li><a href="#services" class="hover:text-sky transition">Custom Knowledge Agents</a></li>
+              <li><a href="#pricing" class="hover:text-sky transition">Enterprise Deployments</a></li>
             </ul>
           </div>
+
           <div class="space-y-3">
             <h4 class="text-white font-bold uppercase tracking-wider text-xs">Quick Links</h4>
             <ul class="space-y-2 list-none p-0 text-xs">
-              <li><a href="#comparison" class="hover:text-sky transition">Why NexaBot</a></li>
+              <li><a href="#how" class="hover:text-sky transition">How It Works</a></li>
               <li><a href="#reviews" class="hover:text-sky transition">Client Reviews</a></li>
-              <li><button onclick="openAuthModal('client')" class="hover:text-sky transition bg-transparent border-0 p-0 text-left text-xs cursor-pointer">Client Portal Login</button></li>
+              <li><a href="#faq" class="hover:text-sky transition">Frequently Asked Questions</a></li>
+              <li><button onclick="openAuthModal('client')" class="hover:text-sky transition bg-transparent border-0 p-0 text-left text-xs cursor-pointer">Client Login</button></li>
+              <li><button onclick="openAuthModal('admin')" class="hover:text-red-400 transition bg-transparent border-0 p-0 text-left text-xs cursor-pointer">Admin Access</button></li>
             </ul>
           </div>
+
           <div class="space-y-3">
-            <h4 class="text-white font-bold uppercase tracking-wider text-xs">Contact & Support</h4>
+            <h4 class="text-white font-bold uppercase tracking-wider text-xs">Contact & Global Support</h4>
             <div class="space-y-2 text-xs">
-              <div><i class="fa-solid fa-envelope text-sky mr-2"></i> support@nexabot.shop</div>
-              <div><i class="fa-brands fa-whatsapp text-emerald-400 mr-2"></i> Direct Support Line</div>
-              <div><i class="fa-solid fa-location-dot text-red-400 mr-2"></i> Durgapur, West Bengal, India</div>
+              <div class="flex items-center gap-2"><i class="fa-solid fa-envelope text-sky"></i> support@nexabot.shop</div>
+              <div class="flex items-center gap-2"><i class="fa-brands fa-whatsapp text-emerald-400"></i> Direct Agency Support Line</div>
+              <div class="flex items-center gap-2"><i class="fa-solid fa-location-dot text-red-400"></i> Durgapur, West Bengal, India</div>
+            </div>
+            <div class="flex gap-3 pt-2 text-lg">
+              <a href="#" class="text-slate-400 hover:text-sky transition"><i class="fa-brands fa-linkedin"></i></a>
+              <a href="#" class="text-slate-400 hover:text-sky transition"><i class="fa-brands fa-twitter"></i></a>
+              <a href="https://wa.me/9474065821" target="_blank" class="text-slate-400 hover:text-emerald-400 transition"><i class="fa-brands fa-whatsapp"></i></a>
             </div>
           </div>
+
         </div>
-        <div class="max-w-7xl mx-auto px-5 border-t border-white/5 pt-5 text-center text-[10px] text-slate-500">
-          © 2017–2026 NexaBot Agency Ltd.® All Rights Reserved.
+
+        <div class="max-w-7xl mx-auto px-6 border-t border-white/5 pt-6 flex flex-col md:flex-row justify-between items-center text-[11px] text-slate-500 gap-4">
+          <div>© 2017–2026 NexaBot Agency Ltd.® All Rights Reserved.</div>
+          <div class="flex gap-4">
+            <a href="#" class="hover:text-slate-400 transition">Privacy Policy</a>
+            <a href="#" class="hover:text-slate-400 transition">Terms of Service</a>
+            <a href="#" class="hover:text-slate-400 transition">SLA Guarantee</a>
+          </div>
         </div>
       </footer>
 
     </div>
 
-    <!-- CLIENT DASHBOARD VIEW -->
-    <div id="view-client-dashboard" class="hidden px-4 sm:px-6 py-8 sm:py-10 max-w-7xl mx-auto space-y-6 sm:space-y-8">
+    <!-- ── CLIENT DASHBOARD VIEW ── -->
+    <div id="view-client-dashboard" class="hidden px-6 py-10 max-w-7xl mx-auto space-y-8">
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 class="text-2xl sm:text-3xl font-bold text-white font-['Poppins']">Client Portal</h1>
-          <p class="text-slate-400 text-xs sm:text-sm">Manage active bot builds, access onboarding forms, and track live progress.</p>
+          <h1 class="text-3xl font-bold text-white font-['Poppins']">Client Portal</h1>
+          <p class="text-slate-400 text-sm">Manage active bot builds, access onboarding forms, track live progress, and download official invoices.</p>
         </div>
-        <div class="flex items-center gap-2 sm:gap-3 flex-wrap">
-          <button onclick="toggleChatDrawer()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-3 sm:px-4 py-2.5 rounded-xl transition">
-            <i class="fa-solid fa-headset mr-1"></i> Live Support Chat
+        <div class="flex items-center gap-3">
+          <button onclick="toggleChatDrawer()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-4 py-2.5 rounded-xl transition flex items-center gap-2">
+            <i class="fa-solid fa-headset"></i> Live Support Chat
           </button>
-          <button onclick="openModal('modal-new-order')" class="btn-action text-xs py-2.5 px-4">
+          <button onclick="openModal('modal-new-order')" class="btn-action text-xs py-2.5">
             <i class="fa-solid fa-plus"></i> Submit New Order
           </button>
         </div>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <a href="https://forms.gle/dAW6iJs3YLaoySpPA" target="_blank" class="dash-card bg-gradient-to-br from-blue-50 to-indigo-50 border-blue-200 block">
-          <div class="flex justify-between items-start">
+      <div class="grid md:grid-cols-2 gap-6">
+        <a href="https://forms.gle/dAW6iJs3YLaoySpPA" target="_blank" class="dash-card bg-gradient-to-br from-blue-50 to-indigo-50 border-blue-200 hover:border-blue-400 transition group block">
+          <div class="flex items-start justify-between">
             <div>
-              <span class="text-[10px] font-bold uppercase bg-blue-100 text-blue-600 px-2 py-0.5 rounded-full">Step 1 Required</span>
-              <h3 class="text-base sm:text-lg font-bold text-navy mt-2">Order Form & Payment Confirmation</h3>
+              <span class="text-[10px] font-bold uppercase tracking-wider text-blue-600 bg-blue-100 px-2.5 py-1 rounded-full">Step 1 Required</span>
+              <h3 class="text-lg font-bold text-navy mt-2 group-hover:text-blue-600 transition">Order Form & Payment Confirmation</h3>
               <p class="text-xs text-slate-600 mt-1">Upload payment confirmation screenshots and select bot platforms.</p>
             </div>
-            <i class="fa-solid fa-file-signature text-2xl text-blue-500"></i>
+            <i class="fa-solid fa-file-signature text-2xl text-blue-500 group-hover:scale-110 transition"></i>
           </div>
         </a>
 
-        <a href="https://forms.gle/TKtZcYQdsWEvzA9j7" target="_blank" class="dash-card bg-gradient-to-br from-amber-50 to-yellow-50 border-amber-200 block">
-          <div class="flex justify-between items-start">
+        <a href="https://forms.gle/TKtZcYQdsWEvzA9j7" target="_blank" class="dash-card bg-gradient-to-br from-amber-50 to-yellow-50 border-amber-200 hover:border-amber-400 transition group block">
+          <div class="flex items-start justify-between">
             <div>
-              <span class="text-[10px] font-bold uppercase bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full">Step 2 ⭐ Must Fill</span>
-              <h3 class="text-base sm:text-lg font-bold text-navy mt-2">AI Knowledge Base Form</h3>
-              <p class="text-xs text-slate-600 mt-1">Submit business FAQs, documentation, pricing, and tone guidelines.</p>
+              <span class="text-[10px] font-bold uppercase tracking-wider text-amber-700 bg-amber-100 px-2.5 py-1 rounded-full">Step 2 ⭐ Must Fill</span>
+              <h3 class="text-lg font-bold text-navy mt-2 group-hover:text-amber-700 transition">AI Knowledge Base Form</h3>
+              <p class="text-xs text-slate-600 mt-1">Submit your business FAQs, products, pricing, and specific tone guidelines.</p>
             </div>
-            <i class="fa-solid fa-brain text-2xl text-amber-500"></i>
+            <i class="fa-solid fa-brain text-2xl text-amber-500 group-hover:scale-110 transition"></i>
           </div>
         </a>
       </div>
 
       <div class="dash-card">
-        <h3 class="font-bold text-navy text-base sm:text-lg mb-4 font-['Poppins']">Your Active Bot Builds & Milestone Progress</h3>
-        <div id="client-orders-container" class="space-y-4">
-          <div class="text-xs text-slate-400">Loading live cloud orders...</div>
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="font-bold text-navy text-lg font-['Poppins']">Your Active Bot Builds & Milestone Progress</h3>
+        </div>
+        <div id="client-orders-container" class="space-y-6">
+          <!-- Dynamically Rendered -->
+        </div>
+      </div>
+
+      <div class="dash-card bg-gradient-to-r from-amber-50 to-orange-50 border-amber-300">
+        <div class="space-y-3">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-amber-200/60 pb-3">
+            <div>
+              <span class="text-[10px] font-extrabold uppercase bg-amber-200 text-amber-900 px-3 py-1 rounded-full">Official Payment Gateway</span>
+              <h3 class="text-xl font-bold text-navy font-['Poppins'] flex items-center gap-2 mt-2">
+                <i class="fa-brands fa-paypal text-blue-700 text-2xl"></i> PayPal Direct Checkout
+              </h3>
+              <p class="text-xs text-slate-600">Pay your bot package ($899 USD) instantly using PayPal, Credit Card, Debit Card, or Apple Pay.</p>
+            </div>
+            <form action="https://www.paypal.com/ncp/payment/94RBZUQRBPN3E" method="post" target="_blank" style="display:inline-grid;justify-items:center;">
+              <input class="pp-94RBZUQRBPN3E" type="submit" value="Pay $899 via PayPal" />
+            </form>
+          </div>
+
+          <div class="bg-white p-4 rounded-xl border border-amber-200 flex flex-col items-center justify-center min-h-[140px]">
+            <div id="paypal-container-94RBZUQRBPN3E" class="w-full max-w-md"></div>
+          </div>
         </div>
       </div>
 
       <div class="dash-card">
-        <h3 class="font-bold text-navy text-base sm:text-lg mb-2">Skydo Direct Global Accounts</h3>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
-          <div class="p-3 bg-slate-50 border rounded-xl">
-            <div class="font-bold text-slate-900 mb-1">🇺🇸 USD Account (ACH)</div>
-            <div>Routing: 021214891</div><div>Account: 313116902658</div><div>Cross River Bank</div>
+        <div class="flex items-center justify-between border-b pb-4 mb-4">
+          <div>
+            <h3 class="font-bold text-navy text-lg font-['Poppins']">Skydo Direct Global Accounts (Preferred Transfer Route)</h3>
+            <p class="text-xs text-slate-500">Zero international wire fees. Pay using local banking rails.</p>
           </div>
-          <div class="p-3 bg-slate-50 border rounded-xl">
-            <div class="font-bold text-slate-900 mb-1">🇬🇧 GBP Account (FPS)</div>
-            <div>Sort Code: 608382</div><div>Account: 49546719</div><div>Banking Circle</div>
+          <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-3 py-1 rounded-full">0% Wire Markup</span>
+        </div>
+
+        <div class="grid md:grid-cols-4 gap-4 text-xs">
+          <div class="p-4 bg-slate-50 border rounded-xl space-y-1 text-slate-700">
+            <div class="font-bold text-slate-900 mb-2 text-sm">🇺🇸 USD Account (ACH)</div>
+            <div><strong>Routing:</strong> 021214891</div>
+            <div><strong>Account:</strong> 313116902658</div>
+            <div><strong>Bank:</strong> Cross River Bank</div>
+            <div><strong>Beneficiary:</strong> Suprotim Chatterjee</div>
+            <button onclick="copyText('Routing: 021214891, Account: 313116902658, Bank: Cross River Bank')" class="w-full mt-3 bg-white border text-slate-700 font-bold py-1.5 rounded hover:bg-slate-100 transition">Copy Details</button>
           </div>
-          <div class="p-3 bg-slate-50 border rounded-xl">
-            <div class="font-bold text-slate-900 mb-1">🇪🇺 EUR Account (SEPA)</div>
-            <div>IBAN: DE53202208000049546719</div><div>BIC: SXPYDEHH</div><div>Banking Circle</div>
+
+          <div class="p-4 bg-slate-50 border rounded-xl space-y-1 text-slate-700">
+            <div class="font-bold text-slate-900 mb-2 text-sm">🇬🇧 GBP Account (FPS)</div>
+            <div><strong>Sort Code:</strong> 608382</div>
+            <div><strong>Account:</strong> 49546719</div>
+            <div><strong>Bank:</strong> Banking Circle</div>
+            <div><strong>Beneficiary:</strong> Suprotim Chatterjee</div>
+            <button onclick="copyText('Sort Code: 608382, Account: 49546719, Bank: Banking Circle')" class="w-full mt-3 bg-white border text-slate-700 font-bold py-1.5 rounded hover:bg-slate-100 transition">Copy Details</button>
           </div>
-          <div class="p-3 bg-slate-50 border rounded-xl">
-            <div class="font-bold text-slate-900 mb-1">🇨🇦 CAD Account (EFT)</div>
-            <div>Account: 980061659</div><div>Routing: 035210009</div><div>Digital Commerce Bank</div>
+
+          <div class="p-4 bg-slate-50 border rounded-xl space-y-1 text-slate-700">
+            <div class="font-bold text-slate-900 mb-2 text-sm">🇪🇺 EUR Account (SEPA)</div>
+            <div><strong>IBAN:</strong> DE53202208000049546719</div>
+            <div><strong>BIC:</strong> SXPYDEHH</div>
+            <div><strong>Bank:</strong> Banking Circle</div>
+            <div><strong>Beneficiary:</strong> Suprotim Chatterjee</div>
+            <button onclick="copyText('IBAN: DE53202208000049546719, BIC: SXPYDEHH, Bank: Banking Circle')" class="w-full mt-3 bg-white border text-slate-700 font-bold py-1.5 rounded hover:bg-slate-100 transition">Copy Details</button>
+          </div>
+
+          <div class="p-4 bg-slate-50 border rounded-xl space-y-1 text-slate-700">
+            <div class="font-bold text-slate-900 mb-2 text-sm">🇨🇦 CAD Account (EFT)</div>
+            <div><strong>Account:</strong> 980061659</div>
+            <div><strong>Routing:</strong> 035210009</div>
+            <div><strong>Bank:</strong> Digital Commerce Bank</div>
+            <div><strong>Beneficiary:</strong> Suprotim Chatterjee</div>
+            <button onclick="copyText('Account: 980061659, Routing: 035210009, Bank: Digital Commerce Bank')" class="w-full mt-3 bg-white border text-slate-700 font-bold py-1.5 rounded hover:bg-slate-100 transition">Copy Details</button>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- ADMIN DASHBOARD VIEW -->
-    <div id="view-admin-dashboard" class="hidden px-4 sm:px-6 py-8 sm:py-10 max-w-7xl mx-auto space-y-6 sm:space-y-8">
+    <!-- ── ADMIN DASHBOARD VIEW ── -->
+    <div id="view-admin-dashboard" class="hidden px-6 py-10 max-w-7xl mx-auto space-y-8">
       <div class="flex justify-between items-center">
         <div>
-          <h1 class="text-2xl sm:text-3xl font-bold text-white font-['Poppins']">Executive Command Panel</h1>
-          <p class="text-slate-400 text-xs sm:text-sm">Global Realtime Cloud Control — Live Orders across all Clients</p>
+          <h1 class="text-3xl font-bold text-white font-['Poppins']">Executive Command Panel</h1>
+          <p class="text-slate-400 text-sm">Agency Master Controls — Managing Client Base & Project Roadmap Pipeline</p>
         </div>
-        <span class="bg-red-500/20 text-red-300 border border-red-500/40 text-xs px-3 py-1 rounded-full font-bold">Cloud Live Sync</span>
+        <span class="bg-red-500/20 text-red-300 border border-red-500/40 text-xs px-4 py-1.5 rounded-full font-bold">Super Admin Active</span>
       </div>
 
-      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
-        <div class="dash-card"><div class="text-[10px] text-slate-400 font-bold uppercase">Total Orders</div><div id="stat-admin-orders" class="text-2xl sm:text-3xl font-bold text-navy mt-1">0</div></div>
-        <div class="dash-card"><div class="text-[10px] text-slate-400 font-bold uppercase">Pending Approvals</div><div id="stat-admin-pending" class="text-2xl sm:text-3xl font-bold text-amber-500 mt-1">0</div></div>
-        <div class="dash-card"><div class="text-[10px] text-slate-400 font-bold uppercase">Active Deployed</div><div id="stat-admin-active" class="text-2xl sm:text-3xl font-bold text-emerald-600 mt-1">0</div></div>
-        <div class="dash-card"><div class="text-[10px] text-slate-400 font-bold uppercase">Gross Revenue</div><div id="stat-admin-revenue" class="text-2xl sm:text-3xl font-bold text-blue-600 mt-1">$0</div></div>
+      <div class="grid grid-cols-1 sm:grid-cols-4 gap-6">
+        <div class="dash-card"><div class="text-xs text-slate-400 font-bold uppercase">Total Agency Orders</div><div id="stat-admin-orders" class="text-3xl font-bold text-navy mt-1">0</div></div>
+        <div class="dash-card"><div class="text-xs text-slate-400 font-bold uppercase">Pending Approvals</div><div id="stat-admin-pending" class="text-3xl font-bold text-amber-500 mt-1">0</div></div>
+        <div class="dash-card"><div class="text-xs text-slate-400 font-bold uppercase">Active Deployed Bots</div><div id="stat-admin-active" class="text-3xl font-bold text-emerald-600 mt-1">0</div></div>
+        <div class="dash-card"><div class="text-xs text-slate-400 font-bold uppercase">Gross Revenue</div><div id="stat-admin-revenue" class="text-3xl font-bold text-blue-600 mt-1">$0</div></div>
       </div>
 
-      <div class="dash-card overflow-hidden">
-        <h3 class="font-bold text-navy text-base sm:text-lg mb-4 font-['Poppins']">Manage Live Global Orders & Advance Build Stages</h3>
+      <div class="dash-card">
+        <h3 class="font-bold text-navy text-lg mb-4 font-['Poppins']">Manage Client Orders & Upload Specific Invoices</h3>
         <div class="overflow-x-auto">
-          <table class="w-full text-left text-xs sm:text-sm text-slate-600 min-w-[700px]">
-            <thead class="bg-slate-100 uppercase text-[10px] sm:text-xs text-slate-700">
+          <table class="w-full text-left text-sm text-slate-600">
+            <thead class="bg-slate-100 uppercase text-xs text-slate-700">
               <tr>
-                <th class="p-3">Order ID</th>
-                <th class="p-3">Client Name</th>
-                <th class="p-3">Platform</th>
-                <th class="p-3">Route</th>
-                <th class="p-3">Current Stage</th>
-                <th class="p-3 text-right">Controls</th>
+                <th class="p-3.5">Order ID</th>
+                <th class="p-3.5">Client Name</th>
+                <th class="p-3.5">Platform</th>
+                <th class="p-3.5">Payment Route</th>
+                <th class="p-3.5">Current Build Stage</th>
+                <th class="p-3.5">Upload Custom Invoice</th>
+                <th class="p-3.5 text-right">Admin Controls</th>
               </tr>
             </thead>
             <tbody id="admin-orders-table-body">
-              <!-- Cloud Orders Rendered Here -->
+              <!-- Dynamically Populated -->
             </tbody>
           </table>
         </div>
@@ -758,32 +912,34 @@
 
   </main>
 
-  <!-- SALES TOAST -->
+  <!-- LIVE SALES POP-UP TOAST CONTAINER -->
   <div id="sales-toast">
-    <div class="w-8 h-8 bg-emerald-500/20 border border-emerald-400/40 rounded-full flex items-center justify-center text-emerald-400 flex-shrink-0 text-xs">
+    <div class="w-9 h-9 bg-emerald-500/20 border border-emerald-400/40 rounded-full flex items-center justify-center text-emerald-400 flex-shrink-0 text-sm">
       <i class="fa-solid fa-bolt"></i>
     </div>
     <div class="text-xs">
-      <div id="toast-text" class="text-white font-semibold leading-tight text-[11px]">Tom purchased an AI Chatbot package from Los Angeles, USA ⚡</div>
-      <div id="toast-sub" class="text-[9px] text-slate-400 mt-0.5">Verified Purchase • 2 minutes ago</div>
+      <div id="toast-text" class="text-white font-semibold leading-tight">Tom just purchased an AI Chatbot package from Los Angeles, USA ⚡</div>
+      <div id="toast-sub" class="text-[10px] text-slate-400 mt-0.5">Verified Purchase • 2 minutes ago</div>
     </div>
   </div>
 
-  <!-- AUTH MODAL WITH ANIMATED GOOGLE SIGN IN -->
+  <!-- ── 4. MODALS & SUPPORT CHAT DRAWER ── -->
+
+  <!-- AUTH MODAL WITH GOOGLE SIGN IN -->
   <div id="auth-modal" class="modal-backdrop">
     <div class="modal-box">
       <div class="flex justify-between items-center mb-4">
-        <h3 id="auth-modal-title" class="text-lg sm:text-xl font-bold text-navy font-['Poppins']">Sign In</h3>
+        <h3 id="auth-modal-title" class="text-xl font-bold text-navy font-['Poppins']">Sign In</h3>
         <button onclick="closeModal('auth-modal')" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark"></i></button>
       </div>
 
-      <!-- ANIMATED HIGH-CONVERTING GOOGLE BUTTON -->
-      <button onclick="handleGoogleSignIn()" class="btn-google-animated mb-4">
-        <svg class="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg>
+      <!-- GOOGLE SIGN-IN BUTTON -->
+      <button onclick="handleGoogleSignIn()" class="btn-google mb-4">
+        <svg class="w-5 h-5" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg>
         <span>Continue with Google</span>
       </button>
 
-      <div class="relative flex py-2 items-center mb-3">
+      <div class="relative flex py-2 items-center mb-4">
         <div class="flex-grow border-t border-slate-200"></div>
         <span class="flex-shrink mx-3 text-[10px] text-slate-400 font-bold uppercase">Or Email</span>
         <div class="flex-grow border-t border-slate-200"></div>
@@ -794,30 +950,52 @@
         <div id="tab-auth-admin" onclick="switchAuthRole('admin')" class="py-2 rounded-md cursor-pointer text-slate-500">Admin Portal</div>
       </div>
 
-      <form id="auth-form" onsubmit="handleEmailAuth(event)" class="space-y-3">
+      <form id="auth-form" onsubmit="auth.handleSubmit(event)" class="space-y-4">
         <input type="hidden" id="auth-role" value="client">
         <input type="hidden" id="auth-mode" value="login">
 
-        <div>
-          <label class="block text-[11px] font-bold uppercase text-slate-500 mb-1">Email Address</label>
-          <input type="email" id="auth-email" required class="w-full border border-slate-300 p-2.5 rounded-lg text-xs sm:text-sm outline-none focus:border-blue-600" placeholder="user@company.com">
+        <div id="auth-field-name" class="hidden">
+          <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Full Name</label>
+          <input type="text" id="auth-name" class="w-full border border-slate-300 p-3 rounded-lg text-sm focus:outline-blue-600" placeholder="John Doe">
         </div>
 
         <div>
-          <label class="block text-[11px] font-bold uppercase text-slate-500 mb-1">Password</label>
-          <input type="password" id="auth-password" required class="w-full border border-slate-300 p-2.5 rounded-lg text-xs sm:text-sm outline-none focus:border-blue-600" placeholder="••••••••">
+          <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Email Address</label>
+          <input type="email" id="auth-email" required class="w-full border border-slate-300 p-3 rounded-lg text-sm focus:outline-blue-600" placeholder="user@company.com">
         </div>
 
-        <button type="submit" id="auth-submit-btn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 rounded-xl transition text-xs sm:text-sm cursor-pointer">
+        <div>
+          <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Password</label>
+          <input type="password" id="auth-password" required class="w-full border border-slate-300 p-3 rounded-lg text-sm focus:outline-blue-600" placeholder="••••••••">
+        </div>
+
+        <button type="submit" id="auth-submit-btn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl transition">
           Sign In
         </button>
       </form>
 
       <div id="auth-toggle-box" class="text-center mt-4 text-xs text-slate-500">
         <span id="auth-toggle-text">Don't have an account?</span>
-        <button onclick="toggleAuthMode()" id="auth-toggle-btn" class="text-blue-600 font-bold ml-1 hover:underline cursor-pointer">
+        <button onclick="auth.toggleMode()" id="auth-toggle-btn" class="text-blue-600 font-bold ml-1 hover:underline">
           Register Now
         </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- INVOICE GENERATOR MODAL -->
+  <div id="invoice-modal" class="modal-backdrop">
+    <div class="modal-box max-w-lg">
+      <div class="flex justify-between items-center border-b pb-3 mb-4">
+        <div class="font-black text-lg text-navy font-['Poppins']">OFFICIAL INVOICE</div>
+        <button onclick="closeModal('invoice-modal')" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div id="invoice-content" class="space-y-4 text-xs text-slate-700">
+        <!-- Rendered Dynamically -->
+      </div>
+      <div class="mt-6 flex justify-end gap-2 border-t pt-3">
+        <button onclick="window.print()" class="bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold px-4 py-2 rounded-lg text-xs">Print / Save PDF</button>
+        <button onclick="closeModal('invoice-modal')" class="bg-blue-600 text-white font-bold px-4 py-2 rounded-lg text-xs">Close</button>
       </div>
     </div>
   </div>
@@ -826,38 +1004,43 @@
   <div id="modal-new-order" class="modal-backdrop">
     <div class="modal-box">
       <div class="flex justify-between items-center mb-4">
-        <h3 class="text-lg sm:text-xl font-bold text-navy">Submit New Bot Order</h3>
+        <h3 class="text-xl font-bold text-navy">Submit New Bot Order</h3>
         <button onclick="closeModal('modal-new-order')"><i class="fa-solid fa-xmark"></i></button>
       </div>
-      <form onsubmit="handleCreateCloudOrder(event)" class="space-y-4">
+      <form onsubmit="handleCreateNewOrderForm(event)" class="space-y-4">
         <div>
           <label class="block text-xs font-bold text-slate-500 mb-1">Select Chatbot Platform</label>
-          <select id="order-type-select" class="w-full border p-2.5 rounded-lg text-xs sm:text-sm bg-white">
-            <option value="WhatsApp AI Bot">WhatsApp AI Bot ($1,099 Total)</option>
-            <option value="Website AI Chatbot">Website AI Chatbot ($1,099 Total)</option>
-            <option value="Custom Multi-Channel AI Agent">Custom Multi-Channel AI Agent ($1,099 Total)</option>
+          <select id="order-type-select" class="w-full border p-3 rounded-lg text-sm bg-white">
+            <option value="WhatsApp AI Bot">WhatsApp AI Bot ($899)</option>
+            <option value="Website AI Chatbot">Website AI Chatbot ($899)</option>
+            <option value="Custom Multi-Channel AI Agent">Custom Multi-Channel AI Agent ($899)</option>
           </select>
         </div>
         <div>
           <label class="block text-xs font-bold text-slate-500 mb-1">Payment Method</label>
-          <select id="order-payment-route" class="w-full border p-2.5 rounded-lg text-xs sm:text-sm bg-white">
-            <option value="skydo">Skydo Direct Global Wire (Preferred)</option>
-            <option value="paypal">PayPal / Credit Card / Debit Card / Apple Pay</option>
+          <select id="order-payment-route" class="w-full border p-3 rounded-lg text-sm bg-white">
+            <option value="skydo">Skydo Direct Global Account (Preferred)</option>
+            <option value="paypal">PayPal Direct Transfer</option>
           </select>
         </div>
-        <button type="submit" class="w-full bg-blue-600 text-white font-bold py-2.5 rounded-xl text-xs sm:text-sm cursor-pointer">Submit Order to Cloud ($1,099)</button>
+        <button type="submit" class="w-full bg-blue-600 text-white font-bold py-3 rounded-xl">Generate Order ($899)</button>
       </form>
     </div>
   </div>
 
   <!-- LIVE SUPPORT CHAT DRAWER -->
   <div id="chat-drawer">
-    <div class="bg-navy p-3 text-white flex justify-between items-center">
-      <div class="flex items-center gap-2"><span class="w-2.5 h-2.5 bg-emerald-400 rounded-full"></span><span class="font-bold text-xs">NexaBot Support</span></div>
-      <button onclick="toggleChatDrawer()"><i class="fa-solid fa-xmark"></i></button>
+    <div class="bg-navy p-4 text-white flex justify-between items-center">
+      <div class="flex items-center gap-2">
+        <span class="w-2.5 h-2.5 bg-emerald-400 rounded-full"></span>
+        <span class="font-bold text-xs">NexaBot Agency Support</span>
+      </div>
+      <button onclick="toggleChatDrawer()" class="text-white/60 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
     </div>
-    <div class="flex-1 p-3 overflow-y-auto space-y-3 text-xs" id="chat-messages">
-      <div class="bg-slate-100 p-2.5 rounded-xl max-w-[85%] text-slate-800">Hello! How can our agency engineers assist today?</div>
+    <div class="flex-1 p-4 overflow-y-auto space-y-3 text-xs" id="chat-messages">
+      <div class="bg-slate-100 p-3 rounded-xl max-w-[85%] text-slate-800">
+        Hello! How can our agency engineers assist with your bot build today?
+      </div>
     </div>
     <div class="p-3 border-t flex gap-2">
       <input type="text" id="chat-input" placeholder="Type message..." class="flex-1 border p-2 rounded-lg text-xs outline-none">
@@ -866,11 +1049,11 @@
   </div>
 
   <!-- FLOATING WHATSAPP -->
-  <a href="https://wa.me/9474065821" target="_blank" id="wa-float" title="Direct Support"><i class="fab fa-whatsapp"></i></a>
+  <a href="https://wa.me/9474065821" target="_blank" id="wa-float" title="Direct WhatsApp Support"><i class="fab fa-whatsapp"></i></a>
 
-  <!-- ENGINE CONTROLLER WITH FIREBASE COMPAT INITIALIZATION -->
+  <!-- ── 5. SCRIPTS & ENGINE ── -->
   <script>
-    // 1. Initialize Firebase with valid credentials
+    // Official Firebase Project Credentials
     const firebaseConfig = {
       apiKey: "AIzaSyBSxMkDacoyoe6Gs919vskE1bBH0zAlCoQ",
       authDomain: "nexabot-india.firebaseapp.com",
@@ -881,13 +1064,16 @@
       measurementId: "G-LNDBLN8MES"
     };
 
+    // Initialize Firebase Global Instances
     firebase.initializeApp(firebaseConfig);
-    const fbAuthInstance = firebase.auth();
-    const fbDbInstance = firebase.firestore();
-    const googleProviderInstance = new firebase.auth.GoogleAuthProvider();
+    const fbAuth = firebase.auth();
+    const fbDb = firebase.firestore();
+    const googleProvider = new firebase.auth.GoogleAuthProvider();
 
-    let currentUser = null;
-    let unsubscribeOrders = null;
+    const API_BASE_URL = "https://nexabot-agency.onrender.com";
+    const DB_KEYS = { USERS: 'nexabot_db_users', ORDERS: 'nexabot_db_orders', SESSION: 'nexabot_db_session' };
+
+    let paypalInitialized = false;
 
     const PROJECT_STAGES = [
       "Payment Confirmed",
@@ -898,29 +1084,133 @@
       "Bot Deployed & Live"
     ];
 
-    fbAuthInstance.onAuthStateChanged((user) => {
-      currentUser = user;
-      updateAuthUI();
-    });
+    // Diverse Global Sales Notifications
+    const salesMessages = [
+      { msg: "Tom just purchased an AI Chatbot package from Los Angeles, USA 🇺🇸", time: "2 minutes ago" },
+      { msg: "Sophia R. bought a WhatsApp AI Bot from London, UK 🇬🇧", time: "4 minutes ago" },
+      { msg: "Akira Tanaka ordered a Custom Multi-Channel AI Agent from Tokyo, Japan 🇯🇵", time: "6 minutes ago" },
+      { msg: "Emma Watson purchased an AI Knowledge Agent from Sydney, Australia 🇦🇺", time: "8 minutes ago" },
+      { msg: "Mateo Garcia bought a Website AI Chatbot from Madrid, Spain 🇪🇸", time: "11 minutes ago" },
+      { msg: "Hannah Weber ordered a WhatsApp AI Bot from Berlin, Germany 🇩🇪", time: "14 minutes ago" },
+      { msg: "Camila Silva purchased an AI Chatbot package from São Paulo, Brazil 🇧🇷", time: "17 minutes ago" },
+      { msg: "Liam O'Connor bought a Custom Multi-Channel AI Agent from Toronto, Canada 🇨🇦", time: "20 minutes ago" },
+      { msg: "Aarav Sharma ordered a Website AI Chatbot from Mumbai, India 🇮🇳", time: "23 minutes ago" },
+      { msg: "Chloe Laurent purchased a WhatsApp AI Bot from Paris, France 🇫🇷", time: "26 minutes ago" },
+      { msg: "Tariq Al-Mansoor bought an AI Chatbot package from Dubai, UAE 🇦🇪", time: "30 minutes ago" }
+    ];
 
-    function updateAuthUI() {
-      const guest = document.getElementById('nav-guest-controls');
-      const userBox = document.getElementById('nav-user-controls');
-      if (currentUser) {
-        guest.classList.add('hidden');
-        userBox.classList.remove('hidden');
-        const role = currentUser.email === 'admin@nexabot.shop' ? 'ADMIN' : 'CLIENT';
-        document.getElementById('user-display-name').innerText = (currentUser.displayName || currentUser.email) + ` (${role})`;
-      } else {
-        guest.classList.remove('hidden');
-        userBox.classList.add('hidden');
+    (function cycleSalesToasts() {
+      let index = 0;
+      const toast = document.getElementById('sales-toast');
+      const toastTxt = document.getElementById('toast-text');
+      const toastSub = document.getElementById('toast-sub');
+      if (!toast) return;
+
+      setInterval(() => {
+        const item = salesMessages[index];
+        toastTxt.textContent = item.msg;
+        toastSub.textContent = `Verified Purchase • ${item.time}`;
+        toast.classList.add('show');
+        setTimeout(() => { toast.classList.remove('show'); }, 4200);
+        index = (index + 1) % salesMessages.length;
+      }, 9500);
+    })();
+
+    // Generate Floating Upward Particles in Hero Background
+    (function createHeroParticles() {
+      const container = document.getElementById('particles-bg');
+      if (!container) return;
+      for (let i = 0; i < 25; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        const size = Math.random() * 6 + 2;
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        particle.style.left = `${Math.random() * 100}%`;
+        particle.style.animationDuration = `${Math.random() * 8 + 6}s`;
+        particle.style.animationDelay = `${Math.random() * 5}s`;
+        container.appendChild(particle);
+      }
+    })();
+
+    function initDatabase() {
+      if (!localStorage.getItem(DB_KEYS.USERS)) {
+        const seedUsers = [
+          { id: 'usr_admin', name: 'NexaBot Admin', email: 'admin@nexabot.shop', role: 'admin', password: 'admin' },
+          { id: 'usr_1', name: 'Supriya Chatterjee', email: 'client@company.com', role: 'client', password: 'password' }
+        ];
+        localStorage.setItem(DB_KEYS.USERS, JSON.stringify(seedUsers));
+      }
+      if (!localStorage.getItem(DB_KEYS.ORDERS)) {
+        const seedOrders = [
+          { id: 'NEX-187015', clientId: 'usr_1', clientName: 'Supriya Chatterjee', type: 'Custom Multi-Channel AI Agent', amount: 899, paymentMethod: 'paypal', status: 'active', stageIndex: 2, uploadedInvoice: null, createdAt: '2026-10-01' }
+        ];
+        localStorage.setItem(DB_KEYS.ORDERS, JSON.stringify(seedOrders));
       }
     }
+    initDatabase();
 
+    const db = {
+      getUsers: () => JSON.parse(localStorage.getItem(DB_KEYS.USERS) || '[]'),
+      getOrders: () => JSON.parse(localStorage.getItem(DB_KEYS.ORDERS) || '[]'),
+      saveUser: (user) => { const users = db.getUsers(); users.push(user); localStorage.setItem(DB_KEYS.USERS, JSON.stringify(users)); },
+      saveOrder: (order) => { const orders = db.getOrders(); orders.unshift(order); localStorage.setItem(DB_KEYS.ORDERS, JSON.stringify(orders)); },
+      updateOrder: (orderId, updates) => {
+        let orders = db.getOrders(); orders = orders.map(o => o.id === orderId ? { ...o, ...updates } : o);
+        localStorage.setItem(DB_KEYS.ORDERS, JSON.stringify(orders));
+      }
+    };
+
+    const auth = {
+      currentUser: JSON.parse(localStorage.getItem(DB_KEYS.SESSION) || 'null'),
+      toggleMode: () => {
+        const mode = document.getElementById('auth-mode').value === 'login' ? 'register' : 'login';
+        document.getElementById('auth-mode').value = mode;
+        document.getElementById('auth-modal-title').innerText = mode === 'register' ? 'Register Account' : 'Sign In';
+        document.getElementById('auth-field-name').style.display = mode === 'register' ? 'block' : 'none';
+        document.getElementById('auth-submit-btn').innerText = mode === 'register' ? 'Create Account' : 'Sign In';
+      },
+      handleSubmit: (e) => {
+        e.preventDefault();
+        const role = document.getElementById('auth-role').value;
+        const mode = document.getElementById('auth-mode').value;
+        const email = document.getElementById('auth-email').value;
+        const password = document.getElementById('auth-password').value;
+
+        if (mode === 'register') {
+          const name = document.getElementById('auth-name').value;
+          const newUser = { id: 'usr_' + Date.now(), name, email, password, role };
+          db.saveUser(newUser); auth.setCurrentUser(newUser);
+        } else {
+          const user = db.getUsers().find(u => u.email === email && u.password === password && u.role === role);
+          if (user) auth.setCurrentUser(user);
+          else { alert('Invalid credentials provided.'); return; }
+        }
+        closeModal('auth-modal'); router.navigate('dashboard');
+      },
+      setCurrentUser: (user) => { auth.currentUser = user; localStorage.setItem(DB_KEYS.SESSION, JSON.stringify(user)); auth.updateUI(); },
+      logout: () => { auth.currentUser = null; localStorage.removeItem(DB_KEYS.SESSION); auth.updateUI(); router.navigate('landing'); },
+      updateUI: () => {
+        const guest = document.getElementById('nav-guest-controls'), user = document.getElementById('nav-user-controls');
+        if (auth.currentUser) {
+          guest.classList.add('hidden'); user.classList.remove('hidden');
+          document.getElementById('user-display-name').innerText = auth.currentUser.name + ` (${auth.currentUser.role.toUpperCase()})`;
+        } else { guest.classList.remove('hidden'); user.classList.add('hidden'); }
+      }
+    };
+
+    // Global Google Sign-In Handler
     async function handleGoogleSignIn() {
       try {
-        const result = await fbAuthInstance.signInWithPopup(googleProviderInstance);
-        currentUser = result.user;
+        const result = await fbAuth.signInWithPopup(googleProvider);
+        const firebaseUser = result.user;
+        const appUser = {
+          id: firebaseUser.uid,
+          name: firebaseUser.displayName || 'Google User',
+          email: firebaseUser.email,
+          role: document.getElementById('auth-role').value || 'client'
+        };
+        auth.setCurrentUser(appUser);
         closeModal('auth-modal');
         router.navigate('dashboard');
       } catch (err) {
@@ -928,164 +1218,229 @@
       }
     }
 
-    async function handleEmailAuth(e) {
-      e.preventDefault();
-      const email = document.getElementById('auth-email').value;
-      const password = document.getElementById('auth-password').value;
-      const mode = document.getElementById('auth-mode').value;
-
-      try {
-        if (mode === 'register') {
-          await fbAuthInstance.createUserWithEmailAndPassword(email, password);
-        } else {
-          await fbAuthInstance.signInWithEmailAndPassword(email, password);
-        }
-        closeModal('auth-modal');
-        router.navigate('dashboard');
-      } catch (err) {
-        alert("Authentication Error: " + err.message);
-      }
+    function handleLogout() {
+      fbAuth.signOut().then(() => {
+        auth.logout();
+      });
     }
 
-    async function handleLogout() {
-      await fbAuthInstance.signOut();
-      currentUser = null;
-      if (unsubscribeOrders) unsubscribeOrders();
-      router.navigate('landing');
+    function openAuthModal(role) { switchAuthRole(role); openModal('auth-modal'); }
+    function switchAuthRole(role) {
+      document.getElementById('auth-role').value = role;
+      document.getElementById('tab-auth-client').className = role === 'client' ? 'py-2 rounded-md cursor-pointer bg-white text-navy shadow-sm' : 'py-2 rounded-md cursor-pointer text-slate-500';
+      document.getElementById('tab-auth-admin').className = role === 'admin' ? 'py-2 rounded-md cursor-pointer bg-white text-navy shadow-sm' : 'py-2 rounded-md cursor-pointer text-slate-500';
+      document.getElementById('auth-toggle-box').style.display = role === 'admin' ? 'none' : 'block';
     }
 
     const router = {
       navigate: (viewName) => {
         ['landing', 'client-dashboard', 'admin-dashboard'].forEach(v => document.getElementById(`view-${v}`).classList.add('hidden'));
         if (viewName === 'dashboard') {
-          if (!currentUser) { openAuthModal('client'); viewName = 'landing'; }
-          else viewName = currentUser.email === 'admin@nexabot.shop' ? 'admin-dashboard' : 'client-dashboard';
+          if (!auth.currentUser) { openAuthModal('client'); viewName = 'landing'; }
+          else viewName = auth.currentUser.role === 'admin' ? 'admin-dashboard' : 'client-dashboard';
         }
-        if (viewName === 'client-dashboard') listenClientOrders();
-        if (viewName === 'admin-dashboard') listenAdminOrders();
+        if (viewName === 'client-dashboard') renderClientDashboard();
+        if (viewName === 'admin-dashboard') renderAdminDashboard();
         document.getElementById(`view-${viewName}`).classList.remove('hidden');
         window.scrollTo(0,0);
       }
     };
 
-    function listenClientOrders() {
-      if (unsubscribeOrders) unsubscribeOrders();
-      unsubscribeOrders = fbDbInstance.collection("orders")
-        .where("clientId", "==", currentUser.uid)
-        .onSnapshot((snapshot) => {
-          const container = document.getElementById('client-orders-container');
-          if (snapshot.empty) {
-            container.innerHTML = `<div class="p-4 text-center text-slate-400 text-xs">No active orders yet. Click "Submit New Order" to get started.</div>`;
-            return;
-          }
-          let html = '';
-          snapshot.forEach((docSnap) => {
-            const o = docSnap.data();
-            const currentStage = o.stageIndex || 0;
-            html += `
-              <div class="border rounded-xl p-4 bg-slate-50 space-y-3">
-                <div class="flex flex-col sm:flex-row justify-between border-b pb-2 gap-2">
-                  <div><span class="font-bold text-navy text-sm">${docSnap.id.substring(0,8).toUpperCase()}</span> — <span class="text-slate-700 text-xs font-semibold">${o.type}</span></div>
-                  <div class="flex items-center gap-2"><span class="status-badge status-${o.status}">${o.status}</span><span class="font-bold text-navy text-xs">$${o.amount}</span></div>
+    async function handleStartOrder(method) {
+      if (!auth.currentUser) { openAuthModal('client'); return; }
+      const newOrder = {
+        id: 'NEX-' + Math.floor(100000 + Math.random() * 900000),
+        clientId: auth.currentUser.id, clientName: auth.currentUser.name,
+        type: 'WhatsApp & Website AI Bot', amount: 899, paymentMethod: method,
+        status: 'pending', stageIndex: 0, uploadedInvoice: null, createdAt: new Date().toISOString().split('T')[0]
+      };
+      db.saveOrder(newOrder);
+      try {
+        await fetch(`${API_BASE_URL}/api/orders`, {
+          method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(newOrder)
+        });
+      } catch(e){}
+      alert(`Order ${newOrder.id} generated! Track progress in your Dashboard.`);
+      router.navigate('dashboard');
+    }
+
+    function handleCreateNewOrderForm(e) {
+      e.preventDefault();
+      const newOrder = {
+        id: 'NEX-' + Math.floor(100000 + Math.random() * 900000),
+        clientId: auth.currentUser.id, clientName: auth.currentUser.name,
+        type: document.getElementById('order-type-select').value,
+        amount: 899, paymentMethod: document.getElementById('order-payment-route').value,
+        status: 'pending', stageIndex: 0, uploadedInvoice: null, createdAt: new Date().toISOString().split('T')[0]
+      };
+      db.saveOrder(newOrder); closeModal('modal-new-order'); renderClientDashboard();
+    }
+
+    function renderClientDashboard() {
+      const orders = db.getOrders().filter(o => o.clientId === auth.currentUser.id);
+      const container = document.getElementById('client-orders-container');
+      
+      if (orders.length === 0) {
+        container.innerHTML = `<div class="p-6 text-center text-slate-400">No active orders found. Submit a new order to get started.</div>`;
+      } else {
+        container.innerHTML = orders.map(o => {
+          const currentStage = o.stageIndex || 0;
+          return `
+            <div class="border rounded-xl p-5 bg-slate-50 space-y-4">
+              <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 border-b pb-3">
+                <div>
+                  <span class="font-bold text-navy text-lg">${o.id}</span> — <span class="text-slate-700 font-medium">${o.type}</span>
                 </div>
-                <div class="grid grid-cols-2 sm:grid-cols-6 gap-2 text-center text-xs">
-                  ${PROJECT_STAGES.map((st, idx) => `
-                    <div class="p-1.5 border rounded bg-white flex flex-col items-center">
-                      <div class="step-node ${idx < currentStage ? 'step-complete' : idx === currentStage ? 'step-active' : 'step-pending'}">${idx < currentStage ? '✓' : idx + 1}</div>
-                      <span class="text-[9px] text-slate-700 mt-1">${st}</span>
-                    </div>
-                  `).join('')}
+                <div class="flex items-center gap-3 flex-wrap">
+                  <span class="uppercase font-bold text-xs bg-slate-200 px-2.5 py-1 rounded text-slate-700">${o.paymentMethod}</span>
+                  <span class="font-bold text-navy">$${o.amount}</span>
+                  <span class="status-badge status-${o.status}">${o.status}</span>
+                  <button onclick="generateInvoice('${o.id}')" class="bg-white border hover:bg-slate-100 text-slate-800 font-bold px-3 py-1 rounded text-xs">Standard Invoice</button>
+                  ${o.uploadedInvoice ? `<a href="${o.uploadedInvoice.data}" download="${o.uploadedInvoice.name}" class="bg-emerald-600 text-white font-bold px-3 py-1 rounded text-xs hover:bg-emerald-700 transition"><i class="fa-solid fa-download mr-1"></i> Admin Invoice (${o.uploadedInvoice.name})</a>` : ''}
                 </div>
               </div>
-            `;
-          });
-          container.innerHTML = html;
-        });
-    }
 
-    function listenAdminOrders() {
-      if (unsubscribeOrders) unsubscribeOrders();
-      unsubscribeOrders = fbDbInstance.collection("orders").onSnapshot((snapshot) => {
-        const tbody = document.getElementById('admin-orders-table-body');
-        let total = 0, pending = 0, active = 0, rev = 0;
-        let html = '';
-
-        snapshot.forEach((docSnap) => {
-          const o = docSnap.data();
-          total++;
-          if (o.status === 'pending') pending++;
-          if (o.status === 'active') { active++; rev += o.amount; }
-
-          html += `
-            <tr class="border-b text-xs">
-              <td class="p-3 font-bold text-navy">${docSnap.id.substring(0,8).toUpperCase()}</td>
-              <td class="p-3">${o.clientEmail}</td>
-              <td class="p-3">${o.type}</td>
-              <td class="p-3 uppercase font-bold text-[10px]">${o.paymentMethod}</td>
-              <td class="p-3 text-blue-600 font-bold">${PROJECT_STAGES[o.stageIndex || 0]}</td>
-              <td class="p-3 text-right space-x-1">
-                ${o.status === 'pending' ? `<button onclick="approveCloudOrder('${docSnap.id}')" class="bg-emerald-600 text-white font-bold px-2 py-1 rounded text-[10px]">Approve</button>` : ''}
-                <button onclick="advanceCloudStage('${docSnap.id}', ${o.stageIndex || 0})" class="bg-blue-600 text-white font-bold px-2 py-1 rounded text-[10px]">+ Stage</button>
-              </td>
-            </tr>
+              <div>
+                <div class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-3">Project Roadmap Stage Step</div>
+                <div class="grid grid-cols-2 md:grid-cols-6 gap-2 text-center text-xs">
+                  ${PROJECT_STAGES.map((st, idx) => {
+                    let cls = "step-pending";
+                    if (idx < currentStage) cls = "step-complete";
+                    else if (idx === currentStage) cls = "step-active";
+                    return `
+                      <div class="p-2 border rounded-lg bg-white flex flex-col items-center justify-center gap-1">
+                        <div class="step-node ${cls}">${idx < currentStage ? '✓' : idx + 1}</div>
+                        <span class="font-semibold text-[10px] text-slate-700 leading-tight">${st}</span>
+                      </div>
+                    `;
+                  }).join('')}
+                </div>
+              </div>
+            </div>
           `;
-        });
+        }).join('');
+      }
 
-        tbody.innerHTML = html || `<tr><td colspan="6" class="p-4 text-center text-slate-400">No cloud orders submitted yet.</td></tr>`;
-        document.getElementById('stat-admin-orders').innerText = total;
-        document.getElementById('stat-admin-pending').innerText = pending;
-        document.getElementById('stat-admin-active').innerText = active;
-        document.getElementById('stat-admin-revenue').innerText = '$' + rev;
-      });
-    }
-
-    async function handleCreateCloudOrder(e) {
-      e.preventDefault();
-      try {
-        await fbDbInstance.collection("orders").add({
-          clientId: currentUser.uid,
-          clientEmail: currentUser.email,
-          type: document.getElementById('order-type-select').value,
-          paymentMethod: document.getElementById('order-payment-route').value,
-          amount: 1099,
-          status: 'pending',
-          stageIndex: 0,
-          createdAt: new Date().toISOString()
-        });
-        closeModal('modal-new-order');
-        alert("Order submitted to Cloud Database! Admin notified.");
-      } catch (err) {
-        alert("Error creating order: " + err.message);
+      if (!paypalInitialized) {
+        setTimeout(() => {
+          if (window.paypal && paypal.HostedButtons) {
+            paypal.HostedButtons({
+              hostedButtonId: "94RBZUQRBPN3E",
+            }).render("#paypal-container-94RBZUQRBPN3E");
+            paypalInitialized = true;
+          }
+        }, 300);
       }
     }
 
-    async function approveCloudOrder(docId) {
-      await fbDbInstance.collection("orders").doc(docId).update({ status: 'active' });
+    function renderAdminDashboard() {
+      const orders = db.getOrders();
+      document.getElementById('stat-admin-orders').innerText = orders.length;
+      document.getElementById('stat-admin-pending').innerText = orders.filter(o => o.status === 'pending').length;
+      document.getElementById('stat-admin-active').innerText = orders.filter(o => o.status === 'active').length;
+      document.getElementById('stat-admin-revenue').innerText = '$' + orders.reduce((a, c) => a + (c.status === 'active' ? c.amount : 0), 0);
+
+      document.getElementById('admin-orders-table-body').innerHTML = orders.map(o => `
+        <tr class="border-b">
+          <td class="p-3.5 font-bold text-navy">${o.id}</td>
+          <td class="p-3.5 font-medium">${o.clientName}</td>
+          <td class="p-3.5">${o.type}</td>
+          <td class="p-3.5 uppercase font-bold text-xs">${o.paymentMethod}</td>
+          <td class="p-3.5 font-bold text-xs text-blue-600">${PROJECT_STAGES[o.stageIndex || 0]}</td>
+          <td class="p-3.5">
+            <input type="file" id="file-${o.id}" accept=".pdf,.doc,.docx,.png,.jpg,.jpeg" class="text-xs w-48 mb-1 block">
+            <button onclick="uploadInvoiceForOrder('${o.id}')" class="bg-slate-800 text-white font-bold px-2 py-1 rounded text-[10px]"><i class="fa-solid fa-upload mr-1"></i> Attach Invoice</button>
+            ${o.uploadedInvoice ? `<div class="text-[10px] text-emerald-600 font-bold mt-1">Attached: ${o.uploadedInvoice.name}</div>` : ''}
+          </td>
+          <td class="p-3.5 text-right space-x-1 whitespace-nowrap">
+            ${o.status === 'pending' ? `<button onclick="approveOrder('${o.id}')" class="bg-emerald-600 text-white font-bold px-2.5 py-1 rounded text-xs">Approve</button>` : ''}
+            <button onclick="advanceStage('${o.id}')" class="bg-blue-600 text-white font-bold px-2.5 py-1 rounded text-xs">+ Advance Stage</button>
+            <button onclick="generateInvoice('${o.id}')" class="bg-slate-100 text-slate-800 font-bold px-2.5 py-1 rounded text-xs">View Standard</button>
+          </td>
+        </tr>
+      `).join('');
     }
 
-    async function advanceCloudStage(docId, currentStage) {
-      const nextStage = Math.min(currentStage + 1, PROJECT_STAGES.length - 1);
-      await fbDbInstance.collection("orders").doc(docId).update({ stageIndex: nextStage });
+    function uploadInvoiceForOrder(orderId) {
+      const fileInput = document.getElementById(`file-${orderId}`);
+      if (!fileInput || !fileInput.files[0]) { alert('Please select a file to upload.'); return; }
+      const file = fileInput.files[0];
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        db.updateOrder(orderId, { uploadedInvoice: { name: file.name, data: e.target.result } });
+        alert(`Invoice attached for order ${orderId}!`);
+        renderAdminDashboard();
+      };
+      reader.readAsDataURL(file);
     }
 
-    function switchAuthRole(role) {
-      document.getElementById('auth-role').value = role;
-      document.getElementById('tab-auth-client').className = role === 'client' ? 'py-2 rounded-md cursor-pointer bg-white text-navy shadow-sm' : 'py-2 rounded-md cursor-pointer text-slate-500';
-      document.getElementById('tab-auth-admin').className = role === 'admin' ? 'py-2 rounded-md cursor-pointer bg-white text-navy shadow-sm' : 'py-2 rounded-md cursor-pointer text-slate-500';
+    function approveOrder(id) { db.updateOrder(id, { status: 'active' }); renderAdminDashboard(); }
+    function advanceStage(id) {
+      const o = db.getOrders().find(item => item.id === id);
+      if (!o) return;
+      const nextIdx = Math.min((o.stageIndex || 0) + 1, PROJECT_STAGES.length - 1);
+      db.updateOrder(id, { stageIndex: nextIdx, status: nextIdx === PROJECT_STAGES.length - 1 ? 'active' : o.status });
+      renderAdminDashboard();
     }
 
-    function toggleAuthMode() {
-      const mode = document.getElementById('auth-mode').value === 'login' ? 'register' : 'login';
-      document.getElementById('auth-mode').value = mode;
-      document.getElementById('auth-modal-title').innerText = mode === 'register' ? 'Register Account' : 'Sign In';
-      document.getElementById('auth-submit-btn').innerText = mode === 'register' ? 'Create Account' : 'Sign In';
+    function generateInvoice(id) {
+      const o = db.getOrders().find(item => item.id === id);
+      if (!o) return;
+      document.getElementById('invoice-content').innerHTML = `
+        <div class="flex justify-between border-b pb-2">
+          <div><strong>Invoice ID:</strong> ${o.id}</div>
+          <div><strong>Date:</strong> ${o.createdAt}</div>
+        </div>
+        <div><strong>Billed To:</strong> ${o.clientName}</div>
+        <div><strong>Payment Route:</strong> ${o.paymentMethod.toUpperCase()}</div>
+        <table class="w-full text-left my-3">
+          <tr class="border-b"><th class="py-1">Description</th><th class="text-right py-1">Amount</th></tr>
+          <tr><td class="py-1">${o.type} Setup Fee</td><td class="text-right py-1">$799.00 USD</td></tr>
+          <tr><td class="py-1">1st Month Maintenance</td><td class="text-right py-1">$99.00 USD</td></tr>
+        </table>
+        <div class="text-right font-bold text-sm text-blue-600 border-t pt-2">Total Due/Paid: $${o.amount}.00 USD</div>
+      `;
+      openModal('invoice-modal');
     }
 
-    function openAuthModal(role) { switchAuthRole(role); openModal('auth-modal'); }
+    function toggleChatDrawer() {
+      const drawer = document.getElementById('chat-drawer');
+      drawer.style.display = drawer.style.display === 'flex' ? 'none' : 'flex';
+    }
+
+    function sendChatMessage() {
+      const input = document.getElementById('chat-input');
+      if (!input.value.trim()) return;
+      const msgs = document.getElementById('chat-messages');
+      msgs.innerHTML += `<div class="bg-blue-600 text-white p-3 rounded-xl max-w-[85%] ml-auto">${input.value}</div>`;
+      input.value = '';
+      setTimeout(() => {
+        msgs.innerHTML += `<div class="bg-slate-100 p-3 rounded-xl max-w-[85%] text-slate-800">Thank you! An engineer has been notified.</div>`;
+        msgs.scrollTop = msgs.scrollHeight;
+      }, 1000);
+    }
+
+    function toggleFaq(el) {
+      const body = el.nextElementSibling;
+      body.style.display = body.style.display === 'block' ? 'none' : 'block';
+    }
+
+    function copyText(t) { navigator.clipboard.writeText(t); alert('Account details copied to clipboard!'); }
     function openModal(id) { document.getElementById(id).classList.add('active'); }
     function closeModal(id) { document.getElementById(id).classList.remove('active'); }
-    function toggleFaq(el) { const a = el.nextElementSibling; a.style.display = a.style.display === 'block' ? 'none' : 'block'; }
-    function toggleChatDrawer() { const d = document.getElementById('chat-drawer'); d.style.display = d.style.display === 'flex' ? 'none' : 'flex'; }
+
+    (function startTimer() {
+      let secs = 42450;
+      setInterval(() => {
+        if (secs < 0) secs = 86399;
+        document.getElementById('th').textContent = String(Math.floor(secs / 3600)).padStart(2, '0');
+        document.getElementById('tm').textContent = String(Math.floor((secs % 3600) / 60)).padStart(2, '0');
+        document.getElementById('ts').textContent = String(secs % 60).padStart(2, '0');
+        secs--;
+      }, 1000);
+    })();
+
+    auth.updateUI();
   </script>
 </body>
 </html>
