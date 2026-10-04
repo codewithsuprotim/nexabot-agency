@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title> NexaBot AI Chatbot Agency® </title>
-  <meta name="description" content="NexaBot AI Chatbot Agency builds WhatsApp Bots, Website Chatbots & Custom AI Bots. $1099 Total package includes setup & first month maintenance with VAT. Live in 48 hours." />
+  <meta name="description" content="NexaBot AI Chatbot Agency builds WhatsApp Bots, Website Chatbots & Custom AI Bots. $1099 Total package includes setup & first month maintenance with VAT. Special $100 Off promotion live." />
   <link rel="icon" type="image/png" href="logos/nexabot-favicon.png" />
 
   <!-- PayPal SDK with Exact Client ID & Hosted-Buttons Component -->
@@ -73,8 +73,10 @@
       50% { opacity: 0.6; }
       100% { transform: translateY(-120vh) scale(1.2); opacity: 0; }
     }
+    @keyframes pulseGlow { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.05); opacity: 0.9; } }
 
     .animate-float { animation: floatSlow 4s ease-in-out infinite; }
+    .animate-pulse-glow { animation: pulseGlow 2s ease-in-out infinite; }
 
     /* Floating Particles Background */
     .particle-container {
@@ -84,6 +86,19 @@
       position: absolute; bottom: -20px; background: rgba(96, 165, 250, 0.4);
       border-radius: 50%; box-shadow: 0 0 10px rgba(96, 165, 250, 0.8);
       animation: particleRise linear infinite;
+    }
+
+    /* ─── DISCOUNT BADGES & STICKERS ─── */
+    .sale-badge {
+      background: linear-gradient(135deg, #EF4444, #DC2626);
+      color: #FFFFFF; font-weight: 900; font-size: 0.75rem; text-transform: uppercase;
+      padding: 0.35rem 0.85rem; border-radius: 50px; border: 1px solid rgba(255,255,255,0.4);
+      box-shadow: 0 4px 15px rgba(239, 68, 68, 0.5); display: inline-flex; align-items: center; gap: 6px;
+    }
+    .discount-stamp {
+      position: absolute; top: -14px; right: 20px; background: #22C55E; color: #060F2E;
+      font-weight: 900; font-size: 0.7rem; text-transform: uppercase; padding: 4px 12px;
+      border-radius: 12px; box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4);
     }
 
     /* ─── MANDATORY NOTICES BAR ─── */
@@ -196,10 +211,10 @@
     .srv-icon { width: 70px; height: 70px; border-radius: 18px; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-size: 2rem; }
 
     /* ─── PRICING ─── */
-    #pricing { background: linear-gradient(160deg, #060f2e 0%, #0a2472 100%); padding: 90px 6%; }
+    #pricing { background: linear-gradient(160deg, #060f2e 0%, #0a2472 100%); padding: 90px 6%; position: relative; }
     .pricing-card {
       background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.15); backdrop-filter: blur(20px);
-      border-radius: 24px; padding: 3rem; max-width: 850px; margin: 0 auto; text-align: center;
+      border-radius: 24px; padding: 3rem; max-width: 850px; margin: 0 auto; text-align: center; position: relative;
     }
 
     /* ─── ENHANCED HIGH-CONTRAST COMPARISON TABLE ─── */
@@ -364,8 +379,8 @@
       </div>
       <div class="hidden md:block opacity-40">|</div>
       <div>
-        <i class="fa-solid fa-microchip text-sky-400 mr-1"></i>
-        <strong>Notice 2:</strong> Due to rapid Superintelligence AI growth, Cloud GPU & service costs have surged globally. Honesty is our best policy with clients.
+        <i class="fa-solid fa-tag text-emerald-400 mr-1"></i>
+        <strong>Notice 2:</strong> Special Promo Live! $100 FLAT DISCOUNT applied automatically (1 Oct 2026 – 5 Jan 2027). Pay $999 instead of $1099 Total!
       </div>
     </div>
   </div>
@@ -440,7 +455,7 @@
           </p>
 
           <div class="offer-bar">
-            <div class="offer-label"><i class="fas fa-fire text-red-500"></i> Special Package Ends In</div>
+            <div class="offer-label"><i class="fas fa-fire text-red-500"></i> $100 OFF Promo Offer Ends In</div>
             <div class="timer-wrap">
               <div class="tblock"><span class="t" id="th">11</span><span class="u">Hrs</span></div>
               <span class="text-white font-bold text-xl">:</span>
@@ -452,7 +467,7 @@
 
           <div class="hero-btns">
             <button onclick="openAuthModal('client')" class="btn-action">
-              <i class="fas fa-rocket"></i> Register & Get My Chatbot ($1099 Total)
+              <i class="fas fa-rocket"></i> Register & Get My Chatbot ($999 Promo)
             </button>
             <a href="#comparison" class="bg-white/10 hover:bg-white/20 text-white font-bold px-8 py-3.5 rounded-full transition flex items-center gap-2">
               <i class="fas fa-layer-group"></i> Why Choose Us
@@ -463,7 +478,7 @@
             <div><div class="hstat-n">1000+</div><div class="hstat-l">Bots Deployed</div></div>
             <div><div class="hstat-n">48hr</div><div class="hstat-l">Delivery SLA</div></div>
             <div><div class="hstat-n">4.9★</div><div class="hstat-l">Client Rating</div></div>
-            <div><div class="hstat-n">$1099</div><div class="hstat-l">Total Full Setup + 1st Mo</div></div>
+            <div><div class="hstat-n">$999</div><div class="hstat-l">Promo Total ($100 Off)</div></div>
           </div>
         </div>
       </section>
@@ -521,24 +536,36 @@
         </div>
 
         <div class="pricing-card">
+          <div class="discount-stamp animate-pulse-glow"><i class="fa-solid fa-fire mr-1"></i> $100 OFF STAMP</div>
           <div class="text-xs font-bold text-sky uppercase tracking-wider mb-2">Complete Agency Solution</div>
-          <div class="text-5xl font-black text-white font-['Poppins'] mb-4">$1099 <span class="text-base font-normal text-slate-400">USD Total</span></div>
           
-          <div class="p-4 bg-white/5 rounded-xl border border-white/10 mb-6 text-xs text-slate-300 space-y-1">
-            <p><strong>Itemized Breakdown:</strong> $979 One-Time Setup & Custom Training + $100 1st Month Maintenance + $20 VAT included ($1099 Total).</p>
+          <!-- PRICING STRIKE & PROMO PRICE -->
+          <div class="flex items-center justify-center gap-3 mb-2">
+            <span class="text-2xl font-bold text-slate-400 line-through">$1099</span>
+            <div class="text-5xl font-black text-white font-['Poppins']">$999 <span class="text-base font-normal text-sky">USD Promo</span></div>
+          </div>
+
+          <div class="mb-4">
+            <span class="sale-badge"><i class="fa-solid fa-bolt"></i> Flat $100 Discount (1 Oct 2026 – 5 Jan 2027)</span>
+          </div>
+          
+          <div class="p-4 bg-white/5 rounded-xl border border-white/10 mb-6 text-xs text-slate-300 space-y-2 text-left">
+            <p><strong>Standard Package Breakdown ($1099):</strong> $980 One-Time Setup & Training + $99 1st Month Maintenance Fee + $20 VAT included.</p>
+            <p class="text-emerald-400 font-semibold"><strong>Limited Time Offer ($999):</strong> $100 Flat Discount applied automatically in PayPal Checkout & Global Bank Wire ($999 net total billed).</p>
+            <p class="text-slate-400 border-t border-white/10 pt-2"><strong>Ongoing Maintenance Fee:</strong> Starting 2nd month onwards, $99/month recurring charges apply for hosting, continuous AI updates, and technical maintenance.</p>
           </div>
 
           <div class="p-5 bg-blue-900/40 rounded-xl border border-blue-500/30 text-left text-xs text-slate-200 mb-8 space-y-2">
-            <div class="font-bold text-sky text-sm mb-2"><i class="fa-solid fa-shield-halved mr-2"></i> Accepted Payment Channels:</div>
-            <div class="flex items-center gap-2"><i class="fa-solid fa-building-columns text-emerald-400"></i> <strong>Local & Global Bank Transfer:</strong> Direct ACH (USD), FPS (GBP), SEPA (EUR), and EFT (CAD) via Skydo.</div>
-            <div class="flex items-center gap-2"><i class="fa-brands fa-paypal text-blue-400"></i> <strong>PayPal Direct:</strong> PayPal Wallet, Credit Card, Debit Card, Apple Pay, etc.</div>
+            <div class="font-bold text-sky text-sm mb-2"><i class="fa-solid fa-shield-halved mr-2"></i> Accepted Payment Channels & Official Invoicing:</div>
+            <div class="flex items-center gap-2"><i class="fa-solid fa-building-columns text-emerald-400"></i> <strong>Global Bank Transfer (Skydo):</strong> Send $999 against $1099 standard billing (Automatic $100 discount applied). Full official $999 invoice provided in Client Portal.</div>
+            <div class="flex items-center gap-2"><i class="fa-brands fa-paypal text-blue-400"></i> <strong>PayPal Direct:</strong> $100 discount auto-deducted at checkout ($999 net). Official PayPal receipt + portal invoice delivered automatically.</div>
             <div class="text-amber-300 font-semibold mt-3 pt-2 border-t border-white/10">
               * Note: To place an order and initiate payment, clients are required to register and sign in through the Client Portal.
             </div>
           </div>
 
           <button onclick="openAuthModal('client')" class="btn-action w-full justify-center text-base py-4">
-            <i class="fa-solid fa-user-plus"></i> Register in Client Portal To Place Order
+            <i class="fa-solid fa-user-plus"></i> Register in Client Portal To Get $999 Promo Rate
           </button>
         </div>
       </section>
@@ -568,10 +595,16 @@
                 <td class="text-slate-400">Unpredictable / Slow</td>
               </tr>
               <tr>
-                <td>Pricing Clarity</td>
-                <td class="comp-highlight-cell"><i class="fa-solid fa-circle-check text-emerald-400 mr-1.5"></i> $1099 Total (Inc. 1st Mo & VAT)</td>
+                <td>Pricing Clarity & Promo</td>
+                <td class="comp-highlight-cell"><i class="fa-solid fa-circle-check text-emerald-400 mr-1.5"></i> $999 Total Promo ($100 Off standard $1099 rate)</td>
                 <td class="text-slate-300">$3,000–$10,000+ Setup Fees</td>
                 <td class="text-slate-400">Hidden Fees & Hourly Billing</td>
+              </tr>
+              <tr>
+                <td>Monthly Maintenance</td>
+                <td class="comp-highlight-cell"><i class="fa-solid fa-circle-check text-emerald-400 mr-1.5"></i> $99/mo (1st month included in package)</td>
+                <td class="text-slate-300">$500–$1,000 Retainers/Mo</td>
+                <td class="text-slate-400">No Ongoing Maintenance</td>
               </tr>
               <tr>
                 <td>Training & Knowledge Base</td>
@@ -580,8 +613,8 @@
                 <td class="text-slate-400">Generic Off-the-shelf Bots</td>
               </tr>
               <tr>
-                <td>Payment Flexibility</td>
-                <td class="comp-highlight-cell"><i class="fa-solid fa-circle-check text-emerald-400 mr-1.5"></i> Global Bank Wire & PayPal/Cards/Apple Pay</td>
+                <td>Payment & Invoicing</td>
+                <td class="comp-highlight-cell"><i class="fa-solid fa-circle-check text-emerald-400 mr-1.5"></i> Auto-discounted PayPal & Bank Wire ($999 Invoiced)</td>
                 <td class="text-slate-300">Strict Wire Transfers Only</td>
                 <td class="text-slate-400">Unsecured Direct Transfers</td>
               </tr>
@@ -626,7 +659,7 @@
 
           <div class="rev-card">
             <div class="flex items-center gap-1 text-amber-400 text-sm mb-3">★★★★★ <span class="text-xs text-white/60 ml-2">(4.8)</span></div>
-            <p class="text-slate-300 text-sm leading-relaxed mb-4">"The Skydo bank transfer route saved us over $150 in wire fees during onboarding. Smooth build."</p>
+            <p class="text-slate-300 text-sm leading-relaxed mb-4">"The Skydo bank transfer route saved us over $150 in wire fees. The $100 promo discount made it an effortless decision."</p>
             <div class="font-bold text-white text-sm">Dr. Amit Patel</div>
             <div class="text-xs text-sky font-semibold">Avid Technology Inc.</div>
           </div>
@@ -640,7 +673,7 @@
 
           <div class="rev-card">
             <div class="flex items-center gap-1 text-amber-400 text-sm mb-3">★★★★★ <span class="text-xs text-white/60 ml-2">(4.7)</span></div>
-            <p class="text-slate-300 text-sm leading-relaxed mb-4">"Seamless PayPal integration and instant invoice access. NexaBot delivers high agency-grade standard."</p>
+            <p class="text-slate-300 text-sm leading-relaxed mb-4">"Seamless PayPal integration and instant $999 discounted invoice access. NexaBot delivers high agency-grade standard."</p>
             <div class="font-bold text-white text-sm">Elena Rostova</div>
             <div class="text-xs text-sky font-semibold">AMD (Advanced Micro Devices)</div>
           </div>
@@ -707,13 +740,13 @@
           </div>
 
           <div class="faq-item">
-            <div class="faq-q" onclick="toggleFaq(this)"><span>What does the $1099 total payment cover?</span> <i class="fa-solid fa-chevron-down text-sky"></i></div>
-            <div class="faq-a">It includes the complete $979 one-time custom setup & training fee, the $100 first-month maintenance fee, and $20 VAT ($1099 Total).</div>
+            <div class="faq-q" onclick="toggleFaq(this)"><span>What does the pricing package cover and what are the ongoing fees?</span> <i class="fa-solid fa-chevron-down text-sky"></i></div>
+            <div class="faq-a">Standard package is $1099 ($980 Setup + $99 1st Month Maintenance + $20 VAT). With our active promo (1 Oct 2026 – 5 Jan 2027), you receive a $100 flat discount, bringing total payment to $999. From the 2nd month onwards, standard $99/month maintenance & update charges apply.</div>
           </div>
 
           <div class="faq-item">
-            <div class="faq-q" onclick="toggleFaq(this)"><span>How do I place an order and make payments?</span> <i class="fa-solid fa-chevron-down text-sky"></i></div>
-            <div class="faq-a">Simply register for an account in our Client Portal. Once logged in, you can place a new order and pay via Local/Global bank transfer or PayPal (Debit/Credit Cards, Apple Pay, Wallet).</div>
+            <div class="faq-q" onclick="toggleFaq(this)"><span>How does the $100 promotional discount work for payments?</span> <i class="fa-solid fa-chevron-down text-sky"></i></div>
+            <div class="faq-a">In PayPal Direct Checkout, the $100 discount is auto-deducted at payment. For Global Bank Transfer (Skydo), clients send $999 against the $1099 billing, and an official $999 receipt/invoice is issued automatically.</div>
           </div>
 
           <div class="faq-item">
@@ -771,7 +804,7 @@
           <div class="space-y-3">
             <h4 class="text-white font-bold uppercase tracking-wider text-xs">Quick Links</h4>
             <ul class="space-y-2 list-none p-0 text-xs">
-              <li><a href="#pricing" class="hover:text-sky transition">Package Pricing</a></li>
+              <li><a href="#pricing" class="hover:text-sky transition">Package Pricing ($999 Promo)</a></li>
               <li><a href="#comparison" class="hover:text-sky transition">Why Choose Us</a></li>
               <li><a href="#reviews" class="hover:text-sky transition">Client Reviews</a></li>
               <li><a href="#faq" class="hover:text-sky transition">Frequently Asked Questions</a></li>
@@ -810,6 +843,24 @@
 
     <!-- ── CLIENT DASHBOARD VIEW ── -->
     <div id="view-client-dashboard" class="hidden px-6 py-10 max-w-7xl mx-auto space-y-8">
+      
+      <!-- PROMO DISCOUNT STICKER IN DASHBOARD -->
+      <div class="bg-gradient-to-r from-emerald-600 via-teal-600 to-blue-600 rounded-2xl p-4 text-white flex flex-col md:flex-row items-center justify-between shadow-lg border border-emerald-400/30 gap-3">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center text-xl font-bold">
+            <i class="fa-solid fa-tags text-yellow-300"></i>
+          </div>
+          <div>
+            <div class="font-extrabold text-sm uppercase tracking-wide flex items-center gap-2">
+              <span>SPECIAL PROMOTION UNLOCKED</span>
+              <span class="bg-yellow-400 text-navy font-black text-[10px] px-2 py-0.5 rounded-full">$100 OFF</span>
+            </div>
+            <p class="text-xs text-emerald-100">Active Promo (1 Oct 2026 – 5 Jan 2027): Standard $1099 package is auto-discounted to $999 on both PayPal & Bank Transfers!</p>
+          </div>
+        </div>
+        <span class="bg-white/20 border border-white/40 text-xs font-bold px-3 py-1.5 rounded-xl whitespace-nowrap">Promo Active</span>
+      </div>
+
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h1 class="text-3xl font-bold text-white font-['Poppins']">Client Portal</h1>
@@ -820,7 +871,7 @@
             <i class="fa-solid fa-headset"></i> Live Support Chat
           </button>
           <button onclick="openModal('modal-new-order')" class="btn-action text-xs py-2.5">
-            <i class="fa-solid fa-plus"></i> Submit New Order ($1099)
+            <i class="fa-solid fa-plus"></i> Submit New Order ($999 Promo)
           </button>
         </div>
       </div>
@@ -860,21 +911,22 @@
         </div>
       </div>
 
-      <!-- PAYPAL GATEWAY -->
-      <div class="dash-card bg-gradient-to-r from-slate-900 via-blue-950 to-indigo-950 border border-blue-500/30 text-white shadow-xl">
+      <!-- PAYPAL GATEWAY WITH PROMO STICKERS -->
+      <div class="dash-card bg-gradient-to-r from-slate-900 via-blue-950 to-indigo-950 border border-blue-500/30 text-white shadow-xl relative overflow-hidden">
+        <div class="discount-stamp animate-pulse-glow" style="top: 15px; right: 15px;"><i class="fa-solid fa-bolt mr-1"></i> $100 AUTO DISCOUNT</div>
         <div class="p-2 space-y-4">
           <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-white/10 pb-4">
             <div>
-              <span class="text-[10px] font-extrabold uppercase bg-sky/20 text-sky border border-sky/40 px-3 py-1 rounded-full">Official Payment Checkout</span>
+              <span class="text-[10px] font-extrabold uppercase bg-emerald-500/20 text-emerald-300 border border-emerald-400/40 px-3 py-1 rounded-full">Official Promo Checkout ($999 Net)</span>
               <h3 class="text-2xl font-black text-white font-['Poppins'] flex items-center gap-2 mt-2">
-                <i class="fa-brands fa-paypal text-sky text-2xl"></i> PayPal Instant Direct Checkout
+                <i class="fa-brands fa-paypal text-sky text-2xl"></i> PayPal Instant Checkout
               </h3>
-              <p class="text-xs text-slate-300 mt-1">Pay your total package invoice ($1099 USD) securely via PayPal Wallet, Credit Card, Debit Card, or Apple Pay.</p>
+              <p class="text-xs text-slate-300 mt-1">Pay your package invoice ($999 USD Promo Rate) securely via PayPal Wallet, Credit Card, Debit Card, or Apple Pay. ($100 discount auto-applied).</p>
             </div>
             
-            <div class="flex flex-col items-center gap-2">
+            <div class="flex flex-col items-center gap-2 pt-2">
               <form action="https://www.paypal.com/ncp/payment/94RBZUQRBPN3E" method="post" target="_blank" style="display:inline-grid;justify-items:center;width:100%;">
-                <input class="pp-94RBZUQRBPN3E" type="submit" value="Pay $1099 via PayPal Direct" />
+                <input class="pp-94RBZUQRBPN3E" type="submit" value="Pay $999 Promo via PayPal" />
               </form>
               <span class="text-[10px] text-slate-400">128-Bit SSL Encrypted Checkout</span>
             </div>
@@ -898,9 +950,9 @@
         <div class="flex items-center justify-between border-b pb-4 mb-4">
           <div>
             <h3 class="font-bold text-navy text-lg font-['Poppins']">Skydo Direct Global Accounts (Preferred Local Wire Route)</h3>
-            <p class="text-xs text-slate-500">Total Invoice Amount: $1099 USD (Includes Setup, 1st Mo & VAT)</p>
+            <p class="text-xs text-slate-500">Standard Billing: $1099 USD | <strong>Client Wire Amount: $999 USD</strong> ($100 Promo Discount Auto-Applied in Invoice)</p>
           </div>
-          <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-3 py-1 rounded-full">Zero Wire Fee</span>
+          <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-3 py-1 rounded-full"><i class="fa-solid fa-tag mr-1"></i> $100 OFF Promo Applied</span>
         </div>
 
         <div class="grid md:grid-cols-4 gap-4 text-xs">
@@ -1049,7 +1101,7 @@
   <div id="invoice-modal" class="modal-backdrop">
     <div class="modal-box max-w-lg">
       <div class="flex justify-between items-center border-b pb-3 mb-4">
-        <div class="font-black text-lg text-navy font-['Poppins']">OFFICIAL INVOICE</div>
+        <div class="font-black text-lg text-navy font-['Poppins']">OFFICIAL AGENCY INVOICE</div>
         <button onclick="closeModal('invoice-modal')" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark"></i></button>
       </div>
       <div id="invoice-content" class="space-y-4 text-xs text-slate-700">
@@ -1073,9 +1125,9 @@
         <div>
           <label class="block text-xs font-bold text-slate-500 mb-1">Select Chatbot Platform</label>
           <select id="order-type-select" class="w-full border p-3 rounded-lg text-sm bg-white">
-            <option value="WhatsApp AI Bot">WhatsApp AI Bot ($1099 Total)</option>
-            <option value="Website AI Chatbot">Website AI Chatbot ($1099 Total)</option>
-            <option value="Custom Multi-Channel AI Agent">Custom Multi-Channel AI Agent ($1099 Total)</option>
+            <option value="WhatsApp AI Bot">WhatsApp AI Bot ($999 Promo Rate)</option>
+            <option value="Website AI Chatbot">Website AI Chatbot ($999 Promo Rate)</option>
+            <option value="Custom Multi-Channel AI Agent">Custom Multi-Channel AI Agent ($999 Promo Rate)</option>
           </select>
         </div>
         <div>
@@ -1085,7 +1137,7 @@
             <option value="paypal">PayPal Direct Transfer</option>
           </select>
         </div>
-        <button type="submit" class="w-full bg-blue-600 text-white font-bold py-3 rounded-xl">Generate Order ($1099 Total)</button>
+        <button type="submit" class="w-full bg-blue-600 text-white font-bold py-3 rounded-xl">Generate Order ($999 Promo)</button>
       </form>
     </div>
   </div>
@@ -1357,7 +1409,7 @@
         id: 'NEX-' + Math.floor(100000 + Math.random() * 900000),
         clientId: auth.currentUser.id, clientName: auth.currentUser.name,
         type: document.getElementById('order-type-select').value,
-        amount: 1099, paymentMethod: document.getElementById('order-payment-route').value,
+        amount: 999, paymentMethod: document.getElementById('order-payment-route').value,
         status: 'pending', stageIndex: 0, uploadedInvoice: null, createdAt: new Date().toISOString().split('T')[0]
       };
       await db.saveOrder(newOrder); 
@@ -1386,7 +1438,7 @@
                     </div>
                     <div class="flex items-center gap-3 flex-wrap">
                       <span class="uppercase font-bold text-xs bg-slate-200 px-2.5 py-1 rounded text-slate-700">${o.paymentMethod}</span>
-                      <span class="font-bold text-navy">$${o.amount} Total</span>
+                      <span class="font-bold text-navy">$${o.amount} Promo Total</span>
                       <span class="status-badge status-${o.status}">${o.status}</span>
                       <button onclick="generateInvoice('${o.id}')" class="bg-white border hover:bg-slate-100 text-slate-800 font-bold px-3 py-1 rounded text-xs">Standard Invoice</button>
                       ${o.uploadedInvoice ? `<a href="${o.uploadedInvoice.data}" download="${o.uploadedInvoice.name}" class="bg-emerald-600 text-white font-bold px-3 py-1 rounded text-xs hover:bg-emerald-700 transition"><i class="fa-solid fa-download mr-1"></i> Admin Invoice (${o.uploadedInvoice.name})</a>` : ''}
@@ -1493,11 +1545,14 @@
         <div><strong>Payment Route:</strong> ${o.paymentMethod.toUpperCase()}</div>
         <table class="w-full text-left my-3">
           <tr class="border-b"><th class="py-1">Description</th><th class="text-right py-1">Amount</th></tr>
-          <tr><td class="py-1">${o.type} One-Time Setup Fee</td><td class="text-right py-1">$979.00 USD</td></tr>
-          <tr><td class="py-1">1st Month Maintenance</td><td class="text-right py-1">$100.00 USD</td></tr>
+          <tr><td class="py-1">${o.type} Setup & Custom Training</td><td class="text-right py-1">$980.00 USD</td></tr>
+          <tr><td class="py-1">1st Month Maintenance & Updates</td><td class="text-right py-1">$99.00 USD</td></tr>
           <tr><td class="py-1">Applicable VAT</td><td class="text-right py-1">$20.00 USD</td></tr>
+          <tr class="border-t font-bold"><td class="py-1">Standard Subtotal</td><td class="text-right py-1">$1099.00 USD</td></tr>
+          <tr class="text-emerald-600 font-bold"><td class="py-1">Limited Promo Discount (1 Oct 2026 - 5 Jan 2027)</td><td class="text-right py-1">-$100.00 USD</td></tr>
         </table>
-        <div class="text-right font-bold text-sm text-blue-600 border-t pt-2">Total Due/Paid: $1099.00 USD</div>
+        <div class="text-right font-bold text-sm text-blue-600 border-t pt-2">Net Amount Billed/Paid: $999.00 USD</div>
+        <div class="text-[10px] text-slate-500 mt-2">* Ongoing maintenance fee of $99/month applies starting from the 2nd month onwards.</div>
       `;
       openModal('invoice-modal');
     }
