@@ -296,7 +296,7 @@
 
     /* ─── FAQ ─── */
     .faq-item { border: 1px solid rgba(255,255,255,0.12); border-radius: 14px; margin-bottom: 1rem; overflow: hidden; background: rgba(255,255,255,0.02); }
-    .faq-q { padding: 1.2rem 1.5rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; color: white; font-weight: 600; font-size: 0.95rem; }
+    .faq-q { padding: 1.2rem 1.5rem; cursor: pointer; display: flex; justify-between: space-between; align-items: center; color: white; font-weight: 600; font-size: 0.95rem; }
     .faq-a { padding: 0 1.5rem 1.2rem; color: rgba(255,255,255,0.65); font-size: 0.88rem; line-height: 1.7; display: none; }
 
     /* ─── REDESIGNED INDUSTRY RECOGNITION & CERTIFICATION SECTION ─── */
@@ -446,7 +446,7 @@
     </div>
   </div>
 
-  <!-- ── 2. NAVBAR WITH BRAND LOGO (logos/nexabot-logo.png) ── -->
+  <!-- ── 2. NAVBAR WITH BRAND LOGO ── -->
   <nav id="nav">
     <div class="nav-brand">
       <a href="#hero" class="nav-logo flex items-center gap-2">
@@ -464,6 +464,7 @@
 
     <ul class="nav-links">
       <li><a href="#services">Capabilities</a></li>
+      <li><a href="#demo">Book a Demo</a></li>
       <li><a href="#pricing">Pricing</a></li>
       <li><a href="#comparison">Why Us</a></li>
       <li><a href="#reviews">Reviews</a></li>
@@ -473,16 +474,22 @@
 
     <div class="flex items-center gap-3">
       <div id="nav-guest-controls" class="flex items-center gap-3">
-        <button onclick="openAuthModal('client')" class="bg-white/10 text-white text-xs sm:text-sm font-semibold px-4 py-2 rounded-full hover:bg-white/20 transition">
+        <button onclick="openModal('demo-modal')" class="bg-sky/20 text-sky border border-sky/30 text-xs font-semibold px-4 py-2 rounded-full hover:bg-sky/30 transition cursor-pointer">
+          <i class="fa-solid fa-calendar-check mr-1"></i> Book Demo
+        </button>
+        <button onclick="openAuthModal('client')" class="bg-white/10 text-white text-xs sm:text-sm font-semibold px-4 py-2 rounded-full hover:bg-white/20 transition cursor-pointer">
           <i class="fa-solid fa-user mr-1"></i> Client Portal
         </button>
-        <button onclick="openAuthModal('admin')" class="bg-red-500/20 text-red-300 border border-red-500/30 text-xs sm:text-sm font-semibold px-4 py-2 rounded-full hover:bg-red-500/30 transition">
+        <button onclick="openAuthModal('admin')" class="bg-red-500/20 text-red-300 border border-red-500/30 text-xs sm:text-sm font-semibold px-4 py-2 rounded-full hover:bg-red-500/30 transition cursor-pointer">
           <i class="fa-solid fa-shield-halved mr-1"></i> Admin Portal
         </button>
       </div>
       <div id="nav-user-controls" class="hidden flex items-center gap-3">
         <span id="user-display-name" class="text-white text-sm font-medium"></span>
-        <button onclick="router.navigate('dashboard')" class="bg-sky/20 text-sky text-xs font-bold px-4 py-2 rounded-full hover:bg-sky/30 transition">
+        <button onclick="openModal('demo-modal')" class="bg-sky/20 text-sky border border-sky/30 text-xs font-bold px-3 py-1.5 rounded-full hover:bg-sky/30 transition cursor-pointer">
+          <i class="fa-solid fa-calendar-check mr-1"></i> Demo
+        </button>
+        <button onclick="router.navigate('dashboard')" class="bg-sky/20 text-sky text-xs font-bold px-4 py-2 rounded-full hover:bg-sky/30 transition cursor-pointer">
           Dashboard
         </button>
         <button onclick="handleLogout()" class="btn-logout">
@@ -531,9 +538,9 @@
             <button onclick="openAuthModal('client')" class="btn-action">
               <i class="fas fa-rocket"></i> Register & Get My Chatbot ($999 Promo)
             </button>
-            <a href="#comparison" class="bg-white/10 hover:bg-white/20 text-white font-bold px-8 py-3.5 rounded-full transition flex items-center gap-2">
-              <i class="fas fa-layer-group"></i> Why Choose Us
-            </a>
+            <button onclick="openModal('demo-modal')" class="bg-white/10 hover:bg-white/20 text-white font-bold px-8 py-3.5 rounded-full transition flex items-center gap-2 cursor-pointer border-0">
+              <i class="fa-solid fa-calendar-days text-sky"></i> Schedule 1-on-1 Demo Call
+            </button>
           </div>
 
           <div class="hero-stats">
@@ -562,7 +569,7 @@
         </div>
       </div>
 
-      <!-- 3. OUR CAPABILITIES / SERVICES (WITH OMNICHANNEL INTEGRATION) -->
+      <!-- 3. OUR CAPABILITIES / SERVICES -->
       <section id="services" class="py-24 px-6 bg-navy">
         <div class="sec-head">
           <span class="text-xs font-bold uppercase text-sky tracking-widest">Our Capabilities</span>
@@ -593,7 +600,23 @@
         </div>
       </section>
 
-      <!-- 4. PRICING SECTION -->
+      <!-- 4. SCHEDULE A DEMO SECTION (CAL.COM EMBEDDED) -->
+      <section id="demo" class="py-20 px-6 bg-navy/90 border-t border-white/10">
+        <div class="sec-head">
+          <span class="text-xs font-bold uppercase text-sky tracking-widest">Live Interactive Session</span>
+          <h2 class="sec-title mt-2">Schedule a <span>Live Demo Call</span></h2>
+          <p class="text-slate-400 text-sm max-w-xl mx-auto mt-3">
+            Pick a convenient time slot below to speak with our agency engineers, review live chatbot demos, and discuss custom AI architecture for your business.
+          </p>
+        </div>
+
+        <div class="max-w-4xl mx-auto bg-white/5 border border-white/10 rounded-2xl p-4 backdrop-blur-xl shadow-2xl">
+          <!-- Embedded Cal.com iFrame -->
+          <iframe src="https://cal.com/nexabotindia/15-min-nexabot-demo-call" class="w-full h-[650px] rounded-xl border-0"></iframe>
+        </div>
+      </section>
+
+      <!-- 5. PRICING SECTION -->
       <section id="pricing">
         <div class="sec-head">
           <span class="text-xs font-bold uppercase text-sky tracking-widest">Transparent Pricing</span>
@@ -638,7 +661,7 @@
         </div>
       </section>
 
-      <!-- 5. COMPARISON MATRIX -->
+      <!-- 6. COMPARISON MATRIX -->
       <section id="comparison" class="py-24 px-6 bg-navy/90 border-t border-white/5">
         <div class="sec-head">
           <span class="text-xs font-bold uppercase text-sky tracking-widest">Why NexaBot Outperforms</span>
@@ -703,7 +726,7 @@
         </div>
       </section>
 
-      <!-- 6. CLIENT TESTIMONIALS / REVIEWS -->
+      <!-- 7. CLIENT TESTIMONIALS / REVIEWS -->
       <section id="reviews" class="py-20 px-6 bg-navy/50">
         <div class="sec-head">
           <span class="text-xs font-bold uppercase text-sky tracking-widest">Client Testimonials</span>
@@ -755,7 +778,7 @@
         </div>
       </section>
 
-      <!-- 7. RE-ENGINEERED LUXURY INDUSTRY RECOGNITION & CERTIFICATION SECTION -->
+      <!-- 8. INDUSTRY RECOGNITION & CERTIFICATION SECTION -->
       <section class="recog-section-wrapper">
         <div class="sec-head">
           <span class="text-xs font-bold uppercase text-sky tracking-widest">Global Accreditation & Trust</span>
@@ -794,7 +817,7 @@
         </div>
       </section>
 
-      <!-- 8. COMMON QUESTIONS / FAQS -->
+      <!-- 9. COMMON QUESTIONS / FAQS -->
       <section id="faq" class="py-20 px-6 max-w-4xl mx-auto">
         <div class="sec-head">
           <span class="text-xs font-bold uppercase text-sky tracking-widest">Common Questions</span>
@@ -829,7 +852,7 @@
         </div>
       </section>
 
-      <!-- 9. COMPLETE PRIVACY POLICY & TERMS OF SERVICE SECTION WITH ELEGANT ACTION BUTTONS -->
+      <!-- 10. PRIVACY POLICY & TERMS OF SERVICE SECTION -->
       <section id="legal-section" class="py-20 px-6 max-w-6xl mx-auto">
         <div class="sec-head">
           <span class="text-xs font-bold uppercase text-sky tracking-widest">Compliance & Governance</span>
@@ -857,7 +880,6 @@
               <p>When integrating Meta WhatsApp, Facebook Messenger, Instagram Direct API or external LLM providers, usage adheres strictly to Meta Platform Terms and enterprise privacy guidelines.</p>
             </div>
 
-            <!-- RE-DESIGNED ELEGANT ACTION BUTTON -->
             <div class="mt-6 pt-4 border-t border-white/10 flex justify-end">
               <button onclick="openModal('modal-privacy')" class="btn-legal-glow">
                 <span>View Full Screen Privacy Policy</span>
@@ -885,7 +907,6 @@
               <p>Clients retain 100% ownership of their business data and custom AI bot outputs. Due to instantaneous compute resource allocation, setup fees are non-refundable once neural training has commenced.</p>
             </div>
 
-            <!-- RE-DESIGNED ELEGANT ACTION BUTTON -->
             <div class="mt-6 pt-4 border-t border-white/10 flex justify-end">
               <button onclick="openModal('modal-terms')" class="btn-legal-glow">
                 <span>View Full Screen Terms of Service</span>
@@ -897,7 +918,7 @@
         </div>
       </section>
 
-      <!-- 10. NEWSLETTER -->
+      <!-- 11. NEWSLETTER -->
       <section class="py-16 px-6 bg-gradient-to-r from-blue-900 to-indigo-950 text-center text-white">
         <h3 class="text-2xl font-bold font-['Poppins'] mb-2">Subscribe to Agency Updates</h3>
         <p class="text-xs text-blue-200 mb-6 max-w-md mx-auto">Get monthly insights on AI chatbot automation, Meta API updates, and new platform features.</p>
@@ -907,7 +928,7 @@
         </form>
       </section>
 
-      <!-- 11. WEBSITE FOOTER WITH LOGO -->
+      <!-- 12. WEBSITE FOOTER WITH LOGO -->
       <footer class="site-footer">
         <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-10 pb-12">
           
@@ -941,6 +962,7 @@
           <div class="space-y-3">
             <h4 class="text-white font-bold uppercase tracking-wider text-xs">Quick Links</h4>
             <ul class="space-y-2 list-none p-0 text-xs">
+              <li><a href="#demo" class="hover:text-sky transition">Book a Live Demo</a></li>
               <li><a href="#pricing" class="hover:text-sky transition">Package Pricing ($999 Promo)</a></li>
               <li><a href="#comparison" class="hover:text-sky transition">Why Choose Us</a></li>
               <li><a href="#reviews" class="hover:text-sky transition">Client Reviews</a></li>
@@ -978,7 +1000,7 @@
 
     </div>
 
-    <!-- ── CLIENT DASHBOARD VIEW (WITH COMPLETE SOCIAL BUNDLE PROMO) ── -->
+    <!-- ── CLIENT DASHBOARD VIEW ── -->
     <div id="view-client-dashboard" class="hidden px-6 py-10 max-w-7xl mx-auto space-y-8">
       
       <!-- PROMO DISCOUNT & MULTI-CHANNEL BANNER -->
@@ -995,7 +1017,12 @@
             <p class="text-xs text-blue-100">Active Promo ($999 Net Rate): Standard package includes <strong>WhatsApp + Complete Facebook & Instagram Bots with ZERO extra charges</strong>!</p>
           </div>
         </div>
-        <span class="bg-white/20 border border-white/40 text-xs font-bold px-3 py-1.5 rounded-xl whitespace-nowrap">Promo Active</span>
+        <div class="flex items-center gap-2">
+          <button onclick="openModal('demo-modal')" class="bg-white/20 hover:bg-white/30 border border-white/40 text-xs font-bold px-3 py-1.5 rounded-xl transition cursor-pointer text-white">
+            <i class="fa-solid fa-calendar-check mr-1"></i> Book Demo
+          </button>
+          <span class="bg-white/20 border border-white/40 text-xs font-bold px-3 py-1.5 rounded-xl whitespace-nowrap">Promo Active</span>
+        </div>
       </div>
 
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
@@ -1004,7 +1031,10 @@
           <p class="text-slate-400 text-sm">Manage active bot builds, access onboarding forms, track live progress, and download official invoices.</p>
         </div>
         <div class="flex items-center gap-3">
-          <button onclick="toggleChatDrawer()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-4 py-2.5 rounded-xl transition flex items-center gap-2">
+          <button onclick="openModal('demo-modal')" class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs px-4 py-2.5 rounded-xl transition flex items-center gap-2 cursor-pointer border-0">
+            <i class="fa-solid fa-calendar-days"></i> Schedule Demo Call
+          </button>
+          <button onclick="toggleChatDrawer()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-4 py-2.5 rounded-xl transition flex items-center gap-2 cursor-pointer border-0">
             <i class="fa-solid fa-headset"></i> Live Support Chat
           </button>
           <button onclick="openModal('modal-new-order')" class="btn-action text-xs py-2.5">
@@ -1187,6 +1217,24 @@
 
   <!-- ── 4. MODALS & SUPPORT CHAT DRAWER ── -->
 
+  <!-- DEMO BOOKING MODAL -->
+  <div id="demo-modal" class="modal-backdrop">
+    <div class="modal-box max-w-4xl p-4">
+      <div class="flex justify-between items-center mb-3 px-2">
+        <div>
+          <h3 class="text-lg font-bold text-navy font-['Poppins'] flex items-center gap-2">
+            <i class="fa-solid fa-calendar-check text-sky"></i> Schedule a Live 1-on-1 Demo Call
+          </h3>
+          <p class="text-xs text-slate-500">Choose a time slot below to speak directly with our lead AI automation engineers.</p>
+        </div>
+        <button onclick="closeModal('demo-modal')" class="text-slate-400 hover:text-slate-600 border-0 bg-transparent text-xl cursor-pointer"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="w-full h-[600px] overflow-hidden rounded-xl border border-slate-200">
+        <iframe src="https://cal.com/nexabotindia/15-min-nexabot-demo-call" class="w-full h-full border-0"></iframe>
+      </div>
+    </div>
+  </div>
+
   <!-- AUTH MODAL -->
   <div id="auth-modal" class="modal-backdrop">
     <div class="modal-box">
@@ -1308,7 +1356,7 @@
     </div>
   </div>
 
-  <!-- NEW ORDER MODAL WITH UPDATED SELECTION OPTIONS -->
+  <!-- NEW ORDER MODAL -->
   <div id="modal-new-order" class="modal-backdrop">
     <div class="modal-box">
       <div class="flex justify-between items-center mb-4">
