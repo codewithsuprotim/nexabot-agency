@@ -369,7 +369,7 @@
       box-shadow: 0 8px 25px rgba(37, 99, 235, 0.4);
     }
 
-    /* ─── FOOTER ─── */
+    /* ─── FOOTER & MEDIA SHOWCASE ─── */
     .site-footer {
       background: linear-gradient(180deg, #04091e 0%, #020512 100%);
       border-top: 1px solid rgba(255,255,255,0.1); color: #94A3B8; font-size: 0.85rem; padding-top: 4rem; padding-bottom: 2rem;
@@ -380,6 +380,28 @@
       border-radius: 14px; padding: 1rem 1.25rem; display: flex; align-items: center; gap: 12px; margin-top: 1.2rem;
     }
     .footer-msme img { height: 38px; width: auto; object-fit: contain; }
+
+    /* FOOTER LOWER MIDDLE MEDIA SHOWCASE */
+    .footer-media-showcase {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 1.25rem 1.5rem;
+      margin-top: 2rem;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    }
+    .media-logo-item {
+      height: 26px;
+      max-width: 110px;
+      object-fit: contain;
+      filter: brightness(0) invert(1) opacity(0.75);
+      transition: all 0.3s ease;
+    }
+    .media-logo-item:hover {
+      filter: brightness(1) invert(0) opacity(1);
+      transform: scale(1.08);
+    }
 
     /* ─── LIVE SALES TOAST ─── */
     #sales-toast {
@@ -928,9 +950,9 @@
         </form>
       </section>
 
-      <!-- 11. WEBSITE FOOTER WITH LOGO -->
+      <!-- 11. WEBSITE FOOTER WITH LOGO & MEDIA SHOWCASE -->
       <footer class="site-footer">
-        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-10 pb-12">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-10 pb-6">
           
           <div class="space-y-4 md:col-span-1">
             <div class="footer-brand flex items-center gap-2">
@@ -988,8 +1010,27 @@
 
         </div>
 
+        <!-- LOWER MIDDLE MEDIA SHOWCASE -->
+        <div class="max-w-7xl mx-auto px-6 mb-6">
+          <div class="footer-media-showcase flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-sky animate-ping"></span>
+              <span class="text-xs font-bold uppercase tracking-widest text-sky font-['Poppins']">As Featured In</span>
+              <span class="text-slate-500 text-xs hidden sm:inline">| Media Coverage</span>
+            </div>
+            
+            <div class="flex items-center justify-center flex-wrap gap-6 md:gap-8">
+              <img src="Al Jazeera_logo.png" alt="Al Jazeera" class="media-logo-item" onerror="this.outerHTML='<span class=&quot;text-xs font-bold text-slate-400 tracking-wider hover:text-white transition cursor-default&quot;>AL JAZEERA</span>'">
+              <img src="ndtv_logo.png" alt="NDTV" class="media-logo-item" onerror="this.outerHTML='<span class=&quot;text-xs font-bold text-slate-400 tracking-wider hover:text-white transition cursor-default&quot;>NDTV</span>'">
+              <img src="wion_logo.png" alt="WION" class="media-logo-item" onerror="this.outerHTML='<span class=&quot;text-xs font-bold text-slate-400 tracking-wider hover:text-white transition cursor-default&quot;>WION</span>'">
+              <img src="news18_logo.png" alt="News18" class="media-logo-item" onerror="this.outerHTML='<span class=&quot;text-xs font-bold text-slate-400 tracking-wider hover:text-white transition cursor-default&quot;>NEWS18</span>'">
+              <img src="tedx_logo.png" alt="TEDx" class="media-logo-item" onerror="this.outerHTML='<span class=&quot;text-xs font-bold text-slate-400 tracking-wider hover:text-white transition cursor-default&quot;>TEDx</span>'">
+            </div>
+          </div>
+        </div>
+
         <div class="max-w-7xl mx-auto px-6 border-t border-white/5 pt-6 flex flex-col md:flex-row justify-between items-center text-[11px] text-slate-500 gap-4">
-          <div>© 2017–2026 NexaBot Agency Ltd.® All Rights Reserved.</div>
+          <div>© 2017–2026 NexaBot Agency Pvt. Ltd.® All Rights Reserved.</div>
           <div class="flex gap-4">
             <button onclick="openModal('modal-privacy')" class="hover:text-slate-400 transition bg-transparent border-0 text-[11px] text-slate-500 cursor-pointer">Privacy Policy</button>
             <button onclick="openModal('modal-terms')" class="hover:text-slate-400 transition bg-transparent border-0 text-[11px] text-slate-500 cursor-pointer">Terms of Service</button>
