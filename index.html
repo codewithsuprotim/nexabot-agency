@@ -114,7 +114,7 @@
       background: linear-gradient(90deg, #1e1b4b, #311042);
       border-bottom: 1px solid rgba(245,158,11,0.3);
       color: #FEE2E2; font-size: 0.82rem; padding: 0.65rem 1rem;
-      text-align: center; position: relative; z-index: 1001;
+      text-align: center; position: relative; z-index: 1001; cursor: pointer;
     }
     .notice-banner strong { color: var(--gold); }
 
@@ -423,6 +423,27 @@
     }
     #wa-float:hover { transform: scale(1.1); }
 
+    /* Delete Button Styling */
+    .btn-delete-action {
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: #dc2626;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .btn-delete-action:hover {
+      background: #dc2626;
+      color: #ffffff;
+      border-color: #dc2626;
+    }
+
     @media (max-width:880px) {
       .srv-grid, .rev-grid, .recog-grid-v2 { grid-template-columns: 1fr; }
       .nav-links { display: none; }
@@ -432,16 +453,11 @@
 <body>
 
   <!-- ── 1. MANDATORY NOTICES BAR ── -->
-  <div class="notice-banner">
+  <div class="notice-banner" onclick="openModal('notice-modal')">
     <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-center gap-2 md:gap-6 text-center">
       <div>
-        <i class="fa-brands fa-whatsapp text-green-400 mr-1"></i>
-        <strong>Notice 1:</strong> Meta WhatsApp Business Conversations are chargeable from 1 Oct 2026. Charges are directly borne by clients, not NexaBot.
-      </div>
-      <div class="hidden md:block opacity-40">|</div>
-      <div>
-        <i class="fa-solid fa-tag text-emerald-400 mr-1"></i>
-        <strong>Notice 2:</strong> Special Promo Live! $100 FLAT DISCOUNT applied automatically (1 Oct 2026 – 5 Jan 2027). Pay $999 instead of $1099 Total!
+        <i class="fa-solid fa-bullhorn text-amber-400 mr-1 animate-bounce"></i>
+        <strong>Official Notices & Announcements:</strong> Click here to view all active agency notices!
       </div>
     </div>
   </div>
@@ -464,7 +480,7 @@
 
     <ul class="nav-links">
       <li><a href="#services">Capabilities</a></li>
-      <li><a href="#demo">Book a Demo</a></li>
+      <li><a href="javascript:void(0)" onclick="openModal('demo-modal')">Book a Demo</a></li>
       <li><a href="#pricing">Pricing</a></li>
       <li><a href="#comparison">Why Us</a></li>
       <li><a href="#reviews">Reviews</a></li>
@@ -600,23 +616,7 @@
         </div>
       </section>
 
-      <!-- 4. SCHEDULE A DEMO SECTION (CAL.COM EMBEDDED) -->
-      <section id="demo" class="py-20 px-6 bg-navy/90 border-t border-white/10">
-        <div class="sec-head">
-          <span class="text-xs font-bold uppercase text-sky tracking-widest">Live Interactive Session</span>
-          <h2 class="sec-title mt-2">Schedule a <span>Live Demo Call</span></h2>
-          <p class="text-slate-400 text-sm max-w-xl mx-auto mt-3">
-            Pick a convenient time slot below to speak with our agency engineers, review live chatbot demos, and discuss custom AI architecture for your business.
-          </p>
-        </div>
-
-        <div class="max-w-4xl mx-auto bg-white/5 border border-white/10 rounded-2xl p-4 backdrop-blur-xl shadow-2xl">
-          <!-- Embedded Cal.com iFrame -->
-          <iframe src="https://cal.com/nexabotindia/15-min-nexabot-demo-call" class="w-full h-[650px] rounded-xl border-0"></iframe>
-        </div>
-      </section>
-
-      <!-- 5. PRICING SECTION -->
+      <!-- 4. PRICING SECTION -->
       <section id="pricing">
         <div class="sec-head">
           <span class="text-xs font-bold uppercase text-sky tracking-widest">Transparent Pricing</span>
@@ -661,7 +661,7 @@
         </div>
       </section>
 
-      <!-- 6. COMPARISON MATRIX -->
+      <!-- 5. COMPARISON MATRIX -->
       <section id="comparison" class="py-24 px-6 bg-navy/90 border-t border-white/5">
         <div class="sec-head">
           <span class="text-xs font-bold uppercase text-sky tracking-widest">Why NexaBot Outperforms</span>
@@ -726,7 +726,7 @@
         </div>
       </section>
 
-      <!-- 7. CLIENT TESTIMONIALS / REVIEWS -->
+      <!-- 6. CLIENT TESTIMONIALS / REVIEWS -->
       <section id="reviews" class="py-20 px-6 bg-navy/50">
         <div class="sec-head">
           <span class="text-xs font-bold uppercase text-sky tracking-widest">Client Testimonials</span>
@@ -778,7 +778,7 @@
         </div>
       </section>
 
-      <!-- 8. INDUSTRY RECOGNITION & CERTIFICATION SECTION -->
+      <!-- 7. INDUSTRY RECOGNITION & CERTIFICATION SECTION -->
       <section class="recog-section-wrapper">
         <div class="sec-head">
           <span class="text-xs font-bold uppercase text-sky tracking-widest">Global Accreditation & Trust</span>
@@ -817,7 +817,7 @@
         </div>
       </section>
 
-      <!-- 9. COMMON QUESTIONS / FAQS -->
+      <!-- 8. COMMON QUESTIONS / FAQS -->
       <section id="faq" class="py-20 px-6 max-w-4xl mx-auto">
         <div class="sec-head">
           <span class="text-xs font-bold uppercase text-sky tracking-widest">Common Questions</span>
@@ -852,7 +852,7 @@
         </div>
       </section>
 
-      <!-- 10. PRIVACY POLICY & TERMS OF SERVICE SECTION -->
+      <!-- 9. PRIVACY POLICY & TERMS OF SERVICE SECTION -->
       <section id="legal-section" class="py-20 px-6 max-w-6xl mx-auto">
         <div class="sec-head">
           <span class="text-xs font-bold uppercase text-sky tracking-widest">Compliance & Governance</span>
@@ -918,7 +918,7 @@
         </div>
       </section>
 
-      <!-- 11. NEWSLETTER -->
+      <!-- 10. NEWSLETTER -->
       <section class="py-16 px-6 bg-gradient-to-r from-blue-900 to-indigo-950 text-center text-white">
         <h3 class="text-2xl font-bold font-['Poppins'] mb-2">Subscribe to Agency Updates</h3>
         <p class="text-xs text-blue-200 mb-6 max-w-md mx-auto">Get monthly insights on AI chatbot automation, Meta API updates, and new platform features.</p>
@@ -928,7 +928,7 @@
         </form>
       </section>
 
-      <!-- 12. WEBSITE FOOTER WITH LOGO -->
+      <!-- 11. WEBSITE FOOTER WITH LOGO -->
       <footer class="site-footer">
         <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-10 pb-12">
           
@@ -962,7 +962,7 @@
           <div class="space-y-3">
             <h4 class="text-white font-bold uppercase tracking-wider text-xs">Quick Links</h4>
             <ul class="space-y-2 list-none p-0 text-xs">
-              <li><a href="#demo" class="hover:text-sky transition">Book a Live Demo</a></li>
+              <li><a href="javascript:void(0)" onclick="openModal('demo-modal')" class="hover:text-sky transition">Book a Live Demo</a></li>
               <li><a href="#pricing" class="hover:text-sky transition">Package Pricing ($999 Promo)</a></li>
               <li><a href="#comparison" class="hover:text-sky transition">Why Choose Us</a></li>
               <li><a href="#reviews" class="hover:text-sky transition">Client Reviews</a></li>
@@ -1040,6 +1040,19 @@
           <button onclick="openModal('modal-new-order')" class="btn-action text-xs py-2.5">
             <i class="fa-solid fa-plus"></i> Submit New Order ($999 Promo)
           </button>
+        </div>
+      </div>
+
+      <!-- CLIENT DEDICATED NOTICES SECTION -->
+      <div class="dash-card bg-gradient-to-r from-amber-500/10 via-indigo-500/10 to-blue-500/10 border border-amber-500/30">
+        <div class="flex items-center justify-between mb-3 border-b border-slate-200 pb-2">
+          <h3 class="font-bold text-navy text-base font-['Poppins'] flex items-center gap-2">
+            <i class="fa-solid fa-bullhorn text-amber-500"></i> Active Agency Notices & Platform Updates
+          </h3>
+          <span class="text-[10px] font-extrabold uppercase bg-amber-100 text-amber-800 px-2.5 py-0.5 rounded-full">Live Alerts</span>
+        </div>
+        <div id="client-notices-list" class="space-y-2 text-xs text-slate-700">
+          <!-- Rendered dynamically -->
         </div>
       </div>
 
@@ -1179,6 +1192,25 @@
         <div class="dash-card"><div class="text-xs text-slate-400 font-bold uppercase">Gross Revenue</div><div id="stat-admin-revenue" class="text-3xl font-bold text-blue-600 mt-1">$0</div></div>
       </div>
 
+      <!-- DEDICATED ADMIN NOTICES MANAGEMENT PANEL -->
+      <div class="dash-card border-red-200">
+        <div class="flex items-center justify-between mb-4 border-b pb-3">
+          <div>
+            <h3 class="font-bold text-navy text-lg font-['Poppins'] flex items-center gap-2">
+              <i class="fa-solid fa-bullhorn text-red-500"></i> Manage Broadcast Notices & System Announcements
+            </h3>
+            <p class="text-xs text-slate-500">Push new notices to site popups and client portal feeds, edit existing alerts, or delete outdated notices.</p>
+          </div>
+          <button onclick="openModal('modal-add-notice')" class="bg-red-600 hover:bg-red-700 text-white font-bold text-xs px-4 py-2 rounded-lg transition flex items-center gap-1 cursor-pointer border-0">
+            <i class="fa-solid fa-plus"></i> Push New Notice
+          </button>
+        </div>
+
+        <div id="admin-notices-container" class="space-y-3">
+          <!-- Dynamically Loaded Admin Notices -->
+        </div>
+      </div>
+
       <div class="dash-card">
         <h3 class="font-bold text-navy text-lg mb-4 font-['Poppins']">Manage Client Orders & Upload Specific Invoices</h3>
         <div class="overflow-x-auto">
@@ -1216,6 +1248,52 @@
   </div>
 
   <!-- ── 4. MODALS & SUPPORT CHAT DRAWER ── -->
+
+  <!-- POPUP NOTICES MODAL (AUTOMATICALLY TRIGGERED ON LANDING) -->
+  <div id="notice-modal" class="modal-backdrop">
+    <div class="modal-box max-w-xl">
+      <div class="flex justify-between items-center border-b pb-3 mb-4">
+        <div>
+          <h3 class="text-xl font-bold text-navy font-['Poppins'] flex items-center gap-2">
+            <i class="fa-solid fa-bell text-amber-500 animate-bounce"></i> Official Agency Notices
+          </h3>
+          <p class="text-xs text-slate-500">Important regulatory & promotional policy updates</p>
+        </div>
+        <button onclick="closeModal('notice-modal')" class="text-slate-400 hover:text-slate-600 border-0 bg-transparent text-xl cursor-pointer"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <div id="popup-notices-list" class="space-y-4 max-h-[60vh] overflow-y-auto pr-1 text-xs">
+        <!-- Dynamically Populated from Database -->
+      </div>
+
+      <div class="mt-6 flex justify-end border-t pt-3">
+        <button onclick="closeModal('notice-modal')" class="bg-blue-600 text-white font-bold px-5 py-2 rounded-xl text-xs hover:bg-blue-700 transition cursor-pointer">
+          I Acknowledge
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADMIN ADD NOTICE MODAL -->
+  <div id="modal-add-notice" class="modal-backdrop">
+    <div class="modal-box">
+      <div class="flex justify-between items-center mb-4 border-b pb-2">
+        <h3 class="text-xl font-bold text-navy font-['Poppins']">Create Agency Notice</h3>
+        <button onclick="closeModal('modal-add-notice')" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <form onsubmit="handleAddNotice(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-slate-500 mb-1">Notice Title / Label</label>
+          <input type="text" id="notice-title-input" required class="w-full border p-3 rounded-lg text-sm" placeholder="Notice 3: System Upgrade or Holiday Schedule">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-500 mb-1">Notice Content</label>
+          <textarea id="notice-body-input" required rows="4" class="w-full border p-3 rounded-lg text-sm" placeholder="Enter notice details, policy change, or promotional text..."></textarea>
+        </div>
+        <button type="submit" class="w-full bg-red-600 text-white font-bold py-3 rounded-xl hover:bg-red-700 transition">Broadcast Notice</button>
+      </form>
+    </div>
+  </div>
 
   <!-- DEMO BOOKING MODAL -->
   <div id="demo-modal" class="modal-backdrop">
@@ -1439,6 +1517,22 @@
       "Bot Deployed & Live"
     ];
 
+    // Default Notice Store Initializer
+    const defaultNotices = [
+      {
+        id: 'notice-1',
+        title: 'Notice 1: Meta WhatsApp Business Conversation Fee Update',
+        body: 'Meta WhatsApp Business Conversations are chargeable directly from 1 Oct 2026. Conversation fees are paid by clients directly to Meta Platforms Inc.',
+        date: '2026-10-01'
+      },
+      {
+        id: 'notice-2',
+        title: 'Notice 2: $100 Flat Promotional Discount Active',
+        body: 'Special Promo Live! $100 FLAT DISCOUNT applied automatically for orders placed between 1 Oct 2026 – 5 Jan 2027. Pay $999 USD net instead of $1099 standard rate!',
+        date: '2026-10-01'
+      }
+    ];
+
     const salesMessages = [
       { msg: "Tom just purchased a WhatsApp + Facebook + Instagram AI Bot package from Los Angeles, USA 🇺🇸", time: "2 minutes ago" },
       { msg: "Sophia R. bought a Complete Social AI Bot from London, UK 🇬🇧", time: "4 minutes ago" },
@@ -1501,6 +1595,27 @@
           await fbDb.collection('orders').doc(orderId).update(updates);
         } catch (e) {
           console.error("Error updating order in Firestore:", e);
+        }
+      },
+      deleteOrder: async (orderId) => {
+        try {
+          await fbDb.collection('orders').doc(orderId).delete();
+        } catch (e) {
+          console.error("Error deleting order from Firestore:", e);
+        }
+      },
+      saveNotice: async (notice) => {
+        try {
+          await fbDb.collection('notices').doc(notice.id).set(notice);
+        } catch (e) {
+          console.error("Error saving notice:", e);
+        }
+      },
+      deleteNotice: async (noticeId) => {
+        try {
+          await fbDb.collection('notices').doc(noticeId).delete();
+        } catch (e) {
+          console.error("Error deleting notice:", e);
         }
       }
     };
@@ -1647,6 +1762,80 @@
       }
     };
 
+    // Notice Real-time Listener & Popup Engine
+    function initNoticeSystem() {
+      fbDb.collection('notices').onSnapshot(snapshot => {
+        let notices = snapshot.docs.map(doc => doc.data());
+        
+        // Populate default notices if collection is empty
+        if (notices.length === 0) {
+          defaultNotices.forEach(n => db.saveNotice(n));
+          notices = defaultNotices;
+        }
+
+        // Render Popup Modal Notices
+        const popupList = document.getElementById('popup-notices-list');
+        if (popupList) {
+          popupList.innerHTML = notices.map(n => `
+            <div class="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-1">
+              <div class="font-bold text-navy text-sm flex justify-between items-center">
+                <span>${n.title}</span>
+                <span class="text-[10px] text-slate-400 font-normal">${n.date || ''}</span>
+              </div>
+              <p class="text-slate-600 leading-relaxed text-xs">${n.body}</p>
+            </div>
+          `).join('');
+        }
+
+        // Render Client Dashboard Notices
+        const clientList = document.getElementById('client-notices-list');
+        if (clientList) {
+          clientList.innerHTML = notices.map(n => `
+            <div class="p-3 bg-white/80 border border-amber-200 rounded-lg">
+              <div class="font-bold text-slate-800 text-xs">${n.title}</div>
+              <div class="text-slate-600 text-xs mt-0.5">${n.body}</div>
+            </div>
+          `).join('');
+        }
+
+        // Render Admin Dashboard Notices Control Panel
+        const adminList = document.getElementById('admin-notices-container');
+        if (adminList) {
+          adminList.innerHTML = notices.map(n => `
+            <div class="p-3 bg-slate-50 border rounded-xl flex items-start justify-between gap-4">
+              <div class="space-y-1">
+                <div class="font-bold text-navy text-sm">${n.title}</div>
+                <div class="text-xs text-slate-600">${n.body}</div>
+              </div>
+              <button onclick="handleDeleteNotice('${n.id}')" class="btn-delete-action whitespace-nowrap">
+                <i class="fa-solid fa-trash text-xs"></i> Delete Notice
+              </button>
+            </div>
+          `).join('');
+        }
+      });
+    }
+
+    async function handleAddNotice(e) {
+      e.preventDefault();
+      const newNotice = {
+        id: 'notice-' + Date.now(),
+        title: document.getElementById('notice-title-input').value.trim(),
+        body: document.getElementById('notice-body-input').value.trim(),
+        date: new Date().toISOString().split('T')[0]
+      };
+      await db.saveNotice(newNotice);
+      closeModal('modal-add-notice');
+      document.getElementById('notice-title-input').value = '';
+      document.getElementById('notice-body-input').value = '';
+    }
+
+    async function handleDeleteNotice(id) {
+      if (confirm("Are you sure you want to delete this notice?")) {
+        await db.deleteNotice(id);
+      }
+    }
+
     async function handleCreateNewOrderForm(e) {
       e.preventDefault();
       const newOrder = {
@@ -1658,6 +1847,12 @@
       };
       await db.saveOrder(newOrder); 
       closeModal('modal-new-order');
+    }
+
+    async function handleDeleteOrder(orderId) {
+      if (confirm(`Are you sure you want to delete order ${orderId}? This action cannot be undone.`)) {
+        await db.deleteOrder(orderId);
+      }
     }
 
     // Real-Time Firestore Listener for Client Dashboard
@@ -1675,17 +1870,20 @@
             container.innerHTML = orders.map(o => {
               const currentStage = o.stageIndex || 0;
               return `
-                <div class="border rounded-xl p-5 bg-slate-50 space-y-4">
+                <div class="border rounded-xl p-5 bg-slate-50 space-y-4 relative">
                   <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 border-b pb-3">
                     <div>
                       <span class="font-bold text-navy text-lg">${o.id}</span> — <span class="text-slate-700 font-medium">${o.type}</span>
                     </div>
-                    <div class="flex items-center gap-3 flex-wrap">
+                    <div class="flex items-center gap-2 flex-wrap">
                       <span class="uppercase font-bold text-xs bg-slate-200 px-2.5 py-1 rounded text-slate-700">${o.paymentMethod}</span>
                       <span class="font-bold text-navy">$${o.amount} Promo Total</span>
                       <span class="status-badge status-${o.status}">${o.status}</span>
                       <button onclick="generateInvoice('${o.id}')" class="bg-white border hover:bg-slate-100 text-slate-800 font-bold px-3 py-1 rounded text-xs">Standard Invoice</button>
                       ${o.uploadedInvoice ? `<a href="${o.uploadedInvoice.data}" download="${o.uploadedInvoice.name}" class="bg-emerald-600 text-white font-bold px-3 py-1 rounded text-xs hover:bg-emerald-700 transition"><i class="fa-solid fa-download mr-1"></i> Admin Invoice (${o.uploadedInvoice.name})</a>` : ''}
+                      <button onclick="handleDeleteOrder('${o.id}')" class="btn-delete-action">
+                        <i class="fa-solid fa-trash text-xs"></i> Remove
+                      </button>
                     </div>
                   </div>
 
@@ -1734,7 +1932,7 @@
         document.getElementById('stat-admin-revenue').innerText = '$' + orders.reduce((a, c) => a + (c.status === 'active' ? c.amount : 0), 0);
 
         document.getElementById('admin-orders-table-body').innerHTML = orders.map(o => `
-          <tr class="border-b">
+          <tr class="border-b hover:bg-slate-50 transition">
             <td class="p-3.5 font-bold text-navy">${o.id}</td>
             <td class="p-3.5 font-medium">${o.clientName}</td>
             <td class="p-3.5">${o.type}</td>
@@ -1749,6 +1947,9 @@
               ${o.status === 'pending' ? `<button onclick="approveOrder('${o.id}')" class="bg-emerald-600 text-white font-bold px-2.5 py-1 rounded text-xs">Approve</button>` : ''}
               <button onclick="advanceStage('${o.id}')" class="bg-blue-600 text-white font-bold px-2.5 py-1 rounded text-xs">+ Advance Stage</button>
               <button onclick="generateInvoice('${o.id}')" class="bg-slate-100 text-slate-800 font-bold px-2.5 py-1 rounded text-xs">View Standard</button>
+              <button onclick="handleDeleteOrder('${o.id}')" class="btn-delete-action">
+                <i class="fa-solid fa-trash text-xs"></i> Delete
+              </button>
             </td>
           </tr>
         `).join('');
@@ -1826,6 +2027,14 @@
     function copyText(t) { navigator.clipboard.writeText(t); alert('Account details copied to clipboard!'); }
     function openModal(id) { document.getElementById(id).classList.add('active'); }
     function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+
+    // Automatically trigger Notice Modal Popup when page loads
+    window.addEventListener('DOMContentLoaded', () => {
+      initNoticeSystem();
+      setTimeout(() => {
+        openModal('notice-modal');
+      }, 1200);
+    });
 
     (function startTimer() {
       let secs = 42450;
