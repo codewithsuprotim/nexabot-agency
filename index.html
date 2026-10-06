@@ -76,6 +76,7 @@
       100% { transform: translateY(-120vh) scale(1.2); opacity: 0; }
     }
     @keyframes pulseGlow { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.05); opacity: 0.9; } }
+    @keyframes gradientShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
 
     .animate-float { animation: floatSlow 4s ease-in-out infinite; }
     .animate-pulse-glow { animation: pulseGlow 2s ease-in-out infinite; }
@@ -369,6 +370,73 @@
       box-shadow: 0 8px 25px rgba(37, 99, 235, 0.4);
     }
 
+    /* ─── DYNAMIC ANIMATED BANK CARDS FOR CLIENT PORTAL ─── */
+    .bank-card-glass {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(241, 245, 249, 0.9) 100%);
+      border: 1px solid rgba(226, 232, 240, 0.8);
+      border-radius: 18px;
+      padding: 1.25rem;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+    }
+    .bank-card-glass::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 4px;
+      background: linear-gradient(90deg, #2563EB, #60A5FA, #38BDF8);
+      opacity: 0.8;
+      transition: height 0.3s ease;
+    }
+    .bank-card-glass:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 30px -10px rgba(37, 99, 235, 0.15), 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+      border-color: rgba(96, 165, 250, 0.6);
+    }
+    .bank-card-glass:hover::before {
+      height: 6px;
+    }
+
+    .bank-card-kotak {
+      background: linear-gradient(135deg, #FFFFFF 0%, #FFF5F5 100%);
+      border: 1px solid rgba(254, 202, 202, 0.8);
+      border-radius: 18px;
+      padding: 1.25rem;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 10px 25px -5px rgba(220, 38, 38, 0.08);
+    }
+    .bank-card-kotak::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 4px;
+      background: linear-gradient(90deg, #DC2626, #EF4444, #F87171);
+      opacity: 0.9;
+      transition: height 0.3s ease;
+    }
+    .bank-card-kotak:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 35px -10px rgba(220, 38, 38, 0.2);
+      border-color: rgba(248, 113, 113, 0.8);
+    }
+    .bank-card-kotak:hover::before {
+      height: 6px;
+    }
+
+    .bank-field-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 5px 0;
+      border-bottom: 1px dashed rgba(226, 232, 240, 0.8);
+      font-size: 0.78rem;
+    }
+    .bank-field-row:last-child { border-bottom: none; }
+    .bank-field-label { color: #64748B; font-weight: 500; }
+    .bank-field-val { color: #0F172A; font-weight: 700; font-family: 'Space Grotesk', monospace; letter-spacing: 0.2px; }
+
     /* ─── FOOTER & MEDIA SHOWCASE ─── */
     .site-footer {
       background: linear-gradient(180deg, #04091e 0%, #020512 100%);
@@ -484,7 +552,7 @@
     </div>
   </div>
 
-  <!-- ── 2. NAVBAR WITH BRAND LOGO ── -->
+  <!-- ── 2. NAVBAR WITH BRAND LOGO (CLEANED - "Book a demo" removed from top ribbon links) ── -->
   <nav id="nav">
     <div class="nav-brand">
       <a href="#hero" class="nav-logo flex items-center gap-2">
@@ -502,7 +570,6 @@
 
     <ul class="nav-links">
       <li><a href="#services">Capabilities</a></li>
-      <li><a href="javascript:void(0)" onclick="openModal('demo-modal')">Book a Demo</a></li>
       <li><a href="#pricing">Pricing</a></li>
       <li><a href="#comparison">Why Us</a></li>
       <li><a href="#reviews">Reviews</a></li>
@@ -950,7 +1017,7 @@
         </form>
       </section>
 
-      <!-- 11. WEBSITE FOOTER WITH LOGO & MEDIA SHOWCASE -->
+      <!-- 11. WEBSITE FOOTER WITH LOGO & MEDIA SHOWCASE (FIXED LOGO PATHS) -->
       <footer class="site-footer">
         <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-10 pb-6">
           
@@ -1010,7 +1077,7 @@
 
         </div>
 
-        <!-- LOWER MIDDLE MEDIA SHOWCASE -->
+        <!-- LOWER MIDDLE MEDIA SHOWCASE - FIXED IMAGE PATHS TO "logos/" FOLDER -->
         <div class="max-w-7xl mx-auto px-6 mb-6">
           <div class="footer-media-showcase flex flex-col md:flex-row items-center justify-between gap-4">
             <div class="flex items-center gap-2">
@@ -1020,11 +1087,11 @@
             </div>
             
             <div class="flex items-center justify-center flex-wrap gap-6 md:gap-10">
-              <img src="Al Jazeera_logo.png" alt="Al Jazeera" class="media-logo-item" onerror="this.src='https://upload.wikimedia.org/wikipedia/en/7/70/Al_Jazeera_English_logo.svg'">
-              <img src="ndtv_logo.png" alt="NDTV" class="media-logo-item" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/2/23/NDTV_logo.svg'">
-              <img src="wion_logo.png" alt="WION" class="media-logo-item" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/0/02/WION_Logo.png'">
-              <img src="news18_logo.png" alt="News18" class="media-logo-item" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/e/eb/News18_logo.svg'">
-              <img src="tedx_logo.png" alt="TEDx" class="media-logo-item" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/c/c8/TEDx_logo.svg'">
+              <img src="logos/Al Jazeera_logo.png" alt="Al Jazeera" class="media-logo-item" onerror="this.src='https://upload.wikimedia.org/wikipedia/en/7/70/Al_Jazeera_English_logo.svg'">
+              <img src="logos/ndtv_logo.png" alt="NDTV" class="media-logo-item" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/2/23/NDTV_logo.svg'">
+              <img src="logos/wion_logo.png" alt="WION" class="media-logo-item" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/0/02/WION_Logo.png'">
+              <img src="logos/news18_logo.png" alt="News18" class="media-logo-item" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/e/eb/News18_logo.svg'">
+              <img src="logos/tedx_logo.png" alt="TEDx" class="media-logo-item" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/c/c8/TEDx_logo.svg'">
             </div>
           </div>
         </div>
@@ -1044,7 +1111,7 @@
     <!-- ── CLIENT DASHBOARD VIEW ── -->
     <div id="view-client-dashboard" class="hidden px-6 py-10 max-w-7xl mx-auto space-y-8">
       
-      <!-- PROMO DISCOUNT & MULTI-CHANNEL BANNER -->
+      <!-- PROMO DISCOUNT & MULTI-CHANNEL BANNER (CLEANED - "Book Demo" removed from banner) -->
       <div class="bg-gradient-to-r from-purple-600 via-blue-600 to-indigo-700 rounded-2xl p-4 text-white flex flex-col md:flex-row items-center justify-between shadow-lg border border-purple-400/30 gap-3">
         <div class="flex items-center gap-3">
           <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center text-xl font-bold">
@@ -1059,10 +1126,7 @@
           </div>
         </div>
         <div class="flex items-center gap-2">
-          <button onclick="openModal('demo-modal')" class="bg-white/20 hover:bg-white/30 border border-white/40 text-xs font-bold px-3 py-1.5 rounded-xl transition cursor-pointer text-white">
-            <i class="fa-solid fa-calendar-check mr-1"></i> Book Demo
-          </button>
-          <span class="bg-white/20 border border-white/40 text-xs font-bold px-3 py-1.5 rounded-xl whitespace-nowrap">Promo Active</span>
+          <span class="bg-white/20 border border-white/40 text-xs font-bold px-3 py-1.5 rounded-xl whitespace-nowrap"><i class="fa-solid fa-shield-check mr-1 text-emerald-300"></i> Promo Active</span>
         </div>
       </div>
 
@@ -1072,10 +1136,10 @@
           <p class="text-slate-400 text-sm">Manage active bot builds, access onboarding forms, track live progress, and download official invoices.</p>
         </div>
         <div class="flex items-center gap-3">
-          <button onclick="openModal('demo-modal')" class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs px-4 py-2.5 rounded-xl transition flex items-center gap-2 cursor-pointer border-0">
+          <button onclick="openModal('demo-modal')" class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs px-4 py-2.5 rounded-xl transition flex items-center gap-2 cursor-pointer border-0 shadow-lg shadow-blue-600/30">
             <i class="fa-solid fa-calendar-days"></i> Schedule Demo Call
           </button>
-          <button onclick="toggleChatDrawer()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-4 py-2.5 rounded-xl transition flex items-center gap-2 cursor-pointer border-0">
+          <button onclick="toggleChatDrawer()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-4 py-2.5 rounded-xl transition flex items-center gap-2 cursor-pointer border-0 shadow-lg shadow-emerald-600/30">
             <i class="fa-solid fa-headset"></i> Live Support Chat
           </button>
           <button onclick="openModal('modal-new-order')" class="btn-action text-xs py-2.5">
@@ -1166,52 +1230,206 @@
         </div>
       </div>
 
-      <!-- SKYDO LOCAL GLOBAL ACCOUNTS -->
-      <div class="dash-card">
-        <div class="flex items-center justify-between border-b pb-4 mb-4">
+      <!-- REDESIGNED ACCOUNTS & PAYMENT DETAILS (SKYDO GLOBAL & KOTAK MAHINDRA INDIAN BANK) -->
+      <div class="dash-card bg-slate-900 border border-slate-800 rounded-2xl p-6 text-white shadow-2xl relative overflow-hidden">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800 pb-5 mb-6">
           <div>
-            <h3 class="font-bold text-navy text-lg font-['Poppins']">Skydo Direct Global Accounts (Preferred Local Wire Route)</h3>
-            <p class="text-xs text-slate-500">Standard Billing: $1099 USD | <strong>Client Wire Amount: $999 USD</strong> ($100 Promo Discount Auto-Applied in Invoice)</p>
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              <h3 class="font-extrabold text-white text-xl font-['Poppins']">Verified Direct Bank & Wire Accounts</h3>
+            </div>
+            <p class="text-xs text-slate-400 mt-1">Select your preferred local currency wire route below. Pay $999 USD net ($100 promo discount pre-applied on invoice).</p>
           </div>
-          <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-3 py-1 rounded-full"><i class="fa-solid fa-tag mr-1"></i> $100 OFF Promo Applied</span>
+          <div class="flex items-center gap-2 flex-wrap">
+            <span class="bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold px-3 py-1.5 rounded-full flex items-center gap-1.5">
+              <i class="fa-solid fa-shield-check"></i> Zero FX Markup Wire
+            </span>
+            <span class="bg-sky/10 border border-sky/30 text-sky text-xs font-bold px-3 py-1.5 rounded-full">
+              <i class="fa-solid fa-bolt"></i> Instant Settlement
+            </span>
+          </div>
         </div>
 
-        <div class="grid md:grid-cols-4 gap-4 text-xs">
-          <div class="p-4 bg-slate-50 border rounded-xl space-y-1 text-slate-700">
-            <div class="font-bold text-slate-900 mb-2 text-sm">🇺🇸 USD Account (ACH)</div>
-            <div><strong>Routing:</strong> 021214891</div>
-            <div><strong>Account:</strong> 313116902658</div>
-            <div><strong>Bank:</strong> Cross River Bank</div>
-            <div><strong>Beneficiary:</strong> Suprotim Chatterjee</div>
-            <button onclick="copyText('Routing: 021214891, Account: 313116902658, Bank: Cross River Bank')" class="w-full mt-3 bg-white border text-slate-700 font-bold py-1.5 rounded hover:bg-slate-100 transition">Copy Details</button>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-5">
+          
+          <!-- 🇮🇳 KOTAK MAHINDRA BANK (INDIAN CLIENT DIRECT PAYMENT) -->
+          <div class="bank-card-kotak">
+            <div class="flex items-center justify-between mb-3">
+              <div class="flex items-center gap-2">
+                <span class="text-lg">🇮🇳</span>
+                <span class="font-extrabold text-slate-900 text-sm">INR Account</span>
+              </div>
+              <span class="text-[9px] font-black uppercase tracking-wider bg-red-100 text-red-700 px-2 py-0.5 rounded-full border border-red-200">Indian Clients</span>
+            </div>
+            
+            <div class="space-y-1">
+              <div class="bank-field-row">
+                <span class="bank-field-label">Bank</span>
+                <span class="bank-field-val text-red-600 font-extrabold">Kotak Mahindra</span>
+              </div>
+              <div class="bank-field-row">
+                <span class="bank-field-label">Account No.</span>
+                <span class="bank-field-val">5649113975</span>
+              </div>
+              <div class="bank-field-row">
+                <span class="bank-field-label">IFSC Code</span>
+                <span class="bank-field-val">KKBK0006747</span>
+              </div>
+              <div class="bank-field-row">
+                <span class="bank-field-label">Branch</span>
+                <span class="bank-field-val">Durgapur</span>
+              </div>
+              <div class="bank-field-row">
+                <span class="bank-field-label">Holder</span>
+                <span class="bank-field-val">Suprotim Chatterjee</span>
+              </div>
+              <div class="bank-field-row">
+                <span class="bank-field-label">UPI ID</span>
+                <span class="bank-field-val text-blue-600 font-extrabold">suprotim@kotakbank</span>
+              </div>
+            </div>
+
+            <button onclick="copyText('Bank: Kotak Mahindra Bank, Account Number: 5649113975, IFSC Code: KKBK0006747, Branch: Durgapur, Account Holder: Suprotim Chatterjee, UPI ID: suprotim@kotakbank')" class="w-full mt-4 bg-red-600 hover:bg-red-700 text-white font-bold text-xs py-2 rounded-xl transition flex items-center justify-center gap-2 cursor-pointer border-0 shadow-md shadow-red-600/20">
+              <i class="fa-solid fa-copy"></i> Copy Kotak & UPI Details
+            </button>
           </div>
 
-          <div class="p-4 bg-slate-50 border rounded-xl space-y-1 text-slate-700">
-            <div class="font-bold text-slate-900 mb-2 text-sm">🇬🇧 GBP Account (FPS)</div>
-            <div><strong>Sort Code:</strong> 608382</div>
-            <div><strong>Account:</strong> 49546719</div>
-            <div><strong>Bank:</strong> Banking Circle</div>
-            <div><strong>Beneficiary:</strong> Suprotim Chatterjee</div>
-            <button onclick="copyText('Sort Code: 608382, Account: 49546719, Bank: Banking Circle')" class="w-full mt-3 bg-white border text-slate-700 font-bold py-1.5 rounded hover:bg-slate-100 transition">Copy Details</button>
+          <!-- 🇺🇸 USD ACCOUNT -->
+          <div class="bank-card-glass">
+            <div class="flex items-center justify-between mb-3">
+              <div class="flex items-center gap-2">
+                <span class="text-lg">🇺🇸</span>
+                <span class="font-extrabold text-slate-900 text-sm">USD Account</span>
+              </div>
+              <span class="text-[9px] font-black uppercase tracking-wider bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full">ACH / Wire</span>
+            </div>
+            
+            <div class="space-y-1">
+              <div class="bank-field-row">
+                <span class="bank-field-label">Routing</span>
+                <span class="bank-field-val">021214891</span>
+              </div>
+              <div class="bank-field-row">
+                <span class="bank-field-label">Account No.</span>
+                <span class="bank-field-val">313116902658</span>
+              </div>
+              <div class="bank-field-row">
+                <span class="bank-field-label">Bank</span>
+                <span class="bank-field-val">Cross River</span>
+              </div>
+              <div class="bank-field-row">
+                <span class="bank-field-label">Beneficiary</span>
+                <span class="bank-field-val">Suprotim Chatterjee</span>
+              </div>
+            </div>
+
+            <button onclick="copyText('Routing: 021214891, Account: 313116902658, Bank: Cross River Bank, Beneficiary: Suprotim Chatterjee')" class="w-full mt-4 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs py-2 rounded-xl transition flex items-center justify-center gap-2 cursor-pointer border-0">
+              <i class="fa-solid fa-copy"></i> Copy USD Wire Details
+            </button>
           </div>
 
-          <div class="p-4 bg-slate-50 border rounded-xl space-y-1 text-slate-700">
-            <div class="font-bold text-slate-900 mb-2 text-sm">🇪🇺 EUR Account (SEPA)</div>
-            <div><strong>IBAN:</strong> DE53202208000049546719</div>
-            <div><strong>BIC:</strong> SXPYDEHH</div>
-            <div><strong>Bank:</strong> Banking Circle</div>
-            <div><strong>Beneficiary:</strong> Suprotim Chatterjee</div>
-            <button onclick="copyText('IBAN: DE53202208000049546719, BIC: SXPYDEHH, Bank: Banking Circle')" class="w-full mt-3 bg-white border text-slate-700 font-bold py-1.5 rounded hover:bg-slate-100 transition">Copy Details</button>
+          <!-- 🇬🇧 GBP ACCOUNT -->
+          <div class="bank-card-glass">
+            <div class="flex items-center justify-between mb-3">
+              <div class="flex items-center gap-2">
+                <span class="text-lg">🇬🇧</span>
+                <span class="font-extrabold text-slate-900 text-sm">GBP Account</span>
+              </div>
+              <span class="text-[9px] font-black uppercase tracking-wider bg-purple-100 text-purple-700 px-2 py-0.5 rounded-full">FPS</span>
+            </div>
+            
+            <div class="space-y-1">
+              <div class="bank-field-row">
+                <span class="bank-field-label">Sort Code</span>
+                <span class="bank-field-val">608382</span>
+              </div>
+              <div class="bank-field-row">
+                <span class="bank-field-label">Account No.</span>
+                <span class="bank-field-val">49546719</span>
+              </div>
+              <div class="bank-field-row">
+                <span class="bank-field-label">Bank</span>
+                <span class="bank-field-val">Banking Circle</span>
+              </div>
+              <div class="bank-field-row">
+                <span class="bank-field-label">Beneficiary</span>
+                <span class="bank-field-val">Suprotim Chatterjee</span>
+              </div>
+            </div>
+
+            <button onclick="copyText('Sort Code: 608382, Account: 49546719, Bank: Banking Circle, Beneficiary: Suprotim Chatterjee')" class="w-full mt-4 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs py-2 rounded-xl transition flex items-center justify-center gap-2 cursor-pointer border-0">
+              <i class="fa-solid fa-copy"></i> Copy GBP Details
+            </button>
           </div>
 
-          <div class="p-4 bg-slate-50 border rounded-xl space-y-1 text-slate-700">
-            <div class="font-bold text-slate-900 mb-2 text-sm">🇨🇦 CAD Account (EFT)</div>
-            <div><strong>Account:</strong> 980061659</div>
-            <div><strong>Routing:</strong> 035210009</div>
-            <div><strong>Bank:</strong> Digital Commerce Bank</div>
-            <div><strong>Beneficiary:</strong> Suprotim Chatterjee</div>
-            <button onclick="copyText('Account: 980061659, Routing: 035210009, Bank: Digital Commerce Bank')" class="w-full mt-3 bg-white border text-slate-700 font-bold py-1.5 rounded hover:bg-slate-100 transition">Copy Details</button>
+          <!-- 🇪🇺 EUR ACCOUNT -->
+          <div class="bank-card-glass">
+            <div class="flex items-center justify-between mb-3">
+              <div class="flex items-center gap-2">
+                <span class="text-lg">🇪🇺</span>
+                <span class="font-extrabold text-slate-900 text-sm">EUR Account</span>
+              </div>
+              <span class="text-[9px] font-black uppercase tracking-wider bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full">SEPA</span>
+            </div>
+            
+            <div class="space-y-1">
+              <div class="bank-field-row">
+                <span class="bank-field-label">IBAN</span>
+                <span class="bank-field-val text-[11px]">DE53202...49546719</span>
+              </div>
+              <div class="bank-field-row">
+                <span class="bank-field-label">BIC/SWIFT</span>
+                <span class="bank-field-val">SXPYDEHH</span>
+              </div>
+              <div class="bank-field-row">
+                <span class="bank-field-label">Bank</span>
+                <span class="bank-field-val">Banking Circle</span>
+              </div>
+              <div class="bank-field-row">
+                <span class="bank-field-label">Beneficiary</span>
+                <span class="bank-field-val">Suprotim Chatterjee</span>
+              </div>
+            </div>
+
+            <button onclick="copyText('IBAN: DE53202208000049546719, BIC: SXPYDEHH, Bank: Banking Circle, Beneficiary: Suprotim Chatterjee')" class="w-full mt-4 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs py-2 rounded-xl transition flex items-center justify-center gap-2 cursor-pointer border-0">
+              <i class="fa-solid fa-copy"></i> Copy EUR Details
+            </button>
           </div>
+
+          <!-- 🇨🇦 CAD ACCOUNT -->
+          <div class="bank-card-glass">
+            <div class="flex items-center justify-between mb-3">
+              <div class="flex items-center gap-2">
+                <span class="text-lg">🇨🇦</span>
+                <span class="font-extrabold text-slate-900 text-sm">CAD Account</span>
+              </div>
+              <span class="text-[9px] font-black uppercase tracking-wider bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full">EFT</span>
+            </div>
+            
+            <div class="space-y-1">
+              <div class="bank-field-row">
+                <span class="bank-field-label">Account No.</span>
+                <span class="bank-field-val">980061659</span>
+              </div>
+              <div class="bank-field-row">
+                <span class="bank-field-label">Routing</span>
+                <span class="bank-field-val">035210009</span>
+              </div>
+              <div class="bank-field-row">
+                <span class="bank-field-label">Bank</span>
+                <span class="bank-field-val">Digital Commerce</span>
+              </div>
+              <div class="bank-field-row">
+                <span class="bank-field-label">Beneficiary</span>
+                <span class="bank-field-val">Suprotim Chatterjee</span>
+              </div>
+            </div>
+
+            <button onclick="copyText('Account: 980061659, Routing: 035210009, Bank: Digital Commerce Bank, Beneficiary: Suprotim Chatterjee')" class="w-full mt-4 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs py-2 rounded-xl transition flex items-center justify-center gap-2 cursor-pointer border-0">
+              <i class="fa-solid fa-copy"></i> Copy CAD Details
+            </button>
+          </div>
+
         </div>
       </div>
     </div>
@@ -1496,7 +1714,7 @@
         <div>
           <label class="block text-xs font-bold text-slate-500 mb-1">Payment Method</label>
           <select id="order-payment-route" class="w-full border p-3 rounded-lg text-sm bg-white font-medium text-slate-800">
-            <option value="skydo">Skydo Direct Global Account (Preferred)</option>
+            <option value="skydo">Skydo Direct Global Account / Kotak Bank (Preferred)</option>
             <option value="paypal">PayPal Direct Transfer</option>
           </select>
         </div>
