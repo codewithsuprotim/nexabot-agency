@@ -76,7 +76,6 @@
       100% { transform: translateY(-120vh) scale(1.2); opacity: 0; }
     }
     @keyframes pulseGlow { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.05); opacity: 0.9; } }
-    @keyframes gradientShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
 
     .animate-float { animation: floatSlow 4s ease-in-out infinite; }
     .animate-pulse-glow { animation: pulseGlow 2s ease-in-out infinite; }
@@ -297,7 +296,7 @@
 
     /* ─── FAQ ─── */
     .faq-item { border: 1px solid rgba(255,255,255,0.12); border-radius: 14px; margin-bottom: 1rem; overflow: hidden; background: rgba(255,255,255,0.02); }
-    .faq-q { padding: 1.2rem 1.5rem; cursor: pointer; display: flex; justify-between: space-between; align-items: center; color: white; font-weight: 600; font-size: 0.95rem; }
+    .faq-q { padding: 1.2rem 1.5rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; color: white; font-weight: 600; font-size: 0.95rem; }
     .faq-a { padding: 0 1.5rem 1.2rem; color: rgba(255,255,255,0.65); font-size: 0.88rem; line-height: 1.7; display: none; }
 
     /* ─── REDESIGNED INDUSTRY RECOGNITION & CERTIFICATION SECTION ─── */
@@ -378,6 +377,9 @@
       padding: 1.25rem;
       position: relative;
       overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
       transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
       box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
     }
@@ -394,9 +396,7 @@
       box-shadow: 0 20px 30px -10px rgba(37, 99, 235, 0.15), 0 10px 15px -3px rgba(0, 0, 0, 0.05);
       border-color: rgba(96, 165, 250, 0.6);
     }
-    .bank-card-glass:hover::before {
-      height: 6px;
-    }
+    .bank-card-glass:hover::before { height: 6px; }
 
     .bank-card-kotak {
       background: linear-gradient(135deg, #FFFFFF 0%, #FFF5F5 100%);
@@ -405,6 +405,9 @@
       padding: 1.25rem;
       position: relative;
       overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
       transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
       box-shadow: 0 10px 25px -5px rgba(220, 38, 38, 0.08);
     }
@@ -421,21 +424,20 @@
       box-shadow: 0 20px 35px -10px rgba(220, 38, 38, 0.2);
       border-color: rgba(248, 113, 113, 0.8);
     }
-    .bank-card-kotak:hover::before {
-      height: 6px;
-    }
+    .bank-card-kotak:hover::before { height: 6px; }
 
     .bank-field-row {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 5px 0;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 2px;
+      padding: 6px 0;
       border-bottom: 1px dashed rgba(226, 232, 240, 0.8);
       font-size: 0.78rem;
     }
     .bank-field-row:last-child { border-bottom: none; }
-    .bank-field-label { color: #64748B; font-weight: 500; }
-    .bank-field-val { color: #0F172A; font-weight: 700; font-family: 'Space Grotesk', monospace; letter-spacing: 0.2px; }
+    .bank-field-label { color: #64748B; font-weight: 600; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.5px; }
+    .bank-field-val { color: #0F172A; font-weight: 700; font-family: 'Space Grotesk', monospace; letter-spacing: 0.2px; word-break: break-word; }
 
     /* ─── FOOTER & MEDIA SHOWCASE ─── */
     .site-footer {
@@ -449,7 +451,7 @@
     }
     .footer-msme img { height: 38px; width: auto; object-fit: contain; }
 
-    /* FOOTER LOWER MIDDLE MEDIA SHOWCASE */
+    /* FOOTER LOWER MIDDLE MEDIA SHOWCASE - ORIGINAL COLORS RESTORED */
     .footer-media-showcase {
       background: rgba(255, 255, 255, 0.02);
       border: 1px solid rgba(255, 255, 255, 0.08);
@@ -460,15 +462,16 @@
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
     }
     .media-logo-item {
-      height: 28px;
-      max-width: 120px;
+      height: 32px;
+      max-width: 130px;
       object-fit: contain;
-      filter: brightness(0) invert(1) opacity(0.85);
+      filter: none;
+      opacity: 0.95;
       transition: all 0.3s ease;
     }
     .media-logo-item:hover {
-      filter: brightness(1) invert(0) opacity(1);
-      transform: scale(1.08);
+      opacity: 1;
+      transform: scale(1.1);
     }
 
     /* ─── LIVE SALES TOAST ─── */
@@ -547,12 +550,12 @@
     <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-center gap-2 md:gap-6 text-center">
       <div>
         <i class="fa-solid fa-bullhorn text-amber-400 mr-1 animate-bounce"></i>
-        <strong>Official Notices & Announcements:</strong> Click here to view all active agency notices!
+        <strong>Official Notices & Announcements:</strong> <span id="header-notice-text">Click here to view all active agency notices!</span>
       </div>
     </div>
   </div>
 
-  <!-- ── 2. NAVBAR WITH BRAND LOGO (CLEANED - "Book a demo" removed from top ribbon links) ── -->
+  <!-- ── 2. NAVBAR WITH BRAND LOGO ── -->
   <nav id="nav">
     <div class="nav-brand">
       <a href="#hero" class="nav-logo flex items-center gap-2">
@@ -1017,7 +1020,7 @@
         </form>
       </section>
 
-      <!-- 11. WEBSITE FOOTER WITH LOGO & MEDIA SHOWCASE (FIXED LOGO PATHS) -->
+      <!-- 11. WEBSITE FOOTER WITH LOGO & MEDIA SHOWCASE (ORIGINAL LOGO COLORS RESTORED) -->
       <footer class="site-footer">
         <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-10 pb-6">
           
@@ -1077,7 +1080,7 @@
 
         </div>
 
-        <!-- LOWER MIDDLE MEDIA SHOWCASE - FIXED IMAGE PATHS TO "logos/" FOLDER -->
+        <!-- LOWER MIDDLE MEDIA SHOWCASE - FIXED CSS FILTER TO RENDER ORIGINAL COLORS -->
         <div class="max-w-7xl mx-auto px-6 mb-6">
           <div class="footer-media-showcase flex flex-col md:flex-row items-center justify-between gap-4">
             <div class="flex items-center gap-2">
@@ -1111,7 +1114,7 @@
     <!-- ── CLIENT DASHBOARD VIEW ── -->
     <div id="view-client-dashboard" class="hidden px-6 py-10 max-w-7xl mx-auto space-y-8">
       
-      <!-- PROMO DISCOUNT & MULTI-CHANNEL BANNER (CLEANED - "Book Demo" removed from banner) -->
+      <!-- PROMO DISCOUNT & MULTI-CHANNEL BANNER -->
       <div class="bg-gradient-to-r from-purple-600 via-blue-600 to-indigo-700 rounded-2xl p-4 text-white flex flex-col md:flex-row items-center justify-between shadow-lg border border-purple-400/30 gap-3">
         <div class="flex items-center gap-3">
           <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center text-xl font-bold">
@@ -1230,7 +1233,7 @@
         </div>
       </div>
 
-      <!-- REDESIGNED ACCOUNTS & PAYMENT DETAILS (SKYDO GLOBAL & KOTAK MAHINDRA INDIAN BANK) -->
+      <!-- REDESIGNED ACCOUNTS & PAYMENT DETAILS (FIXED BENEFICIARY & FIELD SMASHING LAYOUT) -->
       <div class="dash-card bg-slate-900 border border-slate-800 rounded-2xl p-6 text-white shadow-2xl relative overflow-hidden">
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800 pb-5 mb-6">
           <div>
@@ -1250,182 +1253,192 @@
           </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-5">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
           
           <!-- 🇮🇳 KOTAK MAHINDRA BANK (INDIAN CLIENT DIRECT PAYMENT) -->
           <div class="bank-card-kotak">
-            <div class="flex items-center justify-between mb-3">
-              <div class="flex items-center gap-2">
-                <span class="text-lg">🇮🇳</span>
-                <span class="font-extrabold text-slate-900 text-sm">INR Account</span>
+            <div>
+              <div class="flex items-center justify-between mb-3 border-b border-red-200/50 pb-2">
+                <div class="flex items-center gap-2">
+                  <span class="text-lg">🇮🇳</span>
+                  <span class="font-extrabold text-slate-900 text-sm">INR Account</span>
+                </div>
+                <span class="text-[9px] font-black uppercase tracking-wider bg-red-100 text-red-700 px-2 py-0.5 rounded-full border border-red-200">Indian Clients</span>
               </div>
-              <span class="text-[9px] font-black uppercase tracking-wider bg-red-100 text-red-700 px-2 py-0.5 rounded-full border border-red-200">Indian Clients</span>
-            </div>
-            
-            <div class="space-y-1">
-              <div class="bank-field-row">
-                <span class="bank-field-label">Bank</span>
-                <span class="bank-field-val text-red-600 font-extrabold">Kotak Mahindra</span>
-              </div>
-              <div class="bank-field-row">
-                <span class="bank-field-label">Account No.</span>
-                <span class="bank-field-val">5649113975</span>
-              </div>
-              <div class="bank-field-row">
-                <span class="bank-field-label">IFSC Code</span>
-                <span class="bank-field-val">KKBK0006747</span>
-              </div>
-              <div class="bank-field-row">
-                <span class="bank-field-label">Branch</span>
-                <span class="bank-field-val">Durgapur</span>
-              </div>
-              <div class="bank-field-row">
-                <span class="bank-field-label">Holder</span>
-                <span class="bank-field-val">Suprotim Chatterjee</span>
-              </div>
-              <div class="bank-field-row">
-                <span class="bank-field-label">UPI ID</span>
-                <span class="bank-field-val text-blue-600 font-extrabold">suprotim@kotakbank</span>
+              
+              <div class="space-y-1">
+                <div class="bank-field-row">
+                  <span class="bank-field-label">Bank</span>
+                  <span class="bank-field-val text-red-600 font-extrabold">Kotak Mahindra</span>
+                </div>
+                <div class="bank-field-row">
+                  <span class="bank-field-label">Account No.</span>
+                  <span class="bank-field-val">5649113975</span>
+                </div>
+                <div class="bank-field-row">
+                  <span class="bank-field-label">IFSC Code</span>
+                  <span class="bank-field-val">KKBK0006747</span>
+                </div>
+                <div class="bank-field-row">
+                  <span class="bank-field-label">Branch</span>
+                  <span class="bank-field-val">Durgapur</span>
+                </div>
+                <div class="bank-field-row">
+                  <span class="bank-field-label">Beneficiary / Holder</span>
+                  <span class="bank-field-val text-navy font-bold">Suprotim Chatterjee</span>
+                </div>
+                <div class="bank-field-row">
+                  <span class="bank-field-label">UPI ID</span>
+                  <span class="bank-field-val text-blue-600 font-extrabold">suprotim@kotakbank</span>
+                </div>
               </div>
             </div>
 
-            <button onclick="copyText('Bank: Kotak Mahindra Bank, Account Number: 5649113975, IFSC Code: KKBK0006747, Branch: Durgapur, Account Holder: Suprotim Chatterjee, UPI ID: suprotim@kotakbank')" class="w-full mt-4 bg-red-600 hover:bg-red-700 text-white font-bold text-xs py-2 rounded-xl transition flex items-center justify-center gap-2 cursor-pointer border-0 shadow-md shadow-red-600/20">
+            <button onclick="copyText('Bank: Kotak Mahindra Bank, Account Number: 5649113975, IFSC Code: KKBK0006747, Branch: Durgapur, Account Holder: Suprotim Chatterjee, UPI ID: suprotim@kotakbank')" class="w-full mt-4 bg-red-600 hover:bg-red-700 text-white font-bold text-xs py-2.5 rounded-xl transition flex items-center justify-center gap-2 cursor-pointer border-0 shadow-md shadow-red-600/20">
               <i class="fa-solid fa-copy"></i> Copy Kotak & UPI Details
             </button>
           </div>
 
           <!-- 🇺🇸 USD ACCOUNT -->
           <div class="bank-card-glass">
-            <div class="flex items-center justify-between mb-3">
-              <div class="flex items-center gap-2">
-                <span class="text-lg">🇺🇸</span>
-                <span class="font-extrabold text-slate-900 text-sm">USD Account</span>
+            <div>
+              <div class="flex items-center justify-between mb-3 border-b border-slate-200/80 pb-2">
+                <div class="flex items-center gap-2">
+                  <span class="text-lg">🇺🇸</span>
+                  <span class="font-extrabold text-slate-900 text-sm">USD Account</span>
+                </div>
+                <span class="text-[9px] font-black uppercase tracking-wider bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full">ACH / Wire</span>
               </div>
-              <span class="text-[9px] font-black uppercase tracking-wider bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full">ACH / Wire</span>
-            </div>
-            
-            <div class="space-y-1">
-              <div class="bank-field-row">
-                <span class="bank-field-label">Routing</span>
-                <span class="bank-field-val">021214891</span>
-              </div>
-              <div class="bank-field-row">
-                <span class="bank-field-label">Account No.</span>
-                <span class="bank-field-val">313116902658</span>
-              </div>
-              <div class="bank-field-row">
-                <span class="bank-field-label">Bank</span>
-                <span class="bank-field-val">Cross River</span>
-              </div>
-              <div class="bank-field-row">
-                <span class="bank-field-label">Beneficiary</span>
-                <span class="bank-field-val">Suprotim Chatterjee</span>
+              
+              <div class="space-y-1">
+                <div class="bank-field-row">
+                  <span class="bank-field-label">Routing</span>
+                  <span class="bank-field-val">021214891</span>
+                </div>
+                <div class="bank-field-row">
+                  <span class="bank-field-label">Account No.</span>
+                  <span class="bank-field-val">313116902658</span>
+                </div>
+                <div class="bank-field-row">
+                  <span class="bank-field-label">Bank</span>
+                  <span class="bank-field-val">Cross River Bank</span>
+                </div>
+                <div class="bank-field-row">
+                  <span class="bank-field-label">Beneficiary</span>
+                  <span class="bank-field-val text-navy font-bold">Suprotim Chatterjee</span>
+                </div>
               </div>
             </div>
 
-            <button onclick="copyText('Routing: 021214891, Account: 313116902658, Bank: Cross River Bank, Beneficiary: Suprotim Chatterjee')" class="w-full mt-4 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs py-2 rounded-xl transition flex items-center justify-center gap-2 cursor-pointer border-0">
+            <button onclick="copyText('Routing: 021214891, Account: 313116902658, Bank: Cross River Bank, Beneficiary: Suprotim Chatterjee')" class="w-full mt-4 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs py-2.5 rounded-xl transition flex items-center justify-center gap-2 cursor-pointer border-0">
               <i class="fa-solid fa-copy"></i> Copy USD Wire Details
             </button>
           </div>
 
           <!-- 🇬🇧 GBP ACCOUNT -->
           <div class="bank-card-glass">
-            <div class="flex items-center justify-between mb-3">
-              <div class="flex items-center gap-2">
-                <span class="text-lg">🇬🇧</span>
-                <span class="font-extrabold text-slate-900 text-sm">GBP Account</span>
+            <div>
+              <div class="flex items-center justify-between mb-3 border-b border-slate-200/80 pb-2">
+                <div class="flex items-center gap-2">
+                  <span class="text-lg">🇬🇧</span>
+                  <span class="font-extrabold text-slate-900 text-sm">GBP Account</span>
+                </div>
+                <span class="text-[9px] font-black uppercase tracking-wider bg-purple-100 text-purple-700 px-2 py-0.5 rounded-full">FPS</span>
               </div>
-              <span class="text-[9px] font-black uppercase tracking-wider bg-purple-100 text-purple-700 px-2 py-0.5 rounded-full">FPS</span>
-            </div>
-            
-            <div class="space-y-1">
-              <div class="bank-field-row">
-                <span class="bank-field-label">Sort Code</span>
-                <span class="bank-field-val">608382</span>
-              </div>
-              <div class="bank-field-row">
-                <span class="bank-field-label">Account No.</span>
-                <span class="bank-field-val">49546719</span>
-              </div>
-              <div class="bank-field-row">
-                <span class="bank-field-label">Bank</span>
-                <span class="bank-field-val">Banking Circle</span>
-              </div>
-              <div class="bank-field-row">
-                <span class="bank-field-label">Beneficiary</span>
-                <span class="bank-field-val">Suprotim Chatterjee</span>
+              
+              <div class="space-y-1">
+                <div class="bank-field-row">
+                  <span class="bank-field-label">Sort Code</span>
+                  <span class="bank-field-val">608382</span>
+                </div>
+                <div class="bank-field-row">
+                  <span class="bank-field-label">Account No.</span>
+                  <span class="bank-field-val">49546719</span>
+                </div>
+                <div class="bank-field-row">
+                  <span class="bank-field-label">Bank</span>
+                  <span class="bank-field-val">Banking Circle</span>
+                </div>
+                <div class="bank-field-row">
+                  <span class="bank-field-label">Beneficiary</span>
+                  <span class="bank-field-val text-navy font-bold">Suprotim Chatterjee</span>
+                </div>
               </div>
             </div>
 
-            <button onclick="copyText('Sort Code: 608382, Account: 49546719, Bank: Banking Circle, Beneficiary: Suprotim Chatterjee')" class="w-full mt-4 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs py-2 rounded-xl transition flex items-center justify-center gap-2 cursor-pointer border-0">
+            <button onclick="copyText('Sort Code: 608382, Account: 49546719, Bank: Banking Circle, Beneficiary: Suprotim Chatterjee')" class="w-full mt-4 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs py-2.5 rounded-xl transition flex items-center justify-center gap-2 cursor-pointer border-0">
               <i class="fa-solid fa-copy"></i> Copy GBP Details
             </button>
           </div>
 
           <!-- 🇪🇺 EUR ACCOUNT -->
           <div class="bank-card-glass">
-            <div class="flex items-center justify-between mb-3">
-              <div class="flex items-center gap-2">
-                <span class="text-lg">🇪🇺</span>
-                <span class="font-extrabold text-slate-900 text-sm">EUR Account</span>
+            <div>
+              <div class="flex items-center justify-between mb-3 border-b border-slate-200/80 pb-2">
+                <div class="flex items-center gap-2">
+                  <span class="text-lg">🇪🇺</span>
+                  <span class="font-extrabold text-slate-900 text-sm">EUR Account</span>
+                </div>
+                <span class="text-[9px] font-black uppercase tracking-wider bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full">SEPA</span>
               </div>
-              <span class="text-[9px] font-black uppercase tracking-wider bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full">SEPA</span>
-            </div>
-            
-            <div class="space-y-1">
-              <div class="bank-field-row">
-                <span class="bank-field-label">IBAN</span>
-                <span class="bank-field-val text-[11px]">DE53202...49546719</span>
-              </div>
-              <div class="bank-field-row">
-                <span class="bank-field-label">BIC/SWIFT</span>
-                <span class="bank-field-val">SXPYDEHH</span>
-              </div>
-              <div class="bank-field-row">
-                <span class="bank-field-label">Bank</span>
-                <span class="bank-field-val">Banking Circle</span>
-              </div>
-              <div class="bank-field-row">
-                <span class="bank-field-label">Beneficiary</span>
-                <span class="bank-field-val">Suprotim Chatterjee</span>
+              
+              <div class="space-y-1">
+                <div class="bank-field-row">
+                  <span class="bank-field-label">IBAN</span>
+                  <span class="bank-field-val text-[11px]">DE53202208000049546719</span>
+                </div>
+                <div class="bank-field-row">
+                  <span class="bank-field-label">BIC/SWIFT</span>
+                  <span class="bank-field-val">SXPYDEHH</span>
+                </div>
+                <div class="bank-field-row">
+                  <span class="bank-field-label">Bank</span>
+                  <span class="bank-field-val">Banking Circle</span>
+                </div>
+                <div class="bank-field-row">
+                  <span class="bank-field-label">Beneficiary</span>
+                  <span class="bank-field-val text-navy font-bold">Suprotim Chatterjee</span>
+                </div>
               </div>
             </div>
 
-            <button onclick="copyText('IBAN: DE53202208000049546719, BIC: SXPYDEHH, Bank: Banking Circle, Beneficiary: Suprotim Chatterjee')" class="w-full mt-4 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs py-2 rounded-xl transition flex items-center justify-center gap-2 cursor-pointer border-0">
+            <button onclick="copyText('IBAN: DE53202208000049546719, BIC: SXPYDEHH, Bank: Banking Circle, Beneficiary: Suprotim Chatterjee')" class="w-full mt-4 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs py-2.5 rounded-xl transition flex items-center justify-center gap-2 cursor-pointer border-0">
               <i class="fa-solid fa-copy"></i> Copy EUR Details
             </button>
           </div>
 
           <!-- 🇨🇦 CAD ACCOUNT -->
           <div class="bank-card-glass">
-            <div class="flex items-center justify-between mb-3">
-              <div class="flex items-center gap-2">
-                <span class="text-lg">🇨🇦</span>
-                <span class="font-extrabold text-slate-900 text-sm">CAD Account</span>
+            <div>
+              <div class="flex items-center justify-between mb-3 border-b border-slate-200/80 pb-2">
+                <div class="flex items-center gap-2">
+                  <span class="text-lg">🇨🇦</span>
+                  <span class="font-extrabold text-slate-900 text-sm">CAD Account</span>
+                </div>
+                <span class="text-[9px] font-black uppercase tracking-wider bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full">EFT</span>
               </div>
-              <span class="text-[9px] font-black uppercase tracking-wider bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full">EFT</span>
-            </div>
-            
-            <div class="space-y-1">
-              <div class="bank-field-row">
-                <span class="bank-field-label">Account No.</span>
-                <span class="bank-field-val">980061659</span>
-              </div>
-              <div class="bank-field-row">
-                <span class="bank-field-label">Routing</span>
-                <span class="bank-field-val">035210009</span>
-              </div>
-              <div class="bank-field-row">
-                <span class="bank-field-label">Bank</span>
-                <span class="bank-field-val">Digital Commerce</span>
-              </div>
-              <div class="bank-field-row">
-                <span class="bank-field-label">Beneficiary</span>
-                <span class="bank-field-val">Suprotim Chatterjee</span>
+              
+              <div class="space-y-1">
+                <div class="bank-field-row">
+                  <span class="bank-field-label">Account No.</span>
+                  <span class="bank-field-val">980061659</span>
+                </div>
+                <div class="bank-field-row">
+                  <span class="bank-field-label">Routing</span>
+                  <span class="bank-field-val">035210009</span>
+                </div>
+                <div class="bank-field-row">
+                  <span class="bank-field-label">Bank</span>
+                  <span class="bank-field-val">Digital Commerce</span>
+                </div>
+                <div class="bank-field-row">
+                  <span class="bank-field-label">Beneficiary</span>
+                  <span class="bank-field-val text-navy font-bold">Suprotim Chatterjee</span>
+                </div>
               </div>
             </div>
 
-            <button onclick="copyText('Account: 980061659, Routing: 035210009, Bank: Digital Commerce Bank, Beneficiary: Suprotim Chatterjee')" class="w-full mt-4 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs py-2 rounded-xl transition flex items-center justify-center gap-2 cursor-pointer border-0">
+            <button onclick="copyText('Account: 980061659, Routing: 035210009, Bank: Digital Commerce Bank, Beneficiary: Suprotim Chatterjee')" class="w-full mt-4 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs py-2.5 rounded-xl transition flex items-center justify-center gap-2 cursor-pointer border-0">
               <i class="fa-solid fa-copy"></i> Copy CAD Details
             </button>
           </div>
@@ -2021,7 +2034,7 @@
       }
     };
 
-    // Notice Real-time Listener & Popup Engine
+    // Notice Real-time Listener & Global Broadcast Engine
     function initNoticeSystem() {
       fbDb.collection('notices').onSnapshot(snapshot => {
         let notices = snapshot.docs.map(doc => doc.data());
@@ -2030,6 +2043,12 @@
         if (notices.length === 0) {
           defaultNotices.forEach(n => db.saveNotice(n));
           notices = defaultNotices;
+        }
+
+        // Update Header Banner Text with latest notice title
+        const headerNoticeEl = document.getElementById('header-notice-text');
+        if (headerNoticeEl && notices.length > 0) {
+          headerNoticeEl.textContent = `${notices[notices.length - 1].title} — Click to view details!`;
         }
 
         // Render Popup Modal Notices
@@ -2087,6 +2106,7 @@
       closeModal('modal-add-notice');
       document.getElementById('notice-title-input').value = '';
       document.getElementById('notice-body-input').value = '';
+      alert('New notice published successfully across Client Portal feeds and site popups!');
     }
 
     async function handleDeleteNotice(id) {
