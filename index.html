@@ -9,9 +9,6 @@
   <!-- Website Favicon & Logo Reference -->
   <link rel="icon" type="image/png" href="logos/nexabot-logo.png" />
 
-  <!-- TrustBox script -->
-  <script type="text/javascript" src="//widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js" async></script>
-  <!-- End TrustBox script -->
 
   <!-- SheetJS & jsPDF for Admin Data Exporting -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
@@ -201,17 +198,86 @@
     }
     .btn-action:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(37,99,235,0.6); }
 
-    /* TRUSTPILOT WIDGET HERO CONTAINER */
-    .hero-trustpilot-wrapper {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      backdrop-filter: blur(12px);
-      border-radius: 20px;
-      padding: 1rem 1.5rem;
-      margin: 0 auto 2.5rem;
-      max-width: 480px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    /* ─── TRUSTPILOT REVIEW CARD (hero) ─── */
+    .tp-card {
+      position: relative; isolation: isolate; overflow: hidden;
+      display: flex; align-items: center; justify-content: center; gap: 1.1rem; flex-wrap: wrap;
+      width: fit-content; max-width: 100%; margin: 0 auto 2.5rem; padding: .95rem 1.4rem;
+      border-radius: 18px; text-decoration: none; color: #FFFFFF; cursor: pointer;
+      background: linear-gradient(135deg, rgba(0,182,122,.18) 0%, rgba(37,99,235,.24) 100%);
+      border: 1px solid rgba(0,182,122,.55);
+      -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+      box-shadow: 0 10px 30px rgba(0,0,0,.35), 0 0 0 0 rgba(0,182,122,.45);
+      animation: tpPulse 2.8s ease-in-out infinite;
+      transition: transform .3s ease, border-color .3s ease, background .3s ease;
     }
+    .tp-card:hover {
+      transform: translateY(-4px) scale(1.02); border-color: #00B67A;
+      background: linear-gradient(135deg, rgba(0,182,122,.30) 0%, rgba(37,99,235,.32) 100%);
+    }
+    .tp-card:focus-visible { outline: 3px solid #00B67A; outline-offset: 3px; }
+    .tp-shine {
+      position: absolute; inset: 0; z-index: -1; pointer-events: none;
+      background: linear-gradient(110deg, transparent 30%, rgba(255,255,255,.22) 50%, transparent 70%);
+      transform: translateX(-120%); animation: tpShine 3.6s ease-in-out infinite;
+    }
+    .tp-logo { display: flex; align-items: center; gap: .45rem; }
+    .tp-logo-star { width: 32px; height: 32px; filter: drop-shadow(0 0 8px rgba(0,182,122,.8)); animation: tpFloat 3s ease-in-out infinite; }
+    .tp-logo-text { font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 1.4rem; letter-spacing: -.02em; color: #FFFFFF; line-height: 1; }
+    .tp-sep { width: 1px; height: 40px; background: rgba(255,255,255,.22); }
+    .tp-body { display: flex; flex-direction: column; align-items: flex-start; gap: .35rem; }
+    .tp-title { font-family: 'Poppins', sans-serif; font-weight: 700; font-size: .98rem; color: #FFFFFF; line-height: 1.2; }
+    .tp-stars { display: flex; gap: 4px; }
+    .tp-star {
+      width: 24px; height: 24px; background: #00B67A; display: flex; align-items: center; justify-content: center;
+      animation: tpTwinkle 2.4s ease-in-out infinite; animation-delay: calc(var(--i) * .18s);
+    }
+    .tp-star svg { width: 16px; height: 16px; }
+    .tp-cta {
+      display: inline-flex; align-items: center; gap: .45rem; background: #00B67A; color: #032B20;
+      font-weight: 800; font-size: .8rem; padding: .6rem 1.05rem; border-radius: 999px; white-space: nowrap;
+      box-shadow: 0 6px 16px rgba(0,182,122,.35);
+    }
+    .tp-cta i { transition: transform .3s ease; }
+    .tp-card:hover .tp-cta i { transform: translateX(4px); }
+    @keyframes tpPulse {
+      0%, 100% { box-shadow: 0 10px 30px rgba(0,0,0,.35), 0 0 0 0 rgba(0,182,122,.45); }
+      50%      { box-shadow: 0 10px 30px rgba(0,0,0,.35), 0 0 0 10px rgba(0,182,122,0); }
+    }
+    @keyframes tpShine { 0% { transform: translateX(-120%); } 55%, 100% { transform: translateX(120%); } }
+    @keyframes tpTwinkle { 0%, 100% { transform: scale(1); filter: brightness(1); } 50% { transform: scale(1.12); filter: brightness(1.2); } }
+    @keyframes tpFloat { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-3px) rotate(8deg); } }
+    @media (max-width: 560px) {
+      .tp-card { flex-direction: column; text-align: center; gap: .8rem; padding: 1rem 1.1rem; }
+      .tp-sep { display: none; }
+      .tp-body { align-items: center; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .tp-card, .tp-shine, .tp-star, .tp-logo-star { animation: none !important; }
+    }
+
+    /* ─── AUTH / VERIFICATION UI ─── */
+    .fx-msg { font-size: .75rem; font-weight: 600; line-height: 1.4; border-radius: 10px; padding: .65rem .8rem; margin-bottom: .85rem; }
+    .fx-msg.error   { background: #FEF2F2; color: #B91C1C; border: 1px solid #FECACA; }
+    .fx-msg.success { background: #ECFDF5; color: #047857; border: 1px solid #A7F3D0; }
+    .fx-msg.info    { background: #EFF6FF; color: #1D4ED8; border: 1px solid #BFDBFE; }
+    .vbadge { display: inline-flex; align-items: center; gap: 4px; font-size: .65rem; font-weight: 800; text-transform: uppercase; padding: 3px 9px; border-radius: 999px; white-space: nowrap; }
+    .vbadge.ok { background: #D1FAE5; color: #047857; }
+    .vbadge.no { background: #FEF3C7; color: #B45309; }
+    .auth-btn-sm {
+      background: #FFFFFF; border: 1px solid #CBD5E1; color: #0F172A; font-weight: 700; font-size: .7rem;
+      padding: .4rem .75rem; border-radius: 8px; cursor: pointer; transition: all .2s ease; white-space: nowrap;
+    }
+    .auth-btn-sm:hover { background: #F1F5F9; border-color: #94A3B8; }
+    .auth-btn-sm:disabled { opacity: .55; cursor: not-allowed; }
+    .auth-btn-primary {
+      background: #2563EB; color: #FFFFFF; font-weight: 700; font-size: .8rem; padding: .65rem 1rem;
+      border-radius: 10px; border: 0; cursor: pointer; transition: background .2s ease; white-space: nowrap;
+    }
+    .auth-btn-primary:hover { background: #1D4ED8; }
+    .auth-btn-primary:disabled { opacity: .6; cursor: not-allowed; }
+    .auth-box { border: 1px solid #E2E8F0; border-radius: 12px; padding: .9rem; background: #F8FAFC; }
+    .otp-input { letter-spacing: .5em; text-align: center; font-weight: 800; font-size: 1.1rem; }
 
     .hero-stats { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 2rem; width: 100%; max-width: 800px; margin: 0 auto; }
     .hstat-n { font-family: 'Poppins', sans-serif; font-size: 1.8rem; font-weight: 900; color: white; }
@@ -662,7 +728,7 @@
           </div>
 
           <div class="hero-btns">
-            <button onclick="openAuthModal('client')" class="btn-action">
+            <button onclick="openAuthModal('client', 'register')" class="btn-action">
               <i class="fas fa-rocket"></i> Register & Get My Chatbot ($999 Promo)
             </button>
             <button onclick="openModal('demo-modal')" class="bg-white/10 hover:bg-white/20 text-white font-bold px-8 py-3.5 rounded-full transition flex items-center gap-2 cursor-pointer border-0">
@@ -670,16 +736,26 @@
             </button>
           </div>
 
-          <!-- TRUSTPILOT EMBEDDED WIDGET IN HERO SECTION -->
-          <div class="hero-trustpilot-wrapper">
-            <!-- TrustBox widget - Review Collector -->
-            <div class="trustpilot-widget" data-locale="en-US" data-template-id="56278e9afbbba0bdcd568bc" data-businessunit-id="6ac510584da07db10f4f912d" data-style-height="52px" data-style-width="100%" data-token="c191d8db-05a6-4c07-ad48-09544afcd361">
-              <a href="https://www.trustpilot.com/review/nexabot.shop" target="_blank" rel="noopener" class="text-white text-xs font-bold flex items-center justify-center gap-2 hover:underline">
-                <i class="fa-solid fa-star text-emerald-400"></i> Review NexaBot on Trustpilot
-              </a>
-            </div>
-            <!-- End TrustBox widget -->
-          </div>
+          <!-- TRUSTPILOT REVIEW CARD (clickable, animated) -->
+          <a href="https://www.trustpilot.com/review/nexabot.shop" target="_blank" rel="noopener noreferrer" class="tp-card" aria-label="Review NexaBot on Trustpilot (opens in a new tab)">
+            <span class="tp-shine" aria-hidden="true"></span>
+            <span class="tp-logo">
+              <svg class="tp-logo-star" viewBox="0 0 24 24" aria-hidden="true"><path fill="#00B67A" d="M12 1.5l3.1 7.1 7.7.7-5.8 5.1 1.7 7.6L12 18l-6.7 4 1.7-7.6-5.8-5.1 7.7-.7z"/></svg>
+              <span class="tp-logo-text">Trustpilot</span>
+            </span>
+            <span class="tp-sep" aria-hidden="true"></span>
+            <span class="tp-body">
+              <span class="tp-title">Review Us On Trustpilot</span>
+              <span class="tp-stars" aria-hidden="true">
+                <span class="tp-star" style="--i:0"><svg viewBox="0 0 24 24"><path fill="#fff" d="M12 1.5l3.1 7.1 7.7.7-5.8 5.1 1.7 7.6L12 18l-6.7 4 1.7-7.6-5.8-5.1 7.7-.7z"/></svg></span>
+                <span class="tp-star" style="--i:1"><svg viewBox="0 0 24 24"><path fill="#fff" d="M12 1.5l3.1 7.1 7.7.7-5.8 5.1 1.7 7.6L12 18l-6.7 4 1.7-7.6-5.8-5.1 7.7-.7z"/></svg></span>
+                <span class="tp-star" style="--i:2"><svg viewBox="0 0 24 24"><path fill="#fff" d="M12 1.5l3.1 7.1 7.7.7-5.8 5.1 1.7 7.6L12 18l-6.7 4 1.7-7.6-5.8-5.1 7.7-.7z"/></svg></span>
+                <span class="tp-star" style="--i:3"><svg viewBox="0 0 24 24"><path fill="#fff" d="M12 1.5l3.1 7.1 7.7.7-5.8 5.1 1.7 7.6L12 18l-6.7 4 1.7-7.6-5.8-5.1 7.7-.7z"/></svg></span>
+                <span class="tp-star" style="--i:4"><svg viewBox="0 0 24 24"><path fill="#fff" d="M12 1.5l3.1 7.1 7.7.7-5.8 5.1 1.7 7.6L12 18l-6.7 4 1.7-7.6-5.8-5.1 7.7-.7z"/></svg></span>
+              </span>
+            </span>
+            <span class="tp-cta">Write a Review <i class="fa-solid fa-arrow-right"></i></span>
+          </a>
 
           <div class="hero-stats">
             <div><div class="hstat-n">1000+</div><div class="hstat-l">Bots Deployed</div></div>
@@ -777,7 +853,7 @@
             </div>
           </div>
 
-          <button onclick="openAuthModal('client')" class="btn-action w-full justify-center text-base py-4">
+          <button onclick="openAuthModal('client', 'register')" class="btn-action w-full justify-center text-base py-4">
             <i class="fa-solid fa-user-plus"></i> Register in Client Portal To Get $999 Promo Rate
           </button>
         </div>
@@ -1179,6 +1255,18 @@
             <i class="fa-solid fa-plus"></i> Submit New Order ($999 Promo)
           </button>
         </div>
+      </div>
+
+      <!-- ACCOUNT SECURITY & VERIFICATION -->
+      <div class="dash-card border border-emerald-200">
+        <div class="flex items-center justify-between mb-3 border-b border-slate-200 pb-2">
+          <h3 class="font-bold text-navy text-base font-['Poppins'] flex items-center gap-2">
+            <i class="fa-solid fa-user-shield text-emerald-600"></i> Account Security &amp; Verification
+          </h3>
+          <span class="text-[10px] font-extrabold uppercase bg-emerald-100 text-emerald-800 px-2.5 py-0.5 rounded-full">Firebase Protected</span>
+        </div>
+        <div id="security-card-msg" class="fx-msg" style="display:none"></div>
+        <div id="security-card-body" class="grid md:grid-cols-2 gap-3 text-xs text-slate-700"></div>
       </div>
 
       <!-- CLIENT DEDICATED NOTICES SECTION -->
@@ -1668,77 +1756,211 @@
     </div>
   </div>
 
-  <!-- AUTH MODAL WITH EXPANDED ONE REGISTRATION FORM -->
+  <!-- AUTH MODAL: Sign-in / Registration with Email + Phone OTP verification, SMS 2-Step, Password Reset -->
   <div id="auth-modal" class="modal-backdrop">
-    <div class="modal-box max-w-lg">
+    <div class="modal-box max-w-lg" style="max-height:92vh;overflow-y:auto;">
       <div class="flex justify-between items-center mb-4">
         <h3 id="auth-modal-title" class="text-xl font-bold text-navy font-['Poppins']">Sign In</h3>
-        <button onclick="closeModal('auth-modal')" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark"></i></button>
+        <button type="button" onclick="closeAuthModal()" aria-label="Close" class="text-slate-400 hover:text-slate-600 border-0 bg-transparent cursor-pointer"><i class="fa-solid fa-xmark"></i></button>
       </div>
 
-      <div class="grid grid-cols-2 gap-2 p-1 bg-slate-100 rounded-lg mb-4 text-center text-xs font-bold">
-        <div id="tab-auth-client" onclick="switchAuthRole('client')" class="py-2 rounded-md cursor-pointer bg-white text-navy shadow-sm">Client Portal</div>
-        <div id="tab-auth-admin" onclick="switchAuthRole('admin')" class="py-2 rounded-md cursor-pointer text-slate-500">Admin Portal</div>
+      <div id="auth-msg" class="fx-msg" style="display:none"></div>
+
+      <!-- PANEL: SIGN IN / REGISTER -->
+      <div id="auth-panel-main">
+        <div class="grid grid-cols-2 gap-2 p-1 bg-slate-100 rounded-lg mb-4 text-center text-xs font-bold">
+          <div id="tab-auth-client" onclick="switchAuthRole('client')" class="py-2 rounded-md cursor-pointer bg-white text-navy shadow-sm">Client Portal</div>
+          <div id="tab-auth-admin" onclick="switchAuthRole('admin')" class="py-2 rounded-md cursor-pointer text-slate-500">Admin Portal</div>
+        </div>
+
+        <form id="auth-form" onsubmit="auth.handleSubmit(event)" class="space-y-3">
+          <input type="hidden" id="auth-role" value="client">
+          <input type="hidden" id="auth-mode" value="login">
+
+          <div id="auth-reg-note" class="text-[11px] text-blue-700 bg-blue-50 border border-blue-200 rounded-lg p-2.5" style="display:none">
+            <i class="fa-solid fa-shield-check mr-1"></i> After you register we verify your <strong>email</strong> (verification link) and your <strong>mobile number</strong> (6-digit SMS OTP) to activate your account.
+          </div>
+          <div id="auth-admin-note" class="text-[11px] text-red-700 bg-red-50 border border-red-200 rounded-lg p-2.5" style="display:none">
+            <i class="fa-solid fa-lock mr-1"></i> Admin accounts are created by the NexaBot owner only. Sign in with your authorised admin credentials.
+          </div>
+
+          <div id="auth-field-name" style="display:none">
+            <label id="auth-name-label" class="block text-xs font-bold uppercase text-slate-500 mb-1">Full Name</label>
+            <input type="text" id="auth-name" autocomplete="name" class="w-full border border-slate-300 p-2.5 rounded-lg text-sm focus:outline-blue-600" placeholder="John Doe">
+          </div>
+
+          <div id="auth-field-business" style="display:none">
+            <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Business / Agency Name</label>
+            <input type="text" id="auth-business" autocomplete="organization" class="w-full border border-slate-300 p-2.5 rounded-lg text-sm focus:outline-blue-600" placeholder="Acme Enterprises LLC">
+          </div>
+
+          <div id="auth-field-country" style="display:none">
+            <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Country / Region</label>
+            <select id="auth-country" onchange="auth.updatePhoneHint()" class="w-full border border-slate-300 p-2.5 rounded-lg text-sm focus:outline-blue-600 bg-white">
+              <option value="US">🇺🇸 United States</option>
+              <option value="IN">🇮🇳 India</option>
+              <option value="GB">🇬🇧 United Kingdom</option>
+              <option value="CA">🇨🇦 Canada</option>
+              <option value="AU">🇦🇺 Australia</option>
+              <option value="DE">🇩🇪 Germany</option>
+              <option value="AE">🇦🇪 United Arab Emirates</option>
+              <option value="SG">🇸🇬 Singapore</option>
+              <option value="OTHER">🌍 Other Global Location</option>
+            </select>
+          </div>
+
+          <div id="auth-field-phone" style="display:none">
+            <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Mobile / WhatsApp Number (OTP will be sent here)</label>
+            <input type="tel" id="auth-phone" autocomplete="tel" class="w-full border border-slate-300 p-2.5 rounded-lg text-sm focus:outline-blue-600" placeholder="+1 555 000 1234">
+            <p id="auth-phone-hint" class="text-[10px] text-slate-400 mt-1"></p>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Email Address</label>
+            <input type="email" id="auth-email" required autocomplete="email" class="w-full border border-slate-300 p-2.5 rounded-lg text-sm focus:outline-blue-600" placeholder="user@company.com">
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Password</label>
+            <input type="password" id="auth-password" required autocomplete="current-password" class="w-full border border-slate-300 p-2.5 rounded-lg text-sm focus:outline-blue-600" placeholder="••••••••">
+          </div>
+
+          <div id="auth-forgot-row" class="text-right -mt-1">
+            <button type="button" onclick="auth.showForgot()" class="text-blue-600 text-[11px] font-bold hover:underline cursor-pointer border-0 bg-transparent">Forgot password?</button>
+          </div>
+
+          <button type="submit" id="auth-submit-btn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl transition cursor-pointer mt-2 border-0">
+            Sign In
+          </button>
+        </form>
+
+        <div id="auth-toggle-box" class="text-center mt-4 text-xs text-slate-500">
+          <span id="auth-toggle-text">Don't have an account?</span>
+          <button type="button" onclick="auth.toggleMode()" id="auth-toggle-btn" class="text-blue-600 font-bold ml-1 hover:underline cursor-pointer border-0 bg-transparent">
+            Register Now
+          </button>
+        </div>
       </div>
 
-      <form id="auth-form" onsubmit="auth.handleSubmit(event)" class="space-y-3">
-        <input type="hidden" id="auth-role" value="client">
-        <input type="hidden" id="auth-mode" value="login">
+      <!-- PANEL: FORGOT PASSWORD -->
+      <div id="auth-panel-forgot" style="display:none">
+        <p class="text-xs text-slate-500 mb-3">Enter your account email and we will send you a secure link to reset your password.</p>
+        <form onsubmit="auth.sendReset(event)" class="space-y-3">
+          <div>
+            <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Email Address</label>
+            <input type="email" id="auth-forgot-email" required autocomplete="email" class="w-full border border-slate-300 p-2.5 rounded-lg text-sm focus:outline-blue-600" placeholder="user@company.com">
+          </div>
+          <button type="submit" id="auth-forgot-btn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl transition cursor-pointer border-0">Send Reset Link</button>
+        </form>
+        <div class="text-center mt-4 text-xs">
+          <button type="button" onclick="auth.showPanel('main')" class="text-blue-600 font-bold hover:underline cursor-pointer border-0 bg-transparent"><i class="fa-solid fa-arrow-left mr-1"></i> Back to Sign In</button>
+        </div>
+      </div>
 
-        <!-- DETAILED REGISTRATION FIELDS -->
-        <div id="auth-field-name" class="hidden">
-          <label id="auth-name-label" class="block text-xs font-bold uppercase text-slate-500 mb-1">Full Name</label>
-          <input type="text" id="auth-name" class="w-full border border-slate-300 p-2.5 rounded-lg text-sm focus:outline-blue-600" placeholder="John Doe">
+      <!-- PANEL: VERIFY EMAIL + PHONE (OTP) -->
+      <div id="auth-panel-verify" style="display:none" class="space-y-3">
+        <p class="text-xs text-slate-500">Complete both verifications below to activate your client account.</p>
+
+        <div class="auth-box">
+          <div class="flex items-start justify-between gap-3">
+            <div class="min-w-0">
+              <div class="font-bold text-navy text-sm"><i class="fa-solid fa-envelope mr-1 text-blue-600"></i> Email verification</div>
+              <div id="vf-email-text" class="text-[11px] text-slate-500 break-all mt-0.5"></div>
+            </div>
+            <span id="vf-email-badge" class="vbadge no">Pending</span>
+          </div>
+          <div id="vf-email-actions" class="mt-2.5" style="display:none">
+            <p class="text-[11px] text-slate-500 mb-2">We emailed you a verification link. Open it (check spam too), then come back — this page updates automatically.</p>
+            <div class="flex gap-2 flex-wrap">
+              <button type="button" id="vf-email-resend" onclick="auth.resendEmail()" class="auth-btn-sm">Resend email</button>
+              <button type="button" id="vf-email-check" onclick="auth.refreshVerify(true)" class="auth-btn-sm">I've verified — check now</button>
+            </div>
+          </div>
         </div>
 
-        <div id="auth-field-business" class="hidden">
-          <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Business / Agency Name</label>
-          <input type="text" id="auth-business" class="w-full border border-slate-300 p-2.5 rounded-lg text-sm focus:outline-blue-600" placeholder="Acme Enterprises LLC">
+        <div class="auth-box">
+          <div class="flex items-start justify-between gap-3">
+            <div class="min-w-0">
+              <div class="font-bold text-navy text-sm"><i class="fa-solid fa-mobile-screen-button mr-1 text-blue-600"></i> Mobile number (SMS OTP)</div>
+              <div id="vf-phone-done" class="text-[11px] text-slate-500 break-all mt-0.5" style="display:none"></div>
+            </div>
+            <span id="vf-phone-badge" class="vbadge no">Pending</span>
+          </div>
+          <div id="vf-phone-controls" class="mt-2.5 space-y-2">
+            <input type="tel" id="vf-phone" autocomplete="tel" class="w-full border border-slate-300 p-2.5 rounded-lg text-sm focus:outline-blue-600" placeholder="+91 98765 43210">
+            <button type="button" id="vf-phone-send" onclick="auth.sendPhoneOtp()" class="auth-btn-primary w-full">Send OTP via SMS</button>
+            <div id="vf-otp-wrap" class="space-y-2" style="display:none">
+              <input type="text" id="vf-otp" inputmode="numeric" autocomplete="one-time-code" maxlength="6" onkeydown="if(event.key==='Enter'){auth.verifyPhoneOtp();}" class="w-full border border-slate-300 p-2.5 rounded-lg focus:outline-blue-600 otp-input" placeholder="------">
+              <button type="button" id="vf-otp-verify" onclick="auth.verifyPhoneOtp()" class="auth-btn-primary w-full" style="background:#059669">Verify OTP</button>
+            </div>
+          </div>
         </div>
 
-        <div id="auth-field-country" class="hidden">
-          <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Country / Region</label>
-          <select id="auth-country" class="w-full border border-slate-300 p-2.5 rounded-lg text-sm focus:outline-blue-600 bg-white">
-            <option value="US">🇺🇸 United States</option>
-            <option value="IN">🇮🇳 India</option>
-            <option value="GB">🇬🇧 United Kingdom</option>
-            <option value="CA">🇨🇦 Canada</option>
-            <option value="AU">🇦🇺 Australia</option>
-            <option value="DE">🇩🇪 Germany</option>
-            <option value="AE">🇦🇪 United Arab Emirates</option>
-            <option value="SG">🇸🇬 Singapore</option>
-            <option value="OTHER">🌍 Other Global Location</option>
-          </select>
+        <div class="text-center text-xs">
+          <button type="button" onclick="closeAuthModal()" class="text-slate-500 hover:text-slate-700 font-bold hover:underline cursor-pointer border-0 bg-transparent">Verify later (sign out)</button>
         </div>
+      </div>
 
-        <div id="auth-field-phone" class="hidden">
-          <label class="block text-xs font-bold uppercase text-slate-500 mb-1">WhatsApp / Phone Number</label>
-          <input type="text" id="auth-phone" class="w-full border border-slate-300 p-2.5 rounded-lg text-sm focus:outline-blue-600" placeholder="+1 (555) 000-1234">
+      <!-- PANEL: SMS 2-STEP SIGN-IN -->
+      <div id="auth-panel-mfa" style="display:none" class="space-y-3">
+        <div class="text-center">
+          <div class="w-12 h-12 mx-auto rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-xl mb-2"><i class="fa-solid fa-shield-halved"></i></div>
+          <p id="mfa-text" class="text-xs text-slate-600"></p>
         </div>
-
-        <div>
-          <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Email Address</label>
-          <input type="email" id="auth-email" required class="w-full border border-slate-300 p-2.5 rounded-lg text-sm focus:outline-blue-600" placeholder="user@company.com">
+        <input type="text" id="mfa-code" inputmode="numeric" autocomplete="one-time-code" maxlength="6" onkeydown="if(event.key==='Enter'){auth.mfaVerify();}" class="w-full border border-slate-300 p-2.5 rounded-lg focus:outline-blue-600 otp-input" placeholder="------">
+        <button type="button" id="mfa-verify-btn" onclick="auth.mfaVerify()" class="auth-btn-primary w-full" style="padding:.8rem 1rem">Verify &amp; Sign In</button>
+        <div class="flex items-center justify-between text-xs">
+          <button type="button" id="mfa-resend" onclick="auth.mfaResend()" class="auth-btn-sm">Resend code</button>
+          <button type="button" onclick="auth.mfaBack()" class="text-blue-600 font-bold hover:underline cursor-pointer border-0 bg-transparent"><i class="fa-solid fa-arrow-left mr-1"></i> Back</button>
         </div>
-
-        <div>
-          <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Password</label>
-          <input type="password" id="auth-password" required class="w-full border border-slate-300 p-2.5 rounded-lg text-sm focus:outline-blue-600" placeholder="••••••••">
-        </div>
-
-        <button type="submit" id="auth-submit-btn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl transition cursor-pointer mt-2">
-          Sign In
-        </button>
-      </form>
-
-      <div id="auth-toggle-box" class="text-center mt-4 text-xs text-slate-500">
-        <span id="auth-toggle-text">Don't have an account?</span>
-        <button onclick="auth.toggleMode()" id="auth-toggle-btn" class="text-blue-600 font-bold ml-1 hover:underline cursor-pointer border-0 bg-transparent">
-          Register Now
-        </button>
       </div>
     </div>
   </div>
+
+  <!-- ACCOUNT SECURITY MODAL (change email, enable/disable SMS 2-step) -->
+  <div id="modal-security" class="modal-backdrop">
+    <div class="modal-box max-w-md" style="max-height:92vh;overflow-y:auto;">
+      <div class="flex justify-between items-center mb-4">
+        <h3 id="sec-title" class="text-lg font-bold text-navy font-['Poppins']">Account Security</h3>
+        <button type="button" onclick="sec.close()" aria-label="Close" class="text-slate-400 hover:text-slate-600 border-0 bg-transparent cursor-pointer"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div id="sec-msg" class="fx-msg" style="display:none"></div>
+
+      <div class="space-y-3">
+        <div id="sec-panel-email" style="display:none">
+          <p class="text-xs text-slate-500 mb-2">We will send a verification link to your <strong>new</strong> email. Your login email changes only after you click it, and a security notice goes to your current email.</p>
+          <label class="block text-xs font-bold uppercase text-slate-500 mb-1">New Email Address</label>
+          <input type="email" id="sec-new-email" autocomplete="email" class="w-full border border-slate-300 p-2.5 rounded-lg text-sm focus:outline-blue-600" placeholder="new@company.com">
+        </div>
+
+        <div id="sec-panel-mfa-enroll" style="display:none">
+          <p class="text-xs text-slate-500 mb-2">Add SMS 2-step verification: after your password, we text a 6-digit code at every sign-in. You will also get a confirmation email.</p>
+          <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Phone Number for 2-Step Codes</label>
+          <input type="tel" id="sec-phone" autocomplete="tel" class="w-full border border-slate-300 p-2.5 rounded-lg text-sm focus:outline-blue-600" placeholder="+91 98765 43210">
+        </div>
+
+        <div id="sec-panel-mfa-disable" style="display:none">
+          <p class="text-xs text-slate-500">Turning off SMS 2-step verification removes the extra sign-in code. Confirm with your password to continue.</p>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Current Password</label>
+          <input type="password" id="sec-password" autocomplete="current-password" class="w-full border border-slate-300 p-2.5 rounded-lg text-sm focus:outline-blue-600" placeholder="••••••••">
+        </div>
+
+        <div id="sec-otp-box" class="auth-box space-y-2" style="display:none">
+          <p id="sec-otp-text" class="text-xs text-slate-600 font-semibold"></p>
+          <input type="text" id="sec-otp-input" inputmode="numeric" autocomplete="one-time-code" maxlength="6" onkeydown="if(event.key==='Enter'){otpSubmit('sec');}" class="w-full border border-slate-300 p-2.5 rounded-lg focus:outline-blue-600 otp-input" placeholder="------">
+          <button type="button" onclick="otpSubmit('sec')" class="auth-btn-primary w-full" style="background:#059669">Confirm Code</button>
+        </div>
+
+        <button type="button" id="sec-submit" onclick="sec.submit()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl transition cursor-pointer border-0">Continue</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Invisible reCAPTCHA mount point (required by Firebase phone OTP) -->
+  <div id="recaptcha-holder"></div>
 
   <!-- INVOICE GENERATOR MODAL -->
   <div id="invoice-modal" class="modal-backdrop">
@@ -1886,7 +2108,6 @@
     const fbAuth = firebase.auth();
     const fbDb = firebase.firestore();
 
-    const DB_KEYS = { SESSION: 'nexabot_db_session' };
     let paypalInitialized = false;
 
     const PROJECT_STAGES = [
@@ -1958,11 +2179,8 @@
     // Cloud Firestore Async DB Handler
     const db = {
       saveUser: async (user) => {
-        try {
-          await fbDb.collection('users').doc(user.id).set(user);
-        } catch (e) {
-          console.error("Error saving user to Firestore:", e);
-        }
+        // Throws on failure so registration can roll back cleanly. No passwords are stored here.
+        await fbDb.collection('users').doc(user.id).set(user, { merge: true });
       },
       saveOrder: async (order) => {
         try {
@@ -2001,135 +2219,618 @@
       }
     };
 
-    // Global Auth Manager connected to Firestore with Expanded Registration
+    // ═══════════════════════════════════════════════════════════════
+    //  AUTH ENGINE — Firebase Authentication
+    //  Email/Password + Email verification + Phone SMS OTP + Password reset
+    //  + Email-address change + SMS Multi-factor (2-step) enrollment & sign-in
+    // ═══════════════════════════════════════════════════════════════
+    fbAuth.languageCode = 'en';
+
+    const el = (id) => document.getElementById(id);
+    const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    function show(id, on, display) { const n = el(id); if (n) n.style.display = on ? (display || 'block') : 'none'; }
+
+    // Firestore snapshot unsubscribers (prevents duplicate listeners)
+    let unsubClientOrders = null;
+    let unsubAdminOrders = null;
+
+    const DIAL_CODES = { US: '1', IN: '91', GB: '44', CA: '1', AU: '61', DE: '49', AE: '971', SG: '65' };
+
+    // Convert any typed number to E.164 (+<country><number>) or return null if invalid
+    function normalizePhone(raw, country) {
+      let s = String(raw || '').trim().replace(/[\s\-().]/g, '');
+      if (!s) return null;
+      if (s.indexOf('00') === 0) s = '+' + s.slice(2);
+      if (s.charAt(0) !== '+') {
+        const d = DIAL_CODES[country];
+        if (!d) return null;
+        s = s.replace(/\D/g, '');
+        if (s.indexOf(d) === 0 && s.length > 10) s = '+' + s;      // already contains country code
+        else s = '+' + d + s.replace(/^0+/, '');
+      }
+      return /^\+[1-9]\d{7,14}$/.test(s) ? s : null;
+    }
+
+    function authErrText(e) {
+      const c = (e && e.code) || '';
+      const map = {
+        'auth/email-already-in-use': 'This email is already registered. Please sign in instead (you can finish verification after signing in).',
+        'auth/invalid-email': 'Please enter a valid email address.',
+        'auth/weak-password': 'Password is too weak. Use at least 8 characters.',
+        'auth/password-does-not-meet-requirements': 'Password does not meet the security requirements. Use 8+ characters with upper & lower case letters and a number.',
+        'auth/user-not-found': 'Incorrect email or password. If you have not registered since our security upgrade, click "Register Now".',
+        'auth/wrong-password': 'Incorrect email or password.',
+        'auth/invalid-credential': 'Incorrect email or password. If you have not registered since our security upgrade, click "Register Now".',
+        'auth/invalid-login-credentials': 'Incorrect email or password. If you have not registered since our security upgrade, click "Register Now".',
+        'auth/user-disabled': 'This account has been disabled. Please contact support@nexabot.shop.',
+        'auth/too-many-requests': 'Too many attempts. Please wait a few minutes and try again.',
+        'auth/network-request-failed': 'Network error. Please check your internet connection and try again.',
+        'auth/invalid-phone-number': 'Invalid phone number. Include the country code, e.g. +91 98765 43210.',
+        'auth/missing-phone-number': 'Please enter your phone number.',
+        'auth/quota-exceeded': 'SMS limit reached for now. Please try again later or contact support.',
+        'auth/invalid-verification-code': 'Incorrect OTP code. Please check the SMS and try again.',
+        'auth/missing-verification-code': 'Please enter the 6-digit OTP code.',
+        'auth/code-expired': 'This OTP has expired. Please request a new one.',
+        'auth/session-expired': 'This OTP has expired. Please request a new one.',
+        'auth/credential-already-in-use': 'This phone number is already linked to another account.',
+        'auth/account-exists-with-different-credential': 'This phone number is already linked to another account.',
+        'auth/provider-already-linked': 'A phone number is already verified on this account.',
+        'auth/captcha-check-failed': 'Security check (reCAPTCHA) failed. Please refresh the page and try again.',
+        'auth/invalid-app-credential': 'Security check (reCAPTCHA) failed. Please refresh the page and try again.',
+        'auth/missing-app-credential': 'Security check (reCAPTCHA) failed. Please refresh the page and try again.',
+        'auth/unauthorized-domain': 'This domain is not authorised in Firebase. Add it under Authentication → Settings → Authorized domains.',
+        'auth/operation-not-allowed': 'This sign-in method is not enabled in Firebase yet.',
+        'auth/operation-not-supported-in-this-environment': 'Please open the website over https:// (not as a local file) to use phone OTP.',
+        'auth/requires-recent-login': 'For your security, please sign out, sign in again and retry.',
+        'auth/second-factor-already-in-use': 'This phone number is already used for 2-step verification.',
+        'auth/maximum-second-factor-count-exceeded': 'Maximum number of 2-step methods reached.',
+        'auth/unverified-email': 'Please verify your email address first.',
+        'auth/email-change-needs-verification': 'Please verify the new email address using the link we send you.',
+        'auth/unauthorized-continue-uri': 'This domain is not authorised in Firebase. Add it under Authentication → Settings → Authorized domains.',
+        'auth/user-token-expired': 'Your session expired. Please sign in again.',
+        'permission-denied': 'Database permission denied. Please check the Firestore security rules.',
+        'app/no-profile': 'Your account profile was not found. Please contact support@nexabot.shop.',
+        'app/wrong-portal': (e && e.actual === 'admin') ? 'This is an Admin account. Please use the Admin Portal tab.' : 'This account does not have admin access. Please use the Client Portal tab.'
+      };
+      return map[c] || ((e && e.message) ? String(e.message).replace(/^Firebase:\s*/, '') : 'Something went wrong. Please try again.');
+    }
+
+    function setMsg(prefix, text, type) {
+      const m = el(prefix + '-msg');
+      if (!m) return;
+      if (!text) { m.style.display = 'none'; m.textContent = ''; return; }
+      m.className = 'fx-msg ' + (type || 'info');
+      m.textContent = text;
+      m.style.display = 'block';
+    }
+
+    function setBusy(btn, busy, text) {
+      if (!btn) return;
+      if (busy) {
+        if (!btn.dataset.orig) btn.dataset.orig = btn.innerHTML;
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-1"></i> ' + (text || 'Please wait...');
+      } else {
+        btn.disabled = false;
+        if (btn.dataset.orig) { btn.innerHTML = btn.dataset.orig; delete btn.dataset.orig; }
+      }
+    }
+
+    function cooldown(btn, secs, label) {
+      if (!btn) return;
+      clearInterval(btn._cd);
+      let s = secs;
+      btn.disabled = true;
+      const tick = () => {
+        if (s <= 0) { clearInterval(btn._cd); btn.disabled = false; btn.textContent = label; return; }
+        btn.textContent = label + ' (' + s + 's)';
+        s--;
+      };
+      tick();
+      btn._cd = setInterval(tick, 1000);
+    }
+
+    // Fresh invisible reCAPTCHA for every SMS request (avoids "already rendered" errors)
+    function newRecaptcha() {
+      if (window._nexaRv) { try { window._nexaRv.clear(); } catch (_) {} window._nexaRv = null; }
+      const holder = el('recaptcha-holder');
+      holder.innerHTML = '<div id="recaptcha-box"></div>';
+      window._nexaRv = new firebase.auth.RecaptchaVerifier('recaptcha-box', { size: 'invisible' });
+      return window._nexaRv;
+    }
+
+    async function sendVerificationEmail(user) {
+      const settings = /^https?:$/.test(location.protocol) ? { url: location.origin + location.pathname } : null;
+      try {
+        if (settings) await user.sendEmailVerification(settings);
+        else await user.sendEmailVerification();
+      } catch (e) {
+        if (settings && /continue-uri/.test((e && e.code) || '')) await user.sendEmailVerification();
+        else throw e;
+      }
+    }
+
+    // Promise-based OTP prompt used inside the security modal
+    const otpWaiters = {};
+    function otpPrompt(prefix, text) {
+      return new Promise((resolve, reject) => {
+        el(prefix + '-otp-text').textContent = text;
+        const inp = el(prefix + '-otp-input');
+        inp.value = '';
+        show(prefix + '-otp-box', true);
+        inp.focus();
+        otpWaiters[prefix] = { resolve, reject };
+      });
+    }
+    function otpSubmit(prefix) {
+      const w = otpWaiters[prefix];
+      if (!w) return;
+      const code = el(prefix + '-otp-input').value.trim();
+      if (!/^\d{6}$/.test(code)) { setMsg(prefix, 'Please enter the 6-digit code.', 'error'); return; }
+      delete otpWaiters[prefix];
+      show(prefix + '-otp-box', false);
+      setMsg(prefix);
+      w.resolve(code);
+    }
+    function otpCancel(prefix) {
+      const w = otpWaiters[prefix];
+      if (w) { delete otpWaiters[prefix]; w.reject({ code: 'otp/cancelled' }); }
+      show(prefix + '-otp-box', false);
+    }
+
+    // Re-authenticate with password (and SMS code if 2-step is on) before sensitive actions
+    async function reauthUser(user, password) {
+      const cred = firebase.auth.EmailAuthProvider.credential(user.email, password);
+      try {
+        await user.reauthenticateWithCredential(cred);
+      } catch (err) {
+        if (err && err.code === 'auth/multi-factor-auth-required') {
+          const resolver = err.resolver;
+          const hint = resolver.hints[0];
+          const vid = await new firebase.auth.PhoneAuthProvider().verifyPhoneNumber({ multiFactorHint: hint, session: resolver.session }, newRecaptcha());
+          const code = await otpPrompt('sec', 'Enter the 6-digit code sent to ' + (hint.phoneNumber || 'your phone'));
+          const assertion = firebase.auth.PhoneMultiFactorGenerator.assertion(firebase.auth.PhoneAuthProvider.credential(vid, code));
+          await resolver.resolveSignIn(assertion);
+        } else {
+          throw err;
+        }
+      }
+    }
+
+    // Global Auth Manager
     const auth = {
-      currentUser: JSON.parse(localStorage.getItem(DB_KEYS.SESSION) || 'null'),
-      
+      currentUser: null,      // Firestore profile of the signed-in & fully verified user
+      inFlow: false,          // true while register / verify / MFA screens are active
+      verifyCtx: null,
+      smsConfirm: null,
+      mfa: null,
+      pollTimer: null,
+      refreshing: false,
+
+      showPanel: (name) => {
+        ['main', 'forgot', 'verify', 'mfa'].forEach((p) => show('auth-panel-' + p, p === name));
+        const titles = { forgot: 'Reset Password', verify: 'Verify Your Account', mfa: '2-Step Verification' };
+        if (name === 'main') auth.updateModalLabels(el('auth-mode').value, el('auth-role').value);
+        else el('auth-modal-title').innerText = titles[name];
+        setMsg('auth');
+      },
+
       toggleMode: () => {
-        const currentMode = document.getElementById('auth-mode').value;
-        const newMode = currentMode === 'login' ? 'register' : 'login';
-        document.getElementById('auth-mode').value = newMode;
-        
-        const role = document.getElementById('auth-role').value;
-        auth.updateModalLabels(newMode, role);
+        const newMode = el('auth-mode').value === 'login' ? 'register' : 'login';
+        el('auth-mode').value = newMode;
+        setMsg('auth');
+        auth.updateModalLabels(newMode, el('auth-role').value);
+      },
+
+      updatePhoneHint: () => {
+        const d = DIAL_CODES[el('auth-country').value];
+        el('auth-phone-hint').textContent = d
+          ? 'Country code +' + d + ' is added automatically. You can also type the full number starting with +.'
+          : 'Please type your full number starting with + and your country code.';
       },
 
       updateModalLabels: (mode, role) => {
-        const titleEl = document.getElementById('auth-modal-title');
-        const submitBtnEl = document.getElementById('auth-submit-btn');
-        const toggleTextEl = document.getElementById('auth-toggle-text');
-        const toggleBtnEl = document.getElementById('auth-toggle-btn');
-        const nameFieldEl = document.getElementById('auth-field-name');
-        const nameLabelEl = document.getElementById('auth-name-label');
-        const bizFieldEl = document.getElementById('auth-field-business');
-        const countryFieldEl = document.getElementById('auth-field-country');
-        const phoneFieldEl = document.getElementById('auth-field-phone');
-
-        if (mode === 'register') {
-          titleEl.innerText = role === 'admin' ? 'Register Admin Account' : 'Register Account';
-          submitBtnEl.innerText = 'Create Account';
-          toggleTextEl.innerText = 'Already have an account?';
-          toggleBtnEl.innerText = 'Sign In';
-          nameFieldEl.style.display = 'block';
-          bizFieldEl.style.display = 'block';
-          countryFieldEl.style.display = 'block';
-          phoneFieldEl.style.display = 'block';
-          nameLabelEl.innerText = role === 'admin' ? 'Admin Full Name' : 'Full Name';
-          document.getElementById('auth-name').required = true;
-        } else {
-          titleEl.innerText = role === 'admin' ? 'Admin Sign In' : 'Sign In';
-          submitBtnEl.innerText = 'Sign In';
-          toggleTextEl.innerText = "Don't have an account?";
-          toggleBtnEl.innerText = 'Register Now';
-          nameFieldEl.style.display = 'none';
-          bizFieldEl.style.display = 'none';
-          countryFieldEl.style.display = 'none';
-          phoneFieldEl.style.display = 'none';
-          document.getElementById('auth-name').required = false;
-        }
+        if (role === 'admin') { mode = 'login'; el('auth-mode').value = 'login'; }
+        const reg = mode === 'register';
+        el('auth-modal-title').innerText = reg ? 'Register Account' : (role === 'admin' ? 'Admin Sign In' : 'Sign In');
+        const submit = el('auth-submit-btn');
+        delete submit.dataset.orig;
+        submit.innerText = reg ? 'Create Account & Verify' : 'Sign In';
+        el('auth-toggle-text').innerText = reg ? 'Already have an account?' : "Don't have an account?";
+        el('auth-toggle-btn').innerText = reg ? 'Sign In' : 'Register Now';
+        show('auth-field-name', reg);
+        show('auth-field-business', reg);
+        show('auth-field-country', reg);
+        show('auth-field-phone', reg);
+        show('auth-reg-note', reg);
+        show('auth-forgot-row', !reg);
+        show('auth-admin-note', role === 'admin');
+        show('auth-toggle-box', role !== 'admin');
+        el('auth-password').setAttribute('autocomplete', reg ? 'new-password' : 'current-password');
+        if (reg) auth.updatePhoneHint();
       },
 
+      // ── Sign in / Register submit ──
       handleSubmit: async (e) => {
         e.preventDefault();
-        const role = document.getElementById('auth-role').value;
-        const mode = document.getElementById('auth-mode').value;
-        const email = document.getElementById('auth-email').value.trim().toLowerCase();
-        const password = document.getElementById('auth-password').value;
+        const role = el('auth-role').value;
+        const mode = role === 'admin' ? 'login' : el('auth-mode').value;
+        const email = el('auth-email').value.trim().toLowerCase();
+        const password = el('auth-password').value;
+        const btn = el('auth-submit-btn');
+        setMsg('auth');
 
         if (mode === 'register') {
-          const name = document.getElementById('auth-name').value.trim();
-          const businessName = document.getElementById('auth-business').value.trim();
-          const country = document.getElementById('auth-country').value;
-          const phone = document.getElementById('auth-phone').value.trim();
+          const name = el('auth-name').value.trim();
+          const businessName = el('auth-business').value.trim();
+          const country = el('auth-country').value || 'US';
+          const phone = normalizePhone(el('auth-phone').value, country);
 
-          if (!name) {
-            alert('Please enter your name.');
-            return;
-          }
-          const newUserId = 'usr_' + Date.now();
-          const newUser = { 
-            id: newUserId, 
-            name, 
-            email, 
-            password, 
-            role, 
-            businessName: businessName || 'N/A', 
-            country: country || 'US', 
-            phone: phone || 'N/A',
-            registeredAt: new Date().toISOString().split('T')[0]
-          };
-          
-          await db.saveUser(newUser);
-          auth.setCurrentUser(newUser);
-          alert(`Account created successfully as ${role.toUpperCase()}!`);
-          closeModal('auth-modal'); 
-          router.navigate('dashboard');
-        } else {
+          if (!name) { setMsg('auth', 'Please enter your full name.', 'error'); return; }
+          if (!phone) { setMsg('auth', 'Please enter a valid mobile number (with country code) — we will send an OTP to it.', 'error'); return; }
+          if (password.length < 8) { setMsg('auth', 'Password must be at least 8 characters.', 'error'); return; }
+
+          auth.inFlow = true;
+          setBusy(btn, true, 'Creating account...');
           try {
-            const snapshot = await fbDb.collection('users')
-              .where('email', '==', email)
-              .where('password', '==', password)
-              .where('role', '==', role)
-              .get();
-
-            if (!snapshot.empty) {
-              const user = snapshot.docs[0].data();
-              auth.setCurrentUser(user);
-              closeModal('auth-modal'); 
-              router.navigate('dashboard');
-            } else {
-              alert('Invalid email or password for selected portal. Please click "Register Now" to create your account first.');
+            const cred = await fbAuth.createUserWithEmailAndPassword(email, password);
+            const user = cred.user;
+            try { await user.updateProfile({ displayName: name }); } catch (_) {}
+            const profile = {
+              id: user.uid, name, email, role: 'client',
+              businessName: businessName || 'N/A', country, phone,
+              registeredAt: new Date().toISOString().split('T')[0],
+              emailVerified: false, phoneVerified: false
+            };
+            try {
+              await db.saveUser(profile);
+            } catch (dbErr) {
+              try { await user.delete(); } catch (_) {}
+              throw dbErr;
             }
+            let mailOk = true;
+            try { await sendVerificationEmail(user); } catch (mailErr) { mailOk = false; console.warn('Verification email failed:', mailErr); }
+            setBusy(btn, false);
+            auth.openVerify(user, profile, mailOk ? 'new' : 'new-nomail');
           } catch (err) {
-            console.error("Firestore auth error:", err);
-            alert("Database connection error. Please check network connection.");
+            auth.inFlow = false;
+            setBusy(btn, false);
+            setMsg('auth', authErrText(err), 'error');
           }
+          return;
+        }
+
+        // Sign in
+        auth.inFlow = true;
+        setBusy(btn, true, 'Signing in...');
+        try {
+          const cred = await fbAuth.signInWithEmailAndPassword(email, password);
+          await auth.afterSignIn(cred.user, role);
+        } catch (err) {
+          if (err && err.code === 'auth/multi-factor-auth-required') {
+            await auth.startMfaLogin(err.resolver, role);
+          } else {
+            auth.inFlow = false;
+            if (fbAuth.currentUser) { try { await fbAuth.signOut(); } catch (_) {} }
+            setMsg('auth', authErrText(err), 'error');
+          }
+        } finally {
+          setBusy(btn, false);
         }
       },
 
-      setCurrentUser: (user) => { 
-        auth.currentUser = user; 
-        localStorage.setItem(DB_KEYS.SESSION, JSON.stringify(user)); 
-        auth.updateUI(); 
+      // Runs after Firebase accepted the credentials (and the 2nd factor, if any)
+      afterSignIn: async (user, role) => {
+        const snap = await fbDb.collection('users').doc(user.uid).get();
+        if (!snap.exists) { await fbAuth.signOut(); throw { code: 'app/no-profile' }; }
+        const profile = snap.data();
+        if (profile.role !== role) { await fbAuth.signOut(); throw { code: 'app/wrong-portal', actual: profile.role }; }
+        if (role === 'client') {
+          try { await user.reload(); } catch (_) {}
+          if (!user.emailVerified || !user.phoneNumber) { auth.openVerify(user, profile, 'login'); return; }
+        }
+        await auth.completeLogin(user, profile, false);
       },
 
-      logout: () => { 
-        auth.currentUser = null; 
-        localStorage.removeItem(DB_KEYS.SESSION); 
-        auth.updateUI(); 
-        router.navigate('landing'); 
+      // Silent session restore on page load
+      restore: async (user) => {
+        try {
+          const snap = await fbDb.collection('users').doc(user.uid).get();
+          if (!snap.exists) { await fbAuth.signOut(); return; }
+          const profile = snap.data();
+          if (profile.role === 'client') {
+            try { await user.reload(); } catch (_) {}
+            if (!user.emailVerified || !user.phoneNumber) { auth.openVerify(user, profile, 'restore'); return; }
+          }
+          await auth.completeLogin(user, profile, true);
+        } catch (err) {
+          console.warn('Session restore skipped:', err);
+        }
+      },
+
+      completeLogin: async (user, profile, silent) => {
+        profile.id = user.uid;
+        const updates = {};
+        if (user.email && profile.email !== user.email) updates.email = user.email;
+        if (profile.role === 'client') {
+          if (profile.emailVerified !== true || profile.phoneVerified !== true) updates.verifiedAt = new Date().toISOString();
+          if (profile.emailVerified !== true) updates.emailVerified = true;
+          if (profile.phoneVerified !== true) updates.phoneVerified = true;
+          if (user.phoneNumber && profile.phone !== user.phoneNumber) updates.phone = user.phoneNumber;
+        }
+        if (Object.keys(updates).length) {
+          try {
+            await fbDb.collection('users').doc(user.uid).set(updates, { merge: true });
+            Object.assign(profile, updates);
+          } catch (err) { console.warn('Profile sync skipped:', err); }
+        }
+        try { await user.getIdToken(true); } catch (_) {}
+        auth.stopPoll();
+        auth.inFlow = false;
+        auth.setCurrentUser(profile);
+        if (!silent) {
+          closeModal('auth-modal');
+          router.navigate('dashboard');
+        }
+      },
+
+      // ── Verification screen (email link + phone OTP) ──
+      openVerify: (user, profile, mode) => {
+        auth.inFlow = true;
+        auth.verifyCtx = profile || {};
+        auth.smsConfirm = null;
+        el('auth-role').value = 'client';
+        openModal('auth-modal');
+        auth.showPanel('verify');
+        el('vf-email-text').textContent = user.email || '';
+        const stored = profile && /^\+/.test(profile.phone || '') ? profile.phone : '';
+        el('vf-phone').value = user.phoneNumber || stored;
+        el('vf-otp').value = '';
+        show('vf-otp-wrap', false);
+        auth.paintVerify(user);
+        if (mode === 'new') setMsg('auth', 'Account created! We sent a verification link to ' + user.email + '. Open it, then verify your mobile number below.', 'success');
+        else if (mode === 'new-nomail') setMsg('auth', 'Account created, but the verification email could not be sent. Tap "Resend email" below.', 'error');
+        else if (mode === 'restore') setMsg('auth', 'Please complete the verification below to activate your client account.', 'info');
+        else setMsg('auth', 'Your account is not fully verified yet. Please complete the steps below.', 'info');
+        auth.stopPoll();
+        auth.pollTimer = setInterval(() => auth.refreshVerify(false), 4000);
+      },
+
+      paintVerify: (user) => {
+        const emailOk = !!user.emailVerified;
+        const phoneOk = !!user.phoneNumber;
+        const eb = el('vf-email-badge');
+        eb.className = 'vbadge ' + (emailOk ? 'ok' : 'no');
+        eb.innerHTML = emailOk ? '<i class="fa-solid fa-circle-check"></i> Verified' : '<i class="fa-solid fa-clock"></i> Pending';
+        show('vf-email-actions', !emailOk);
+        const pb = el('vf-phone-badge');
+        pb.className = 'vbadge ' + (phoneOk ? 'ok' : 'no');
+        pb.innerHTML = phoneOk ? '<i class="fa-solid fa-circle-check"></i> Verified' : '<i class="fa-solid fa-clock"></i> Pending';
+        show('vf-phone-controls', !phoneOk);
+        const done = el('vf-phone-done');
+        if (phoneOk) { done.textContent = user.phoneNumber; done.style.display = 'block'; } else { done.style.display = 'none'; }
+      },
+
+      refreshVerify: async (manual) => {
+        const user = fbAuth.currentUser;
+        if (!user || auth.refreshing) return;
+        auth.refreshing = true;
+        try {
+          await user.reload();
+          auth.paintVerify(user);
+          if (user.emailVerified && user.phoneNumber) {
+            let profile = auth.verifyCtx || {};
+            try {
+              const snap = await fbDb.collection('users').doc(user.uid).get();
+              if (snap.exists) profile = snap.data();
+            } catch (_) {}
+            await auth.completeLogin(user, profile, false);
+          } else if (manual) {
+            if (!user.emailVerified) setMsg('auth', 'Your email is not verified yet. Open the link in the email we sent (check spam), then try again.', 'info');
+            else setMsg('auth', 'Your phone number is not verified yet. Send the OTP and enter the code.', 'info');
+          }
+        } catch (err) {
+          if (err && (err.code === 'auth/user-token-expired' || err.code === 'auth/user-disabled')) {
+            auth.stopPoll();
+            setMsg('auth', authErrText(err), 'error');
+          } else if (manual) {
+            setMsg('auth', authErrText(err), 'error');
+          }
+        } finally {
+          auth.refreshing = false;
+        }
+      },
+
+      stopPoll: () => { if (auth.pollTimer) { clearInterval(auth.pollTimer); auth.pollTimer = null; } },
+
+      resendEmail: async () => {
+        const user = fbAuth.currentUser;
+        if (!user) return;
+        const btn = el('vf-email-resend');
+        setBusy(btn, true, 'Sending...');
+        let ok = false;
+        try {
+          await sendVerificationEmail(user);
+          setMsg('auth', 'Verification email sent to ' + user.email + '. Please check your inbox and spam folder.', 'success');
+          ok = true;
+        } catch (err) {
+          setMsg('auth', authErrText(err), 'error');
+        } finally {
+          setBusy(btn, false);
+        }
+        if (ok) cooldown(btn, 30, 'Resend email');
+      },
+
+      sendPhoneOtp: async () => {
+        const user = fbAuth.currentUser;
+        if (!user) { setMsg('auth', 'Your session expired. Please sign in again.', 'error'); return; }
+        const country = (auth.verifyCtx && auth.verifyCtx.country) || 'OTHER';
+        const phone = normalizePhone(el('vf-phone').value, country);
+        if (!phone) { setMsg('auth', 'Please enter a valid mobile number including the country code, e.g. +91 98765 43210.', 'error'); return; }
+        el('vf-phone').value = phone;
+        const btn = el('vf-phone-send');
+        setBusy(btn, true, 'Sending OTP...');
+        let ok = false;
+        try {
+          auth.smsConfirm = await user.linkWithPhoneNumber(phone, newRecaptcha());
+          show('vf-otp-wrap', true);
+          el('vf-otp').value = '';
+          el('vf-otp').focus();
+          setMsg('auth', 'OTP sent to ' + phone + '. Enter the 6-digit code below.', 'success');
+          ok = true;
+        } catch (err) {
+          auth.smsConfirm = null;
+          setMsg('auth', authErrText(err), 'error');
+          if (err && err.code === 'auth/provider-already-linked') auth.refreshVerify(false);
+        } finally {
+          setBusy(btn, false);
+        }
+        if (ok) cooldown(btn, 30, 'Resend OTP');
+      },
+
+      verifyPhoneOtp: async () => {
+        if (!auth.smsConfirm) { setMsg('auth', 'Please tap "Send OTP via SMS" first.', 'error'); return; }
+        const code = el('vf-otp').value.trim();
+        if (!/^\d{6}$/.test(code)) { setMsg('auth', 'Please enter the 6-digit OTP code.', 'error'); return; }
+        const btn = el('vf-otp-verify');
+        setBusy(btn, true, 'Verifying...');
+        try {
+          await auth.smsConfirm.confirm(code);
+          auth.smsConfirm = null;
+          setMsg('auth', 'Phone number verified successfully!', 'success');
+          await auth.refreshVerify(false);
+        } catch (err) {
+          setMsg('auth', authErrText(err), 'error');
+        } finally {
+          setBusy(btn, false);
+        }
+      },
+
+      // ── Forgot / reset password ──
+      showForgot: () => {
+        auth.showPanel('forgot');
+        el('auth-forgot-email').value = el('auth-email').value.trim();
+      },
+
+      sendReset: async (e) => {
+        e.preventDefault();
+        const email = el('auth-forgot-email').value.trim().toLowerCase();
+        const btn = el('auth-forgot-btn');
+        setBusy(btn, true, 'Sending...');
+        let ok = false;
+        try {
+          await fbAuth.sendPasswordResetEmail(email);
+          ok = true;
+        } catch (err) {
+          if (err && err.code === 'auth/user-not-found') ok = true;   // do not reveal whether an email exists
+          else setMsg('auth', authErrText(err), 'error');
+        } finally {
+          setBusy(btn, false);
+        }
+        if (ok) {
+          setMsg('auth', 'If an account exists for ' + email + ', a password reset link has been sent. Please check your inbox and spam folder.', 'success');
+          cooldown(btn, 30, 'Send Reset Link');
+        }
+      },
+
+      sendResetFromDashboard: async () => {
+        const user = fbAuth.currentUser;
+        if (!user || !user.email) return;
+        try {
+          await fbAuth.sendPasswordResetEmail(user.email);
+          setMsg('security-card', 'Password reset link sent to ' + user.email + '. Check your inbox and spam folder.', 'success');
+        } catch (err) {
+          setMsg('security-card', authErrText(err), 'error');
+        }
+      },
+
+      // ── SMS 2-step: sign-in challenge ──
+      startMfaLogin: async (resolver, role) => {
+        auth.mfa = { resolver, role, verificationId: null };
+        auth.showPanel('mfa');
+        el('mfa-code').value = '';
+        const hint = resolver.hints.find((h) => h.factorId === 'phone') || resolver.hints[0];
+        auth.mfa.hint = hint;
+        el('mfa-text').textContent = 'Sending a 6-digit code to ' + (hint.phoneNumber || 'your registered phone') + '...';
+        try {
+          auth.mfa.verificationId = await new firebase.auth.PhoneAuthProvider().verifyPhoneNumber({ multiFactorHint: hint, session: resolver.session }, newRecaptcha());
+          el('mfa-text').textContent = 'Enter the 6-digit code we sent to ' + (hint.phoneNumber || 'your registered phone') + ' to finish signing in.';
+          cooldown(el('mfa-resend'), 30, 'Resend code');
+          el('mfa-code').focus();
+        } catch (err) {
+          el('mfa-text').textContent = 'We could not send the code. Tap "Resend code" to try again.';
+          setMsg('auth', authErrText(err), 'error');
+        }
+      },
+
+      mfaResend: async () => {
+        const m = auth.mfa;
+        if (!m) return;
+        setMsg('auth');
+        await auth.startMfaLogin(m.resolver, m.role);
+      },
+
+      mfaVerify: async () => {
+        const m = auth.mfa;
+        if (!m || !m.verificationId) { setMsg('auth', 'Please wait for the code, or tap "Resend code".', 'error'); return; }
+        const code = el('mfa-code').value.trim();
+        if (!/^\d{6}$/.test(code)) { setMsg('auth', 'Please enter the 6-digit code.', 'error'); return; }
+        const btn = el('mfa-verify-btn');
+        setBusy(btn, true, 'Verifying...');
+        let uc = null;
+        try {
+          const assertion = firebase.auth.PhoneMultiFactorGenerator.assertion(firebase.auth.PhoneAuthProvider.credential(m.verificationId, code));
+          uc = await m.resolver.resolveSignIn(assertion);
+        } catch (err) {
+          setMsg('auth', authErrText(err), 'error');
+          setBusy(btn, false);
+          return;
+        }
+        auth.mfa = null;
+        try {
+          await auth.afterSignIn(uc.user, m.role);
+        } catch (err) {
+          auth.inFlow = false;
+          if (fbAuth.currentUser) { try { await fbAuth.signOut(); } catch (_) {} }
+          auth.showPanel('main');
+          setMsg('auth', authErrText(err), 'error');
+        } finally {
+          setBusy(btn, false);
+        }
+      },
+
+      mfaBack: () => {
+        auth.mfa = null;
+        auth.inFlow = false;
+        auth.showPanel('main');
+      },
+
+      // ── Session state ──
+      setCurrentUser: (profile) => {
+        auth.currentUser = profile;
+        auth.updateUI();
+      },
+
+      logout: async () => {
+        auth.currentUser = null;
+        auth.inFlow = false;
+        if (unsubClientOrders) { unsubClientOrders(); unsubClientOrders = null; }
+        if (unsubAdminOrders) { unsubAdminOrders(); unsubAdminOrders = null; }
+        try { await fbAuth.signOut(); } catch (_) {}
+        auth.updateUI();
+        router.navigate('landing');
       },
 
       updateUI: () => {
-        const guest = document.getElementById('nav-guest-controls');
-        const user = document.getElementById('nav-user-controls');
+        const guest = el('nav-guest-controls');
+        const user = el('nav-user-controls');
         if (auth.currentUser) {
-          guest.classList.add('hidden'); 
+          guest.classList.add('hidden');
           user.classList.remove('hidden');
-          document.getElementById('user-display-name').innerText = auth.currentUser.name + ` (${auth.currentUser.role.toUpperCase()})`;
-        } else { 
-          guest.classList.remove('hidden'); 
-          user.classList.add('hidden'); 
+          el('user-display-name').innerText = auth.currentUser.name + ` (${String(auth.currentUser.role).toUpperCase()})`;
+        } else {
+          guest.classList.remove('hidden');
+          user.classList.add('hidden');
         }
       }
     };
@@ -2138,19 +2839,147 @@
       auth.logout();
     }
 
-    function openAuthModal(role) { 
-      switchAuthRole(role); 
-      openModal('auth-modal'); 
+    function openAuthModal(role, mode) {
+      if (auth.currentUser) { router.navigate('dashboard'); return; }
+      auth.inFlow = false;
+      el('auth-mode').value = (mode === 'register' && role !== 'admin') ? 'register' : 'login';
+      auth.showPanel('main');
+      switchAuthRole(role);
+      openModal('auth-modal');
+    }
+
+    function closeAuthModal() {
+      auth.stopPoll();
+      if (auth.inFlow && fbAuth.currentUser && !auth.currentUser) { fbAuth.signOut().catch(() => {}); }
+      auth.inFlow = false;
+      auth.mfa = null;
+      auth.smsConfirm = null;
+      closeModal('auth-modal');
     }
 
     function switchAuthRole(role) {
-      document.getElementById('auth-role').value = role;
-      document.getElementById('tab-auth-client').className = role === 'client' ? 'py-2 rounded-md cursor-pointer bg-white text-navy shadow-sm' : 'py-2 rounded-md cursor-pointer text-slate-500';
-      document.getElementById('tab-auth-admin').className = role === 'admin' ? 'py-2 rounded-md cursor-pointer bg-white text-navy shadow-sm' : 'py-2 rounded-md cursor-pointer text-slate-500';
-      
-      const mode = document.getElementById('auth-mode').value;
-      auth.updateModalLabels(mode, role);
+      el('auth-role').value = role;
+      el('tab-auth-client').className = role === 'client' ? 'py-2 rounded-md cursor-pointer bg-white text-navy shadow-sm' : 'py-2 rounded-md cursor-pointer text-slate-500';
+      el('tab-auth-admin').className = role === 'admin' ? 'py-2 rounded-md cursor-pointer bg-white text-navy shadow-sm' : 'py-2 rounded-md cursor-pointer text-slate-500';
+      setMsg('auth');
+      auth.updateModalLabels(el('auth-mode').value, role);
     }
+
+    // ═══════════ CLIENT DASHBOARD: ACCOUNT SECURITY ═══════════
+    function renderSecurityCard() {
+      const body = el('security-card-body');
+      const user = fbAuth.currentUser;
+      if (!body || !user) return;
+      const mfaOn = !!(user.multiFactor && user.multiFactor.enrolledFactors && user.multiFactor.enrolledFactors.length);
+      const ok = '<span class="vbadge ok"><i class="fa-solid fa-circle-check"></i> Verified</span>';
+      const no = '<span class="vbadge no"><i class="fa-solid fa-clock"></i> Not verified</span>';
+      const on = '<span class="vbadge ok"><i class="fa-solid fa-lock"></i> On</span>';
+      const off = '<span class="vbadge no"><i class="fa-solid fa-lock-open"></i> Off</span>';
+      const row = (icon, label, value, badge, action) => `
+        <div class="border rounded-xl p-3 flex items-center justify-between gap-3 bg-slate-50">
+          <div class="min-w-0">
+            <div class="font-bold text-navy text-xs flex items-center gap-1.5"><i class="${icon} text-blue-600"></i> ${label}</div>
+            <div class="text-slate-500 text-[11px] break-all mt-0.5">${value}</div>
+          </div>
+          <div class="flex items-center gap-2 flex-shrink-0 flex-wrap justify-end">${badge || ''}${action || ''}</div>
+        </div>`;
+      body.innerHTML =
+        row('fa-solid fa-envelope', 'Email Address', esc(user.email), user.emailVerified ? ok : no,
+          '<button type="button" class="auth-btn-sm" onclick="sec.open(\'email\')">Change</button>') +
+        row('fa-solid fa-mobile-screen-button', 'Mobile Number', esc(user.phoneNumber || 'Not linked'), user.phoneNumber ? ok : no, '') +
+        row('fa-solid fa-shield-halved', 'SMS 2-Step Verification',
+          mfaOn ? 'A code is texted to you at every sign-in.' : 'Add an extra layer of protection to your account.', mfaOn ? on : off,
+          mfaOn
+            ? '<button type="button" class="auth-btn-sm" onclick="sec.open(\'mfa-disable\')">Turn off</button>'
+            : '<button type="button" class="auth-btn-sm" onclick="sec.open(\'mfa-enroll\')">Enable</button>') +
+        row('fa-solid fa-key', 'Password', 'We email you a secure reset link.', '',
+          '<button type="button" class="auth-btn-sm" onclick="auth.sendResetFromDashboard()">Reset password</button>');
+    }
+
+    const sec = {
+      kind: null,
+
+      open: (kind) => {
+        const user = fbAuth.currentUser;
+        if (!user) return;
+        sec.kind = kind;
+        setMsg('sec');
+        el('sec-password').value = '';
+        el('sec-new-email').value = '';
+        el('sec-phone').value = user.phoneNumber || '';
+        show('sec-otp-box', false);
+        show('sec-panel-email', kind === 'email');
+        show('sec-panel-mfa-enroll', kind === 'mfa-enroll');
+        show('sec-panel-mfa-disable', kind === 'mfa-disable');
+        const titles = { 'email': 'Change Email Address', 'mfa-enroll': 'Enable SMS 2-Step Verification', 'mfa-disable': 'Turn Off 2-Step Verification' };
+        const labels = { 'email': 'Send Verification Link', 'mfa-enroll': 'Send Code & Enable', 'mfa-disable': 'Turn Off 2-Step' };
+        el('sec-title').textContent = titles[kind];
+        const btn = el('sec-submit');
+        delete btn.dataset.orig;
+        btn.textContent = labels[kind];
+        btn.disabled = false;
+        if (kind === 'mfa-enroll' && !user.emailVerified) setMsg('sec', 'Please verify your email address before enabling 2-step verification.', 'error');
+        openModal('modal-security');
+      },
+
+      close: () => {
+        otpCancel('sec');
+        closeModal('modal-security');
+      },
+
+      submit: async () => {
+        const user = fbAuth.currentUser;
+        if (!user) { setMsg('sec', 'Your session expired. Please sign in again.', 'error'); return; }
+        const password = el('sec-password').value;
+        if (!password) { setMsg('sec', 'Please enter your current password.', 'error'); return; }
+        const btn = el('sec-submit');
+        setMsg('sec');
+        setBusy(btn, true, 'Please wait...');
+        try {
+          if (sec.kind === 'email') {
+            const newEmail = el('sec-new-email').value.trim().toLowerCase();
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(newEmail)) throw { code: 'auth/invalid-email' };
+            if (newEmail === (user.email || '').toLowerCase()) throw { message: 'The new email is the same as your current email.' };
+            await reauthUser(user, password);
+            const settings = /^https?:$/.test(location.protocol) ? { url: location.origin + location.pathname } : null;
+            try {
+              if (settings) await user.verifyBeforeUpdateEmail(newEmail, settings);
+              else await user.verifyBeforeUpdateEmail(newEmail);
+            } catch (mailErr) {
+              if (settings && /continue-uri/.test((mailErr && mailErr.code) || '')) await user.verifyBeforeUpdateEmail(newEmail);
+              else throw mailErr;
+            }
+            el('sec-password').value = '';
+            setMsg('sec', 'Verification link sent to ' + newEmail + '. Click it to confirm — your login email changes after you confirm. A security notice was also sent to your current email.', 'success');
+            setMsg('security-card', 'Email change requested. Please confirm it using the link sent to ' + newEmail + '.', 'info');
+          } else if (sec.kind === 'mfa-enroll') {
+            if (!user.emailVerified) throw { code: 'auth/unverified-email' };
+            const phone = normalizePhone(el('sec-phone').value, (auth.currentUser && auth.currentUser.country) || 'OTHER');
+            if (!phone) throw { code: 'auth/invalid-phone-number' };
+            await reauthUser(user, password);
+            const session = await user.multiFactor.getSession();
+            const vid = await new firebase.auth.PhoneAuthProvider().verifyPhoneNumber({ phoneNumber: phone, session }, newRecaptcha());
+            const code = await otpPrompt('sec', 'Enter the 6-digit code sent to ' + phone);
+            const assertion = firebase.auth.PhoneMultiFactorGenerator.assertion(firebase.auth.PhoneAuthProvider.credential(vid, code));
+            await user.multiFactor.enroll(assertion, 'SMS ' + phone.slice(-4));
+            el('sec-password').value = '';
+            setMsg('sec', '2-step verification is now ON. A confirmation email has been sent to your inbox.', 'success');
+            renderSecurityCard();
+          } else if (sec.kind === 'mfa-disable') {
+            await reauthUser(user, password);
+            const factors = user.multiFactor.enrolledFactors || [];
+            for (const f of factors) { await user.multiFactor.unenroll(f); }
+            el('sec-password').value = '';
+            setMsg('sec', '2-step verification has been turned off.', 'success');
+            renderSecurityCard();
+          }
+        } catch (err) {
+          if (!(err && err.code === 'otp/cancelled')) setMsg('sec', authErrText(err), 'error');
+        } finally {
+          setBusy(btn, false);
+        }
+      }
+    };
 
     const router = {
       navigate: (viewName) => {
@@ -2338,7 +3167,9 @@
       if (!auth.currentUser) return;
       const container = document.getElementById('client-orders-container');
 
-      fbDb.collection('orders')
+      if (unsubClientOrders) { unsubClientOrders(); unsubClientOrders = null; }
+      renderSecurityCard();
+      unsubClientOrders = fbDb.collection('orders')
         .where('clientId', '==', auth.currentUser.id)
         .onSnapshot((snapshot) => {
           const orders = snapshot.docs.map(doc => doc.data());
@@ -2385,7 +3216,7 @@
               `;
             }).join('');
           }
-        });
+        }, (err) => { console.error('Orders listener error:', err); });
 
       if (!paypalInitialized) {
         setTimeout(() => {
@@ -2401,7 +3232,8 @@
 
     // Real-Time Firestore Listener for Admin Dashboard
     function renderAdminDashboard() {
-      fbDb.collection('orders').onSnapshot((snapshot) => {
+      if (unsubAdminOrders) { unsubAdminOrders(); unsubAdminOrders = null; }
+      unsubAdminOrders = fbDb.collection('orders').onSnapshot((snapshot) => {
         const orders = snapshot.docs.map(doc => doc.data());
 
         document.getElementById('stat-admin-orders').innerText = orders.length;
@@ -2431,7 +3263,7 @@
             </td>
           </tr>
         `).join('');
-      });
+      }, (err) => { console.error('Admin orders listener error:', err); });
     }
 
     function uploadInvoiceForOrder(orderId) {
@@ -2524,6 +3356,17 @@
         secs--;
       }, 1000);
     })();
+
+    // Keep the portal in sync with Firebase Auth (restores sessions, handles expiry)
+    fbAuth.onAuthStateChanged(async (user) => {
+      if (auth.inFlow) return;                       // register / verify / 2-step screens manage their own state
+      if (!user) {
+        if (auth.currentUser) { auth.currentUser = null; auth.updateUI(); router.navigate('landing'); }
+        return;
+      }
+      if (auth.currentUser && auth.currentUser.id === user.uid) return;
+      await auth.restore(user);
+    });
 
     auth.updateUI();
   </script>
