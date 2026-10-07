@@ -9,6 +9,13 @@
   <!-- Website Favicon & Logo Reference -->
   <link rel="icon" type="image/png" href="logos/nexabot-logo.png" />
 
+  <!-- TrustBox script -->
+  <script type="text/javascript" src="//widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js" async></script>
+  <!-- End TrustBox script -->
+
+  <!-- SheetJS & jsPDF for Admin Data Exporting -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
   <!-- PayPal SDK with Exact Client ID & Hosted-Buttons Component -->
   <script src="https://www.paypal.com/sdk/js?client-id=BAACylQi88Jo95HU3YkvcusJSZPGDH-XqBf0xP-4iIDjogJA7UB0Io-jVKjtepATI95Vp-gqzwr0dZYHdw&components=hosted-buttons&disable-funding=venmo&currency=USD" crossorigin="anonymous" async></script>
 
@@ -185,7 +192,7 @@
     .tblock .t { font-family: 'Poppins', sans-serif; font-size: 1.55rem; font-weight: 800; color: white; display: block; line-height: 1; }
     .tblock .u { font-size: .58rem; color: #fca5a5; text-transform: uppercase; display: block; margin-top: 2px; }
 
-    .hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 3rem; }
+    .hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 2.5rem; }
 
     .btn-action {
       background: linear-gradient(135deg, var(--blue), var(--elec)); color: white; font-weight: 700;
@@ -193,6 +200,18 @@
       cursor: pointer; border: none; transition: all 0.3s ease; box-shadow: 0 10px 25px rgba(37,99,235,0.4);
     }
     .btn-action:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(37,99,235,0.6); }
+
+    /* TRUSTPILOT WIDGET HERO CONTAINER */
+    .hero-trustpilot-wrapper {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(12px);
+      border-radius: 20px;
+      padding: 1rem 1.5rem;
+      margin: 0 auto 2.5rem;
+      max-width: 480px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
 
     .hero-stats { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 2rem; width: 100%; max-width: 800px; margin: 0 auto; }
     .hstat-n { font-family: 'Poppins', sans-serif; font-size: 1.8rem; font-weight: 900; color: white; }
@@ -296,7 +315,7 @@
 
     /* ─── FAQ ─── */
     .faq-item { border: 1px solid rgba(255,255,255,0.12); border-radius: 14px; margin-bottom: 1rem; overflow: hidden; background: rgba(255,255,255,0.02); }
-    .faq-q { padding: 1.2rem 1.5rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; color: white; font-weight: 600; font-size: 0.95rem; }
+    .faq-q { padding: 1.2rem 1.5rem; cursor: pointer; display: flex; justify-between: space-between; align-items: center; color: white; font-weight: 600; font-size: 0.95rem; }
     .faq-a { padding: 0 1.5rem 1.2rem; color: rgba(255,255,255,0.65); font-size: 0.88rem; line-height: 1.7; display: none; }
 
     /* ─── REDESIGNED INDUSTRY RECOGNITION & CERTIFICATION SECTION ─── */
@@ -649,6 +668,17 @@
             <button onclick="openModal('demo-modal')" class="bg-white/10 hover:bg-white/20 text-white font-bold px-8 py-3.5 rounded-full transition flex items-center gap-2 cursor-pointer border-0">
               <i class="fa-solid fa-calendar-days text-sky"></i> Schedule 1-on-1 Demo Call
             </button>
+          </div>
+
+          <!-- TRUSTPILOT EMBEDDED WIDGET IN HERO SECTION -->
+          <div class="hero-trustpilot-wrapper">
+            <!-- TrustBox widget - Review Collector -->
+            <div class="trustpilot-widget" data-locale="en-US" data-template-id="56278e9afbbba0bdcd568bc" data-businessunit-id="6ac510584da07db10f4f912d" data-style-height="52px" data-style-width="100%" data-token="c191d8db-05a6-4c07-ad48-09544afcd361">
+              <a href="https://www.trustpilot.com/review/nexabot.shop" target="_blank" rel="noopener" class="text-white text-xs font-bold flex items-center justify-center gap-2 hover:underline">
+                <i class="fa-solid fa-star text-emerald-400"></i> Review NexaBot on Trustpilot
+              </a>
+            </div>
+            <!-- End TrustBox widget -->
           </div>
 
           <div class="hero-stats">
@@ -1233,7 +1263,7 @@
         </div>
       </div>
 
-      <!-- REDESIGNED ACCOUNTS & PAYMENT DETAILS (FIXED BENEFICIARY & FIELD SMASHING LAYOUT) -->
+      <!-- REDESIGNED ACCOUNTS & PAYMENT DETAILS -->
       <div class="dash-card bg-slate-900 border border-slate-800 rounded-2xl p-6 text-white shadow-2xl relative overflow-hidden">
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800 pb-5 mb-6">
           <div>
@@ -1255,7 +1285,7 @@
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
           
-          <!-- 🇮🇳 KOTAK MAHINDRA BANK (INDIAN CLIENT DIRECT PAYMENT) -->
+          <!-- 🇮🇳 KOTAK MAHINDRA BANK -->
           <div class="bank-card-kotak">
             <div>
               <div class="flex items-center justify-between mb-3 border-b border-red-200/50 pb-2">
@@ -1464,6 +1494,59 @@
         <div class="dash-card"><div class="text-xs text-slate-400 font-bold uppercase">Gross Revenue</div><div id="stat-admin-revenue" class="text-3xl font-bold text-blue-600 mt-1">$0</div></div>
       </div>
 
+      <!-- EXPORT CLIENT DETAILS CONTROL PANEL (WORD / EXCEL / PDF) -->
+      <div class="dash-card bg-gradient-to-r from-slate-900 to-indigo-950 text-white border border-indigo-500/30">
+        <div class="flex items-center justify-between border-b border-slate-700 pb-3 mb-4">
+          <div>
+            <h3 class="font-bold text-white text-lg font-['Poppins'] flex items-center gap-2">
+              <i class="fa-solid fa-file-export text-sky"></i> Export Registered Client & Order Database
+            </h3>
+            <p class="text-xs text-slate-400">Download filtered client records into Word, Excel, or PDF formats based on selected dates and countries.</p>
+          </div>
+          <span class="bg-sky/20 border border-sky/40 text-sky text-[10px] font-bold px-3 py-1 rounded-full uppercase">Global Data Export</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4 text-xs">
+          <div>
+            <label class="block font-bold text-slate-300 mb-1">Start Date</label>
+            <input type="date" id="export-start-date" class="w-full border border-slate-700 bg-slate-800 text-white p-2.5 rounded-lg text-xs outline-none focus:border-sky">
+          </div>
+          <div>
+            <label class="block font-bold text-slate-300 mb-1">End Date</label>
+            <input type="date" id="export-end-date" class="w-full border border-slate-700 bg-slate-800 text-white p-2.5 rounded-lg text-xs outline-none focus:border-sky">
+          </div>
+          <div>
+            <label class="block font-bold text-slate-300 mb-1">Country Filter</label>
+            <select id="export-country" class="w-full border border-slate-700 bg-slate-800 text-white p-2.5 rounded-lg text-xs outline-none focus:border-sky">
+              <option value="ALL">All Countries / Worldwide</option>
+              <option value="US">🇺🇸 United States</option>
+              <option value="IN">🇮🇳 India</option>
+              <option value="GB">🇬🇧 United Kingdom</option>
+              <option value="CA">🇨🇦 Canada</option>
+              <option value="AU">🇦🇺 Australia</option>
+              <option value="DE">🇩🇪 Germany</option>
+              <option value="AE">🇦🇪 United Arab Emirates</option>
+              <option value="SG">🇸🇬 Singapore</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-bold text-slate-300 mb-1">Format</label>
+            <select id="export-format" class="w-full border border-slate-700 bg-slate-800 text-white p-2.5 rounded-lg text-xs outline-none focus:border-sky font-bold">
+              <option value="excel">Excel Sheet (.xlsx)</option>
+              <option value="csv">CSV Document (.csv)</option>
+              <option value="word">Word Document (.doc)</option>
+              <option value="pdf">PDF Report (.pdf)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="flex justify-end">
+          <button onclick="handleExportClientData()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-6 py-3 rounded-xl transition flex items-center gap-2 cursor-pointer border-0 shadow-lg shadow-emerald-600/30">
+            <i class="fa-solid fa-download"></i> Download Client Report Now
+          </button>
+        </div>
+      </div>
+
       <!-- DEDICATED ADMIN NOTICES MANAGEMENT PANEL -->
       <div class="dash-card border-red-200">
         <div class="flex items-center justify-between mb-4 border-b pb-3">
@@ -1585,9 +1668,9 @@
     </div>
   </div>
 
-  <!-- AUTH MODAL -->
+  <!-- AUTH MODAL WITH EXPANDED ONE REGISTRATION FORM -->
   <div id="auth-modal" class="modal-backdrop">
-    <div class="modal-box">
+    <div class="modal-box max-w-lg">
       <div class="flex justify-between items-center mb-4">
         <h3 id="auth-modal-title" class="text-xl font-bold text-navy font-['Poppins']">Sign In</h3>
         <button onclick="closeModal('auth-modal')" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark"></i></button>
@@ -1598,33 +1681,59 @@
         <div id="tab-auth-admin" onclick="switchAuthRole('admin')" class="py-2 rounded-md cursor-pointer text-slate-500">Admin Portal</div>
       </div>
 
-      <form id="auth-form" onsubmit="auth.handleSubmit(event)" class="space-y-4">
+      <form id="auth-form" onsubmit="auth.handleSubmit(event)" class="space-y-3">
         <input type="hidden" id="auth-role" value="client">
         <input type="hidden" id="auth-mode" value="login">
 
+        <!-- DETAILED REGISTRATION FIELDS -->
         <div id="auth-field-name" class="hidden">
           <label id="auth-name-label" class="block text-xs font-bold uppercase text-slate-500 mb-1">Full Name</label>
-          <input type="text" id="auth-name" class="w-full border border-slate-300 p-3 rounded-lg text-sm focus:outline-blue-600" placeholder="John Doe">
+          <input type="text" id="auth-name" class="w-full border border-slate-300 p-2.5 rounded-lg text-sm focus:outline-blue-600" placeholder="John Doe">
+        </div>
+
+        <div id="auth-field-business" class="hidden">
+          <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Business / Agency Name</label>
+          <input type="text" id="auth-business" class="w-full border border-slate-300 p-2.5 rounded-lg text-sm focus:outline-blue-600" placeholder="Acme Enterprises LLC">
+        </div>
+
+        <div id="auth-field-country" class="hidden">
+          <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Country / Region</label>
+          <select id="auth-country" class="w-full border border-slate-300 p-2.5 rounded-lg text-sm focus:outline-blue-600 bg-white">
+            <option value="US">🇺🇸 United States</option>
+            <option value="IN">🇮🇳 India</option>
+            <option value="GB">🇬🇧 United Kingdom</option>
+            <option value="CA">🇨🇦 Canada</option>
+            <option value="AU">🇦🇺 Australia</option>
+            <option value="DE">🇩🇪 Germany</option>
+            <option value="AE">🇦🇪 United Arab Emirates</option>
+            <option value="SG">🇸🇬 Singapore</option>
+            <option value="OTHER">🌍 Other Global Location</option>
+          </select>
+        </div>
+
+        <div id="auth-field-phone" class="hidden">
+          <label class="block text-xs font-bold uppercase text-slate-500 mb-1">WhatsApp / Phone Number</label>
+          <input type="text" id="auth-phone" class="w-full border border-slate-300 p-2.5 rounded-lg text-sm focus:outline-blue-600" placeholder="+1 (555) 000-1234">
         </div>
 
         <div>
           <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Email Address</label>
-          <input type="email" id="auth-email" required class="w-full border border-slate-300 p-3 rounded-lg text-sm focus:outline-blue-600" placeholder="user@company.com">
+          <input type="email" id="auth-email" required class="w-full border border-slate-300 p-2.5 rounded-lg text-sm focus:outline-blue-600" placeholder="user@company.com">
         </div>
 
         <div>
           <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Password</label>
-          <input type="password" id="auth-password" required class="w-full border border-slate-300 p-3 rounded-lg text-sm focus:outline-blue-600" placeholder="••••••••">
+          <input type="password" id="auth-password" required class="w-full border border-slate-300 p-2.5 rounded-lg text-sm focus:outline-blue-600" placeholder="••••••••">
         </div>
 
-        <button type="submit" id="auth-submit-btn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl transition">
+        <button type="submit" id="auth-submit-btn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl transition cursor-pointer mt-2">
           Sign In
         </button>
       </form>
 
       <div id="auth-toggle-box" class="text-center mt-4 text-xs text-slate-500">
         <span id="auth-toggle-text">Don't have an account?</span>
-        <button onclick="auth.toggleMode()" id="auth-toggle-btn" class="text-blue-600 font-bold ml-1 hover:underline">
+        <button onclick="auth.toggleMode()" id="auth-toggle-btn" class="text-blue-600 font-bold ml-1 hover:underline cursor-pointer border-0 bg-transparent">
           Register Now
         </button>
       </div>
@@ -1892,7 +2001,7 @@
       }
     };
 
-    // Global Auth Manager connected to Firestore
+    // Global Auth Manager connected to Firestore with Expanded Registration
     const auth = {
       currentUser: JSON.parse(localStorage.getItem(DB_KEYS.SESSION) || 'null'),
       
@@ -1912,6 +2021,9 @@
         const toggleBtnEl = document.getElementById('auth-toggle-btn');
         const nameFieldEl = document.getElementById('auth-field-name');
         const nameLabelEl = document.getElementById('auth-name-label');
+        const bizFieldEl = document.getElementById('auth-field-business');
+        const countryFieldEl = document.getElementById('auth-field-country');
+        const phoneFieldEl = document.getElementById('auth-field-phone');
 
         if (mode === 'register') {
           titleEl.innerText = role === 'admin' ? 'Register Admin Account' : 'Register Account';
@@ -1919,6 +2031,9 @@
           toggleTextEl.innerText = 'Already have an account?';
           toggleBtnEl.innerText = 'Sign In';
           nameFieldEl.style.display = 'block';
+          bizFieldEl.style.display = 'block';
+          countryFieldEl.style.display = 'block';
+          phoneFieldEl.style.display = 'block';
           nameLabelEl.innerText = role === 'admin' ? 'Admin Full Name' : 'Full Name';
           document.getElementById('auth-name').required = true;
         } else {
@@ -1927,6 +2042,9 @@
           toggleTextEl.innerText = "Don't have an account?";
           toggleBtnEl.innerText = 'Register Now';
           nameFieldEl.style.display = 'none';
+          bizFieldEl.style.display = 'none';
+          countryFieldEl.style.display = 'none';
+          phoneFieldEl.style.display = 'none';
           document.getElementById('auth-name').required = false;
         }
       },
@@ -1940,12 +2058,26 @@
 
         if (mode === 'register') {
           const name = document.getElementById('auth-name').value.trim();
+          const businessName = document.getElementById('auth-business').value.trim();
+          const country = document.getElementById('auth-country').value;
+          const phone = document.getElementById('auth-phone').value.trim();
+
           if (!name) {
             alert('Please enter your name.');
             return;
           }
           const newUserId = 'usr_' + Date.now();
-          const newUser = { id: newUserId, name, email, password, role };
+          const newUser = { 
+            id: newUserId, 
+            name, 
+            email, 
+            password, 
+            role, 
+            businessName: businessName || 'N/A', 
+            country: country || 'US', 
+            phone: phone || 'N/A',
+            registeredAt: new Date().toISOString().split('T')[0]
+          };
           
           await db.saveUser(newUser);
           auth.setCurrentUser(newUser);
@@ -2131,6 +2263,73 @@
     async function handleDeleteOrder(orderId) {
       if (confirm(`Are you sure you want to delete order ${orderId}? This action cannot be undone.`)) {
         await db.deleteOrder(orderId);
+      }
+    }
+
+    // EXPORT CLIENT DATA HANDLER (WORD / EXCEL / CSV / PDF)
+    async function handleExportClientData() {
+      const startDate = document.getElementById('export-start-date').value;
+      const endDate = document.getElementById('export-end-date').value;
+      const countryFilter = document.getElementById('export-country').value;
+      const format = document.getElementById('export-format').value;
+
+      try {
+        let usersSnapshot = await fbDb.collection('users').where('role', '==', 'client').get();
+        let clients = usersSnapshot.docs.map(d => d.data());
+
+        // Apply Country Filter
+        if (countryFilter !== 'ALL') {
+          clients = clients.filter(c => (c.country || 'US') === countryFilter);
+        }
+
+        // Apply Date Filter
+        if (startDate) {
+          clients = clients.filter(c => (c.registeredAt || '2026-10-01') >= startDate);
+        }
+        if (endDate) {
+          clients = clients.filter(c => (c.registeredAt || '2026-10-01') <= endDate);
+        }
+
+        if (clients.length === 0) {
+          alert('No client records matched the selected date and country criteria.');
+          return;
+        }
+
+        const formattedData = clients.map(c => ({
+          'User ID': c.id,
+          'Full Name': c.name,
+          'Business Name': c.businessName || 'N/A',
+          'Email Address': c.email,
+          'Phone / WhatsApp': c.phone || 'N/A',
+          'Country': c.country || 'US',
+          'Registration Date': c.registeredAt || '2026-10-01'
+        }));
+
+        const fileName = `NexaBot_Client_Database_${new Date().toISOString().split('T')[0]}`;
+
+        if (format === 'excel' || format === 'csv') {
+          const worksheet = XLSX.utils.json_to_sheet(formattedData);
+          const workbook = XLSX.utils.book_new();
+          XLSX.utils.book_append_sheet(workbook, worksheet, "Clients");
+          XLSX.writeFile(workbook, `${fileName}.${format === 'excel' ? 'xlsx' : 'csv'}`);
+        } else if (format === 'word') {
+          let htmlContent = `<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><title>Client Export</title><style>table{border-collapse:collapse;width:100%;}th,td{border:1px solid #ccc;padding:8px;font-family:Arial;font-size:10pt;}th{background:#0A2472;color:#fff;}</style></head><body><h2>NexaBot Client Database Export</h2><table><tr><th>User ID</th><th>Full Name</th><th>Business Name</th><th>Email</th><th>Phone</th><th>Country</th><th>Reg Date</th></tr>`;
+          clients.forEach(c => {
+            htmlContent += `<tr><td>${c.id}</td><td>${c.name}</td><td>${c.businessName||'N/A'}</td><td>${c.email}</td><td>${c.phone||'N/A'}</td><td>${c.country||'US'}</td><td>${c.registeredAt||'2026-10-01'}</td></tr>`;
+          });
+          htmlContent += `</table></body></html>`;
+          const blob = new Blob(['\ufeff', htmlContent], { type: 'application/msword' });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = `${fileName}.doc`;
+          a.click();
+        } else if (format === 'pdf') {
+          window.print();
+        }
+      } catch (e) {
+        console.error("Export failed:", e);
+        alert("Failed to export data: " + e.message);
       }
     }
 
