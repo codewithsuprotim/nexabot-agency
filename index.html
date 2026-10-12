@@ -35,17 +35,53 @@ a{text-decoration:none;color:inherit}img{max-width:100%;display:block}button{fon
 .glow{transition:.25s}.glow:hover{box-shadow:0 0 25px rgba(0,245,255,.25);border-color:rgba(0,245,255,.5)}
 .h-font{font-family:'Poppins',sans-serif}
 .grad{background:linear-gradient(110deg,var(--cyan),var(--violet) 60%,var(--mag));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-@keyframes rise{0%{transform:translateY(0);opacity:0}50%{opacity:.7}100%{transform:translateY(-110vh);opacity:0}}
+
+/* Dynamic Floating Particle Canvas Keyframes */
+@keyframes riseUpStream{
+  0%{transform:translateY(0) scale(0.8);opacity:0}
+  20%{opacity:0.8}
+  80%{opacity:0.8}
+  100%{transform:translateY(-110vh) scale(1.2);opacity:0}
+}
+.particle{position:absolute;bottom:-20px;border-radius:50%;background:rgba(0,245,255,.6);box-shadow:0 0 10px var(--cyan);animation:riseUpStream linear infinite;pointer-events:none}
+
+/* Our Valuable Clients Continuous Rotation Right to Left */
+@keyframes rotateR2L{
+  0%{transform:rotate(0deg)}
+  100%{transform:rotate(-360deg)}
+}
+.rotate-slow-r2l{animation:rotateR2L 28s linear infinite;display:inline-block;transform-origin:center}
+
+/* Shimmering Neon Glow & Pulse Animations for Promo Badges */
+@keyframes pulseGlow{
+  0%,100%{box-shadow:0 0 12px rgba(255,0,122,.4),0 0 25px rgba(0,245,255,.2);border-color:rgba(255,0,122,.7)}
+  50%{box-shadow:0 0 28px rgba(255,0,122,.8),0 0 45px rgba(0,245,255,.5);border-color:rgba(0,245,255,.9)}
+}
+.shimmer-badge{animation:pulseGlow 2.8s ease-in-out infinite}
+
+/* Dynamic CTAs & Hero Stat Glow Hover */
+.btn-p-glow,.btn-g-glow{transition:all .3s ease}
+.btn-p-glow:hover,.btn-g-glow:hover{box-shadow:0 0 25px rgba(37,99,235,0.6)!important;transform:translateY(-2px)}
+.stat-card-glow{transition:all .3s ease}
+.stat-card-glow:hover{transform:translateY(-4px);box-shadow:0 0 25px rgba(0,245,255,.3);border-color:rgba(0,245,255,.5)}
+
+/* Trustpilot Container Sparkle Star Keyframes */
+@keyframes starSparkle{
+  0%,100%{transform:scale(1) rotate(0deg);filter:drop-shadow(0 0 2px #00B67A)}
+  50%{transform:scale(1.25) rotate(15deg);filter:drop-shadow(0 0 12px #00B67A)}
+}
+.sparkle-star{animation:starSparkle 2s ease-in-out infinite;display:inline-block}
+
 @keyframes marq{to{transform:translateX(-50%)}}
-@keyframes pulse2{0%,100%{box-shadow:0 0 0 0 rgba(0,245,255,.45)}50%{box-shadow:0 0 0 10px rgba(0,245,255,0)}}
 @keyframes bell{0%,100%{transform:rotate(0)}20%{transform:rotate(14deg)}40%{transform:rotate(-12deg)}60%{transform:rotate(8deg)}}
 @keyframes flt{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-.particle{position:absolute;bottom:-20px;border-radius:50%;background:rgba(0,245,255,.5);box-shadow:0 0 10px var(--cyan);animation:rise linear infinite}
 .bell{animation:bell 2.2s ease-in-out infinite;display:inline-block}.float{animation:flt 4s ease-in-out infinite}
+
 #banner{background:linear-gradient(90deg,#1e1b4b,#3b0a3f);border-bottom:1px solid rgba(245,158,11,.35);padding:.6rem 1rem;font-size:.82rem;cursor:pointer;position:relative;z-index:1001;overflow:hidden;white-space:nowrap}
 #banner-track{display:inline-block;padding-left:100%;animation:bannerScroll 30s linear infinite}
 @keyframes bannerScroll{to{transform:translateX(-100%)}}
 #banner:hover #banner-track{animation-play-state:paused}
+
 #nav{position:sticky;top:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.8rem 4%;background:rgba(3,7,18,.88);backdrop-filter:blur(20px);border-bottom:1px solid var(--bd)}
 .nav-links{display:flex;gap:1.5rem;list-style:none}
 .nav-links a{font-size:.85rem;font-weight:500;color:#cbd5e1;transition:.2s}.nav-links a:hover{color:var(--cyan)}
@@ -55,8 +91,8 @@ a{text-decoration:none;color:inherit}img{max-width:100%;display:block}button{fon
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:700;font-size:.85rem;padding:.7rem 1.4rem;border-radius:50px;border:0;cursor:pointer;transition:.25s;color:#fff}
 .btn:disabled{opacity:.55;cursor:not-allowed}
 .btn-p{background:linear-gradient(135deg,var(--violet),#2563EB 55%,var(--cyan));box-shadow:0 8px 25px rgba(139,92,246,.4);color:#031018}
-.btn-p:hover:not(:disabled){transform:translateY(-3px);box-shadow:0 12px 32px rgba(0,245,255,.4)}
-.btn-g{background:rgba(255,255,255,.08);border:1px solid var(--bd)}.btn-g:hover{background:rgba(255,255,255,.16)}
+.btn-p:hover:not(:disabled){transform:translateY(-3px);box-shadow:0 0 25px rgba(37,99,235,0.6)}
+.btn-g{background:rgba(255,255,255,.08);border:1px solid var(--bd)}.btn-g:hover{background:rgba(255,255,255,.16);box-shadow:0 0 25px rgba(37,99,235,0.6)}
 .btn-r{background:rgba(255,0,122,.15);border:1px solid rgba(255,0,122,.4);color:#fda4c8}
 .btn-ok{background:rgba(16,185,129,.18);border:1px solid rgba(16,185,129,.45);color:#6ee7b7}
 .btn-sm{font-size:.72rem;padding:.45rem .9rem}
@@ -67,8 +103,11 @@ a{text-decoration:none;color:inherit}img{max-width:100%;display:block}button{fon
 .badge{display:inline-flex;align-items:center;gap:8px;padding:.4rem 1.1rem;border-radius:50px;border:1px solid rgba(0,245,255,.35);background:rgba(0,245,255,.07);color:#7ff8ff;font-size:.8rem;font-weight:600;margin-bottom:1.6rem}
 .badge i.d{width:8px;height:8px;border-radius:50%;background:var(--em);box-shadow:0 0 10px var(--em)}
 .hero-h1{font:900 clamp(2.5rem,6vw,4.7rem)/1.08 'Poppins';color:#fff;margin-bottom:1.3rem}
-.tblock{background:rgba(255,0,122,.22);border:1px solid rgba(255,0,122,.4);border-radius:10px;padding:5px 12px;min-width:56px;text-align:center}
-.tblock b{display:block;font:800 1.5rem/1 'Poppins';color:#fff}.tblock small{font-size:.58rem;color:#fda4c8;text-transform:uppercase}
+
+/* Glowing Translucent Live Countdown Timer Block Cards */
+.tblock{background:rgba(255,0,122,.18);border:1px solid rgba(255,0,122,.45);backdrop-filter:blur(10px);border-radius:12px;padding:6px 14px;min-width:64px;text-align:center;box-shadow:0 0 15px rgba(255,0,122,.2)}
+.tblock b{display:block;font:800 1.6rem/1 'Poppins';color:#fff;text-shadow:0 0 8px rgba(255,255,255,.6)}.tblock small{font-size:.6rem;color:#fda4c8;text-transform:uppercase;font-weight:700}
+
 .stat b{display:block;font:900 1.7rem 'Poppins';color:#fff}.stat span{font-size:.7rem;color:var(--mut);text-transform:uppercase}
 section.s{padding:85px 5%}
 .sec-t{font:800 clamp(1.9rem,4vw,2.9rem) 'Poppins';color:#fff;text-align:center;margin-top:.4rem}
@@ -93,7 +132,7 @@ section.s{padding:85px 5%}
 .pill.hi{background:rgba(255,0,122,.15);color:#fda4c8;border:1px solid rgba(255,0,122,.4)}
 .pill.lo{background:rgba(148,163,184,.15);color:#cbd5e1;border:1px solid rgba(148,163,184,.3)}
 .pricing{max-width:1000px;margin:0 auto;padding:2.5rem;position:relative}
-.stamp{position:absolute;top:-15px;right:24px;background:linear-gradient(135deg,var(--violet),var(--mag));color:#fff;font:700 .72rem 'Space Grotesk';letter-spacing:.06em;text-transform:uppercase;padding:6px 16px;border-radius:30px;animation:pulse2 2.4s infinite}
+.stamp{position:absolute;top:-15px;right:24px;background:linear-gradient(135deg,var(--violet),var(--mag));color:#fff;font:700 .72rem 'Space Grotesk';letter-spacing:.06em;text-transform:uppercase;padding:6px 16px;border-radius:30px;animation:pulseGlow 2.8s ease-in-out infinite}
 .calc-row{display:flex;align-items:center;gap:.55rem;padding:.5rem .65rem;border:1px solid var(--bd);border-radius:12px;background:rgba(255,255,255,.03);cursor:pointer;font-size:.78rem;transition:.2s}
 .calc-row:hover{border-color:var(--cyan)}.calc-row input{accent-color:#00F5FF;width:16px;height:16px;flex-shrink:0}
 .calc-row.lock{opacity:.65;cursor:default}
@@ -175,7 +214,7 @@ table.dt{width:100%;font-size:.8rem;text-align:left;border-collapse:collapse}
 <body class="mesh">
 
 <div id="banner" onclick="openModal('notice-modal')">
-  <span class="bell" style="color:var(--amber)"><i class="fa-solid fa-bell"></i></span>
+  <span class="bell animate-bounce" style="color:var(--amber)"><i class="fa-solid fa-bullhorn"></i></span>
   <strong style="color:var(--amber)"> Official Notices:</strong>
   <span id="banner-track">Loading announcements…</span>
 </div>
@@ -198,13 +237,13 @@ table.dt{width:100%;font-size:.8rem;text-align:left;border-collapse:collapse}
   </ul>
   <div class="flex items-center gap-2 flex-wrap justify-end">
     <div id="nav-guest" class="flex items-center gap-2 flex-wrap">
-      <button class="btn btn-g btn-sm" onclick="openModal('demo-modal')"><i class="fa-solid fa-calendar-check" style="color:var(--cyan)"></i> Book Demo</button>
-      <button class="btn btn-g btn-sm" onclick="openAuth('client')"><i class="fa-solid fa-user"></i> Client Portal</button>
+      <button class="btn btn-g btn-sm btn-g-glow" onclick="openModal('demo-modal')"><i class="fa-solid fa-calendar-check" style="color:var(--cyan)"></i> Book Demo</button>
+      <button class="btn btn-g btn-sm btn-g-glow" onclick="openAuth('client')"><i class="fa-solid fa-user"></i> Client Portal</button>
       <button class="btn btn-r btn-sm" onclick="openAuth('admin')"><i class="fa-solid fa-shield-halved"></i> Admin</button>
     </div>
     <div id="nav-user" class="hidden flex items-center gap-2 flex-wrap">
       <span id="user-name" class="text-sm font-medium text-white"></span>
-      <button class="btn btn-g btn-sm" onclick="router.navigate('dashboard')">Dashboard</button>
+      <button class="btn btn-g btn-sm btn-g-glow" onclick="router.navigate('dashboard')">Dashboard</button>
       <button class="btn btn-r btn-sm" onclick="auth.logout()"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
     </div>
   </div>
@@ -222,8 +261,11 @@ table.dt{width:100%;font-size:.8rem;text-align:left;border-collapse:collapse}
     <p style="font-size:1.1rem;line-height:1.8;color:#cbd5e1;max-width:720px;margin:0 auto 2rem">
       Your AI chatbot answers every customer 24/7 on <strong class="text-white">WhatsApp Business</strong> and <strong class="text-white">Facebook Messenger</strong>, powered by <strong class="text-white">Google Gemini</strong>. Setup from just <strong style="color:var(--cyan)">$999 promo</strong> + <strong style="color:var(--cyan)">$149/mo</strong> maintenance.
     </p>
-    <div class="glass inline-flex flex-wrap items-center justify-center gap-4 px-6 py-4 mb-8" style="border-color:rgba(255,0,122,.35)">
-      <span style="color:#fda4c8;font-size:.78rem;font-weight:700;text-transform:uppercase"><i class="fa-solid fa-fire"></i> $100 OFF Promo Ends In</span>
+    
+    <!-- Shimmering Neon Glow Promo Badge -->
+    <div class="glass shimmer-badge inline-flex flex-wrap items-center justify-center gap-4 px-6 py-4 mb-8" style="border-color:rgba(255,0,122,.5)">
+      <span style="color:#fda4c8;font-size:.82rem;font-weight:700;text-transform:uppercase"><i class="fa-solid fa-fire"></i> $100 OFF Promo Ends In</span>
+      <!-- Live Countdown Timer -->
       <div class="flex items-center gap-2">
         <div class="tblock"><b id="td">00</b><small>Days</small></div><b class="text-white">:</b>
         <div class="tblock"><b id="th">00</b><small>Hrs</small></div><b class="text-white">:</b>
@@ -231,29 +273,40 @@ table.dt{width:100%;font-size:.8rem;text-align:left;border-collapse:collapse}
         <div class="tblock"><b id="ts">00</b><small>Sec</small></div>
       </div>
     </div>
-    <div class="flex flex-wrap gap-3 justify-center mb-8">
-      <button class="btn btn-p" onclick="openAuth('client','register')"><i class="fa-solid fa-rocket"></i> Register & Get My Chatbot ($999 Promo)</button>
-      <button class="btn btn-g" onclick="openModal('demo-modal')"><i class="fa-solid fa-calendar-days" style="color:var(--cyan)"></i> Schedule 1-on-1 Demo</button>
+
+    <!-- Dynamic CTA Buttons -->
+    <div class="flex flex-wrap gap-3 justify-center mb-6">
+      <button class="btn btn-p btn-p-glow" onclick="openAuth('client','register')"><i class="fa-solid fa-rocket"></i> Register & Get My Chatbot ($999 Promo)</button>
+      <button class="btn btn-g btn-g-glow" onclick="openModal('demo-modal')"><i class="fa-solid fa-calendar-days" style="color:var(--cyan)"></i> Schedule 1-on-1 Demo Call</button>
     </div>
+
+    <!-- Animated "Review us on Trustpilot" Section -->
     <div class="mb-8" style="max-width:420px;margin-inline:auto">
       <div class="trustpilot-widget" data-locale="en-US" data-template-id="56278e9abfbbba0bdcd568bc" data-businessunit-id="" data-style-height="52px" data-style-width="100%" data-theme="dark">
-        <a href="https://www.trustpilot.com/review/nexabot.shop" target="_blank" rel="noopener" class="glass glow flex items-center justify-center gap-3 px-5 py-3" style="border-color:rgba(0,182,122,.55)">
-          <i class="fa-solid fa-star" style="color:#00B67A"></i><span class="h-font font-bold text-white">Review us on Trustpilot</span>
-          <span class="btn btn-sm" style="background:#00B67A;color:#032B20">Write a Review <i class="fa-solid fa-arrow-right"></i></span>
+        <a href="https://www.trustpilot.com/review/nexabot.shop" target="_blank" rel="noopener" class="glass glow flex items-center justify-center gap-3 px-5 py-3 transition-transform hover:-translate-y-1" style="border-color:rgba(0,182,122,.55);background:rgba(15,23,42,.75)">
+          <i class="fa-solid fa-star sparkle-star" style="color:#00B67A;font-size:1.2rem"></i>
+          <span class="h-font font-bold text-white">Review us on Trustpilot</span>
+          <span class="btn btn-sm" style="background:#00B67A;color:#032B20;font-weight:800">Write a Review <i class="fa-solid fa-arrow-right"></i></span>
         </a>
       </div>
     </div>
-    <div class="flex flex-wrap justify-center gap-8 pt-6" style="border-top:1px solid var(--bd)">
-      <div class="stat"><b>1000+</b><span>Bots Deployed</span></div>
-      <div class="stat"><b>48hr</b><span>Delivery SLA</span></div>
-      <div class="stat"><b>4.9★</b><span>Client Rating</span></div>
-      <div class="stat"><b>40+</b><span>Integrations</span></div>
+
+    <!-- Hero Stat Counters -->
+    <div class="flex flex-wrap justify-center gap-6 pt-6" style="border-top:1px solid var(--bd)">
+      <div class="stat glass stat-card-glow px-5 py-3 rounded-xl"><b class="h-font">1000+</b><span>Bots Deployed</span></div>
+      <div class="stat glass stat-card-glow px-5 py-3 rounded-xl"><b class="h-font">48hr</b><span>Delivery SLA</span></div>
+      <div class="stat glass stat-card-glow px-5 py-3 rounded-xl"><b class="h-font">4.9★</b><span>Client Rating</span></div>
+      <div class="stat glass stat-card-glow px-5 py-3 rounded-xl"><b class="h-font">40+</b><span>Integrations</span></div>
     </div>
   </div>
 </section>
 
 <div id="partners">
-  <p class="text-center text-xs font-bold text-slate-500 uppercase tracking-widest mb-6">Our Valuable Clients</p>
+  <div class="flex items-center justify-center gap-2 mb-6">
+    <!-- Rotating Logo Right to Left -->
+    <img src="logos/nexabot-logo.png" alt="" class="rotate-slow-r2l" style="height:24px;width:24px;" onerror="this.style.display='none'">
+    <p class="text-center text-xs font-bold text-slate-500 uppercase tracking-widest m-0">Our Valuable Clients</p>
+  </div>
   <div class="mq" id="partner-track"></div>
 </div>
 
@@ -281,7 +334,7 @@ table.dt{width:100%;font-size:.8rem;text-align:left;border-collapse:collapse}
 <section class="s" id="pricing" style="background:linear-gradient(180deg,transparent,rgba(139,92,246,.07),transparent)">
   <div class="sec-h"><span class="eyebrow">Transparent Pricing</span><h2 class="sec-t">Build Your <span class="grad">Custom Package</span></h2></div>
   <div class="glass pricing">
-    <div class="stamp"><i class="fa-solid fa-bolt"></i> $100 Instant Discount</div>
+    <div class="stamp shimmer-badge"><i class="fa-solid fa-bolt"></i> $100 Instant Discount</div>
     <div class="grid md:grid-cols-2 gap-6 mb-6">
       <div>
         <div class="eyebrow" style="text-align:left">Base Package</div>
@@ -306,7 +359,7 @@ table.dt{width:100%;font-size:.8rem;text-align:left;border-collapse:collapse}
       <div><small class="lbl">Total today</small><b class="h-font text-2xl" style="color:var(--cyan)" id="lc-total">$999</b><div class="text-xs" style="color:var(--mut)">then $149/mo from month 2</div></div>
     </div>
     <div class="text-xs mt-4 p-3 rounded-xl" style="background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.3);color:#fcd34d">Pay via PayPal or global bank transfer. Meta WhatsApp conversation fees are paid directly to Meta. To order, register and sign in to the Client Portal.</div>
-    <button class="btn btn-p w-full mt-5 py-4" onclick="openAuth('client','register')"><i class="fa-solid fa-user-plus"></i> Register in Client Portal to Lock the $999 Promo</button>
+    <button class="btn btn-p btn-p-glow w-full mt-5 py-4" onclick="openAuth('client','register')"><i class="fa-solid fa-user-plus"></i> Register in Client Portal to Lock the $999 Promo</button>
   </div>
 </section>
 
@@ -331,7 +384,7 @@ table.dt{width:100%;font-size:.8rem;text-align:left;border-collapse:collapse}
 <section class="s" id="reviews">
   <div class="sec-h"><span class="eyebrow">Client Reviews</span><h2 class="sec-t">What Our <span class="grad">Clients Say</span></h2></div>
   <div class="card3" id="reviews-grid"></div>
-  <div class="text-center mt-8"><a class="btn btn-p" href="https://www.trustpilot.com/review/nexabot.shop" target="_blank" rel="noopener"><i class="fa-solid fa-star"></i> Leave a Review on Trustpilot</a></div>
+  <div class="text-center mt-8"><a class="btn btn-p btn-p-glow" href="https://www.trustpilot.com/review/nexabot.shop" target="_blank" rel="noopener"><i class="fa-solid fa-star"></i> Leave a Review on Trustpilot</a></div>
 </section>
 
 <section class="s" id="accreditation" style="border-block:1px solid var(--bd)">
@@ -395,9 +448,9 @@ table.dt{width:100%;font-size:.8rem;text-align:left;border-collapse:collapse}
   <div class="flex flex-wrap items-center justify-between gap-3">
     <div><h1 class="h-font text-3xl font-bold text-white">Client Portal</h1><p class="text-sm" style="color:var(--mut)" id="c-welcome">Welcome back.</p></div>
     <div class="flex flex-wrap gap-2">
-      <button class="btn btn-g btn-sm" onclick="openModal('demo-modal')"><i class="fa-solid fa-calendar-days"></i> Demo Call</button>
-      <button class="btn btn-g btn-sm" onclick="showTab('c','support')"><i class="fa-solid fa-headset"></i> Support</button>
-      <button class="btn btn-p btn-sm" onclick="openOrderModal()"><i class="fa-solid fa-plus"></i> New Order</button>
+      <button class="btn btn-g btn-sm btn-g-glow" onclick="openModal('demo-modal')"><i class="fa-solid fa-calendar-days"></i> Demo Call</button>
+      <button class="btn btn-g btn-sm btn-g-glow" onclick="showTab('c','support')"><i class="fa-solid fa-headset"></i> Support</button>
+      <button class="btn btn-p btn-sm btn-p-glow" onclick="openOrderModal()"><i class="fa-solid fa-plus"></i> New Order</button>
     </div>
   </div>
   <div id="c-msg" class="msg"></div>
@@ -429,13 +482,13 @@ table.dt{width:100%;font-size:.8rem;text-align:left;border-collapse:collapse}
 
   <!-- orders -->
   <div class="cp" id="c-p-orders">
-    <div class="glass dc"><div class="flex flex-wrap justify-between items-center gap-2 mb-4"><h3>Your Bot Builds & Milestones</h3><button class="btn btn-p btn-sm" onclick="openOrderModal()"><i class="fa-solid fa-plus"></i> New Order</button></div><div id="client-orders" class="space-y-4"></div></div>
+    <div class="glass dc"><div class="flex flex-wrap justify-between items-center gap-2 mb-4"><h3>Your Bot Builds & Milestones</h3><button class="btn btn-p btn-sm btn-p-glow" onclick="openOrderModal()"><i class="fa-solid fa-plus"></i> New Order</button></div><div id="client-orders" class="space-y-4"></div></div>
   </div>
 
   <!-- support -->
   <div class="cp" id="c-p-support">
     <div class="glass dc">
-      <div class="flex flex-wrap justify-between items-center gap-2 mb-3"><h3><i class="fa-solid fa-headset" style="color:var(--cyan)"></i> Support Tickets</h3><button class="btn btn-p btn-sm" onclick="openModal('modal-ticket')"><i class="fa-solid fa-plus"></i> New Ticket</button></div>
+      <div class="flex flex-wrap justify-between items-center gap-2 mb-3"><h3><i class="fa-solid fa-headset" style="color:var(--cyan)"></i> Support Tickets</h3><button class="btn btn-p btn-sm btn-p-glow" onclick="openModal('modal-ticket')"><i class="fa-solid fa-plus"></i> New Ticket</button></div>
       <p class="text-xs mb-3" style="color:var(--mut)">Replies appear here instantly on any device where you're signed in.</p>
       <div id="c-tickets" class="space-y-3"></div>
     </div>
@@ -467,7 +520,7 @@ table.dt{width:100%;font-size:.8rem;text-align:left;border-collapse:collapse}
           <div><label class="lbl">Business</label><input id="p-biz" class="inp"></div>
           <div class="grid grid-cols-2 gap-3"><div><label class="lbl">Country</label><select id="p-country" class="inp"></select></div><div><label class="lbl">WhatsApp / Phone</label><input id="p-phone" class="inp" type="tel"></div></div>
           <label class="chk"><input type="checkbox" id="p-show" style="accent-color:#00F5FF"> Show my first name in public “recent order” notifications</label>
-          <button class="btn btn-p w-full" type="submit">Save Profile</button>
+          <button class="btn btn-p btn-p-glow w-full" type="submit">Save Profile</button>
         </form>
       </div>
       <div class="glass dc">
@@ -478,9 +531,9 @@ table.dt{width:100%;font-size:.8rem;text-align:left;border-collapse:collapse}
           <label class="lbl">Change password</label>
           <input id="pw-old" type="password" class="inp" placeholder="Current password" required autocomplete="current-password">
           <input id="pw-new" type="password" class="inp" placeholder="New password (8+ chars)" minlength="8" required autocomplete="new-password">
-          <button class="btn btn-g w-full btn-sm" type="submit">Update Password</button>
+          <button class="btn btn-g btn-g-glow w-full btn-sm" type="submit">Update Password</button>
         </form>
-        <button class="btn btn-g btn-sm w-full mt-3" onclick="downloadMyData()"><i class="fa-solid fa-download"></i> Download my data (JSON)</button>
+        <button class="btn btn-g btn-g-glow btn-sm w-full mt-3" onclick="downloadMyData()"><i class="fa-solid fa-download"></i> Download my data (JSON)</button>
       </div>
     </div>
   </div>
@@ -566,7 +619,7 @@ table.dt{width:100%;font-size:.8rem;text-align:left;border-collapse:collapse}
         <div><label class="lbl">Country</label><select id="ex-country" class="inp"><option value="ALL">All countries</option></select></div>
         <div><label class="lbl">Format</label><select id="ex-format" class="inp"><option value="excel">Excel (.xlsx)</option><option value="csv">CSV (.csv)</option><option value="word">Word (.doc)</option><option value="pdf">PDF (.pdf)</option></select></div>
       </div>
-      <div class="text-right"><button class="btn btn-p btn-sm" onclick="exportData()"><i class="fa-solid fa-download"></i> Download Report</button></div>
+      <div class="text-right"><button class="btn btn-p btn-p-glow btn-sm" onclick="exportData()"><i class="fa-solid fa-download"></i> Download Report</button></div>
     </div>
   </div>
 </div>
@@ -576,7 +629,7 @@ table.dt{width:100%;font-size:.8rem;text-align:left;border-collapse:collapse}
 <div id="notice-modal" class="mb"><div class="mbox wide">
   <div class="flex justify-between items-center mb-4 pb-3" style="border-bottom:1px solid var(--bd)"><h3 class="h-font text-xl font-bold text-white"><span class="bell" style="color:var(--amber)"><i class="fa-solid fa-bell"></i></span> Official Agency Notices</h3><button onclick="closeModal('notice-modal')" class="bg-transparent border-0 text-slate-400 text-xl cursor-pointer"><i class="fa-solid fa-xmark"></i></button></div>
   <div id="popup-notices" class="space-y-3 text-xs"></div>
-  <div class="text-right mt-5"><button class="btn btn-p btn-sm" onclick="closeModal('notice-modal')">I Acknowledge</button></div>
+  <div class="text-right mt-5"><button class="btn btn-p btn-p-glow btn-sm" onclick="closeModal('notice-modal')">I Acknowledge</button></div>
 </div></div>
 
 <div id="modal-notice-edit" class="mb"><div class="mbox">
@@ -585,7 +638,7 @@ table.dt{width:100%;font-size:.8rem;text-align:left;border-collapse:collapse}
     <div><label class="lbl">Title</label><input id="ne-t" class="inp" required maxlength="140"></div>
     <div><label class="lbl">Priority</label><select id="ne-p" class="inp"><option value="normal">Normal</option><option value="high">High (red stamp)</option><option value="low">Low</option></select></div>
     <div><label class="lbl">Content</label><textarea id="ne-b" class="inp" rows="4" required maxlength="1000"></textarea></div>
-    <button class="btn btn-p w-full" type="submit">Broadcast Notice</button></form>
+    <button class="btn btn-p btn-p-glow w-full" type="submit">Broadcast Notice</button></form>
 </div></div>
 
 <div id="modal-review" class="mb"><div class="mbox">
@@ -596,7 +649,7 @@ table.dt{width:100%;font-size:.8rem;text-align:left;border-collapse:collapse}
     <div><label class="lbl">Rating</label><select id="rv-r" class="inp"><option>5</option><option>4</option><option>3</option></select></div>
     <div><label class="lbl">Review text (client's real words)</label><textarea id="rv-t" class="inp" rows="4" required></textarea></div>
     <div><label class="lbl">Source link (optional)</label><input id="rv-s" class="inp" type="url"></div>
-    <button class="btn btn-p w-full" type="submit">Publish Review</button></form>
+    <button class="btn btn-p btn-p-glow w-full" type="submit">Publish Review</button></form>
 </div></div>
 
 <div id="demo-modal" class="mb"><div class="mbox wide" style="max-width:900px;padding:1rem">
@@ -625,7 +678,7 @@ table.dt{width:100%;font-size:.8rem;text-align:left;border-collapse:collapse}
     <div><label class="lbl">Email</label><input id="a-email" type="email" required autocomplete="email" class="inp" placeholder="you@company.com"></div>
     <div><label class="lbl">Password</label><input id="a-pass" type="password" required autocomplete="current-password" class="inp" placeholder="••••••••" minlength="8"></div>
     <div id="forgot-row" class="text-right"><button type="button" id="forgot-btn" class="bg-transparent border-0 text-xs font-bold cursor-pointer" style="color:var(--cyan)">Forgot password?</button></div>
-    <button id="auth-submit" type="submit" class="btn btn-p w-full py-3">Sign In</button>
+    <button id="auth-submit" type="submit" class="btn btn-p btn-p-glow w-full py-3">Sign In</button>
   </form>
   <div id="toggle-box" class="text-center mt-4 text-xs" style="color:var(--mut)"><span id="toggle-text">New here?</span> <button type="button" id="toggle-btn" class="bg-transparent border-0 font-bold cursor-pointer" style="color:var(--cyan)">Register now</button></div>
 </div></div>
@@ -637,7 +690,7 @@ table.dt{width:100%;font-size:.8rem;text-align:left;border-collapse:collapse}
     <p class="text-xs" style="color:var(--mut)">Base package ($999) includes WhatsApp, Messenger, Facebook Catalog and Google Gemini. Add extras at +$49 each:</p>
     <div id="calc-order" style="max-height:300px;overflow-y:auto;padding-right:6px"></div>
     <div class="totalbox text-center"><b class="h-font text-2xl" style="color:var(--cyan)" id="oc-total">$999</b><div class="text-xs" style="color:var(--mut)" id="oc-detail"></div></div>
-    <button class="btn btn-p w-full" type="submit">Generate Order</button>
+    <button class="btn btn-p btn-p-glow w-full" type="submit">Generate Order</button>
   </form>
 </div></div>
 
@@ -646,7 +699,7 @@ table.dt{width:100%;font-size:.8rem;text-align:left;border-collapse:collapse}
   <input type="hidden" id="ad-id">
   <div id="calc-addon" style="max-height:340px;overflow-y:auto;padding-right:6px"></div>
   <div class="totalbox text-center mt-3"><b class="h-font text-xl" style="color:var(--cyan)" id="ad-total">+$0</b></div>
-  <button class="btn btn-p w-full mt-3" onclick="submitAddonRequest()">Send Request</button>
+  <button class="btn btn-p btn-p-glow w-full mt-3" onclick="submitAddonRequest()">Send Request</button>
 </div></div>
 
 <div id="modal-payref" class="mb"><div class="mbox">
@@ -655,7 +708,7 @@ table.dt{width:100%;font-size:.8rem;text-align:left;border-collapse:collapse}
     <div><label class="lbl">Transaction / UTR / PayPal ID</label><input id="pr-ref" class="inp" required maxlength="80"></div>
     <div><label class="lbl">Payment date</label><input id="pr-date" type="date" class="inp"></div>
     <div><label class="lbl">Note (optional)</label><textarea id="pr-note" class="inp" rows="2" maxlength="300"></textarea></div>
-    <button class="btn btn-p w-full" type="submit">Submit for Verification</button></form>
+    <button class="btn btn-p btn-p-glow w-full" type="submit">Submit for Verification</button></form>
 </div></div>
 
 <div id="modal-kb" class="mb"><div class="mbox wide">
@@ -663,7 +716,7 @@ table.dt{width:100%;font-size:.8rem;text-align:left;border-collapse:collapse}
   <form id="kb-form" class="space-y-3"><input type="hidden" id="kb-id">
     <p class="text-xs" style="color:var(--mut)">Paste links (Drive, website, docs) and key facts for your bot. Never paste passwords or API secrets here — share those securely with support.</p>
     <textarea id="kb-text" class="inp" rows="9" maxlength="6000" placeholder="Business description, FAQs, pricing, tone of voice, document links…"></textarea>
-    <button class="btn btn-p w-full" type="submit">Save Notes</button></form>
+    <button class="btn btn-p btn-p-glow w-full" type="submit">Save Notes</button></form>
 </div></div>
 
 <div id="modal-ticket" class="mb"><div class="mbox">
@@ -672,7 +725,7 @@ table.dt{width:100%;font-size:.8rem;text-align:left;border-collapse:collapse}
     <div><label class="lbl">Related order (optional)</label><select id="tk-order" class="inp"><option value="">General question</option></select></div>
     <div><label class="lbl">Subject</label><input id="tk-sub" class="inp" required maxlength="120"></div>
     <div><label class="lbl">Message</label><textarea id="tk-msg" class="inp" rows="4" required maxlength="2000"></textarea></div>
-    <button class="btn btn-p w-full" type="submit">Open Ticket</button></form>
+    <button class="btn btn-p btn-p-glow w-full" type="submit">Open Ticket</button></form>
 </div></div>
 
 <div id="modal-aorder" class="mb"><div class="mbox wide">
@@ -683,7 +736,7 @@ table.dt{width:100%;font-size:.8rem;text-align:left;border-collapse:collapse}
 <div id="invoice-modal" class="mb"><div class="mbox">
   <div class="flex justify-between mb-3 pb-3" style="border-bottom:1px solid var(--bd)"><b class="h-font text-white">AGENCY INVOICE</b><button onclick="closeModal('invoice-modal')" class="bg-transparent border-0 text-slate-400 cursor-pointer"><i class="fa-solid fa-xmark"></i></button></div>
   <div id="invoice-content" class="text-xs space-y-3"></div>
-  <div class="mt-4 flex justify-end gap-2"><button class="btn btn-g btn-sm" onclick="window.print()">Print</button><button class="btn btn-p btn-sm" id="inv-pdf">Download PDF</button></div>
+  <div class="mt-4 flex justify-end gap-2"><button class="btn btn-g btn-sm" onclick="window.print()">Print</button><button class="btn btn-p btn-p-glow btn-sm" id="inv-pdf">Download PDF</button></div>
 </div></div>
 
 <div id="modal-privacy" class="mb"><div class="mbox wide"><div class="flex justify-between mb-2"><b class="h-font text-white">PRIVACY POLICY — NexaBot Agency</b><button onclick="closeModal('modal-privacy')" class="bg-transparent border-0 text-slate-400 cursor-pointer"><i class="fa-solid fa-xmark"></i></button></div>
@@ -693,7 +746,7 @@ table.dt{width:100%;font-size:.8rem;text-align:left;border-collapse:collapse}
 <h4>3. Public order notifications</h4><p>When you place an order, a notification showing your country and — only if you opt in — your first name may appear on our website. You can change this any time in Profile.</p>
 <h4>4. Payments</h4><p>Payments run through PayPal and bank transfer. We do not store card numbers.</p>
 <h4>5. Security</h4><p>Data is encrypted in transit. Accounts use Firebase Authentication with email verification.</p></div>
-<div class="text-right mt-4"><button class="btn btn-p btn-sm" onclick="closeModal('modal-privacy')">I understand</button></div></div></div>
+<div class="text-right mt-4"><button class="btn btn-p btn-p-glow btn-sm" onclick="closeModal('modal-privacy')">I understand</button></div></div></div>
 
 <div id="modal-terms" class="mb"><div class="mbox wide"><div class="flex justify-between mb-2"><b class="h-font text-white">TERMS OF SERVICE — NexaBot Agency</b><button onclick="closeModal('modal-terms')" class="bg-transparent border-0 text-slate-400 cursor-pointer"><i class="fa-solid fa-xmark"></i></button></div>
 <div class="legal" style="padding:0"><p><strong>Effective:</strong> October 1, 2026</p>
@@ -701,7 +754,7 @@ table.dt{width:100%;font-size:.8rem;text-align:left;border-collapse:collapse}
 <h4>2. Pricing</h4><p>Standard setup is $1,099; the promo rate of $999 applies to orders placed 1 Oct 2026 – 5 Jan 2027. Maintenance is $149/month, billed from month 2. Included: WhatsApp Business API, Facebook Messenger, Facebook Catalog and Google Gemini. Each additional integration is +$49. Instagram is not supported.</p>
 <h4>3. Third-party fees</h4><p>Meta WhatsApp conversation charges and third-party usage fees (e.g. OpenAI, Twilio) are paid by the client directly to those providers.</p>
 <h4>4. IP & refunds</h4><p>You own your data and bot outputs. Setup fees are non-refundable once training has started.</p></div>
-<div class="text-right mt-4"><button class="btn btn-p btn-sm" onclick="closeModal('modal-terms')">Accept & close</button></div></div></div>
+<div class="text-right mt-4"><button class="btn btn-p btn-p-glow btn-sm" onclick="closeModal('modal-terms')">Accept & close</button></div></div></div>
 
 <div id="toast"><div class="lt" style="background:rgba(16,185,129,.2);box-shadow:none"><i class="fa-solid fa-bolt" style="color:#34d399"></i></div><div class="text-xs"><div id="toast-text" class="text-white font-semibold leading-tight"></div><div id="toast-sub" style="font-size:.65rem;color:var(--mut);margin-top:2px"></div></div></div>
 <a id="wa" href="https://wa.me/9474065821" target="_blank" rel="noopener" title="WhatsApp support"><i class="fab fa-whatsapp"></i></a>
@@ -712,7 +765,7 @@ const firebaseConfig={apiKey:"AIzaSyBSxMkDacoyoe6Gs9l9vskE1bBH0zAlCoQ",authDomai
 let fbAuth=null,fbDb=null,fbOk=false;
 let fbAn=null;
 try{firebase.initializeApp(firebaseConfig);fbAuth=firebase.auth();fbDb=firebase.firestore();fbOk=true}catch(e){console.warn('Firebase offline:',e)}
-/* Analytics is optional: it only runs on https (GitHub Pages) and is skipped if blocked by the browser */
+
 try{if(fbOk&&firebase.analytics)fbAn=firebase.analytics()}catch(e){console.warn('Analytics unavailable:',e)}
 const track=(name,params)=>{try{if(fbAn)fbAn.logEvent(name,params||{})}catch(_){}};
 
@@ -721,7 +774,13 @@ const STAGES=["Payment Confirmed","Requirement Analysis","Knowledge Base & API I
 const PROMO_END=new Date('2027-01-05T23:59:59+05:30');
 const COUNTRIES={US:'🇺🇸 United States',IN:'🇮🇳 India',GB:'🇬🇧 United Kingdom',CA:'🇨🇦 Canada',AU:'🇦🇺 Australia',DE:'🇩🇪 Germany',AE:'🇦🇪 United Arab Emirates',SG:'🇸🇬 Singapore',OTHER:'🌍 Other'};
 const CNAME=k=>(COUNTRIES[k]||k||'—').replace(/^\S+\s/,'');
-/* item: [name, description, included, simpleIconsSlug|fa:icon, brandHex] — logos load from the Simple Icons CDN, with an initials badge fallback */
+
+/* Helper to convert integration names to clean filenames for GitHub logos directory */
+function getLogoFileName(name){
+  return name.toLowerCase().replace(/[^a-z0-9]/g, '');
+}
+
+/* Item definition: [name, description, included, simpleIconsSlug|fa:icon, brandHex] */
 const CATS=[
  {id:'ai',name:'AI Engines',icon:'fa-brain',items:[
   ['Google Gemini','Advanced multimodal AI engine',1,'googlegemini','8E75B2'],['OpenAI','ChatGPT / Assistants',0,'openai','412991'],['Claude AI','Anthropic',0,'claude','D97757'],['DeepSeek','Reasoning & code',0,'deepseek','4D6BFE'],['X.AI','Grok engine',0,'x','000000'],['Dialogflow','Google natural language',0,'dialogflow','FF9800']]},
@@ -778,19 +837,40 @@ $('news-form').addEventListener('submit',e=>{e.preventDefault();e.target.reset()
 function showTab(p,name){document.querySelectorAll('.'+p+'p').forEach(x=>x.classList.remove('on'));$(p+'-p-'+name).classList.add('on');$(p+'-tabs').querySelectorAll('.dtab').forEach(b=>b.classList.toggle('on',b.dataset.t===name));if(p==='c'&&name==='pay')mountPayPal()}
 function dl(blob,name){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),2000)}
 
-/* Logo tile */
+/* Dynamic Logo Tile with multi-fallback logic (Local GitHub logos folder -> SimpleIcons CDN -> Initials fallback) */
 function logoTile(i,sm){
   const ini=i[0].split(/[\s\/]+/).map(w=>w[0]).join('').slice(0,3).toUpperCase();
   const fb=`<span class="lt-fb">${esc(ini)}</span>`;
+  const logoFileName = getLogoFileName(i[0]);
+  const localLogoPath = `logos/${logoFileName}.png`;
   let inner;
-  if(!i[3])inner=fb;
-  else if(i[3].startsWith('fa:'))inner=`<i class="fa-solid ${i[3].slice(3)}"></i>`;
-  else inner=`<img src="https://cdn.simpleicons.org/${i[3]}/${i[4]||'111111'}" alt="${esc(i[0])} logo" loading="lazy" data-fb="${esc(fb)}" onerror="this.outerHTML=this.dataset.fb">`;
+
+  if(!i[3]) {
+    inner = `<img src="${localLogoPath}" alt="${esc(i[0])} logo" loading="lazy" data-fb="${esc(fb)}" onerror="this.outerHTML=this.dataset.fb">`;
+  } else if(i[3].startsWith('fa:')) {
+    inner = `<i class="fa-solid ${i[3].slice(3)}"></i>`;
+  } else {
+    inner = `<img src="${localLogoPath}" alt="${esc(i[0])} logo" loading="lazy" data-cdn="https://cdn.simpleicons.org/${i[3]}/${i[4]||'111111'}" data-fb="${esc(fb)}" onerror="if(this.src.indexOf('logos/')!=-1){this.src=this.dataset.cdn;}else{this.outerHTML=this.dataset.fb;}">`;
+  }
+
   return `<div class="lt ${sm?'sm':''}">${inner}</div>`;
 }
 
-/* ═════════ STATIC RENDERS ═════════ */
-(function(){const c=$('particles');for(let i=0;i<28;i++){const p=document.createElement('div');p.className='particle';const s=Math.random()*6+2;p.style.cssText=`width:${s}px;height:${s}px;left:${Math.random()*100}%;animation-duration:${Math.random()*9+7}s;animation-delay:${Math.random()*6}s`;c.appendChild(p)}})();
+/* ═════════ STATIC RENDERS & Dynamic Particles ═════════ */
+(function(){
+  const c=$('particles');
+  c.innerHTML = '';
+  for(let i=0; i<38; i++){
+    const p=document.createElement('div');
+    p.className='particle';
+    const size=Math.random()*3 + 2; // randomized sizes (2px - 5px)
+    const duration=Math.random()*8 + 6; // floating speeds
+    const delay=Math.random()*5;
+    p.style.cssText=`width:${size}px;height:${size}px;left:${Math.random()*100}%;animation-duration:${duration}s;animation-delay:${delay}s;background:rgba(0,245,255,${Math.random()*0.5 + 0.3});box-shadow:0 0 ${size*2}px var(--cyan);`;
+    c.appendChild(p);
+  }
+})();
+
 (function(){const L=[['steinberg','STEINBERG'],['avid','AVID'],['amd','AMD'],['fender','FENDER'],['hyatt','HYATT'],['leela','THE LEELA PALACE']];let h='';for(let r=0;r<2;r++)L.forEach(([f,n])=>h+=`<img class="p-logo" src="partners/partner-${f}.png" alt="${n}" onerror="this.outerHTML='<span class=&quot;font-bold text-slate-500 text-sm&quot;>${n}</span>'">`);$('partner-track').innerHTML=h})();
 $('faq-list').innerHTML=FAQS.map(([q,a])=>`<div class="faq-i"><div class="faq-q" onclick="var b=this.nextElementSibling;b.style.display=b.style.display==='block'?'none':'block'"><span>${esc(q)}</span><i class="fa-solid fa-chevron-down" style="color:var(--cyan)"></i></div><div class="faq-a">${esc(a)}</div></div>`).join('');
 const cOpts=Object.entries(COUNTRIES).map(([k,v])=>`<option value="${k}">${v}</option>`).join('');
@@ -1001,11 +1081,11 @@ function renderClientOrders(){
     ${o.paymentRef?`<div class="text-xs" style="color:var(--mut)">Payment ref submitted: <b class="text-white">${esc(o.paymentRef)}</b></div>`:''}
     <div class="stg">${STAGES.map((st,i)=>{const k=i<cur?'done':i===cur?'now':'wait';return `<div class="p-2 rounded-lg text-center flex flex-col items-center gap-1" style="background:rgba(255,255,255,.04);border:1px solid var(--bd)"><div class="stn ${k}">${i<cur?'✓':i+1}</div><span style="font-size:.62rem;font-weight:600;color:#cbd5e1">${st}</span></div>`}).join('')}</div>
     <div class="flex flex-wrap gap-2">
-      <button class="btn btn-g btn-sm" onclick="showInvoice('${esc(o.id)}')"><i class="fa-solid fa-file-invoice"></i> Invoice</button>
+      <button class="btn btn-g btn-sm btn-g-glow" onclick="showInvoice('${esc(o.id)}')"><i class="fa-solid fa-file-invoice"></i> Invoice</button>
       ${o.uploadedInvoice?`<a class="btn btn-ok btn-sm" href="${esc(o.uploadedInvoice.data)}" download="${esc(o.uploadedInvoice.name)}"><i class="fa-solid fa-download"></i> Admin invoice</a>`:''}
-      <button class="btn btn-g btn-sm" onclick="openPayRef('${esc(o.id)}')"><i class="fa-solid fa-receipt"></i> ${o.paymentRef?'Update':'Submit'} payment reference</button>
-      <button class="btn btn-g btn-sm" onclick="openKB('${esc(o.id)}')"><i class="fa-solid fa-brain"></i> Knowledge base notes</button>
-      <button class="btn btn-g btn-sm" onclick="openAddon('${esc(o.id)}')"><i class="fa-solid fa-puzzle-piece"></i> Request extra integrations</button>
+      <button class="btn btn-g btn-sm btn-g-glow" onclick="openPayRef('${esc(o.id)}')"><i class="fa-solid fa-receipt"></i> ${o.paymentRef?'Update':'Submit'} payment reference</button>
+      <button class="btn btn-g btn-sm btn-g-glow" onclick="openKB('${esc(o.id)}')"><i class="fa-solid fa-brain"></i> Knowledge base notes</button>
+      <button class="btn btn-g btn-sm btn-g-glow" onclick="openAddon('${esc(o.id)}')"><i class="fa-solid fa-puzzle-piece"></i> Request extra integrations</button>
       ${o.status==='pending'&&o.paymentStatus!=='paid'?`<button class="btn btn-r btn-sm" onclick="deleteOrder('${esc(o.id)}')"><i class="fa-solid fa-trash"></i> Cancel</button>`:''}
     </div></div>`}).join(''):'<p class="text-center py-6" style="color:var(--mut)">No orders yet — submit a new order to get started.</p>';
   renderChecklist();
@@ -1040,7 +1120,7 @@ function renderTickets(list,boxId,admin){
   box.innerHTML=list.length?list.map(t=>{const msgs=t.messages||[];const last=msgs[msgs.length-1];const attn=admin?(t.status==='open'&&last&&last.from==='client'):(last&&last.from==='admin'&&t.status==='open');
     return `<div class="tk ${openTk.has(t.id)?'open':''}" id="tkc-${esc(t.id)}"><div class="tk-h" onclick="toggleTk('${esc(t.id)}')"><div><b class="text-white text-sm">${esc(t.subject)}</b>${t.orderId?` <span class="pill add">${esc(t.orderId)}</span>`:''}<div class="text-xs" style="color:var(--mut)">${admin?esc(t.clientName)+' · ':''}${ago(t.updatedAt)}</div></div><div class="flex gap-2 items-center">${attn?'<span class="pill hi">New reply</span>':''}<span class="sb ${esc(t.status)}">${esc(t.status)}</span></div></div>
     <div class="tk-b"><div class="tk-m">${msgs.map(m=>{const me=admin?m.from==='admin':m.from==='client';return `<div class="bub ${me?'me':'them'}">${esc(m.text)}<small>${esc(m.from==='admin'?'NexaBot Support':m.name)} · ${ago(m.at)}</small></div>`}).join('')}</div>
-    ${t.status==='open'||admin?`<textarea data-tk="${esc(t.id)}" class="inp" rows="2" placeholder="Write a reply…">${esc(keep[t.id]||'')}</textarea><div class="flex gap-2 mt-2 justify-end"><button class="btn btn-p btn-sm" onclick="sendReply('${esc(t.id)}',${admin})"><i class="fa-solid fa-paper-plane"></i> Send</button>${admin||t.status==='open'?`<button class="btn btn-g btn-sm" onclick="setTk('${esc(t.id)}','${t.status==='open'?'closed':'open'}')">${t.status==='open'?'Close ticket':'Reopen'}</button>`:''}</div>`:'<p class="text-xs" style="color:var(--mut)">This ticket is closed.</p>'}</div></div>`}).join(''):'<p class="text-xs text-center py-4" style="color:var(--mut)">No tickets.</p>';
+    ${t.status==='open'||admin?`<textarea data-tk="${esc(t.id)}" class="inp" rows="2" placeholder="Write a reply…">${esc(keep[t.id]||'')}</textarea><div class="flex gap-2 mt-2 justify-end"><button class="btn btn-p btn-p-glow btn-sm" onclick="sendReply('${esc(t.id)}',${admin})"><i class="fa-solid fa-paper-plane"></i> Send</button>${admin||t.status==='open'?`<button class="btn btn-g btn-sm" onclick="setTk('${esc(t.id)}','${t.status==='open'?'closed':'open'}')">${t.status==='open'?'Close ticket':'Reopen'}</button>`:''}</div>`:'<p class="text-xs" style="color:var(--mut)">This ticket is closed.</p>'}</div></div>`}).join(''):'<p class="text-xs text-center py-4" style="color:var(--mut)">No tickets.</p>';
   box.querySelectorAll('.tk-m').forEach(m=>m.scrollTop=m.scrollHeight);
 }
 function toggleTk(id){openTk.has(id)?openTk.delete(id):openTk.add(id);$('tkc-'+id).classList.toggle('open')}
@@ -1066,8 +1146,7 @@ function renderAdminStats(){
   $('a-orders').textContent=O.length;$('a-pending').textContent=O.filter(o=>o.status==='pending').length;$('a-active').textContent=O.filter(o=>o.status==='active').length;
   $('a-rev').textContent=money(paidSum(O));$('a-unpaid').textContent=money(O.filter(o=>o.paymentStatus!=='paid').reduce((a,o)=>a+(+o.amount||0),0));
   $('a-clients').textContent=A.users.length;$('a-open-tk').textContent=A.tickets.filter(t=>t.status==='open').length;
-  $('a-mrr').textContent=money(O.filter(o=>(o.stageIndex||0)===STAGES.length-1).length*MONTHLY);
-  $('a-addreq').textContent=O.reduce((a,o)=>a+reqs(o).filter(r=>r.status==='requested').length,0);
+  $('a-mrr').textContent=money(O.filter(o=>(o.stageIndex||0)===STAGES.length-1).length*MONTHLY);$('a-addreq').textContent=O.reduce((a,o)=>a+reqs(o).filter(r=>r.status==='requested').length,0);
   const m={};O.filter(o=>o.paymentStatus==='paid').forEach(o=>{const k=(o.createdAt||'').slice(0,7);m[k]=(m[k]||0)+(+o.amount||0)});
   bars('a-chart-rev',Object.entries(m).sort().slice(-8),money);
   const c={};A.users.forEach(u=>{const k=CNAME(u.country);c[k]=(c[k]||0)+1});
@@ -1099,7 +1178,7 @@ function openAdminOrder(id){
    <div class="flex flex-wrap gap-2">
     ${o.status==='pending'?`<button class="btn btn-ok btn-sm" onclick="aAct('${id}',{status:'active'})">Approve order</button>`:`<button class="btn btn-g btn-sm" onclick="aAct('${id}',{status:'pending'})">Set pending</button>`}
     ${o.paymentStatus==='paid'?`<button class="btn btn-g btn-sm" onclick="aAct('${id}',{paymentStatus:'unpaid'})">Mark unpaid</button>`:`<button class="btn btn-ok btn-sm" onclick="aAct('${id}',{paymentStatus:'paid'})">Mark payment verified</button>`}
-    <button class="btn btn-g btn-sm" ${cur<=0?'disabled':''} onclick="aStage('${id}',-1)">− Stage</button><button class="btn btn-p btn-sm" ${cur>=STAGES.length-1?'disabled':''} onclick="aStage('${id}',1)">+ Stage</button>
+    <button class="btn btn-g btn-sm" ${cur<=0?'disabled':''} onclick="aStage('${id}',-1)">− Stage</button><button class="btn btn-p btn-p-glow btn-sm" ${cur>=STAGES.length-1?'disabled':''} onclick="aStage('${id}',1)">+ Stage</button>
     <button class="btn btn-g btn-sm" onclick="showInvoice('${id}')">Invoice</button><button class="btn btn-r btn-sm" onclick="deleteOrder('${id}');closeModal('modal-aorder')"><i class="fa-solid fa-trash"></i> Delete</button></div>
    <div><b class="text-white">Stage:</b> ${esc(STAGES[cur])} (${cur+1}/${STAGES.length})</div>
    <div><b class="text-white">Extras (${ex(o).length}):</b> ${ex(o).map(esc).join(', ')||'none'}</div>
@@ -1160,7 +1239,7 @@ window.addEventListener('DOMContentLoaded',()=>{
   switchRole('client');initNotices();initReviews();initActivity();renderActivity();
   setTimeout(()=>{try{if(!sessionStorage.getItem('nx-notice')){openModal('notice-modal');sessionStorage.setItem('nx-notice','1')}}catch(_){}},1400);
 });
-/* Sessions persist (LOCAL) so clients/admin stay signed in across devices' browsers; data is live from Firestore */
+
 if(fbOk){fbAuth.onAuthStateChanged(async u=>{
   if(!u||auth.user)return;
   try{const s=await fbDb.collection('users').doc(u.uid).get();if(!s.exists)return;const p=s.data();p.id=u.uid;auth.setUser(p)}catch(e){console.warn('restore skipped',e)}
