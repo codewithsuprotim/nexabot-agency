@@ -31,59 +31,89 @@ html{scroll-behavior:smooth}
 body{font-family:'Inter',sans-serif;color:var(--txt);background:var(--void);overflow-x:hidden}
 a{text-decoration:none;color:inherit}img{max-width:100%;display:block}button{font-family:inherit}
 .mesh{background:radial-gradient(circle at 15% 10%,rgba(139,92,246,.22),transparent 45%),radial-gradient(circle at 85% 30%,rgba(0,245,255,.16),transparent 45%),radial-gradient(circle at 50% 100%,rgba(255,0,122,.10),transparent 50%),var(--void)}
-.glass{background:var(--glass);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid var(--bd);border-radius:20px}
-.glow{transition:.25s}.glow:hover{box-shadow:0 0 25px rgba(0,245,255,.25);border-color:rgba(0,245,255,.5)}
+.glass{background:var(--glass);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid var(--bd);border-radius:20px;transition:all .3s ease}
+.glow{transition:.3s ease}.glow:hover{box-shadow:0 0 25px rgba(0,245,255,.3);border-color:rgba(0,245,255,.6);transform:translateY(-4px)}
 .h-font{font-family:'Poppins',sans-serif}
 .grad{background:linear-gradient(110deg,var(--cyan),var(--violet) 60%,var(--mag));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-@keyframes rise{0%{transform:translateY(0);opacity:0}50%{opacity:.7}100%{transform:translateY(-110vh);opacity:0}}
-@keyframes marq{to{transform:translateX(-50%)}}
-@keyframes pulse2{0%,100%{box-shadow:0 0 0 0 rgba(0,245,255,.45)}50%{box-shadow:0 0 0 10px rgba(0,245,255,0)}}
+
+/* KEY ANIMATIONS */
+@keyframes riseUpStream{0%{transform:translateY(0);opacity:0}20%{opacity:.8}80%{opacity:.8}100%{transform:translateY(-105vh);opacity:0}}
+@keyframes rotateRtoL{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+@keyframes pulseGlow{0%,100%{box-shadow:0 0 15px rgba(0,245,255,.35),inset 0 0 10px rgba(0,245,255,.2);border-color:rgba(0,245,255,.6)}50%{box-shadow:0 0 30px rgba(255,0,122,.5),inset 0 0 15px rgba(255,0,122,.3);border-color:rgba(255,0,122,.8)}}
+@keyframes stampGlow{0%,100%{box-shadow:0 0 12px rgba(139,92,246,.5);transform:scale(1)}50%{box-shadow:0 0 24px rgba(255,0,122,.8);transform:scale(1.03)}}
 @keyframes bell{0%,100%{transform:rotate(0)}20%{transform:rotate(14deg)}40%{transform:rotate(-12deg)}60%{transform:rotate(8deg)}}
 @keyframes flt{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-.particle{position:absolute;bottom:-20px;border-radius:50%;background:rgba(0,245,255,.5);box-shadow:0 0 10px var(--cyan);animation:rise linear infinite}
+@keyframes starSparkle{0%,100%{transform:scale(1) rotate(0deg);filter:drop-shadow(0 0 2px #00B67A)}50%{transform:scale(1.25) rotate(15deg);filter:drop-shadow(0 0 8px #00B67A)}}
+
+/* FLOATING PARTICLE CANVAS */
+.pc{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:1}
+.floating-particle{position:absolute;bottom:-20px;border-radius:50%;background:rgba(0,245,255,.6);box-shadow:0 0 8px var(--cyan);animation:riseUpStream linear infinite}
+
 .bell{animation:bell 2.2s ease-in-out infinite;display:inline-block}.float{animation:flt 4s ease-in-out infinite}
 #banner{background:linear-gradient(90deg,#1e1b4b,#3b0a3f);border-bottom:1px solid rgba(245,158,11,.35);padding:.6rem 1rem;font-size:.82rem;cursor:pointer;position:relative;z-index:1001;overflow:hidden;white-space:nowrap}
 #banner-track{display:inline-block;padding-left:100%;animation:bannerScroll 30s linear infinite}
 @keyframes bannerScroll{to{transform:translateX(-100%)}}
 #banner:hover #banner-track{animation-play-state:paused}
+
 #nav{position:sticky;top:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.8rem 4%;background:rgba(3,7,18,.88);backdrop-filter:blur(20px);border-bottom:1px solid var(--bd)}
 .nav-links{display:flex;gap:1.5rem;list-style:none}
 .nav-links a{font-size:.85rem;font-weight:500;color:#cbd5e1;transition:.2s}.nav-links a:hover{color:var(--cyan)}
 .logo-img{height:40px;filter:drop-shadow(0 0 8px rgba(0,245,255,.55))}
 .gptw{display:flex;align-items:center;gap:6px;background:#fff;border-radius:50px;padding:4px 12px 4px 5px}
 .gptw img{height:26px}.gptw span{font:800 .55rem/1.1 'Poppins';color:#060F2E}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:700;font-size:.85rem;padding:.7rem 1.4rem;border-radius:50px;border:0;cursor:pointer;transition:.25s;color:#fff}
+
+/* DYNAMIC CTA BUTTONS */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:700;font-size:.85rem;padding:.7rem 1.4rem;border-radius:50px;border:0;cursor:pointer;transition:all .3s cubic-bezier(0.4,0,0.2,1);color:#fff;position:relative;overflow:hidden}
 .btn:disabled{opacity:.55;cursor:not-allowed}
-.btn-p{background:linear-gradient(135deg,var(--violet),#2563EB 55%,var(--cyan));box-shadow:0 8px 25px rgba(139,92,246,.4);color:#031018}
-.btn-p:hover:not(:disabled){transform:translateY(-3px);box-shadow:0 12px 32px rgba(0,245,255,.4)}
-.btn-g{background:rgba(255,255,255,.08);border:1px solid var(--bd)}.btn-g:hover{background:rgba(255,255,255,.16)}
-.btn-r{background:rgba(255,0,122,.15);border:1px solid rgba(255,0,122,.4);color:#fda4c8}
-.btn-ok{background:rgba(16,185,129,.18);border:1px solid rgba(16,185,129,.45);color:#6ee7b7}
+.btn-p{background:linear-gradient(135deg,var(--violet),#2563EB 55%,var(--cyan));box-shadow:0 6px 20px rgba(139,92,246,.35);color:#031018}
+.btn-p:hover:not(:disabled){transform:translateY(-3px) scale(1.02);box-shadow:0 12px 35px rgba(0,245,255,.6)}
+.btn-g{background:rgba(255,255,255,.08);border:1px solid var(--bd)}
+.btn-g:hover:not(:disabled){background:rgba(255,255,255,.18);transform:translateY(-2px);box-shadow:0 8px 25px rgba(255,255,255,.15);border-color:rgba(255,255,255,.3)}
+.btn-r{background:rgba(255,0,122,.15);border:1px solid rgba(255,0,122,.4);color:#fda4c8}.btn-r:hover{box-shadow:0 0 20px rgba(255,0,122,.4)}
+.btn-ok{background:rgba(16,185,129,.18);border:1px solid rgba(16,185,129,.45);color:#6ee7b7}.btn-ok:hover{box-shadow:0 0 20px rgba(16,185,129,.4)}
 .btn-sm{font-size:.72rem;padding:.45rem .9rem}
 .hidden{display:none!important}
+
 #hero{position:relative;overflow:hidden;min-height:88vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:80px 5%}
-.pc{position:absolute;inset:0;pointer-events:none;overflow:hidden}
 .hero-in{position:relative;z-index:5;max-width:960px}
 .badge{display:inline-flex;align-items:center;gap:8px;padding:.4rem 1.1rem;border-radius:50px;border:1px solid rgba(0,245,255,.35);background:rgba(0,245,255,.07);color:#7ff8ff;font-size:.8rem;font-weight:600;margin-bottom:1.6rem}
 .badge i.d{width:8px;height:8px;border-radius:50%;background:var(--em);box-shadow:0 0 10px var(--em)}
 .hero-h1{font:900 clamp(2.5rem,6vw,4.7rem)/1.08 'Poppins';color:#fff;margin-bottom:1.3rem}
-.tblock{background:rgba(255,0,122,.22);border:1px solid rgba(255,0,122,.4);border-radius:10px;padding:5px 12px;min-width:56px;text-align:center}
-.tblock b{display:block;font:800 1.5rem/1 'Poppins';color:#fff}.tblock small{font-size:.58rem;color:#fda4c8;text-transform:uppercase}
+
+/* NEON GLOW BADGES & LIVE COUNTDOWN TIMER */
+.shimmer-badge{animation:pulseGlow 3s infinite ease-in-out;backdrop-filter:blur(12px)}
+.tblock{background:rgba(255,0,122,.22);border:1px solid rgba(255,0,122,.4);border-radius:12px;padding:6px 14px;min-width:62px;text-align:center;box-shadow:0 4px 15px rgba(255,0,122,.2)}
+.tblock b{display:block;font:800 1.6rem/1 'Poppins';color:#fff;text-shadow:0 0 10px rgba(255,255,255,.5)}
+.tblock small{font-size:.58rem;color:#fda4c8;text-transform:uppercase;letter-spacing:.05em}
+
+/* HERO STATS CARDS */
+.stat-card-hero{transition:all .3s ease;padding:12px 20px;border-radius:16px;background:rgba(255,255,255,.03);border:1px solid var(--bd)}
+.stat-card-hero:hover{transform:translateY(-5px);background:rgba(0,245,255,.08);border-color:rgba(0,245,255,.4);box-shadow:0 10px 25px rgba(0,245,255,.2)}
 .stat b{display:block;font:900 1.7rem 'Poppins';color:#fff}.stat span{font-size:.7rem;color:var(--mut);text-transform:uppercase}
+
+/* TRUSTPILOT HOVER LIFT */
+.tp-hover-card{transition:all .3s ease}
+.tp-hover-card:hover{transform:translateY(-4px);box-shadow:0 10px 30px rgba(0,182,122,.3);border-color:rgba(0,182,122,.8)}
+.sparkle-star{animation:starSparkle 2.5s infinite ease-in-out;display:inline-block}
+
 section.s{padding:85px 5%}
 .sec-t{font:800 clamp(1.9rem,4vw,2.9rem) 'Poppins';color:#fff;text-align:center;margin-top:.4rem}
 .eyebrow{display:block;text-align:center;font-size:.72rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--cyan)}
 .sec-h{margin-bottom:2.8rem}
-#partners{background:#fff;padding:38px 0;overflow:hidden}
-.mq{display:flex;gap:4.5rem;align-items:center;width:max-content;animation:marq 24s linear infinite}
-.p-logo{height:40px;object-fit:contain;filter:grayscale(1) opacity(.65)}
+
+/* CONTINUOUS CLIENT LOGO MARQUEE */
+#partners{background:#fff;padding:38px 0;overflow:hidden;position:relative}
+.mq{display:flex;gap:4.5rem;align-items:center;width:max-content;animation:rotateRtoL 20s linear infinite}
+.mq:hover{animation-play-state:paused}
+.p-logo{height:40px;object-fit:contain;filter:grayscale(1) opacity(.65);transition:.3s}.p-logo:hover{filter:grayscale(0) opacity(1)}
+
 .tabs{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;margin-bottom:1.6rem}
 .tab{padding:.5rem 1rem;border-radius:50px;font-size:.78rem;font-weight:600;border:1px solid var(--bd);background:rgba(255,255,255,.04);color:#cbd5e1;cursor:pointer;transition:.2s}
 .tab.on,.tab:hover{background:rgba(0,245,255,.14);border-color:var(--cyan);color:var(--cyan)}
 .ig{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:1rem;max-width:1250px;margin:0 auto}
 .ic{padding:1.1rem 1.2rem;display:flex;flex-direction:column;gap:.4rem}
 .ic:hover{transform:translateY(-4px)}
-.lt{width:42px;height:42px;border-radius:12px;background:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 2px 10px rgba(0,0,0,.35)}
+.lt{width:42px;height:42px;border-radius:12px;background:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 2px 10px rgba(0,0,0,.35);overflow:hidden}
 .lt img{width:24px;height:24px;object-fit:contain}.lt i{font-size:1.15rem;color:#0f172a}
 .lt-fb{font:800 .72rem 'Poppins';color:#fff;background:linear-gradient(135deg,var(--violet),#2563EB);width:100%;height:100%;border-radius:12px;display:flex;align-items:center;justify-content:center}
 .lt.sm{width:26px;height:26px;border-radius:8px}.lt.sm img{width:15px;height:15px}.lt.sm .lt-fb{font-size:.5rem;border-radius:8px}.lt.sm i{font-size:.8rem}
@@ -93,7 +123,7 @@ section.s{padding:85px 5%}
 .pill.hi{background:rgba(255,0,122,.15);color:#fda4c8;border:1px solid rgba(255,0,122,.4)}
 .pill.lo{background:rgba(148,163,184,.15);color:#cbd5e1;border:1px solid rgba(148,163,184,.3)}
 .pricing{max-width:1000px;margin:0 auto;padding:2.5rem;position:relative}
-.stamp{position:absolute;top:-15px;right:24px;background:linear-gradient(135deg,var(--violet),var(--mag));color:#fff;font:700 .72rem 'Space Grotesk';letter-spacing:.06em;text-transform:uppercase;padding:6px 16px;border-radius:30px;animation:pulse2 2.4s infinite}
+.stamp{position:absolute;top:-15px;right:24px;background:linear-gradient(135deg,var(--violet),var(--mag));color:#fff;font:700 .72rem 'Space Grotesk';letter-spacing:.06em;text-transform:uppercase;padding:6px 16px;border-radius:30px;animation:stampGlow 2.4s infinite}
 .calc-row{display:flex;align-items:center;gap:.55rem;padding:.5rem .65rem;border:1px solid var(--bd);border-radius:12px;background:rgba(255,255,255,.03);cursor:pointer;font-size:.78rem;transition:.2s}
 .calc-row:hover{border-color:var(--cyan)}.calc-row input{accent-color:#00F5FF;width:16px;height:16px;flex-shrink:0}
 .calc-row.lock{opacity:.65;cursor:default}
@@ -165,7 +195,8 @@ table.dt{width:100%;font-size:.8rem;text-align:left;border-collapse:collapse}
 .bub small{display:block;font-size:.6rem;opacity:.65;margin-top:2px}
 #toast{position:fixed;left:20px;bottom:20px;z-index:1000;display:flex;align-items:center;gap:12px;max-width:350px;padding:.85rem 1.1rem;background:rgba(11,15,25,.95);border:1px solid rgba(0,245,255,.4);border-radius:16px;box-shadow:0 15px 35px rgba(0,0,0,.5);opacity:0;transform:translateY(90px);transition:.5s;pointer-events:none}
 #toast.show{opacity:1;transform:none}
-#wa{position:fixed;right:24px;bottom:24px;width:58px;height:58px;border-radius:50%;background:#25d366;color:#fff;font-size:1.8rem;display:flex;align-items:center;justify-content:center;z-index:990;box-shadow:0 8px 26px rgba(37,211,102,.5)}
+#wa{position:fixed;right:24px;bottom:24px;width:58px;height:58px;border-radius:50%;background:#25d366;color:#fff;font-size:1.8rem;display:flex;align-items:center;justify-content:center;z-index:990;box-shadow:0 8px 26px rgba(37,211,102,.5);transition:all .3s ease}
+#wa:hover{transform:scale(1.1);box-shadow:0 12px 32px rgba(37,211,102,.8)}
 @media(max-width:900px){.nav-links{display:none}.card3,.card4{grid-template-columns:1fr 1fr}.stg{grid-template-columns:repeat(2,1fr)}.gptw span{display:none}#toast{display:none}}
 @media(max-width:560px){.card3,.card4{grid-template-columns:1fr}#nav{flex-wrap:wrap}.pricing{padding:1.4rem}}
 @media print{body *{visibility:hidden}#invoice-content,#invoice-content *{visibility:visible}#invoice-content{position:absolute;left:0;top:0;color:#000;background:#fff;padding:20px;width:100%}}
@@ -175,7 +206,7 @@ table.dt{width:100%;font-size:.8rem;text-align:left;border-collapse:collapse}
 <body class="mesh">
 
 <div id="banner" onclick="openModal('notice-modal')">
-  <span class="bell" style="color:var(--amber)"><i class="fa-solid fa-bell"></i></span>
+  <span class="bell animate-bounce" style="color:var(--amber)"><i class="fa-solid fa-bullhorn"></i></span>
   <strong style="color:var(--amber)"> Official Notices:</strong>
   <span id="banner-track">Loading announcements…</span>
 </div>
@@ -215,6 +246,7 @@ table.dt{width:100%;font-size:.8rem;text-align:left;border-collapse:collapse}
 <div id="view-landing">
 
 <section id="hero">
+  <!-- Dynamic Floating Particle Canvas -->
   <div class="pc" id="particles"></div>
   <div class="hero-in">
     <div class="badge float"><i class="d"></i> AI Chatbot Agency — 1000+ Businesses Automated</div>
@@ -222,36 +254,49 @@ table.dt{width:100%;font-size:.8rem;text-align:left;border-collapse:collapse}
     <p style="font-size:1.1rem;line-height:1.8;color:#cbd5e1;max-width:720px;margin:0 auto 2rem">
       Your AI chatbot answers every customer 24/7 on <strong class="text-white">WhatsApp Business</strong> and <strong class="text-white">Facebook Messenger</strong>, powered by <strong class="text-white">Google Gemini</strong>. Setup from just <strong style="color:var(--cyan)">$999 promo</strong> + <strong style="color:var(--cyan)">$149/mo</strong> maintenance.
     </p>
-    <div class="glass inline-flex flex-wrap items-center justify-center gap-4 px-6 py-4 mb-8" style="border-color:rgba(255,0,122,.35)">
-      <span style="color:#fda4c8;font-size:.78rem;font-weight:700;text-transform:uppercase"><i class="fa-solid fa-fire"></i> $100 OFF Promo Ends In</span>
+    
+    <!-- Dynamic Shimmering Neon Glow Badge & Real-Time Countdown Timer -->
+    <div class="glass shimmer-badge inline-flex flex-wrap items-center justify-center gap-4 px-6 py-4 mb-8">
+      <span style="color:#fda4c8;font-size:.82rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em" class="flex items-center gap-2">
+        <i class="fa-solid fa-bolt text-yellow-400"></i> $100 OFF PROMO ENDS IN
+      </span>
       <div class="flex items-center gap-2">
-        <div class="tblock"><b id="td">00</b><small>Days</small></div><b class="text-white">:</b>
-        <div class="tblock"><b id="th">00</b><small>Hrs</small></div><b class="text-white">:</b>
-        <div class="tblock"><b id="tm">00</b><small>Min</small></div><b class="text-white">:</b>
-        <div class="tblock"><b id="ts">00</b><small>Sec</small></div>
+        <div class="tblock"><b id="th">00</b><small>Hours</small></div><b class="text-white">:</b>
+        <div class="tblock"><b id="tm">00</b><small>Minutes</small></div><b class="text-white">:</b>
+        <div class="tblock"><b id="ts">00</b><small>Seconds</small></div>
       </div>
     </div>
-    <div class="flex flex-wrap gap-3 justify-center mb-8">
-      <button class="btn btn-p" onclick="openAuth('client','register')"><i class="fa-solid fa-rocket"></i> Register & Get My Chatbot ($999 Promo)</button>
-      <button class="btn btn-g" onclick="openModal('demo-modal')"><i class="fa-solid fa-calendar-days" style="color:var(--cyan)"></i> Schedule 1-on-1 Demo</button>
+
+    <!-- Hero CTA Buttons -->
+    <div class="flex flex-wrap gap-4 justify-center mb-6">
+      <button class="btn btn-p text-base px-8 py-3.5" onclick="openAuth('client','register')"><i class="fa-solid fa-rocket"></i> Register & Get My Chatbot ($999 Promo)</button>
+      <button class="btn btn-g text-base px-8 py-3.5" onclick="openModal('demo-modal')"><i class="fa-solid fa-calendar-days" style="color:var(--cyan)"></i> Schedule Demo Call</button>
     </div>
-    <div class="mb-8" style="max-width:420px;margin-inline:auto">
+
+    <!-- Animated Review us on Trustpilot Section -->
+    <div class="mb-10" style="max-width:440px;margin-inline:auto">
       <div class="trustpilot-widget" data-locale="en-US" data-template-id="56278e9abfbbba0bdcd568bc" data-businessunit-id="" data-style-height="52px" data-style-width="100%" data-theme="dark">
-        <a href="https://www.trustpilot.com/review/nexabot.shop" target="_blank" rel="noopener" class="glass glow flex items-center justify-center gap-3 px-5 py-3" style="border-color:rgba(0,182,122,.55)">
-          <i class="fa-solid fa-star" style="color:#00B67A"></i><span class="h-font font-bold text-white">Review us on Trustpilot</span>
-          <span class="btn btn-sm" style="background:#00B67A;color:#032B20">Write a Review <i class="fa-solid fa-arrow-right"></i></span>
+        <a href="https://www.trustpilot.com/review/nexabot.shop" target="_blank" rel="noopener" class="glass tp-hover-card flex items-center justify-between gap-3 px-5 py-3" style="border-color:rgba(0,182,122,.55);background:rgba(15,23,42,.75)">
+          <div class="flex items-center gap-2.5">
+            <i class="fa-solid fa-star sparkle-star" style="color:#00B67A;font-size:1.25rem"></i>
+            <span class="h-font font-bold text-white text-sm">Review us on Trustpilot</span>
+          </div>
+          <span class="btn btn-sm" style="background:#00B67A;color:#032B20;font-weight:800;border:0">Write Review <i class="fa-solid fa-arrow-right"></i></span>
         </a>
       </div>
     </div>
-    <div class="flex flex-wrap justify-center gap-8 pt-6" style="border-top:1px solid var(--bd)">
-      <div class="stat"><b>1000+</b><span>Bots Deployed</span></div>
-      <div class="stat"><b>48hr</b><span>Delivery SLA</span></div>
-      <div class="stat"><b>4.9★</b><span>Client Rating</span></div>
-      <div class="stat"><b>40+</b><span>Integrations</span></div>
+
+    <!-- Hero Stat Counters -->
+    <div class="flex flex-wrap justify-center gap-4 sm:gap-8 pt-6" style="border-top:1px solid var(--bd)">
+      <div class="stat stat-card-hero"><b>1000+</b><span>Bots Deployed</span></div>
+      <div class="stat stat-card-hero"><b>48hr</b><span>Delivery SLA</span></div>
+      <div class="stat stat-card-hero"><b>4.9★</b><span>Client Rating</span></div>
+      <div class="stat stat-card-hero"><b>40+</b><span>Integrations</span></div>
     </div>
   </div>
 </section>
 
+<!-- Our Valuable Clients (Continuous Right-to-Left Infinite Rotate) -->
 <div id="partners">
   <p class="text-center text-xs font-bold text-slate-500 uppercase tracking-widest mb-6">Our Valuable Clients</p>
   <div class="mq" id="partner-track"></div>
@@ -286,7 +331,7 @@ table.dt{width:100%;font-size:.8rem;text-align:left;border-collapse:collapse}
       <div>
         <div class="eyebrow" style="text-align:left">Base Package</div>
         <div class="flex items-end gap-3 mt-2"><span class="line-through text-2xl font-bold" style="color:#64748b">$1,099</span><span class="h-font font-black text-5xl text-white">$999</span><span style="color:var(--cyan)" class="mb-1">USD Promo</span></div>
-        <div class="my-3"><span class="pill add" style="background:linear-gradient(135deg,#FF3366,#FF6600);color:#fff;border:0">Flat $100 off · 1 Oct 2026 – 5 Jan 2027</span></div>
+        <div class="my-3"><span class="pill add" style="background:linear-gradient(135deg,#FF3366,#FF6600);color:#fff;border:0">Flat $100 off · Limited Time Promo</span></div>
         <p class="text-sm" style="color:var(--mut)">+ <strong class="text-white">$149/month</strong> maintenance & updates — month 1 is covered by your setup; billing starts month 2.</p>
       </div>
       <div class="text-sm space-y-2" style="color:#cbd5e1">
@@ -306,7 +351,7 @@ table.dt{width:100%;font-size:.8rem;text-align:left;border-collapse:collapse}
       <div><small class="lbl">Total today</small><b class="h-font text-2xl" style="color:var(--cyan)" id="lc-total">$999</b><div class="text-xs" style="color:var(--mut)">then $149/mo from month 2</div></div>
     </div>
     <div class="text-xs mt-4 p-3 rounded-xl" style="background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.3);color:#fcd34d">Pay via PayPal or global bank transfer. Meta WhatsApp conversation fees are paid directly to Meta. To order, register and sign in to the Client Portal.</div>
-    <button class="btn btn-p w-full mt-5 py-4" onclick="openAuth('client','register')"><i class="fa-solid fa-user-plus"></i> Register in Client Portal to Lock the $999 Promo</button>
+    <button class="btn btn-p w-full mt-5 py-4 text-base" onclick="openAuth('client','register')"><i class="fa-solid fa-user-plus"></i> Register in Client Portal to Lock the $999 Promo</button>
   </div>
 </section>
 
@@ -331,7 +376,7 @@ table.dt{width:100%;font-size:.8rem;text-align:left;border-collapse:collapse}
 <section class="s" id="reviews">
   <div class="sec-h"><span class="eyebrow">Client Reviews</span><h2 class="sec-t">What Our <span class="grad">Clients Say</span></h2></div>
   <div class="card3" id="reviews-grid"></div>
-  <div class="text-center mt-8"><a class="btn btn-p" href="https://www.trustpilot.com/review/nexabot.shop" target="_blank" rel="noopener"><i class="fa-solid fa-star"></i> Leave a Review on Trustpilot</a></div>
+  <div class="text-center mt-8"><a class="btn btn-p" href="https://www.trustpilot.com/review/nexabot.shop" target="_blank" rel="noopener"><i class="fa-solid fa-star text-yellow-400"></i> Leave a Review on Trustpilot</a></div>
 </section>
 
 <section class="s" id="accreditation" style="border-block:1px solid var(--bd)">
@@ -698,7 +743,7 @@ table.dt{width:100%;font-size:.8rem;text-align:left;border-collapse:collapse}
 <div id="modal-terms" class="mb"><div class="mbox wide"><div class="flex justify-between mb-2"><b class="h-font text-white">TERMS OF SERVICE — NexaBot Agency</b><button onclick="closeModal('modal-terms')" class="bg-transparent border-0 text-slate-400 cursor-pointer"><i class="fa-solid fa-xmark"></i></button></div>
 <div class="legal" style="padding:0"><p><strong>Effective:</strong> October 1, 2026</p>
 <h4>1. Scope & SLA</h4><p>We build, train and deploy your chatbot within 48 business hours after payment confirmation and knowledge-base submission.</p>
-<h4>2. Pricing</h4><p>Standard setup is $1,099; the promo rate of $999 applies to orders placed 1 Oct 2026 – 5 Jan 2027. Maintenance is $149/month, billed from month 2. Included: WhatsApp Business API, Facebook Messenger, Facebook Catalog and Google Gemini. Each additional integration is +$49. Instagram is not supported.</p>
+<h4>2. Pricing</h4><p>Standard setup is $1,099; the promo rate of $999 applies to orders placed during the promotion period. Maintenance is $149/month, billed from month 2. Included: WhatsApp Business API, Facebook Messenger, Facebook Catalog and Google Gemini. Each additional integration is +$49. Instagram is not supported.</p>
 <h4>3. Third-party fees</h4><p>Meta WhatsApp conversation charges and third-party usage fees (e.g. OpenAI, Twilio) are paid by the client directly to those providers.</p>
 <h4>4. IP & refunds</h4><p>You own your data and bot outputs. Setup fees are non-refundable once training has started.</p></div>
 <div class="text-right mt-4"><button class="btn btn-p btn-sm" onclick="closeModal('modal-terms')">Accept & close</button></div></div></div>
@@ -712,16 +757,14 @@ const firebaseConfig={apiKey:"AIzaSyBSxMkDacoyoe6Gs9l9vskE1bBH0zAlCoQ",authDomai
 let fbAuth=null,fbDb=null,fbOk=false;
 let fbAn=null;
 try{firebase.initializeApp(firebaseConfig);fbAuth=firebase.auth();fbDb=firebase.firestore();fbOk=true}catch(e){console.warn('Firebase offline:',e)}
-/* Analytics is optional: it only runs on https (GitHub Pages) and is skipped if blocked by the browser */
 try{if(fbOk&&firebase.analytics)fbAn=firebase.analytics()}catch(e){console.warn('Analytics unavailable:',e)}
 const track=(name,params)=>{try{if(fbAn)fbAn.logEvent(name,params||{})}catch(_){}};
 
 const BASE=999,STD=1099,MONTHLY=149,ADDON=49;
 const STAGES=["Payment Confirmed","Requirement Analysis","Knowledge Base & API Ingestion","AI Model & Flow Training","QA & Integration Testing","Bot Deployed & Live"];
-const PROMO_END=new Date('2027-01-05T23:59:59+05:30');
 const COUNTRIES={US:'🇺🇸 United States',IN:'🇮🇳 India',GB:'🇬🇧 United Kingdom',CA:'🇨🇦 Canada',AU:'🇦🇺 Australia',DE:'🇩🇪 Germany',AE:'🇦🇪 United Arab Emirates',SG:'🇸🇬 Singapore',OTHER:'🌍 Other'};
 const CNAME=k=>(COUNTRIES[k]||k||'—').replace(/^\S+\s/,'');
-/* item: [name, description, included, simpleIconsSlug|fa:icon, brandHex] — logos load from the Simple Icons CDN, with an initials badge fallback */
+
 const CATS=[
  {id:'ai',name:'AI Engines',icon:'fa-brain',items:[
   ['Google Gemini','Advanced multimodal AI engine',1,'googlegemini','8E75B2'],['OpenAI','ChatGPT / Assistants',0,'openai','412991'],['Claude AI','Anthropic',0,'claude','D97757'],['DeepSeek','Reasoning & code',0,'deepseek','4D6BFE'],['X.AI','Grok engine',0,'x','000000'],['Dialogflow','Google natural language',0,'dialogflow','FF9800']]},
@@ -740,6 +783,7 @@ const CATS=[
  {id:'crm',name:'CRM',icon:'fa-address-book',items:[['GoHighLevel V2 / V1','Full CRM & campaign sync',0]]},
  {id:'mkt',name:'Marketing & Analytics',icon:'fa-chart-line',items:[['Facebook Ads','Click-to-WhatsApp attribution',0,'meta','0467DF'],['Google Tag Manager','Analytics & conversion tracking',0,'googletagmanager','246FDB'],['VideoSDK','In-chat video calls & screen share',0,'fa:fa-video']]}
 ];
+
 const BANKS=[
  {cls:'inr',flag:'🇮🇳',name:'INR Account',tag:'Indian clients',rows:[['Bank','Kotak Mahindra'],['Account No.','5649113975'],['IFSC','KKBK0006747'],['Branch','Durgapur'],['Beneficiary','Suprotim Chatterjee'],['UPI ID','suprotim@kotakbank']],copy:'Bank: Kotak Mahindra Bank, Account Number: 5649113975, IFSC: KKBK0006747, Branch: Durgapur, Account Holder: Suprotim Chatterjee, UPI ID: suprotim@kotakbank'},
  {flag:'🇺🇸',name:'USD Account',tag:'ACH / Wire',rows:[['Routing','021214891'],['Account No.','313116902658'],['Bank','Cross River Bank'],['Beneficiary','Suprotim Chatterjee']],copy:'Routing: 021214891, Account: 313116902658, Bank: Cross River Bank, Beneficiary: Suprotim Chatterjee'},
@@ -747,18 +791,20 @@ const BANKS=[
  {flag:'🇪🇺',name:'EUR Account',tag:'SEPA',rows:[['IBAN','DE53202208000049546719'],['BIC/SWIFT','SXPYDEHH'],['Bank','Banking Circle'],['Beneficiary','Suprotim Chatterjee']],copy:'IBAN: DE53202208000049546719, BIC: SXPYDEHH, Bank: Banking Circle, Beneficiary: Suprotim Chatterjee'},
  {flag:'🇨🇦',name:'CAD Account',tag:'EFT',rows:[['Account No.','980061659'],['Routing','035210009'],['Bank','Digital Commerce Bank'],['Beneficiary','Suprotim Chatterjee']],copy:'Account: 980061659, Routing: 035210009, Bank: Digital Commerce Bank, Beneficiary: Suprotim Chatterjee'}
 ];
+
 const FAQS=[
  ['What is included in the base package?','WhatsApp Business API, Facebook Messenger automation, Facebook Catalog integration and the Google Gemini AI brain are all included for $999 (promo). Maintenance is $149/month from month 2.'],
  ['How much do extra integrations cost?','Every integration outside the default package — another AI model (OpenAI, Claude, DeepSeek, Grok), Twilio, Shopify, Stripe, Zapier, CRMs, live-chat handoffs and more — is a flat +$49.'],
  ['Do you support Instagram?','No. Instagram does not support native chatbot API flows, so we do not offer it as a chatbot channel.'],
  ['How fast is delivery?','Within 48 business hours after payment confirmation and submission of your AI Knowledge Base form.'],
- ['How does the $100 discount work?','The standard price is $1,099. For orders placed 1 Oct 2026 – 5 Jan 2027 you pay $999 via PayPal or bank transfer, and the invoice shows the net $999.'],
+ ['How does the $100 discount work?','The standard price is $1,099. With our limited promo you pay $999 via PayPal or bank transfer, and the invoice shows the net $999.'],
  ['Can I add integrations after ordering?','Yes. Open My Orders → Request extra integrations. We confirm the request and update your invoice at +$49 each.'],
  ['Who pays Meta/WhatsApp conversation fees?','You pay Meta directly. They are separate from our maintenance fee.']
 ];
+
 const DEFAULT_NOTICES=[
- {id:'notice-1',title:'Meta WhatsApp Business conversation fees',body:'WhatsApp Business conversations are chargeable by Meta from 1 Oct 2026. These fees are paid by clients directly to Meta Platforms.',date:'2026-10-01',priority:'normal'},
- {id:'notice-2',title:'$100 flat promo live',body:'Orders placed between 1 Oct 2026 and 5 Jan 2027 pay $999 instead of $1,099. Extra integrations are +$49 each.',date:'2026-10-01',priority:'high'}
+ {id:'notice-1',title:'Meta WhatsApp Business conversation fees',body:'WhatsApp Business conversations are chargeable by Meta. These fees are paid by clients directly to Meta Platforms.',date:'2026-10-01',priority:'normal'},
+ {id:'notice-2',title:'$100 flat promo live',body:'Orders placed during the promotional period pay $999 instead of $1,099. Extra integrations are +$49 each.',date:'2026-10-01',priority:'high'}
 ];
 
 /* ═════════ HELPERS ═════════ */
@@ -778,20 +824,52 @@ $('news-form').addEventListener('submit',e=>{e.preventDefault();e.target.reset()
 function showTab(p,name){document.querySelectorAll('.'+p+'p').forEach(x=>x.classList.remove('on'));$(p+'-p-'+name).classList.add('on');$(p+'-tabs').querySelectorAll('.dtab').forEach(b=>b.classList.toggle('on',b.dataset.t===name));if(p==='c'&&name==='pay')mountPayPal()}
 function dl(blob,name){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),2000)}
 
-/* Logo tile */
+/* LOGO TILE WITH GITHUB / SI / FALLBACK DYNAMIC FETCH */
 function logoTile(i,sm){
+  const nameClean = i[0].toLowerCase().replace(/[^a-z0-0]/g, '');
+  const ghSrc = `logos/${nameClean}.png`;
   const ini=i[0].split(/[\s\/]+/).map(w=>w[0]).join('').slice(0,3).toUpperCase();
   const fb=`<span class="lt-fb">${esc(ini)}</span>`;
   let inner;
-  if(!i[3])inner=fb;
-  else if(i[3].startsWith('fa:'))inner=`<i class="fa-solid ${i[3].slice(3)}"></i>`;
-  else inner=`<img src="https://cdn.simpleicons.org/${i[3]}/${i[4]||'111111'}" alt="${esc(i[0])} logo" loading="lazy" data-fb="${esc(fb)}" onerror="this.outerHTML=this.dataset.fb">`;
+  
+  if(!i[3]) {
+    inner = `<img src="${ghSrc}" alt="${esc(i[0])}" loading="lazy" data-fb="${esc(fb)}" onerror="this.outerHTML=this.dataset.fb">`;
+  } else if(i[3].startsWith('fa:')) {
+    inner = `<i class="fa-solid ${i[3].slice(3)}"></i>`;
+  } else {
+    const siSrc = `https://cdn.simpleicons.org/${i[3]}/${i[4]||'111111'}`;
+    inner = `<img src="${ghSrc}" alt="${esc(i[0])}" loading="lazy" onerror="this.onerror=function(){this.outerHTML='${esc(fb)}'};this.src='${siSrc}';">`;
+  }
   return `<div class="lt ${sm?'sm':''}">${inner}</div>`;
 }
 
-/* ═════════ STATIC RENDERS ═════════ */
-(function(){const c=$('particles');for(let i=0;i<28;i++){const p=document.createElement('div');p.className='particle';const s=Math.random()*6+2;p.style.cssText=`width:${s}px;height:${s}px;left:${Math.random()*100}%;animation-duration:${Math.random()*9+7}s;animation-delay:${Math.random()*6}s`;c.appendChild(p)}})();
-(function(){const L=[['steinberg','STEINBERG'],['avid','AVID'],['amd','AMD'],['fender','FENDER'],['hyatt','HYATT'],['leela','THE LEELA PALACE']];let h='';for(let r=0;r<2;r++)L.forEach(([f,n])=>h+=`<img class="p-logo" src="partners/partner-${f}.png" alt="${n}" onerror="this.outerHTML='<span class=&quot;font-bold text-slate-500 text-sm&quot;>${n}</span>'">`);$('partner-track').innerHTML=h})();
+/* ═════════ STATIC & DYNAMIC RENDERS ═════════ */
+
+/* 1. Dynamic Floating Particle Canvas Generator */
+(function(){
+  const c=$('particles');
+  c.innerHTML='';
+  for(let i=0;i<35;i++){
+    const p=document.createElement('div');
+    p.className='floating-particle';
+    const s=Math.random()*5+2;
+    p.style.cssText=`width:${s}px;height:${s}px;left:${Math.random()*100}%;animation-duration:${Math.random()*8+6}s;animation-delay:${Math.random()*5}s;opacity:${Math.random()*0.7+0.3}`;
+    c.appendChild(p);
+  }
+})();
+
+/* 2. Continuous Right-to-Left Infinite Rotating Partner Marquee */
+(function(){
+  const L=[['steinberg','STEINBERG'],['avid','AVID'],['amd','AMD'],['fender','FENDER'],['hyatt','HYATT'],['leela','THE LEELA PALACE']];
+  let h='';
+  for(let r=0;r<4;r++){
+    L.forEach(([f,n])=>{
+      h+=`<img class="p-logo" src="partners/partner-${f}.png" alt="${n}" onerror="this.outerHTML='<span class=&quot;font-bold text-slate-500 text-sm&quot;>${n}</span>'">`;
+    });
+  }
+  $('partner-track').innerHTML=h;
+})();
+
 $('faq-list').innerHTML=FAQS.map(([q,a])=>`<div class="faq-i"><div class="faq-q" onclick="var b=this.nextElementSibling;b.style.display=b.style.display==='block'?'none':'block'"><span>${esc(q)}</span><i class="fa-solid fa-chevron-down" style="color:var(--cyan)"></i></div><div class="faq-a">${esc(a)}</div></div>`).join('');
 const cOpts=Object.entries(COUNTRIES).map(([k,v])=>`<option value="${k}">${v}</option>`).join('');
 $('r-country').innerHTML=cOpts;$('p-country').innerHTML=cOpts;
@@ -806,7 +884,7 @@ function renderInt(){
 }
 renderInt();
 
-/* Calculator builder (landing, order, add-on) */
+/* Calculator builder */
 function buildCalc(id,onChange){
   const c=$(id);
   c.innerHTML=CATS.map(cat=>`<div class="calc-cat">${cat.name}</div><div class="calc-grid">${cat.items.map(i=>`<label class="calc-row ${i[2]?'lock':''}">${logoTile(i,1)}<input type="checkbox" ${i[2]?'checked disabled':''} data-n="${esc(i[0])}"><span class="flex-1 text-white">${esc(i[0])}</span><span class="pill ${i[2]?'inc':'add'}">${i[2]?'Included':'+$49'}</span></label>`).join('')}</div>`).join('');
@@ -820,7 +898,25 @@ buildCalc('calc-addon',sel=>{$('ad-total').textContent='+'+money(sel.length*ADDO
 function updOrderTotal(sel){sel=sel||selected('calc-order');$('oc-total').textContent=money(BASE+sel.length*ADDON);$('oc-detail').textContent=`$999 base + ${sel.length} × $49 extras · then $149/mo from month 2`}
 updOrderTotal([]);
 
-(function(){function t(){let s=Math.max(0,Math.floor((PROMO_END-new Date())/1000));const d=Math.floor(s/86400);s-=d*86400;const h=Math.floor(s/3600);s-=h*3600;const m=Math.floor(s/60);s-=m*60;[['td',d],['th',h],['tm',m],['ts',s]].forEach(([i,v])=>$(i).textContent=String(v).padStart(2,'0'))}t();setInterval(t,1000)})();
+/* 4. Live Countdown Timer (24-Hour Cycle Loop / Hours, Minutes, Seconds) */
+(function(){
+  function startLiveTimer(){
+    const now=new Date();
+    const endOfDay=new Date(now.getFullYear(),now.getMonth(),now.getDate(),23,59,59);
+    let diff=Math.max(0,Math.floor((endOfDay-now)/1000));
+    
+    const h=Math.floor(diff/3600);
+    diff-=h*3600;
+    const m=Math.floor(diff/60);
+    const s=diff%60;
+    
+    if($('th'))$('th').textContent=String(h).padStart(2,'0');
+    if($('tm'))$('tm').textContent=String(m).padStart(2,'0');
+    if($('ts'))$('ts').textContent=String(s).padStart(2,'0');
+  }
+  startLiveTimer();
+  setInterval(startLiveTimer,1000);
+})();
 
 /* ═════════ FIRESTORE LAYER ═════════ */
 const db={
@@ -863,7 +959,6 @@ $('review-form').addEventListener('submit',async e=>{e.preventDefault();const id
   await guard(async()=>{await db.set('reviews',id,{id,name:$('rv-n').value.trim(),company:$('rv-c').value.trim(),rating:+$('rv-r').value,text:$('rv-t').value.trim(),source:$('rv-s').value.trim(),createdAt:new Date().toISOString()});e.target.reset();closeModal('modal-review')},'admin')});
 async function delReview(id){if(confirm('Delete this review?'))await guard(()=>db.del('reviews',id),'admin')}
 
-/* Real recent-order notifications (written automatically when a real order is placed) */
 function renderActivity(){
   $('admin-activity').innerHTML=ACTIVITY.map(a=>`<div class="p-2 rounded-xl flex justify-between items-center gap-3 text-xs" style="background:rgba(255,255,255,.05);border:1px solid var(--bd)"><span><b class="text-white">${esc(a.name)}</b> from ${esc(a.country)} ${esc(a.text)} · ${ago(a.createdAt)}</span><button class="btn btn-r btn-sm" onclick="delActivity('${esc(a.id)}')"><i class="fa-solid fa-trash"></i></button></div>`).join('')||'<p class="text-xs" style="color:var(--mut)">No notifications yet. They are created automatically when clients place real orders.</p>';
 }
@@ -976,7 +1071,7 @@ function showInvoice(id){
   <div><b>Billed to:</b> ${esc(o.clientName)} (${esc(o.clientEmail||'')})</div><div><b>Payment route:</b> ${esc(String(o.paymentMethod).toUpperCase())} · <b>Status:</b> ${esc(o.paymentStatus||'unpaid')}</div>
   <table class="w-full" style="border-collapse:collapse"><tr style="border-bottom:1px solid var(--bd)"><th class="text-left py-1">Item</th><th class="text-right py-1">Amount</th></tr>
   <tr><td class="py-1">Setup & AI training — WhatsApp, Messenger, FB Catalog, Google Gemini (standard)</td><td class="text-right">$${STD}.00</td></tr>
-  <tr style="color:#34d399"><td class="py-1">Promo discount (1 Oct 2026 – 5 Jan 2027)</td><td class="text-right">-$${STD-BASE}.00</td></tr>
+  <tr style="color:#34d399"><td class="py-1">Promo discount</td><td class="text-right">-$${STD-BASE}.00</td></tr>
   ${e.map(n=>`<tr><td class="py-1">Extra integration: ${esc(n)}</td><td class="text-right">$${ADDON}.00</td></tr>`).join('')}
   <tr style="border-top:1px solid var(--bd);font-weight:700"><td class="py-2">Net amount</td><td class="text-right" style="color:var(--cyan)">$${(BASE+e.length*ADDON).toFixed(2)} USD</td></tr></table>
   <div style="color:var(--mut)">Maintenance: $${MONTHLY}/month, billed from month 2. Instagram is not part of this service.</div>`;
@@ -1031,7 +1126,7 @@ async function submitAddonRequest(){
 $('ticket-form').addEventListener('submit',async e=>{e.preventDefault();const u=auth.user;const id='tk-'+Date.now();const now=new Date().toISOString();
   await guard(async()=>{await db.set('tickets',id,{id,clientId:u.id,clientName:u.name,clientEmail:u.email,orderId:$('tk-order').value,subject:$('tk-sub').value.trim(),status:'open',messages:[{from:'client',name:u.name,text:$('tk-msg').value.trim(),at:now}],createdAt:now,updatedAt:now});e.target.reset();closeModal('modal-ticket');flash('Ticket opened.')})});
 
-/* Tickets (shared renderer) */
+/* Tickets */
 const openTk=new Set();
 function renderTickets(list,boxId,admin){
   const box=$(boxId),keep={};box.querySelectorAll('textarea[data-tk]').forEach(t=>keep[t.dataset.tk]=t.value);
@@ -1066,8 +1161,7 @@ function renderAdminStats(){
   $('a-orders').textContent=O.length;$('a-pending').textContent=O.filter(o=>o.status==='pending').length;$('a-active').textContent=O.filter(o=>o.status==='active').length;
   $('a-rev').textContent=money(paidSum(O));$('a-unpaid').textContent=money(O.filter(o=>o.paymentStatus!=='paid').reduce((a,o)=>a+(+o.amount||0),0));
   $('a-clients').textContent=A.users.length;$('a-open-tk').textContent=A.tickets.filter(t=>t.status==='open').length;
-  $('a-mrr').textContent=money(O.filter(o=>(o.stageIndex||0)===STAGES.length-1).length*MONTHLY);
-  $('a-addreq').textContent=O.reduce((a,o)=>a+reqs(o).filter(r=>r.status==='requested').length,0);
+  $('a-mrr').textContent=money(O.filter(o=>(o.stageIndex||0)===STAGES.length-1).length*MONTHLY);$('a-addreq').textContent=O.reduce((a,o)=>a+reqs(o).filter(r=>r.status==='requested').length,0);
   const m={};O.filter(o=>o.paymentStatus==='paid').forEach(o=>{const k=(o.createdAt||'').slice(0,7);m[k]=(m[k]||0)+(+o.amount||0)});
   bars('a-chart-rev',Object.entries(m).sort().slice(-8),money);
   const c={};A.users.forEach(u=>{const k=CNAME(u.country);c[k]=(c[k]||0)+1});
@@ -1160,7 +1254,7 @@ window.addEventListener('DOMContentLoaded',()=>{
   switchRole('client');initNotices();initReviews();initActivity();renderActivity();
   setTimeout(()=>{try{if(!sessionStorage.getItem('nx-notice')){openModal('notice-modal');sessionStorage.setItem('nx-notice','1')}}catch(_){}},1400);
 });
-/* Sessions persist (LOCAL) so clients/admin stay signed in across devices' browsers; data is live from Firestore */
+
 if(fbOk){fbAuth.onAuthStateChanged(async u=>{
   if(!u||auth.user)return;
   try{const s=await fbDb.collection('users').doc(u.uid).get();if(!s.exists)return;const p=s.data();p.id=u.uid;auth.setUser(p)}catch(e){console.warn('restore skipped',e)}
