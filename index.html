@@ -28,7 +28,7 @@
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{--void:#030712;--cyan:#00F5FF;--violet:#8B5CF6;--mag:#FF007A;--em:#10B981;--amber:#F59E0B;--glass:rgba(15,23,42,.65);--bd:rgba(255,255,255,.12);--txt:#E2E8F0;--mut:#94A3B8}
 html{scroll-behavior:smooth}
-body{font-family:'Inter',sans-serif;color:var(--txt);background:var(--void);overflow-x:hidden}
+body{font-family:'Inter',sans-serif;color:var(--txt);background:var(--void);overflow-x:hidden;position:relative}
 a{text-decoration:none;color:inherit}img{max-width:100%;display:block}button{font-family:inherit}
 .mesh{background:radial-gradient(circle at 15% 10%,rgba(139,92,246,.22),transparent 45%),radial-gradient(circle at 85% 30%,rgba(0,245,255,.16),transparent 45%),radial-gradient(circle at 50% 100%,rgba(255,0,122,.10),transparent 50%),var(--void)}
 .glass{background:var(--glass);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid var(--bd);border-radius:20px;transition:all .3s ease}
@@ -37,17 +37,25 @@ a{text-decoration:none;color:inherit}img{max-width:100%;display:block}button{fon
 .grad{background:linear-gradient(110deg,var(--cyan),var(--violet) 60%,var(--mag));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 
 /* KEY ANIMATIONS */
-@keyframes riseUpStream{0%{transform:translateY(0);opacity:0}20%{opacity:.8}80%{opacity:.8}100%{transform:translateY(-105vh);opacity:0}}
-@keyframes rotateRtoL{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+@keyframes riseUpStream{
+  0%{transform:translateY(0);opacity:0}
+  15%{opacity:0.8}
+  85%{opacity:0.8}
+  100%{transform:translateY(-105vh);opacity:0}
+}
+@keyframes rotateLtoR{
+  0%{transform:translateX(-50%)}
+  100%{transform:translateX(0)}
+}
 @keyframes pulseGlow{0%,100%{box-shadow:0 0 15px rgba(0,245,255,.35),inset 0 0 10px rgba(0,245,255,.2);border-color:rgba(0,245,255,.6)}50%{box-shadow:0 0 30px rgba(255,0,122,.5),inset 0 0 15px rgba(255,0,122,.3);border-color:rgba(255,0,122,.8)}}
 @keyframes stampGlow{0%,100%{box-shadow:0 0 12px rgba(139,92,246,.5);transform:scale(1)}50%{box-shadow:0 0 24px rgba(255,0,122,.8);transform:scale(1.03)}}
 @keyframes bell{0%,100%{transform:rotate(0)}20%{transform:rotate(14deg)}40%{transform:rotate(-12deg)}60%{transform:rotate(8deg)}}
 @keyframes flt{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
 @keyframes starSparkle{0%,100%{transform:scale(1) rotate(0deg);filter:drop-shadow(0 0 2px #00B67A)}50%{transform:scale(1.25) rotate(15deg);filter:drop-shadow(0 0 8px #00B67A)}}
 
-/* FLOATING PARTICLE CANVAS */
-.pc{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:1}
-.floating-particle{position:absolute;bottom:-20px;border-radius:50%;background:rgba(0,245,255,.6);box-shadow:0 0 8px var(--cyan);animation:riseUpStream linear infinite}
+/* GLOBAL AMBIENT FLOATING PARTICLES CANVAS */
+.pc{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:1}
+.floating-particle{position:absolute;bottom:-30px;border-radius:50%;background:rgba(0,245,255,.6);box-shadow:0 0 10px var(--cyan),0 0 20px rgba(139,92,246,.4);animation:riseUpStream linear infinite}
 
 .bell{animation:bell 2.2s ease-in-out infinite;display:inline-block}.float{animation:flt 4s ease-in-out infinite}
 #banner{background:linear-gradient(90deg,#1e1b4b,#3b0a3f);border-bottom:1px solid rgba(245,158,11,.35);padding:.6rem 1rem;font-size:.82rem;cursor:pointer;position:relative;z-index:1001;overflow:hidden;white-space:nowrap}
@@ -96,14 +104,14 @@ a{text-decoration:none;color:inherit}img{max-width:100%;display:block}button{fon
 .tp-hover-card:hover{transform:translateY(-4px);box-shadow:0 10px 30px rgba(0,182,122,.3);border-color:rgba(0,182,122,.8)}
 .sparkle-star{animation:starSparkle 2.5s infinite ease-in-out;display:inline-block}
 
-section.s{padding:85px 5%}
+section.s{padding:85px 5%;position:relative;z-index:2}
 .sec-t{font:800 clamp(1.9rem,4vw,2.9rem) 'Poppins';color:#fff;text-align:center;margin-top:.4rem}
 .eyebrow{display:block;text-align:center;font-size:.72rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--cyan)}
 .sec-h{margin-bottom:2.8rem}
 
-/* CONTINUOUS CLIENT LOGO MARQUEE */
-#partners{background:#fff;padding:38px 0;overflow:hidden;position:relative}
-.mq{display:flex;gap:4.5rem;align-items:center;width:max-content;animation:rotateRtoL 20s linear infinite}
+/* CONTINUOUS CLIENT LOGO MARQUEE (LEFT TO RIGHT) */
+#partners{background:#fff;padding:38px 0;overflow:hidden;position:relative;z-index:2}
+.mq{display:flex;gap:4.5rem;align-items:center;width:max-content;animation:rotateLtoR 22s linear infinite}
 .mq:hover{animation-play-state:paused}
 .p-logo{height:40px;object-fit:contain;filter:grayscale(1) opacity(.65);transition:.3s}.p-logo:hover{filter:grayscale(0) opacity(1)}
 
@@ -143,7 +151,7 @@ section.s{padding:85px 5%}
 .faq-q{padding:1.1rem 1.4rem;cursor:pointer;display:flex;justify-content:space-between;gap:1rem;font-weight:600;color:#fff;font-size:.92rem}
 .faq-a{display:none;padding:0 1.4rem 1.2rem;color:var(--mut);font-size:.86rem;line-height:1.7}
 .legal{padding:2rem;font-size:.85rem;line-height:1.75;color:#cbd5e1}.legal h4{color:var(--cyan);margin:1rem 0 .3rem;font-size:.95rem}
-footer{background:#02050f;border-top:1px solid var(--bd);color:var(--mut);font-size:.82rem;padding:4rem 5% 2rem}
+footer{background:#02050f;border-top:1px solid var(--bd);color:var(--mut);font-size:.82rem;padding:4rem 5% 2rem;position:relative;z-index:2}
 .media-logo{height:30px;max-width:120px;object-fit:contain}
 .mb{position:fixed;inset:0;z-index:2000;display:flex;align-items:center;justify-content:center;padding:1rem;background:rgba(3,7,18,.82);backdrop-filter:blur(8px);opacity:0;pointer-events:none;transition:.3s}
 .mb.active{opacity:1;pointer-events:auto}
@@ -157,7 +165,7 @@ footer{background:#02050f;border-top:1px solid var(--bd);color:var(--mut);font-s
 .msg.success{background:rgba(16,185,129,.12);color:#6ee7b7;border:1px solid rgba(16,185,129,.4)}
 .msg.info{background:rgba(0,245,255,.08);color:#7ff8ff;border:1px solid rgba(0,245,255,.3)}
 .fold{overflow:hidden;transition:max-height .4s ease,opacity .3s;max-height:0;opacity:0}.fold.open{max-height:700px;opacity:1}
-.dash{padding:34px 4%;max-width:1350px;margin:0 auto;display:flex;flex-direction:column;gap:1.3rem}
+.dash{padding:34px 4%;max-width:1350px;margin:0 auto;display:flex;flex-direction:column;gap:1.3rem;position:relative;z-index:2}
 .dc{padding:1.4rem}.dc h3{font:700 1.02rem 'Poppins';color:#fff}
 .stat-card{padding:1.1rem}.stat-card small{font-size:.66rem;font-weight:700;text-transform:uppercase;color:var(--mut)}
 .stat-card b{display:block;font:800 1.8rem 'Poppins';margin-top:.2rem}
@@ -205,6 +213,9 @@ table.dt{width:100%;font-size:.8rem;text-align:left;border-collapse:collapse}
 </head>
 <body class="mesh">
 
+<!-- Global Ambient Particles Overlay -->
+<div class="pc" id="particles"></div>
+
 <div id="banner" onclick="openModal('notice-modal')">
   <span class="bell animate-bounce" style="color:var(--amber)"><i class="fa-solid fa-bullhorn"></i></span>
   <strong style="color:var(--amber)"> Official Notices:</strong>
@@ -246,8 +257,6 @@ table.dt{width:100%;font-size:.8rem;text-align:left;border-collapse:collapse}
 <div id="view-landing">
 
 <section id="hero">
-  <!-- Dynamic Floating Particle Canvas -->
-  <div class="pc" id="particles"></div>
   <div class="hero-in">
     <div class="badge float"><i class="d"></i> AI Chatbot Agency — 1000+ Businesses Automated</div>
     <h1 class="hero-h1">Don't Lose Your Clients.<br><span class="grad">Ever Again.</span></h1>
@@ -296,7 +305,7 @@ table.dt{width:100%;font-size:.8rem;text-align:left;border-collapse:collapse}
   </div>
 </section>
 
-<!-- Our Valuable Clients (Continuous Right-to-Left Infinite Rotate) -->
+<!-- Our Valuable Clients (Continuous Left-to-Right Infinite Rotate) -->
 <div id="partners">
   <p class="text-center text-xs font-bold text-slate-500 uppercase tracking-widest mb-6">Our Valuable Clients</p>
   <div class="mq" id="partner-track"></div>
@@ -826,7 +835,7 @@ function dl(blob,name){const a=document.createElement('a');a.href=URL.createObje
 
 /* LOGO TILE WITH GITHUB / SI / FALLBACK DYNAMIC FETCH */
 function logoTile(i,sm){
-  const nameClean = i[0].toLowerCase().replace(/[^a-z0-0]/g, '');
+  const nameClean = i[0].toLowerCase().replace(/[^a-z0-9]/g, '');
   const ghSrc = `logos/${nameClean}.png`;
   const ini=i[0].split(/[\s\/]+/).map(w=>w[0]).join('').slice(0,3).toUpperCase();
   const fb=`<span class="lt-fb">${esc(ini)}</span>`;
@@ -845,20 +854,24 @@ function logoTile(i,sm){
 
 /* ═════════ STATIC & DYNAMIC RENDERS ═════════ */
 
-/* 1. Dynamic Floating Particle Canvas Generator */
+/* 1. Global Dynamic Floating Particles Canvas (Hero through Footer Backdrop) */
 (function(){
   const c=$('particles');
   c.innerHTML='';
-  for(let i=0;i<35;i++){
+  const count = 45;
+  for(let i=0;i<count;i++){
     const p=document.createElement('div');
     p.className='floating-particle';
-    const s=Math.random()*5+2;
-    p.style.cssText=`width:${s}px;height:${s}px;left:${Math.random()*100}%;animation-duration:${Math.random()*8+6}s;animation-delay:${Math.random()*5}s;opacity:${Math.random()*0.7+0.3}`;
+    const s=Math.random()*4+1.5;
+    const dur=Math.random()*9+7;
+    const delay=Math.random()*7;
+    const posX=Math.random()*100;
+    p.style.cssText=`width:${s}px;height:${s}px;left:${posX}%;animation-duration:${dur}s;animation-delay:${delay}s;`;
     c.appendChild(p);
   }
 })();
 
-/* 2. Continuous Right-to-Left Infinite Rotating Partner Marquee */
+/* 2. Continuous Left-to-Right Infinite Rotating Partner Marquee */
 (function(){
   const L=[['steinberg','STEINBERG'],['avid','AVID'],['amd','AMD'],['fender','FENDER'],['hyatt','HYATT'],['leela','THE LEELA PALACE']];
   let h='';
